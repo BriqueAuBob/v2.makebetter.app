@@ -1,0 +1,57 @@
+<script setup lang="ts">
+defineProps({
+	name: {
+		type: String,
+		required: true,
+	},
+	label: {
+		type: String,
+		required: true,
+	},
+	placeholder: {
+		type: String,
+		required: true,
+	},
+	longText: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
+	modelValue: {
+		type: String,
+		default: "",
+	},
+	disabled: {
+		type: Boolean,
+		default: false,
+	},
+});
+
+const emit = defineEmits(["update:modelValue", "change", "focus"]);
+function updateValue(value: string) {
+	emit("update:modelValue", value);
+	emit("change", value);
+}
+</script>
+
+<template>
+	<div :class="disabled && 'cursor-not-allowed opacity-25'">
+		<label
+			:for="name"
+			class="pointer-events-none text-sm font-medium italic text-gray-400"
+		>
+			{{ label }}
+		</label>
+		<component
+			:is="longText ? 'textarea' : 'input'"
+			:id="name"
+			:name="name"
+			:placeholder="placeholder"
+			class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed"
+			:value="modelValue"
+			@input="updateValue($event.target.value)"
+			@focus="emit('focus')"
+			:disabled="disabled"
+		/>
+	</div>
+</template>
