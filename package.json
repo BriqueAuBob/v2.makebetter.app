@@ -26,8 +26,8 @@
 		"dev": "npm run start:dev",
 		"prod": "npm run build && npm run start:prod",
 		"start": "npm run start:dev",
-		"start:dev": "nuxt dev --port=3333",
-		"start:prod": "PORT=3333 node .output/server/index.mjs",
+		"start:dev": "cross-env NODE_ENV=development nuxt dev --port=3333",
+		"start:prod": "cross-env NODE_ENV=production PORT=3333 node .output/server/index.mjs",
 		"build": "nuxt build",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
@@ -35,15 +35,19 @@
 	},
 	"devDependencies": {
 		"@nuxt/content": "^2.5.2",
+		"@nuxt/image-edge": "^1.0.0-28004510.a0dc8e8",
+		"@nuxtjs/device": "^3.1.0",
 		"@nuxtjs/i18n": "^8.0.0-beta.10",
 		"@nuxtjs/tailwindcss": "^6.6.5",
 		"@types/node": "^18.15.11",
+		"cross-env": "^7.0.3",
 		"nuxt": "^3.3.2",
 		"typescript": "^5.0.3",
 		"vue-tsc": "^1.2.0"
 	},
 	"dependencies": {
 		"@nuxtjs/color-mode": "^3.2.0",
+		"@nuxtjs/robots": "^3.0.0",
 		"@pinia/nuxt": "^0.4.7",
 		"pinia": "^2.0.33"
 	}
