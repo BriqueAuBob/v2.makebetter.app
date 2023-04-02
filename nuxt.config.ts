@@ -54,14 +54,15 @@ export default defineNuxtConfig({
 	},
 
 	modules: [
-		'@nuxtjs/tailwindcss',
-		'@nuxtjs/i18n',
-		'@pinia/nuxt',
-		'@nuxtjs/color-mode',
-		'@nuxt/content',
-		'@nuxt/image-edge',
-		'@nuxtjs/device',
-		'@nuxtjs/robots',
+		'@nuxtjs/tailwindcss', // https://nuxt.com/modules/tailwindcss
+		'@nuxtjs/i18n', // https://nuxt.com/modules/i18n
+		'@pinia/nuxt', // https://nuxt.com/modules/pinia
+		'@nuxtjs/color-mode', // https://nuxt.com/modules/color-mode
+		'@nuxt/content', // https://nuxt.com/modules/content
+		'@nuxt/image-edge', // https://nuxt.com/modules/image
+		'@nuxtjs/device', // https://nuxt.com/modules/device
+		'@nuxtjs/robots', // https://nuxt.com/modules/robots
+		'nuxt-icons', // https://nuxt.com/modules/icons
 	],
 
 	devtools: {
@@ -77,7 +78,6 @@ export default defineNuxtConfig({
 	},
 
 	device: {
-		// https://nuxt.com/modules/device
 		refreshOnResize: true
 	},
 
