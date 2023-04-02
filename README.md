@@ -1,4 +1,4 @@
-![MakeBetterApp](https://umaestro.fr/img/makebetter.png)
+![MakeBetterApp](./public/v2/static/banner.png)
 
 # 🛠️ Local setup
 
