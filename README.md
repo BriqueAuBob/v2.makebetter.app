@@ -1,42 +1,37 @@
-# Nuxt 3 Minimal Starter
+![MakeBetterApp](https://umaestro.fr/img/makebetter.png)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# 🛠️ Local setup
 
-## Setup
-
-Make sure to install the dependencies:
+1. Install dependencies
 
 ```bash
-# yarn
-yarn install
-
-# npm
 npm install
-
-# pnpm
-pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`
+2. Start local server
 
 ```bash
 npm run dev
 ```
 
-## Production
+> **Note**
+> <br>Navigate to http://localhost:3333 to see your app
 
-Build the application for production:
+# 📢 Production
 
-```bash
-npm run build
-```
-
-Locally preview production build:
+1. Install dependencies
 
 ```bash
-npm run preview
+npm install
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+2. Build & start app
+
+```bash
+# Navigate to http://localhost:3333 to see your app
+npm run prod
+```
+
+<br>
+### 📃 License
+[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
