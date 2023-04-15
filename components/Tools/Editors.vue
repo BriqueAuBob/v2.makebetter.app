@@ -13,7 +13,9 @@ defineProps({
 </script>
 
 <template>
-	<div class="-gap-4 shadow-l flex rounded-2xl bg-white py-2 pl-7 pr-4">
+	<div
+		class="-gap-4 flex rounded-2xl bg-white py-2 pl-7 pr-4 shadow-md shadow-gray-100"
+	>
 		<img
 			v-for="editor in editors"
 			:key="editor.name"
