@@ -1,6 +1,5 @@
 <script setup lang="ts">
 /// <reference path="../../types/avatar_demo.d.ts" />
-import console from "console";
 import AvatarImage from "~/assets/images/avatar_demo.png";
 
 const editors = [
