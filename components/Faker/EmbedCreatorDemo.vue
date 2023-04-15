@@ -30,13 +30,13 @@ const form = reactive({
 	>
 		<div class="flex items-center justify-between">
 			<div
-				class="rounded-2xl bg-white p-4 font-display font-bold shadow-lg"
+				class="rounded-2xl bg-white p-4 font-display font-bold shadow-md shadow-gray-100"
 			>
 				Créateur d'embeds
 			</div>
 			<ToolsEditors :editors="editors" />
 		</div>
-		<div class="mt-8 rounded-2xl bg-white p-8">
+		<div class="mt-8 rounded-2xl bg-white p-8 shadow-md shadow-gray-100">
 			<div class="font-display text-xl font-bold">
 				Création de mon embed
 			</div>

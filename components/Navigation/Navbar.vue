@@ -1,10 +1,14 @@
+<script setup lang="ts">
+import { toolCategories } from "~/main.config";
+</script>
+
 <template>
 	<nav
-		class="container absolute left-1/2 top-0 z-10 mx-auto flex -translate-x-1/2 items-center justify-between py-4"
+		class="container absolute left-1/2 top-0 z-10 mx-auto flex -translate-x-1/2 items-center justify-between py-6"
 	>
 		<div class="flex items-center gap-8">
 			<NuxtLink
-				class="flex items-center gap-2 font-display font-bold text-white"
+				class="flex items-center gap-2 font-display text-lg font-bold text-white"
 				id="branding"
 				to="/"
 			>
@@ -15,7 +19,7 @@
 				/>
 				makebetter.app
 			</NuxtLink>
-			<ul class="flex items-center gap-6 text-sm text-gray-300">
+			<ul class="flex items-center gap-6 text-lg text-sm text-gray-300">
 				<li><NuxtLink to="#">Outils</NuxtLink></li>
 				<li>
 					<NuxtLink
