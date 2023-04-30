@@ -25,6 +25,10 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	fake: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const emit = defineEmits(["update:modelValue", "change", "focus"]);
@@ -47,11 +51,11 @@ function updateValue(value: string) {
 			:id="name"
 			:name="name"
 			:placeholder="placeholder"
-			class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed"
+			class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-primary-500 dark:bg-primary-700 dark:text-white"
 			:value="modelValue"
 			@input="updateValue($event.target.value)"
 			@focus="emit('focus')"
-			:disabled="disabled"
+			:disabled="fake || disabled"
 		/>
 	</div>
 </template>

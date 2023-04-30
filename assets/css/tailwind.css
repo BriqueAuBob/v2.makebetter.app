@@ -17,3 +17,58 @@ h6 {
 body {
 	@apply overflow-x-hidden;
 }
+
+.icon {
+	@apply text-2xl;
+}
+
+.icon.big {
+	@apply text-4xl;
+}
+
+.circle {
+	@apply absolute z-0 rounded-full bg-primary-500 bg-opacity-50;
+	width: 200px;
+	height: 200px;
+	filter: blur(84px);
+	left: -20%;
+	top: -20%;
+	animation: circle 10s linear infinite;
+}
+
+.circle + .circle {
+	animation-delay: -4s;
+}
+
+.circle + .circle + .circle {
+	animation-delay: -7s;
+}
+
+.container {
+	@apply mx-auto;
+	@apply px-8;
+	max-width: 1440px;
+}
+
+@keyframes circle {
+	0% {
+		left: -20%;
+		top: -20%;
+	}
+	25% {
+		left: 80%;
+		top: -20%;
+	}
+	50% {
+		left: 80%;
+		top: 80%;
+	}
+	75% {
+		left: -20%;
+		top: 80%;
+	}
+	100% {
+		left: -20%;
+		top: -20%;
+	}
+}
