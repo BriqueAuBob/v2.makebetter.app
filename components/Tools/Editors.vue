@@ -14,14 +14,15 @@ defineProps({
 
 <template>
 	<div
-		class="-gap-4 flex rounded-2xl bg-white py-2 pl-7 pr-4 shadow-md shadow-gray-100"
+		class="-gap-4 flex rounded-2xl bg-white py-2 pl-7 pr-4 shadow-md shadow-primary-100 dark:bg-primary-700 dark:shadow-primary-800"
 	>
-		<img
+		<nuxt-img
 			v-for="editor in editors"
 			:key="editor.name"
 			:src="editor.avatar"
 			class="-ml-3 h-10 w-10 rounded-full border border-white"
 			:alt="editor.name"
+			preset="avatar"
 		/>
 	</div>
 </template>

@@ -8,6 +8,9 @@ export default defineNuxtConfig({
 			htmlAttrs: {
 				lang: `fr`,
 			},
+			bodyAttrs: {
+				class: "dark:bg-primary-950 dark:text-gray-100",
+			},
 			meta: [
 				{ charset: `utf-8` },
 
@@ -166,6 +169,16 @@ export default defineNuxtConfig({
 
 	image: {
 		// https://v1.image.nuxtjs.org
+		presets: {
+			// https://v1.image.nuxtjs.org/configuration#presets
+			avatar: {
+				modifiers: {
+					format: "webp",
+					width: 50,
+					height: 50,
+				},
+			},
+		},
 	},
 
 	device: {
@@ -178,5 +191,9 @@ export default defineNuxtConfig({
 
 	tailwindcss: {
 		viewer: false,
+	},
+
+	colorMode: {
+		classSuffix: "",
 	},
 });

@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [],
+	darkMode: "class",
+	safelist: ["dark:bg-primary-950", "dark:text-gray-100"],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -25,9 +27,17 @@ module.exports = {
 			backgroundImage: {
 				"header-home": "url('/images/backgrounds/header_home.jpg')",
 				"grid-square": "url('/images/backgrounds/grid_square.svg')",
+				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+				footer: "url('/images/backgrounds/footer.jpg')",
 			},
 			blur: {
 				xs: "2px",
+			},
+			transitionTimingFunction: {
+				smooth: "cubic-bezier(.175, .885, .32, 1.275)",
+			},
+			boxShadow: {
+				top2xl: "0 -20px 67px -45px var(--tw-shadow-color)",
 			},
 		},
 	},
