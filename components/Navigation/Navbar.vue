@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { toolCategories } from "~/main.config";
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === "dark");
+
+const toggleDark = () => {
+	colorMode.value = isDark.value ? "light" : "dark";
+};
 </script>
 
 <template>
@@ -12,14 +17,10 @@ import { toolCategories } from "~/main.config";
 				id="branding"
 				to="/"
 			>
-				<img
-					class="h-7 w-7"
-					src="~/assets/images/makebetter.svg"
-					alt="Logo MakeBetter"
-				/>
+				<nuxt-img class="h-7 w-7" src="/images/makebetter.svg" />
 				makebetter.app
 			</NuxtLink>
-			<ul class="flex items-center gap-6 text-lg text-sm text-gray-300">
+			<ul class="flex items-center gap-6 text-sm text-gray-300">
 				<li><NuxtLink to="#">Outils</NuxtLink></li>
 				<li>
 					<NuxtLink
@@ -31,6 +32,12 @@ import { toolCategories } from "~/main.config";
 				</li>
 			</ul>
 		</div>
-		<UIButton color="light">Accéder à mon compte</UIButton>
+		<div class="flex items-center gap-8">
+			<button class="text-gray-100" @click="toggleDark">
+				<NuxtIcon name="moon" v-if="!isDark" class="icon big" />
+				<NuxtIcon name="sun" v-else class="icon big" />
+			</button>
+			<UIButton color="light">Accéder à mon compte</UIButton>
+		</div>
 	</nav>
 </template>

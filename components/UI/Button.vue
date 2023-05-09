@@ -8,7 +8,9 @@ type ButtonColor =
 	| "success"
 	| "info"
 	| "light"
-	| "dark";
+	| "dark"
+	| "transparent"
+	| "color-mode";
 
 const props = defineProps({
 	size: {
@@ -24,6 +26,10 @@ const props = defineProps({
 		default: "primary",
 	},
 	disabled: {
+		type: Boolean,
+		default: false,
+	},
+	fake: {
 		type: Boolean,
 		default: false,
 	},
@@ -52,36 +58,60 @@ const colorsClasses = computed(() => {
 					success:
 						"bg-transparent text-success-500 border-success-500",
 					info: "bg-transparent text-info-500 border-info-500",
-					light: "bg-transparent text-white border-white",
+					light: "bg-transparent text-white border-white hover:bg-opacity-25",
 					dark: "bg-transparent text-dark-500 border-dark-500",
+					transparent: "border-0 shadow-none",
+					"color-mode":
+						"bg-transparent text-white border-white hover:bg-opacity-25 dark:border-primary-800",
 				}[props.color] + " hover:bg-white hover:bg-opacity-20"
 			);
 		case false:
 			return (
 				{
-					primary: "bg-primary-500 text-white hover:bg-primary-700",
-					secondary:
-						"bg-secondary-500 text-white hover:bg-secondary-700",
-					danger: "bg-danger-500 text-white hover:bg-danger-700",
-					warning: "bg-warning-500 text-white hover:bg-warning-700",
-					success: "bg-success-500 text-white hover:bg-success-700",
-					info: "bg-info-500 text-white hover:bg-info-700",
-					light: "bg-white text-black hover:bg-gray-300",
-					dark: "bg-dark-500 text-white hover:bg-dark-700",
-				}[props.color] + " border-gray-800 border-opacity-50 shadow-lg"
+					primary:
+						"bg-primary-500 text-white dark:border-primary-600",
+					secondary: "bg-secondary-500 text-white",
+					danger: "bg-danger-500 text-white",
+					warning: "bg-warning-500 text-white",
+					success: "bg-success-500 text-white",
+					info: "bg-info-500 text-white",
+					light: "bg-white text-black",
+					dark: "bg-dark-500 text-white",
+					transparent: "border-0 shadow-none",
+					"color-mode":
+						"bg-white text-black dark:bg-primary-900 dark:border-primary-700 dark:text-white",
+				}[props.color] + " border-gray-200 border-opacity-50 shadow-lg"
 			);
 	}
+});
+const hoverClasses = computed(() => {
+	return {
+		primary: "hover:bg-primary-700",
+		secondary: "hover:bg-secondary-700",
+		danger: "hover:bg-danger-700",
+		warning: "hover:bg-warning-700",
+		success: "hover:bg-success-700",
+		info: "hover:bg-info-700",
+		light: "hover:bg-gray-100",
+		dark: "hover:bg-dark-700",
+		transparent: "hover:bg-gray-500 hover:bg-opacity-10",
+		"color-mode": "hover:bg-gray-100 dark:hover:bg-primary-800",
+	}[props.color];
 });
 </script>
 
 <template>
 	<button
 		:class="[
-			'border-2 font-display font-semibold duration-300 hover:-translate-y-1',
+			'font-display font-semibold duration-300 ease-smooth',
 			colorsClasses,
 			sizeClasses,
 			disabled && 'cursor-not-allowed opacity-25',
+			color !== 'transparent' && 'border-2',
+			!(disabled || fake || color === 'transparent') &&
+				'hover:-translate-y-1 ' + hoverClasses,
 		]"
+		:disabled="disabled || fake"
 	>
 		<slot></slot>
 	</button>
