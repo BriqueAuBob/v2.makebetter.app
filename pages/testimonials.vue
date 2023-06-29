@@ -15,7 +15,7 @@ const { data } = useAsyncData(() =>
 	<section class="container relative gap-16 pb-64 pt-24">
 		<div class="mt-8 grid grid-cols-3 gap-6">
 			<CardReview
-				v-for="(testimonial, id) in data.testimonials"
+				v-for="(testimonial, id) in data?.testimonials"
 				:key="id"
 				:author="testimonial.author"
 				:content="testimonial.message"
