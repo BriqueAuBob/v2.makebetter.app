@@ -160,7 +160,7 @@ export default defineNuxtConfig({
 	],
 
 	devtools: {
-		enabled: process.env.NODE_ENV === "development",
+		enabled: true,
 	},
 
 	content: {
@@ -195,5 +195,24 @@ export default defineNuxtConfig({
 
 	colorMode: {
 		classSuffix: "",
+	},
+
+	i18n: {
+		langDir: "locales/",
+		locales: [
+			{
+				code: "en",
+				iso: "en-US",
+				name: "English",
+				file: "en.json",
+			},
+			{
+				code: "fr",
+				iso: "fr-FR",
+				name: "Français",
+				file: "fr.json",
+			},
+		],
+		defaultLocale: "en",
 	},
 });
