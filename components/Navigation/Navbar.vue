@@ -62,10 +62,7 @@ const authStore = useAuthStore();
 					color="light"
 					class="flex items-center gap-2"
 				>
-					<img
-						:src="authStore.user.avatar"
-						class="h-7 w-7 rounded-full"
-					/>
+					<UIAvatar size="sm" :user="authStore.user" />
 					{{ authStore.user.username }}
 				</UIButton>
 			</ClientOnly>

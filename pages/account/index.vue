@@ -7,6 +7,6 @@ const user = computed(() => (auth.isLoggedIn ? auth.user : {}));
 </script>
 
 <template>
-	<img :src="user.avatar" />
+	<UIAvatar :user="user" size="lg" />
 	<div>Bonjour {{ user.username }}</div>
 </template>

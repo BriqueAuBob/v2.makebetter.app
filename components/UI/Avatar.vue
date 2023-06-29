@@ -40,6 +40,7 @@ const hasError = ref(false);
 		<img
 			v-if="!hasError"
 			:src="avatar"
+			:alt="`${props.user.username}#${props.user.discriminator} Avatar`"
 			:class="size + ' rounded-full'"
 			@error="() => (hasError = true)"
 		/>
