@@ -188,7 +188,7 @@ const collapsibleElements: CollapseGroupItems = [
 			<UIButton class="mt-12" color="color-mode">
 				Publier un avis
 			</UIButton>
-			<UIButton class="mt-12" color="transparent">
+			<UIButton href="/testimonials" class="mt-12" color="transparent">
 				Voir d'autres avis
 			</UIButton>
 		</div>

@@ -7,6 +7,7 @@ defineProps({
 		default: {
 			username: "Username",
 			discriminator: "0000",
+			avatar: "/images/avatar_demo.png",
 		},
 	},
 	content: {
@@ -20,18 +21,17 @@ defineProps({
 	<UICard :no-heading="true">
 		<template #content>
 			<div class="flex items-center gap-2">
-				<img
-					src="/images/avatar_demo.png"
-					class="h-12 w-12 rounded-full"
-				/>
-				<div class="flex flex-col">
+				<UIAvatar :user="author" />
+				<div class="ml-1 flex flex-col">
 					<span class="text-lg font-bold">{{ author.username }}</span>
 					<span class="text-gray-500">{{
 						author.discriminator
 					}}</span>
 				</div>
 			</div>
-			<p class="mt-4 text-sm text-gray-600">{{ content }}</p>
+			<p class="mt-4 text-sm text-gray-500 dark:text-gray-300">
+				{{ content }}
+			</p>
 		</template>
 	</UICard>
 </template>
