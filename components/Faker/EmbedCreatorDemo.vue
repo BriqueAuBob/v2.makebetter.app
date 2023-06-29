@@ -1,10 +1,5 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-/// <reference path="../../types/avatar_demo.d.ts" />
-import AvatarImage from "~/assets/images/avatar_demo.png";
-=======
 import { reactive } from "vue";
->>>>>>> 4f5bd530daaa3340e2b448eae70cef772a92bf84
 
 const form = reactive({
 	webhook_url: "",

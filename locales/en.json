@@ -1,0 +1,12 @@
+{
+	"navigation": {
+		"tools": "Tools",
+		"hiring": "Hiring",
+		"login": "Access my account"
+	},
+
+	"redirect": {
+		"message": "You will be redirected in a few seconds...",
+		"link": "Click here if you are not redirected automatically."
+	}
+}

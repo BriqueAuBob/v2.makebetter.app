@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import { useAuthStore } from "~/stores/auth";
+
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
 const toggleDark = () => {
 	colorMode.value = isDark.value ? "light" : "dark";
 };
+
+const authUrl = computed(() => {
+	return `https://auth.umaestro.fr/?redirect_uri=${encodeURIComponent(
+		window ? window.location.href : ""
+	)}`;
+});
+
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -21,13 +31,15 @@ const toggleDark = () => {
 				makebetter.app
 			</NuxtLink>
 			<ul class="flex items-center gap-6 text-sm text-gray-300">
-				<li><NuxtLink to="#">Outils</NuxtLink></li>
+				<li>
+					<NuxtLink to="#">{{ $t("navigation.tools") }}</NuxtLink>
+				</li>
 				<li>
 					<NuxtLink
 						to="https://umaestro.fr/recrutements"
 						target="_blank"
 					>
-						Recrutements
+						{{ $t("navigation.hiring") }}
 					</NuxtLink>
 				</li>
 			</ul>
@@ -37,7 +49,26 @@ const toggleDark = () => {
 				<NuxtIcon name="moon" v-if="!isDark" class="icon big" />
 				<NuxtIcon name="sun" v-else class="icon big" />
 			</button>
-			<UIButton color="light">Accéder à mon compte</UIButton>
+			<ClientOnly>
+				<UIButton
+					v-if="!authStore.isLoggedIn"
+					:href="authUrl"
+					color="light"
+					>{{ $t("navigation.login") }}</UIButton
+				>
+				<UIButton
+					v-else
+					href="/account"
+					color="light"
+					class="flex items-center gap-2"
+				>
+					<img
+						:src="authStore.user.avatar"
+						class="h-7 w-7 rounded-full"
+					/>
+					{{ authStore.user.username }}
+				</UIButton>
+			</ClientOnly>
 		</div>
 	</nav>
 </template>

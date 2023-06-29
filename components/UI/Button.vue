@@ -33,6 +33,10 @@ const props = defineProps({
 		type: Boolean,
 		default: false,
 	},
+	href: {
+		type: String,
+		default: "",
+	},
 });
 
 const sizeClasses = computed(
@@ -80,7 +84,7 @@ const colorsClasses = computed(() => {
 					transparent: "border-0 shadow-none",
 					"color-mode":
 						"bg-white text-black dark:bg-primary-900 dark:border-primary-700 dark:text-white",
-				}[props.color] + " border-gray-200 border-opacity-50 shadow-lg"
+				}[props.color] + " border-gray-200 border-opacity-50"
 			);
 	}
 });
@@ -98,10 +102,18 @@ const hoverClasses = computed(() => {
 		"color-mode": "hover:bg-gray-100 dark:hover:bg-primary-800",
 	}[props.color];
 });
+
+const component = computed(() => {
+	if (props.href) return resolveComponent("NuxtLink");
+	return "button";
+});
 </script>
 
 <template>
-	<button
+	<component
+		:is="component"
+		:href="href"
+		class="inline-block"
 		:class="[
 			'font-display font-semibold duration-300 ease-smooth',
 			colorsClasses,
@@ -110,9 +122,12 @@ const hoverClasses = computed(() => {
 			color !== 'transparent' && 'border-2',
 			!(disabled || fake || color === 'transparent') &&
 				'hover:-translate-y-1 ' + hoverClasses,
+			color !== 'transparent' &&
+				!props.outlined &&
+				'shadow-sm hover:shadow-lg',
 		]"
 		:disabled="disabled || fake"
 	>
 		<slot></slot>
-	</button>
+	</component>
 </template>
