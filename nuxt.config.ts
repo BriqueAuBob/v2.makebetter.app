@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 				lang: `fr`,
 			},
 			bodyAttrs: {
-				class: "dark:bg-primary-950 dark:text-gray-100",
+				class: "dark:bg-primary-950 dark:text-gray-100 ease-out duration-300",
 			},
 			meta: [
 				{ charset: `utf-8` },
