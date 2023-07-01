@@ -1,5 +1,5 @@
-export type Author = {
+export type User = {
 	username: string;
-	discriminator: string;
+	discriminator: number;
 	avatar: string;
 };

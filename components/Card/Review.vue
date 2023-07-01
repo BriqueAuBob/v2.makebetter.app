@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Author } from "~/types/user";
+import { User } from "~/types/user";
 
 defineProps({
 	author: {
-		type: Object as PropType<Author>,
+		type: Object as PropType<User>,
 		default: {
 			username: "Username",
 			discriminator: "0000",
