@@ -71,6 +71,14 @@ body {
   transform: translateY(8px) scale(0.95);
 }
 
+[data-aos^=zoom][data-aos^=zoom], [data-aos^=fade][data-aos^=fade] {
+	@apply transition-all !important;
+}
+
+.hover\:-translate-y-1:hover {
+	@apply -translate-y-1 !important;
+}
+
 @keyframes circle {
 	0% {
 		left: -20%;

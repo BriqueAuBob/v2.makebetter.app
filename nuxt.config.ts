@@ -5,9 +5,6 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			title: `MakeBetter.app`,
-			htmlAttrs: {
-				lang: `fr`,
-			},
 			bodyAttrs: {
 				class: "dark:bg-primary-950 dark:text-gray-100 ease-out duration-300",
 			},
@@ -159,6 +156,8 @@ export default defineNuxtConfig({
 		"nuxt-icons", // https://nuxt.com/modules/icons
 	],
 
+	plugins: [{ src: "~/plugins/aos", mode: "client" }],
+
 	devtools: {
 		enabled: true,
 	},
@@ -198,6 +197,7 @@ export default defineNuxtConfig({
 	},
 
 	i18n: {
+		baseUrl: "https://makebetter.app/",
 		langDir: "locales/",
 		locales: [
 			{

@@ -1,3 +1,16 @@
+<script setup>
+	const { locale, locales, setLocale } = useI18n()
+
+	const localePath = useLocalePath();
+	const selectLanguage = reactive({
+		locale: locale.value,
+	});
+	async function changeLocale() {
+		await setLocale(selectLanguage.locale)
+		await navigateTo(localePath(useRoute().path));
+	};
+</script>
+
 <template>
 	<footer
 		class="shadow-top2xl bg-footer bg-cover bg-center bg-no-repeat py-24 text-white shadow-primary-500"
@@ -12,6 +25,11 @@
 					Nous ne sommes pas affiliés avec les services pour lesquels
 					nous proposons des outils.
 				</i>
+				<select class="block bg-primary-500 mt-4 pl-2 pr-8 py-2 rounded-lg" v-model="selectLanguage.locale" @change="changeLocale()">
+					<option v-for="l in locales" :key="l.code" :value="l.code" :selected="locale === l.code">
+						{{ l.name }}
+					</option>
+				</select>
 				<div class="mt-8 flex gap-4">
 					<a href="https://twitter.com/GUMaestro" target="_blank">
 						<NuxtIcon name="socials/twitter" class="icon big" />

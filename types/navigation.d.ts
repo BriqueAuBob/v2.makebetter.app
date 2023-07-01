@@ -5,6 +5,7 @@ export type NavigationItem = {
     href: string;
     megaMenu?: boolean;
     component?: string|ConcreteComponent;
+    target?: string;
 }
 
 export type NavigationItems = Array<NavigationItem>;

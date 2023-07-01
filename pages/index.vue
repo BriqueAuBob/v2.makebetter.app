@@ -6,7 +6,7 @@ import { useI18n } from "#i18n";
 const localePath = useLocalePath()
 
 const { t } = useI18n();
-const previews = ["images/demos/tool_demo.jpg", "images/demos/tool_demo.jpg"];
+const previews = ["images/demos/emoji_maker.jpg", "images/demos/emoji_maker.jpg"];
 const collapsibleElements: CollapseGroupItems = [
 	{
 		title: t('tools.discord.embed.name'),
@@ -70,7 +70,7 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 						>
 							<nuxt-img
 								:src="preview"
-								class="w-full"
+								class="w-full object-cover"
 								alt="Tool Demo"
 								sizes="sm:100vw lg:50vw"
 							/>
@@ -93,9 +93,9 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 				<strong>{{ $t('homepage.collaborative.description.in_real_time') }}</strong>
 			</i18n-t>
 			<UIGroupCollapse :elements="collapsibleElements" />
-			<UIButton class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
+			<UIButton data-aos="fade-up" class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
 		</div>
-		<div class="relative">
+		<div class="relative" data-aos="zoom-in-up">
 			<div
 				class="absolute left-1/2 top-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 to-primary-300 opacity-25 blur-3xl"
 			></div>
@@ -114,19 +114,20 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 				:header-grid="true"
 				:title="$t('homepage.share.collaborators.title')"
 				:description="$t('homepage.share.collaborators.description')"
+				data-aos="fade-up"
 			>
 				<template #header>
 					<div class="mx-auto flex max-w-sm flex-col gap-4">
 						<UIInput
 							name="fake_embed_creator"
-							label="Webhook URL"
+							label="URL"
 							type="text"
-							placeholder="https://discord.com/api/webhooks/..."
+							placeholder="makebetter.app/tools/discord/embeds/05448f3b-4b1a-467f-93e4-6487a182e6f7"
 							class="mx-auto w-full"
 							fake
 						></UIInput>
 						<UIButton color="color-mode" size="md" fake>
-							{{ $t('buttons.send') }}
+							{{ $t('buttons.share') }}
 						</UIButton>
 					</div>
 				</template>
@@ -135,6 +136,7 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 				:header-grid="true"
 				:title="$t('homepage.share.public.title')"
 				:description="$t('homepage.share.public.description')"
+				data-aos="fade-up"
 			>
 				<template #header>
 					<div class="mx-auto flex max-w-sm gap-4">
@@ -169,13 +171,13 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 			</UICard>
 		</div>
 	</section>
-	<BannerHiring />
+	<BannerHiring data-aos="fade-down" />
 	<section class="container relative gap-16 py-32">
 		<h1 class="mx-auto text-center text-xl font-bold">
 			{{ $t('homepage.need_help') }}
 		</h1>
 		<div class="mt-8 grid grid-cols-3 gap-6">
-			<CardArticle v-for="i in 6"></CardArticle>
+			<CardArticle v-for="i in 6" data-aos="zoom-in-up" :data-aos-offset="100 + i * 100"></CardArticle>
 		</div>
 		<div class="flex justify-center">
 			<UIButton class="mt-12" color="color-mode">
@@ -192,7 +194,14 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 		</p>
 		<h1 class="text-center text-3xl font-black">Pourquoi pas toi&nbsp;?</h1>
 		<div class="mt-8 grid grid-cols-3 gap-6">
-			<CardReview v-for="(testimonial, id) in testimonialsData?.testimonials" :key="id" :author="testimonial.author" :content="testimonial.message"></CardReview>
+			<CardReview 
+				v-for="(testimonial, id) in testimonialsData?.testimonials" 
+				:key="id" 
+				:author="testimonial.author" 
+				:content="testimonial.message"
+				data-aos="zoom-in-up" 
+				:data-aos-offset="100 + id * 100"
+			></CardReview>
 		</div>
 		<div class="flex items-center justify-center gap-6">
 			<UIButton class="mt-12" color="color-mode">

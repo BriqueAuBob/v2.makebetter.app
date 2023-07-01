@@ -32,6 +32,7 @@ const items: NavigationItems = [
 	{
 		label: t("navigation.hiring"),
 		href: "https://umaestro.fr/recrutements",
+		target: "_blank"
 	},
 ];
 const currentItem = ref<NavigationItem|null>(null)
@@ -68,7 +69,7 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
 			</NuxtLink>
 			<ul class="flex items-center gap-6 text-sm text-gray-300">
 				<li v-for="(item, id) of items" :key="id">
-					<NuxtLink :to="item?.href" @mouseover="(e) => onHover(e, item)">
+					<NuxtLink :to="item?.href" :target="item?.target" @mouseover="(e) => onHover(e, item)">
 						{{ item.label }}
 					</NuxtLink>
 				</li>
