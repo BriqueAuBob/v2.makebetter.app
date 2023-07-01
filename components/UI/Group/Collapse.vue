@@ -37,6 +37,9 @@ function onClose(index: number) {
 			@close="onClose(index)"
 			ref="collapses"
 			:state="states[index]"
+			data-aos="fade-up"
+			data-aos-duration="5000"
+			data-aos-offset="300"
 		>
 			<p>{{ element.content }}</p>
 		</UICollapse>

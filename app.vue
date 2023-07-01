@@ -1,5 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from "~/stores/auth";
+/* @ts-ignore */
+import AOS from "aos";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -20,6 +22,15 @@ onMounted(async () => {
 	authStore.login(token.token, user);
 	cookie.value = token.token;
 	router.push("/");
+});
+
+const i18nHead = useLocaleHead({
+	addSeoAttributes: true,
+});
+useHead({
+  htmlAttrs: {
+    lang: i18nHead.value.htmlAttrs!.lang
+  },
 });
 </script>
 

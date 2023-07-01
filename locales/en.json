@@ -1,12 +1,131 @@
 {
-	"navigation": {
-		"tools": "Tools",
-		"hiring": "Hiring",
-		"login": "Access my account"
-	},
-
-	"redirect": {
-		"message": "You will be redirected in a few seconds...",
-		"link": "Click here if you are not redirected automatically."
-	}
+    "navigation": {
+        "tools": "Tools",
+        "hiring": "Recruitments",
+        "login": "access my account"
+    },
+    "redirect": {
+        "message": "You will be redirected in a few seconds...",
+        "link": "Click here if you don't want to wait."
+    },
+    "tools": {
+        "discord": {
+            "embed": {
+                "name": "Embed Creator",
+                "description": "Our embed creator will allow you to create and send your embeds to your server in the easiest way!",
+                "faker": {
+                    "title": "MakeBetter Rules",
+                    "description": "Here are the rules of MakeBetter, please read it carefully."
+                },
+                "fields": {
+                    "webhook_url": {
+                        "label": "Webhook URL",
+                        "placeholder": "https://discord.com/webhooks..."
+                    },
+                    "title": {
+                        "label": "Title",
+                        "placeholder": "Embed title"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Description of the embed"
+                    },
+                    "color": {
+                        "label": "Color",
+                        "placeholder": "Embed color"
+                    },
+                    "footer": {
+                        "label": "Footer",
+                        "placeholder": "Embed footer"
+                    },
+                    "image": {
+                        "label": "Picture",
+                        "placeholder": "Image URL"
+                    },
+                    "thumbnail": {
+                        "label": "Thumbnail",
+                        "placeholder": "Thumbnail URL"
+                    },
+                    "author": {
+                        "label": "Author",
+                        "placeholder": "Name of the author"
+                    },
+                    "author_icon": {
+                        "label": "author icon",
+                        "placeholder": "Author Icon URL"
+                    },
+                    "author_url": {
+                        "label": "Author URL",
+                        "placeholder": "Author URL"
+                    },
+                    "field_name": {
+                        "label": "Field name",
+                        "placeholder": "Field name"
+                    },
+                    "field_value": {
+                        "label": "Field value",
+                        "placeholder": "Field value"
+                    },
+                    "field_inline": {
+                        "label": "Inline",
+                        "placeholder": "Inline"
+                    }
+                }
+            }
+        }
+    },
+    "testimonials": {
+        "title": "User reviews",
+        "description": "Find out what our users think of our platform.",
+        "no_testimonials": "No reviews have been posted yet.",
+        "view": "See reviews",
+        "publish": "Post a review"
+    },
+    "buttons": {
+        "download": "Download",
+        "make_public": "Publish",
+        "send": "Send",
+        "share": "Share"
+    },
+    "banners": {
+        "hiring": {
+            "title": "Recruitment",
+            "description": "In order to continue to offer you services like this, we need you! We are recruiting developers, graphic designers, moderators and a whole host of other positions... Don't hesitate to apply!",
+            "button": "See available positions"
+        }
+    },
+    "homepage": {
+        "header": {
+            "title": "Build Better Projects",
+            "description": "We offer the tools that will allow your project to grow quickly.",
+            "buttons": {
+                "use_tool": "Use a tool",
+                "join_discord": "Join Discord"
+            }
+        },
+        "collaborative": {
+            "title": "Use our tools as a team!",
+            "description": {
+                "base": "All our tools have a {0}, so you can {1} on your {2} projects.",
+                "system": "collaboration system",
+                "work_in_team": "team working",
+                "in_real_time": "in real time"
+            },
+            "view_tools": "See the tools"
+        },
+        "share": {
+            "title": "Share your achievements",
+            "collaborators": {
+                "title": "Share with your collaborators",
+                "description": "We propose to generate a link to share your creation with your friends! They will be able to offer you modifications or reuse what you give them."
+            },
+            "public": {
+                "title": "Share with everyone",
+                "description": "We propose to make your creation public, so everyone can see it and reuse it."
+            }
+        },
+        "need_help": "Need help creating your project?",
+        "view_tutorials": "View tutorials",
+        "stat_usage_rates": "{usersCount} people are using our tools!\n{ratesCount} of them posted a review..."
+    }
 }

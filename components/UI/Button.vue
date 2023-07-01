@@ -122,8 +122,8 @@ const component = computed(() => {
 			color !== 'transparent' && 'border-2',
 			!(disabled || fake || color === 'transparent') &&
 				'hover:-translate-y-1 ' + hoverClasses,
-			color !== 'transparent' &&
-				!props.outlined &&
+			(color !== 'transparent' &&
+				!props.outlined && !fake) &&
 				'shadow-sm hover:shadow-lg',
 		]"
 		:disabled="disabled || fake"

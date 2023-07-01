@@ -90,7 +90,8 @@
 	"buttons": {
 		"download": "Télécharger",
 		"make_public": "Rendre public",
-		"send": "Envoyer"
+		"send": "Envoyer",
+		"share": "Partager"
 	},
 
 	"banners": {
