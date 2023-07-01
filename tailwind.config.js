@@ -41,5 +41,24 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		({ addUtilities }) => {
+			const newUtilities = {
+				".arrow::before": {
+					content: "''",
+					display: "block",
+					width: "0",
+					height: "0",
+					borderLeft: "10px solid transparent",
+					borderRight: "10px solid transparent",
+					borderBottom: "10px solid var(--arrow-color)",
+					position: "absolute",
+					top: "-10px",
+					left: "var(--arrow-position-left, 50%)",
+					transform: "translateX(var(--arrow-position-translate, -50%))",
+				},
+			};
+			addUtilities(newUtilities);
+		},
+	],
 };

@@ -33,8 +33,7 @@ const collapsibleElements: CollapseGroupItems = [
 		<h2
 			class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-snug lg:max-w-xl lg:text-2xl xl:max-w-5xl xl:text-4xl"
 		>
-			Nous proposons les outils qui permettront à ton projet de grandir
-			rapidement.
+			Nous proposons les outils qui permettront à ton projet de grandir rapidement.
 		</h2>
 		<div class="mt-12 flex items-center justify-center gap-6">
 			<UIButton size="lg" color="light"> Utiliser un outil </UIButton>

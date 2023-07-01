@@ -1,11 +1,7 @@
 <template>
 	<BannerDefault
 		title="On recrute"
-		description="
-			Pour continuer de vous proposer des services comme celui-ci,
-			nous avons besoin de personnes dans de multiples domaines
-			comme le développement, le graphisme...
-		"
+		description="Pour continuer de vous proposer des services comme celui-ci, nous avons besoin de personnes dans de multiples domaines comme le développement, le graphisme..."
 	>
 		<template #left>
 			<UIButton class="mt-8" color="light">
