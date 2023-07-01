@@ -22,7 +22,7 @@ defineProps({
 
 <template>
 	<div
-		class="overflow-hidden rounded-3xl border-2 bg-white dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900"
+		class="overflow-hidden rounded-3xl border-2 bg-white dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900 ease-out duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg"
 	>
 		<div class="relative pb-4" v-if="!noHeading">
 			<div
