@@ -1,4 +1,10 @@
 <script setup>
+defineI18nRoute({
+	paths: {
+		fr: "/avis",
+	}
+})
+
 const { data } = useAsyncData(() =>
 	fetch("https://api.umaestro.fr/testimonials").then((res) => res.json())
 );
@@ -6,11 +12,11 @@ const { data } = useAsyncData(() =>
 
 <template>
 	<header class="pt-48 pb-24 text-center bg-gradient-to-b from-primary-200 to-transparent dark:from-primary-800">
-		<h1 class="mb-4 text-3xl font-black">Avis</h1>
+		<h1 class="mb-4 text-3xl font-black">{{ $t('testimonials.title') }}</h1>
 		<p class="text-lg font-semibold leading-relaxed">
-			Découvrez ce que nos utilisateurs pensent de notre plateforme.
+			{{ $t('testimonials.description') }}
 		</p>
-		<UIButton class="mt-8">Publier un avis</UIButton>
+		<UIButton class="mt-8">{{ $t('testimonials.publish') }}</UIButton>
 	</header>
 	<section class="container relative gap-16 pb-64 pt-8">
 		<div class="mt-8 grid grid-cols-3 gap-6">

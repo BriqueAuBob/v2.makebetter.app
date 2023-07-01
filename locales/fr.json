@@ -8,5 +8,131 @@
 	"redirect": {
 		"message": "Vous allez être redirigé dans quelques secondes...",
 		"link": "Cliquez ici si vous ne voulez pas attendre."
+	},
+
+	"tools": {
+		"discord": {
+			"embed": {
+				"name": "Créateur d'embeds",
+				"description": "Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+
+				"faker": {
+					"title": "Réglement de MakeBetter",
+					"description": "Voici le règlement de MakeBetter, merci de le lire attentivement."
+				},
+
+				"fields": {
+					"webhook_url": {
+						"label": "URL du Webhook",
+						"placeholder": "https://discord.com/webhooks..."
+					},
+					"title": {
+						"label": "Titre",
+						"placeholder": "Titre de l'embed"
+					},
+					"description": {
+						"label": "Description",
+						"placeholder": "Description de l'embed"
+					},
+					"color": {
+						"label": "Couleur",
+						"placeholder": "Couleur de l'embed"
+					},
+					"footer": {
+						"label": "Footer",
+						"placeholder": "Footer de l'embed"
+					},
+					"image": {
+						"label": "Image",
+						"placeholder": "URL de l'image"
+					},
+					"thumbnail": {
+						"label": "Thumbnail",
+						"placeholder": "URL du thumbnail"
+					},
+					"author": {
+						"label": "Auteur",
+						"placeholder": "Nom de l'auteur"
+					},
+					"author_icon": {
+						"label": "Icone de l'auteur",
+						"placeholder": "URL de l'icone de l'auteur"
+					},
+					"author_url": {
+						"label": "URL de l'auteur",
+						"placeholder": "URL de l'auteur"
+					},
+					"field_name": {
+						"label": "Nom du champ",
+						"placeholder": "Nom du champ"
+					},
+					"field_value": {
+						"label": "Valeur du champ",
+						"placeholder": "Valeur du champ"
+					},
+					"field_inline": {
+						"label": "Inline",
+						"placeholder": "Inline"
+					}
+				}
+			}
+		}
+	},
+
+	"testimonials": {
+		"title": "Avis des utilisateurs",
+		"description": "Découvrez ce que nos utilisateurs pensent de notre plateforme.",
+		"no_testimonials": "Aucun avis n'a été publié pour le moment.",
+		"view": "Voir les avis",
+		"publish": "Publier un avis"
+	},
+
+	"buttons": {
+		"download": "Télécharger",
+		"make_public": "Rendre public",
+		"send": "Envoyer"
+	},
+
+	"banners": {
+		"hiring": {
+			"title": "Recrutement",
+			"description": "Afin de continuer à vous proposer des services comme celui-ci, nous avons besoin de vous ! Nous recrutons des développeurs, des graphistes, des modérateurs et tout un tas d'autres postes... N'hésitez pas à postuler !",
+			"button": "Voir les postes disponibles"
+		}
+	},
+
+	"homepage": {
+		"header": {
+			"title": "Build Better Projects",
+			"description": "Nous proposons les outils qui permettront à ton projet de grandir rapidement.",
+			"buttons": {
+				"use_tool": "Utiliser un outil",
+				"join_discord": "Rejoindre le Discord"
+			}
+		},
+		"collaborative": {
+			"title": "Utilisez nos outils en équipe !",
+			"description": {
+				"base": "Tous nos outils disposent d'un {0}, vous pourrez ainsi {1} sur vos projets {2}.",
+				"system": "système de collaboration",
+				"work_in_team": "travailler en équipe",
+				"in_real_time": "en temps réel"
+			},
+			"view_tools": "Voir les outils"
+		},
+		"share": {
+			"title": "Partage tes réalisations",
+			"collaborators": {
+				"title": "Partage avec tes collaborateurs",
+				"description": "Nous proposons de générer un lien pour partager ta réalisation avec tes amis ! Ils pourront ainsi te proposer des modifications ou encore réutiliser ce que tu leurs à donner."
+			},
+			"public": {
+				"title": "Partage avec tout le monde",
+				"description": "Nous proposons de rendre ta réalisation publique, ainsi tout le monde pourra la voir et la réutiliser."
+			}
+		},
+		"need_help": "Besoin d'aide pour créer ton projet?",
+		"view_tutorials": "Voir les tutoriels",
+		"stat_usage_rates": "{usersCount} personnes utilisent nos outils!\n{ratesCount} d'entre elles ont publié un avis..."
 	}
 }

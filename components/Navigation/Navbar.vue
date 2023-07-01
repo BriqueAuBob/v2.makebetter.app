@@ -3,6 +3,8 @@ import { useAuthStore } from "~/stores/auth";
 import { useI18n } from "#i18n";
 import type { NavigationItems, NavigationItem } from '~/types/navigation';
 
+const localePath = useLocalePath();
+
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
@@ -23,7 +25,7 @@ const { t } = useI18n();
 const items: NavigationItems = [
 	{
 		label: t("navigation.tools"),
-		href: "tools",
+		href: localePath("tools"),
 		megaMenu: true,
 		component: resolveComponent("NavigationMegaMenuTools"),
 	},
