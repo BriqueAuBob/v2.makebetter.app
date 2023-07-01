@@ -9,11 +9,11 @@ const form = reactive({
 </script>
 
 <template>
-	<FakerDemo title="Création de mon embed">
+	<FakerDemo :title="$t('tools.discord.embed.name')">
 		<UIInput
 			name="webhook_url"
-			label="Lien du webhook"
-			placeholder="https://discord.com/api/webhooks/..."
+			:label="$t('tools.discord.embed.fields.webhook_url.label')"
+			:placeholder="$t('tools.discord.embed.fields.webhook_url.placeholder')"
 			v-model="form.webhook_url"
 			@focus="
 				form.webhook_url =
@@ -22,31 +22,32 @@ const form = reactive({
 		/>
 		<UIInput
 			name="title"
-			label="Titre de l'embed"
-			placeholder="Mon titre"
+			:label="$t('tools.discord.embed.fields.title.label')"
+			:placeholder="$t('tools.discord.embed.fields.title.label')"
 			v-model="form.title"
 			:disabled="form.webhook_url === ''"
 			:class="form.webhook_url === '' && 'blur-xs'"
-			@focus="form.title = 'Règlement de MakeBetter'"
+			@focus="form.title = $t('tools.discord.embed.faker.title')"
 		/>
 		<UIInput
 			name="description"
-			label="Description de l'embed"
-			placeholder="Ma description"
+			:label="$t('tools.discord.embed.fields.description.label')"
+			:placeholder="$t('tools.discord.embed.fields.description.placeholder')"
 			:long-text="true"
 			v-model="form.description"
 			:disabled="form.title === ''"
 			:class="form.title === '' && 'blur-xs'"
 			@focus="
 				form.description =
-					'Voici le règlement de MakeBetter, merci de le lire attentivement.'
+					$t('tools.discord.embed.faker.description')
 			"
 		/>
 		<UIButton
 			:class="form.description === '' && 'blur-xs'"
 			:disabled="form.description === ''"
 			:color="form.description === '' ? 'light' : 'primary'"
-			>Envoyer</UIButton
 		>
+			{{  $t('buttons.send') }}
+		</UIButton>
 	</FakerDemo>
 </template>

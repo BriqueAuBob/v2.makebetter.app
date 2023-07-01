@@ -213,6 +213,6 @@ export default defineNuxtConfig({
 				file: "fr.json",
 			},
 		],
-		defaultLocale: "en",
+		defaultLocale: "fr",
 	},
 });

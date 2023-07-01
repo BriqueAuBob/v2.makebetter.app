@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import type { CollapseGroupItems } from "~/types/collapse";
 import { Slide } from "vue3-carousel";
+import { useI18n } from "#i18n";
+const localePath = useLocalePath()
 
+const { t } = useI18n();
 const previews = ["images/demos/tool_demo.jpg", "images/demos/tool_demo.jpg"];
 const collapsibleElements: CollapseGroupItems = [
 	{
-		title: "Créateur d'embeds",
-		content:
-			"Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+		title: t('tools.discord.embed.name'),
+		content: t('tools.discord.embed.description'),
 		defaultOpen: true,
 	},
 	{
-		title: "Créateur d'embeds",
-		content:
-			"Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+		title: t('tools.discord.embed.name'),
+		content: t('tools.discord.embed.description'),
 	},
 	{
-		title: "Créateur d'embeds",
-		content:
-			"Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+		title: t('tools.discord.embed.name'),
+		content: t('tools.discord.embed.description'),
 	},
 ];
 </script>
@@ -28,21 +28,21 @@ const collapsibleElements: CollapseGroupItems = [
 		class="relative bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat py-72 pt-48 text-white"
 	>
 		<h1 class="text-center text-4xl font-black lg:text-4xl xl:text-8xl">
-			Build Better Projects
+			{{ $t('homepage.header.title') }}
 		</h1>
 		<h2
 			class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-snug lg:max-w-xl lg:text-2xl xl:max-w-5xl xl:text-4xl"
 		>
-			Nous proposons les outils qui permettront à ton projet de grandir rapidement.
+			{{ $t('homepage.header.description') }}
 		</h2>
 		<div class="mt-12 flex items-center justify-center gap-6">
-			<UIButton size="lg" color="light"> Utiliser un outil </UIButton>
+			<UIButton size="lg" color="light">{{ $t('homepage.header.buttons.use_tool') }}</UIButton>
 			<NuxtLink
 				to="https://discord.com/invite/GWpGBK8gmA"
 				target="_blank"
 			>
 				<UIButton size="lg" :outlined="true" color="light">
-					Rejoindre le Discord
+					{{ $t('homepage.header.buttons.join_discord') }}
 				</UIButton>
 			</NuxtLink>
 		</div>
@@ -75,16 +75,15 @@ const collapsibleElements: CollapseGroupItems = [
 	>
 		<div>
 			<h1 class="text-xl font-bold">
-				Utilisez nos outils en équipe&nbsp;!
+				{{ $t('homepage.collaborative.title') }}
 			</h1>
-			<p class="mb-4">
-				Tous nos outils disposent d'un
-				<strong>mode collaboratif</strong> vous permettant de
-				<strong>travailler avec</strong> les autres membres de
-				<strong>votre équipe en temps réel.</strong>
-			</p>
+			<i18n-t class="mt-2 mb-4" tag="p" keypath="homepage.collaborative.description.base">
+				<strong>{{ $t('homepage.collaborative.description.system') }}</strong>
+				<strong>{{ $t('homepage.collaborative.description.work_in_team') }}</strong>
+				<strong>{{ $t('homepage.collaborative.description.in_real_time') }}</strong>
+			</i18n-t>
 			<UIGroupCollapse :elements="collapsibleElements" />
-			<UIButton class="mt-12">Voir d'autres outils</UIButton>
+			<UIButton class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
 		</div>
 		<div class="relative">
 			<div
@@ -95,7 +94,7 @@ const collapsibleElements: CollapseGroupItems = [
 	</section>
 	<section class="container relative gap-16 pb-48 pt-16">
 		<h1 class="mx-auto text-center text-xl font-bold">
-			Partage tes réalisations
+			{{ $t('homepage.share.title') }}
 		</h1>
 		<div
 			class="to-primary-30 absolute left-1/2 top-1/2 -z-10 h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 opacity-10 blur-3xl"
@@ -103,8 +102,8 @@ const collapsibleElements: CollapseGroupItems = [
 		<div class="mt-8 grid grid-cols-2 gap-8">
 			<UICard
 				:header-grid="true"
-				title="Partage avec tes collaborateurs"
-				description="Nous proposons de générer un lien pour partager ta réalisation avec tes amis ! Ils pourront ainsi te proposer des modifications ou encore réutiliser ce que tu leurs à donner."
+				:title="$t('homepage.share.collaborators.title')"
+				:description="$t('homepage.share.collaborators.description')"
 			>
 				<template #header>
 					<div class="mx-auto flex max-w-sm flex-col gap-4">
@@ -117,15 +116,15 @@ const collapsibleElements: CollapseGroupItems = [
 							fake
 						></UIInput>
 						<UIButton color="color-mode" size="md" fake>
-							Envoyer
+							{{ $t('buttons.send') }}
 						</UIButton>
 					</div>
 				</template>
 			</UICard>
 			<UICard
 				:header-grid="true"
-				title="Rends tes créations publiques"
-				description="Tu peux rendre tes créations publique afin qu''lles soit visible par tout le monde et q'ils puissent les réutiliser !"
+				:title="$t('homepage.share.public.title')"
+				:description="$t('homepage.share.public.description')"
 			>
 				<template #header>
 					<div class="mx-auto flex max-w-sm gap-4">
@@ -144,7 +143,7 @@ const collapsibleElements: CollapseGroupItems = [
 								size="md"
 								fake
 							>
-								Télécharger
+								{{ $t('buttons.download') }}
 							</UIButton>
 							<UIButton
 								class="h-full w-full"
@@ -152,7 +151,7 @@ const collapsibleElements: CollapseGroupItems = [
 								size="md"
 								fake
 							>
-								Rendre publique
+								{{ $t('buttons.make_public') }}
 							</UIButton>
 						</div>
 					</div>
@@ -163,21 +162,23 @@ const collapsibleElements: CollapseGroupItems = [
 	<BannerHiring />
 	<section class="container relative gap-16 py-32">
 		<h1 class="mx-auto text-center text-xl font-bold">
-			Besoin d'aide pour créer ton projet&nbsp;?
+			{{ $t('homepage.need_help') }}
 		</h1>
 		<div class="mt-8 grid grid-cols-3 gap-6">
 			<CardArticle v-for="i in 6"></CardArticle>
 		</div>
 		<div class="flex justify-center">
 			<UIButton class="mt-12" color="color-mode">
-				Voir d'autres tutoriels
+				{{ $t('homepage.view_tutorials') }}
 			</UIButton>
 		</div>
 	</section>
 	<section class="container relative gap-16 pb-64 pt-24">
-		<p class="mb-4 text-center text-lg font-semibold leading-relaxed">
-			150 personnes utilisent nos outils!<br />
-			27 d'entre elles ont publié un avis...
+		<p class="mb-4 text-center text-lg font-semibold leading-relaxed whitespace-pre">
+			{{  $t('homepage.stat_usage_rates', {
+				usersCount: 100000,
+				ratesCount: 250,
+			}) }}
 		</p>
 		<h1 class="text-center text-3xl font-black">Pourquoi pas toi&nbsp;?</h1>
 		<div class="mt-8 grid grid-cols-3 gap-6">
@@ -185,10 +186,10 @@ const collapsibleElements: CollapseGroupItems = [
 		</div>
 		<div class="flex items-center justify-center gap-6">
 			<UIButton class="mt-12" color="color-mode">
-				Publier un avis
+				{{ $t('testimonials.publish') }}
 			</UIButton>
-			<UIButton href="/testimonials" class="mt-12" color="transparent">
-				Voir d'autres avis
+			<UIButton :href="localePath('testimonials')" class="mt-12" color="transparent">
+				{{ $t('testimonials.view') }}
 			</UIButton>
 		</div>
 	</section>
