@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CollapseGroupItems } from "~/types/collapse";
+import type { Testimonials as TestimonialsType, Statistics as StatisticsType } from "~/types/api_response";
 import { Slide } from "vue3-carousel";
 import { useI18n } from "#i18n";
 const localePath = useLocalePath()
@@ -21,6 +22,15 @@ const collapsibleElements: CollapseGroupItems = [
 		content: t('tools.discord.embed.description'),
 	},
 ];
+
+type Testimonials = {
+	testimonials: any[]
+}
+type Statistics = {
+	members: number
+}
+const { data: testimonialsData } = await useFetch<TestimonialsType>('https://api.umaestro.fr/testimonials?max=3');
+const { data: statisticsData } = await useFetch<StatisticsType>('https://api.umaestro.fr/statistics');
 </script>
 
 <template>
@@ -176,13 +186,13 @@ const collapsibleElements: CollapseGroupItems = [
 	<section class="container relative gap-16 pb-64 pt-24">
 		<p class="mb-4 text-center text-lg font-semibold leading-relaxed whitespace-pre">
 			{{  $t('homepage.stat_usage_rates', {
-				usersCount: 100000,
+				usersCount: statisticsData?.members,
 				ratesCount: 250,
 			}) }}
 		</p>
 		<h1 class="text-center text-3xl font-black">Pourquoi pas toi&nbsp;?</h1>
 		<div class="mt-8 grid grid-cols-3 gap-6">
-			<CardReview v-for="i in 3"></CardReview>
+			<CardReview v-for="(testimonial, id) in testimonialsData?.testimonials" :key="id" :author="testimonial.author" :content="testimonial.message"></CardReview>
 		</div>
 		<div class="flex items-center justify-center gap-6">
 			<UIButton class="mt-12" color="color-mode">
