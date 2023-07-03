@@ -1,4 +1,5 @@
 <script setup>
+const localePath = useLocalePath();
 const items = [
 	{
 		name: "Discord",
@@ -6,7 +7,7 @@ const items = [
 		list: [
 			{
 				label: "Créateur d'embeds",
-				href: "/",
+				href: localePath("/tools/discord/embed-maker"),
 				img: 'images/demos/tool_demo.jpg'
 			},
 			{

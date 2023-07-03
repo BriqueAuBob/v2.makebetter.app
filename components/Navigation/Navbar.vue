@@ -25,7 +25,7 @@ const { t } = useI18n();
 const items: NavigationItems = [
 	{
 		label: t("navigation.tools"),
-		href: localePath("tools"),
+		href: "tools",
 		megaMenu: true,
 		component: resolveComponent("NavigationMegaMenuTools"),
 	},
@@ -62,14 +62,14 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
 			<NuxtLink
 				class="flex items-center gap-2 font-display text-lg font-bold text-white"
 				id="branding"
-				to="/"
+				:to="localePath('/')"
 			>
 				<nuxt-img class="h-7 w-7" src="/images/makebetter.svg" />
 				makebetter.app
 			</NuxtLink>
 			<ul class="flex items-center gap-6 text-sm text-gray-300">
 				<li v-for="(item, id) of items" :key="id">
-					<NuxtLink :to="item?.href" :target="item?.target" @mouseover="(e) => onHover(e, item)">
+					<NuxtLink :to="localePath(item?.href)" :target="item?.target" @mouseover="(e) => onHover(e, item)">
 						{{ item.label }}
 					</NuxtLink>
 				</li>
