@@ -1,0 +1,10 @@
+<template>
+    <div>
+        <ToolsHeader
+            platform="discord"
+            :title="$t('tools.discord.embed.name')" 
+            :description="$t('tools.discord.embed.description')"
+            :buttonText="$t('tools.discord.embed.button')"
+        />
+    </div>
+</template>

@@ -15,6 +15,7 @@
 			"embed": {
 				"name": "Créateur d'embeds",
 				"description": "Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+				"button": "Commencer à créer mon embed",
 
 				"faker": {
 					"title": "Réglement de MakeBetter",

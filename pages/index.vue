@@ -41,7 +41,7 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 			{{ $t('homepage.header.title') }}
 		</h1>
 		<h2
-			class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-snug lg:max-w-xl lg:text-2xl xl:max-w-5xl xl:text-4xl"
+			class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-relaxed lg:leading-relaxed xl:leading-relaxed lg:max-w-xl lg:text-2xl xl:max-w-5xl xl:text-4xl"
 		>
 			{{ $t('homepage.header.description') }}
 		</h2>
@@ -171,7 +171,7 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
 			</UICard>
 		</div>
 	</section>
-	<BannerHiring data-aos="fade-down" />
+	<BannerHiring />
 	<section class="container relative gap-16 py-32">
 		<h1 class="mx-auto text-center text-xl font-bold">
 			{{ $t('homepage.need_help') }}
