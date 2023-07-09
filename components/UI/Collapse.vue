@@ -12,10 +12,13 @@ const props = defineProps({
 		type: Boolean,
 		default: undefined,
 	},
+	smallTitle: {
+		type: Boolean,
+		default: false,
+	}
 });
 
 const content = ref<HTMLElement | null>(null);
-const contentHeight = ref(0);
 const collapsed = ref(!props.defaultOpen);
 
 const emit = defineEmits(["toggle", "open", "close"]);
@@ -37,26 +40,15 @@ const toggle = () => {
 };
 const collapseStyle = computed(() => {
 	return {
-		maxHeight: isCollapsed.value ? "0" : `${contentHeight.value}px`,
 		paddingBottom: isCollapsed.value ? "0" : "4rem",
 	};
-});
-
-const toggleRef = ref<Function | null>(null);
-onMounted(() => {
-	contentHeight.value = content.value?.scrollHeight || 0;
-	toggleRef.value = toggle;
-});
-
-onUpdated(() => {
-	contentHeight.value = content.value?.scrollHeight || 0;
 });
 </script>
 
 <template>
 	<div class="border-b border-gray-200 dark:border-primary-800">
 		<div class="flex cursor-pointer justify-between py-4" @click="toggle">
-			<h2 class="text-lg font-bold">
+			<h2 :class="smallTitle ? 'text-md font-semibold' : 'text-lg font-bold'">
 				{{ title }}
 			</h2>
 			<NuxtIcon
@@ -66,8 +58,8 @@ onUpdated(() => {
 			></NuxtIcon>
 		</div>
 		<div
-			class="flex w-full flex-col overflow-hidden duration-300 ease-in-out"
-			:style="collapseStyle"
+			class="flex w-full flex-col overflow-hidden duration-300 ease-out px-1"
+			:class="isCollapsed ? 'max-h-0 overflow-hidden opacity-0 pointer-events-none' : 'mb-4'"
 			ref="content"
 		>
 			<slot />

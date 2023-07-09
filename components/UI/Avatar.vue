@@ -17,6 +17,10 @@ const props = defineProps({
 		},
 		required: true,
 	},
+	class: {
+		type: String,
+		default: "",
+	},
 });
 
 const sizes = {
@@ -37,12 +41,13 @@ const hasError = ref(false);
 
 <template>
 	<ClientOnly>
-		<img
+		<nuxt-img
 			v-if="!hasError"
 			:src="avatar"
 			:alt="`${props.user.username}#${props.user.discriminator} Avatar`"
-			:class="size + ' rounded-full'"
+			:class="size + ' rounded-full' + ' ' + props.class"
 			@error="() => (hasError = true)"
+			preset="avatar"
 		/>
 		<div
 			v-else

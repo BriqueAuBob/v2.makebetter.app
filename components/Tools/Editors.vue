@@ -1,6 +1,6 @@
 <script setup lang="ts">
 type User = {
-	name: string;
+	username: string;
 	avatar: string;
 };
 
@@ -9,20 +9,25 @@ defineProps({
 		type: Array<User>,
 		required: true,
 	},
+	displayShare: {
+		type: Boolean,
+		default: false,
+	}
 });
 </script>
 
 <template>
 	<div
-		class="-gap-4 flex rounded-2xl bg-white py-2 pl-7 pr-4 shadow-md shadow-primary-100 dark:bg-primary-700 dark:shadow-primary-800"
+		class="flex rounded-2xl bg-white px-5 py-3 shadow-md shadow-primary-50 dark:bg-primary-700 dark:shadow-primary-800"
 	>
-		<nuxt-img
+		<UIAvatar
 			v-for="editor in editors"
-			:key="editor.name"
-			:src="editor.avatar"
-			class="-ml-3 h-10 w-10 rounded-full border border-white"
-			:alt="editor.name"
-			preset="avatar"
+			:key="editor.username"
+			:user="editor"
+			class="-ml-2 -mr-2 border-2 border-white"
 		/>
+		<UIButton v-if="displayShare" class="ml-4" size="sm" color="light">
+			Partager
+		</UIButton>
 	</div>
 </template>

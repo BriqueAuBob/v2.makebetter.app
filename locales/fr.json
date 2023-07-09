@@ -11,11 +11,38 @@
 	},
 
 	"tools": {
+		"global": {
+			"load": {
+				"template": "Charger un template publique",
+				"save": "Charger une sauvegarde"
+			}
+		},
+		
 		"discord": {
 			"embed": {
 				"name": "Créateur d'embeds",
 				"description": "Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
 				"button": "Commencer à créer mon embed",
+
+				"instructions": {
+					"global": "Pour commencer à créer ton embed et l'envoyer sur ton serveur, suis les différentes étapes de la création ci-dessous."
+				},
+
+				"steps": {
+					"load_messages": "Charger un ensemble de messages",
+					"edit_message_id": "Edition du message n°{id}",
+					"author": "Auteur du message",
+					"content": "Contenu du message",
+					"embed": {
+						"author": "Auteur de l'embed",
+						"body": "Corps de l'embed",
+						"footer": "Footer de l'embed",
+						"fields": "Champs de l'embed",
+						"add": "Ajouter un embed ({amount}/{max})",
+						"add_field": "Ajouter un champ"
+					},
+					"add_message": "Ajouter un message"
+				},
 
 				"faker": {
 					"title": "Réglement de MakeBetter",
@@ -25,7 +52,19 @@
 				"fields": {
 					"webhook_url": {
 						"label": "URL du Webhook",
-						"placeholder": "https://discord.com/webhooks..."
+						"placeholder": "https://discord.com/api/v10/webhooks..."
+					},
+					"content": {
+						"label": "Contenu du message",
+						"placeholder": "Bonjour, je suis un message !"
+					},
+					"username": {
+						"label": "Nom d'utilisateur",
+						"placeholder": "MakeBetter"
+					},
+					"avatar_url": {
+						"label": "URL de l'avatar",
+						"placeholder": "https://i.imgur.com/4M34hi2.png"
 					},
 					"title": {
 						"label": "Titre",
@@ -35,13 +74,25 @@
 						"label": "Description",
 						"placeholder": "Description de l'embed"
 					},
+					"url": {
+						"label": "URL",
+						"placeholder": "URL de l'embed"
+					},
 					"color": {
 						"label": "Couleur",
 						"placeholder": "Couleur de l'embed"
 					},
-					"footer": {
-						"label": "Footer",
-						"placeholder": "Footer de l'embed"
+					"footer_text": {
+						"label": "Texte",
+						"placeholder": "Texte du footer"
+					},
+					"footer_icon": {
+						"label": "Icone",
+						"placeholder": "URL de l'icone du footer"
+					},
+					"timestamp": {
+						"label": "Timestamp",
+						"placeholder": "Timestamp de l'embed"
 					},
 					"image": {
 						"label": "Image",

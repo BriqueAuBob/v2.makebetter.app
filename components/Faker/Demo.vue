@@ -1,15 +1,15 @@
 <script setup lang="ts">
 const editors = [
 	{
-		name: "John Doe",
+		username: "John Doe",
 		avatar: "/images/avatar_demo.png",
 	},
 	{
-		name: "John Doe",
+		username: "John Doe",
 		avatar: "/images/avatar_demo.png",
 	},
 	{
-		name: "John Doe",
+		username: "John Doe",
 		avatar: "/images/demos/tool_demo.jpg",
 	},
 ];

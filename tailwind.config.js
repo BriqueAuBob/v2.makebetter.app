@@ -10,6 +10,11 @@ module.exports = {
 				sans: "Open Sans, Arial, sans-serif",
 			},
 			colors: {
+				tools: {
+					discord: {
+						blurple: "#5865F2",
+					},
+				},
 				primary: {
 					50: "#e9e5ff",
 					100: "#d4ccff",
@@ -39,6 +44,10 @@ module.exports = {
 			boxShadow: {
 				top2xl: "0 -20px 67px -45px var(--tw-shadow-color)",
 			},
+			rotate: {
+				1: "1deg",
+				2: "2deg",
+			},
 		},
 	},
 	plugins: [
@@ -55,7 +64,8 @@ module.exports = {
 					position: "absolute",
 					top: "-10px",
 					left: "var(--arrow-position-left, 50%)",
-					transform: "translateX(var(--arrow-position-translate, -50%))",
+					transform:
+						"translateX(var(--arrow-position-translate, -50%))",
 				},
 			};
 			addUtilities(newUtilities);

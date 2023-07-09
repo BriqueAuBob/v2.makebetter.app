@@ -19,19 +19,17 @@ defineProps({
 
 <template>
 	<UICard :no-heading="true">
-		<template #content>
-			<div class="flex items-center gap-2">
-				<UIAvatar :user="author" />
-				<div class="ml-1 flex flex-col">
-					<span class="text-lg font-bold">{{ author.username }}</span>
-					<span class="text-gray-500">{{
-						author.discriminator
-					}}</span>
-				</div>
+		<div class="flex items-center gap-2">
+			<UIAvatar :user="author" />
+			<div class="ml-1 flex flex-col">
+				<span class="text-lg font-bold">{{ author.username }}</span>
+				<span class="text-gray-500">{{
+					author.discriminator
+				}}</span>
 			</div>
-			<p class="mt-4 text-sm text-gray-500 dark:text-gray-300">
-				{{ content }}
-			</p>
-		</template>
+		</div>
+		<p class="mt-4 text-sm text-gray-500 dark:text-gray-300">
+			{{ content }}
+		</p>
 	</UICard>
 </template>

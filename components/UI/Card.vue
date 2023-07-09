@@ -13,7 +13,15 @@ defineProps({
 		default:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam aliquam, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc ut aliquam aliquam, nunc nisl aliquet nisl, eget aliquam nisl nisl sit amet lorem.",
 	},
-	noHeading: {
+	noHover: {
+		type: Boolean,
+		default: false,
+	},
+	collapse: {
+		type: Boolean,
+		default: false,
+	},
+	noPb: {
 		type: Boolean,
 		default: false,
 	},
@@ -22,9 +30,10 @@ defineProps({
 
 <template>
 	<div
-		class="overflow-hidden rounded-3xl border-2 bg-white dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900 ease-out duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg"
+		class="overflow-hidden rounded-3xl border-2 bg-white dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900 ease-out duration-300"
+		:class="!noHover && 'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg'"
 	>
-		<div class="relative pb-4" v-if="!noHeading">
+		<div class="relative" :class="!noPb && 'pb-4'" v-if="$slots.header">
 			<div
 				:class="
 					headerGrid &&
@@ -39,14 +48,14 @@ defineProps({
 				</div>
 			</div>
 		</div>
-		<div :class="noHeading ? 'p-8' : 'px-8 pb-8'">
-			<slot name="content">
+		<div :class="!$slots.header ? 'p-8' : 'px-8 pb-8'">
+			<slot>
 				<h3 class="mb-1 text-lg">{{ title }}</h3>
 				<p class="text-sm text-gray-700">
 					{{ description }}
 				</p>
-				<slot name="content_bottom"></slot>
 			</slot>
 		</div>
+		<slot name="footer"></slot>
 	</div>
 </template>
