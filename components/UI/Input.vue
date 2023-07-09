@@ -29,6 +29,14 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	type: {
+		type: String,
+		default: "text",
+	},
+	secure: {
+		type: Boolean,
+		default: false,
+	}
 });
 
 const emit = defineEmits(["update:modelValue", "change", "focus"]);
@@ -42,7 +50,7 @@ function updateValue(value: string) {
 	<div :class="disabled && 'cursor-not-allowed opacity-25'">
 		<label
 			:for="name"
-			class="pointer-events-none text-sm font-medium italic text-gray-400"
+			class="pointer-events-none text-sm font-medium italic text-gray-400 ml-4"
 		>
 			{{ label }}
 		</label>
@@ -51,11 +59,12 @@ function updateValue(value: string) {
 			:id="name"
 			:name="name"
 			:placeholder="placeholder"
-			class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-primary-500 dark:bg-primary-700 dark:text-white"
+			class="mt-1 w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-primary-500 dark:bg-primary-700 dark:text-white"
 			:value="modelValue"
 			@input="updateValue($event.target.value)"
 			@focus="emit('focus')"
 			:disabled="fake || disabled"
+			:type="secure ? 'password' : type || 'text'"
 		/>
 	</div>
 </template>

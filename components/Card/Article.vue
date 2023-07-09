@@ -28,8 +28,8 @@ defineProps({
 		<template #header>
 			<nuxt-img src="/images/articles/fake.png" class="w-full" />
 		</template>
-		<template #content_bottom>
-			<div class="mt-4 flex items-center justify-between">
+		<template #footer>
+			<div class="flex items-center justify-between px-8 pb-8 -mt-4">
 				<div
 					class="rounded-md bg-primary-500 px-2 py-1 text-sm font-medium text-white"
 				>
