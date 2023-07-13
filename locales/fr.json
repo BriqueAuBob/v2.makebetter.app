@@ -41,6 +41,10 @@
 						"add": "Ajouter un embed ({amount}/{max})",
 						"add_field": "Ajouter un champ"
 					},
+					"buttons": {
+						"title": "Boutons",
+						"add": "Ajouter un bouton"
+					},
 					"add_message": "Ajouter un message"
 				},
 
@@ -125,6 +129,14 @@
 					"field_inline": {
 						"label": "Inline",
 						"placeholder": "Inline"
+					},
+					"button_label": {
+						"label": "Label du bouton",
+						"placeholder": "Label du bouton"
+					},
+					"button_url": {
+						"label": "URL du bouton",
+						"placeholder": "URL du bouton"
 					}
 				}
 			}

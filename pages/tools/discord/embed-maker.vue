@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DiscordWebhookMessage, DiscordWebhook } from 'types/discord';
+import type { DiscordWebhookMessage, DiscordWebhook, Component } from 'types/discord';
 
 const MessageEdition = resolveComponent('ToolsDiscordEmbedMakerMessageEdition')
 const { t } = useI18n();
@@ -28,7 +28,12 @@ const defaultMessage: DiscordWebhookMessage = {
     avatar_url: '',
     content: '',
     embeds: [],
-    components: []
+    components: [
+        {
+            type: 1,
+            components: [],
+        }
+    ]
 }
 
 const form = reactive({
@@ -48,6 +53,7 @@ const elements = computed(() => {
             component: MessageEdition,
             props: {
                 message,
+                webhookCreatedByBot: webhook.value?.application_id !== null,
                 setMessage: (message: DiscordWebhookMessage) => setMessage(id, message)
             },
         }
@@ -88,6 +94,9 @@ const sendMessage = async () => {
     for(const message of form.messages) {
         const messageCopy = JSON.parse(JSON.stringify(message));
         removeEmptyFields(messageCopy);
+        if(messageCopy.components[0].components.length === 0) {
+            delete messageCopy.components;
+        }
         await fetch(form.webhook_url + '?wait=true', {
             method: 'POST',
             headers: {

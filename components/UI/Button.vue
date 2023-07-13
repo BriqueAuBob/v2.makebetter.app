@@ -115,7 +115,7 @@ const component = computed(() => {
 		:href="href"
 		class="inline-block"
 		:class="[
-			'font-display font-semibold duration-300 ease-smooth flex gap-2 items-center',
+			'font-display font-semibold duration-300 ease-smooth flex gap-2 items-center justify-center',
 			colorsClasses,
 			sizeClasses,
 			disabled && 'cursor-not-allowed opacity-25',
