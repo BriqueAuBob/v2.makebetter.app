@@ -45,7 +45,8 @@ export type Component = {
 		id: string;
 		animated: boolean;
 	}>;
-	url: string;
+	url?: string;
+	components?: Component[];
 };
 
 export type DiscordWebhookMessage = {
@@ -63,5 +64,5 @@ export type DiscordWebhook = {
 	avatar: string;
 	channel_id: string;
 	guild_id: string;
-	application_id: string;
+	application_id: string|null;
 }

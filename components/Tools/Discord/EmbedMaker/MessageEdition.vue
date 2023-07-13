@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import type { DiscordWebhookMessage, Embed }   from '../../../../types/discord';
+import type { DiscordWebhookMessage, Embed, Component }   from '../../../../types/discord';
 
 const props = defineProps({
     id: {
@@ -14,7 +14,11 @@ const props = defineProps({
     setMessage: {
         type: Function as PropType<(message: DiscordWebhookMessage) => void>,
         required: true,
-    }
+    },
+    webhookCreatedByBot: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const updateField = (field: string, value: any) => {
@@ -90,6 +94,25 @@ const addField = (id: number) => {
 const updateEmbedRealField = (embedId: number, field: any, subField: string, value: any) => {
     field[subField] = value;
     updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields);
+}
+
+const addButton = () => {
+    const components = props.message.components;
+    if(!components[0].components) components[0].components = [];
+    components[0].components.push({
+        type: 2,
+        style: 5,
+        label: '',
+        url: '',
+    });
+    updateField('components', components);
+}
+
+const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
+    const components = props.message.components;
+    const component = components[0].components![id];
+    component[field] = value;
+    updateField('components', components);
 }
 </script>
 
@@ -260,6 +283,47 @@ const updateEmbedRealField = (embedId: number, field: any, subField: string, val
                 }) }}
             </UIButton>
         </ToolsCardCollapsible>
+        <div class="relative">
+            <ToolsCardCollapsible :title="$t('tools.discord.embed.steps.buttons.title')" smallTitle>
+                <TransitionGroup name="fadescale" tag="div" class="flex flex-col gap-4">
+                    <ToolsCardCollapsible
+                        v-for="(component, componentId) in message.components[0].components"
+                        :key="componentId"
+                        class="border-dashed"
+                        :title="`Button n°${ componentId + 1 }`"
+                        noHover
+                        delete
+                        @delete="() => updateField('components', [{
+                            type: 1,
+                            components: message.components[0].components!.filter((_, i) => i !== componentId)
+                        }])"
+                    >
+                        <UIInput
+                            class="mb-4"
+                            :name="`message_${id}_components_${componentId}_label`"
+                            :label="$t('tools.discord.embed.fields.button_label.label')"
+                            :placeholder="$t('tools.discord.embed.fields.button_label.placeholder')"
+                            v-model="component.label"
+                            @change="(value: string) => updateComponent(componentId, 'label', value)"
+                        />
+                        <UIInput
+                            class="mb-4"
+                            :name="`message_${id}_components_${componentId}_url`"
+                            :label="$t('tools.discord.embed.fields.button_url.label')"
+                            :placeholder="$t('tools.discord.embed.fields.button_url.placeholder')"
+                            v-model="component.url"
+                            @change="(value: string) => updateComponent(componentId, 'url', value)"
+                        />
+                    </ToolsCardCollapsible>
+                </TransitionGroup>
+                <UIButton class="w-full mt-8" @click="addButton">
+                    {{ $t('tools.discord.embed.steps.buttons.add') }}
+                </UIButton>
+            </ToolsCardCollapsible>
+            <div class="absolute top-0 left-0 w-full h-full bg-white flex items-center text-center p-24 z-10 bg-opacity-90 border-2 rounded-3xl border-gray-50 backdrop-blur-md font-semibold text-lg">
+                Le webhook dois avoir été créé par un bot pour pouvoir ajouter des boutons.
+            </div>
+        </div>
     </div>
 </template>
 
