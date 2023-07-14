@@ -25,13 +25,20 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	contentStyle: {
+		type: String,
+		default: "",
+	},
 });
 </script>
 
 <template>
 	<div
-		class="overflow-hidden rounded-3xl border-2 bg-white dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900 ease-out duration-300"
-		:class="!noHover && 'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg'"
+		class="overflow-hidden rounded-3xl border-2 bg-white duration-300 ease-out dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900"
+		:class="
+			!noHover &&
+			'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg'
+		"
 	>
 		<div class="relative" :class="!noPb && 'pb-4'" v-if="$slots.header">
 			<div
@@ -42,13 +49,20 @@ defineProps({
 			>
 				<div
 					class="-z-1 absolute left-0 top-0 h-full w-full bg-gradient-radial from-transparent to-white dark:to-primary-900"
+					v-if="headerGrid"
 				></div>
 				<div class="relative z-10">
 					<slot name="header"></slot>
 				</div>
 			</div>
 		</div>
-		<div :class="!$slots.header ? 'p-8' : 'px-8 pb-8'">
+		<div
+			:class="[
+				!$slots.header ? 'p-8' : 'px-8 pb-8',
+				contentStyle && 'duration-300 ease-out',
+			]"
+			:style="contentStyle"
+		>
 			<slot>
 				<h3 class="mb-1 text-lg">{{ title }}</h3>
 				<p class="text-sm text-gray-700">

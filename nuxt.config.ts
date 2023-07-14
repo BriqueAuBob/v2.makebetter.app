@@ -154,6 +154,7 @@ export default defineNuxtConfig({
 		"@nuxtjs/device", // https://nuxt.com/modules/device
 		"@nuxtjs/robots", // https://nuxt.com/modules/robots
 		"nuxt-icons", // https://nuxt.com/modules/icons
+		"nuxt-headlessui", // https://nuxt.com/modules/headlessui
 	],
 
 	plugins: [{ src: "~/plugins/aos", mode: "client" }],
@@ -190,6 +191,7 @@ export default defineNuxtConfig({
 
 	tailwindcss: {
 		viewer: false,
+		exposeConfig: true,
 	},
 
 	colorMode: {
@@ -214,5 +216,9 @@ export default defineNuxtConfig({
 			},
 		],
 		defaultLocale: "fr",
+	},
+
+	headlessui: {
+		prefix: "Headless",
 	},
 });

@@ -42,7 +42,7 @@ const props = defineProps({
 const sizeClasses = computed(
 	() =>
 		({
-			sm: "text-sm py-1 px-3 rounded-xl",
+			sm: "text-sm py-2 px-3 rounded-xl",
 			md: "text-base py-3 px-6 rounded-2xl",
 			lg: "text-lg py-5 px-9 rounded-3xl",
 		}[props.size])
@@ -56,7 +56,7 @@ const colorsClasses = computed(() => {
 						"bg-transparent text-primary-500 border-primary-500",
 					secondary:
 						"bg-transparent text-secondary-500 border-secondary-500",
-					danger: "bg-transparent text-danger-500 border-danger-500",
+					danger: "bg-transparent text-red-500 border-red-500",
 					warning:
 						"bg-transparent text-warning-500 border-warning-500",
 					success:
@@ -75,7 +75,7 @@ const colorsClasses = computed(() => {
 					primary:
 						"bg-primary-500 text-white dark:border-primary-600",
 					secondary: "bg-secondary-500 text-white",
-					danger: "bg-danger-500 text-white",
+					danger: "bg-red-500 text-white",
 					warning: "bg-warning-500 text-white",
 					success: "bg-success-500 text-white",
 					info: "bg-info-500 text-white",
@@ -92,7 +92,7 @@ const hoverClasses = computed(() => {
 	return {
 		primary: "hover:bg-primary-700",
 		secondary: "hover:bg-secondary-700",
-		danger: "hover:bg-danger-700",
+		danger: "hover:bg-red-700",
 		warning: "hover:bg-warning-700",
 		success: "hover:bg-success-700",
 		info: "hover:bg-info-700",
@@ -115,15 +115,16 @@ const component = computed(() => {
 		:href="href"
 		class="inline-block"
 		:class="[
-			'font-display font-semibold duration-300 ease-smooth flex gap-2 items-center justify-center',
+			'flex items-center justify-center gap-2 font-display font-semibold duration-300 ease-smooth',
 			colorsClasses,
 			sizeClasses,
 			disabled && 'cursor-not-allowed opacity-25',
 			color !== 'transparent' && 'border-2',
 			!(disabled || fake || color === 'transparent') &&
 				'hover:-translate-y-1 ' + hoverClasses,
-			(color !== 'transparent' &&
-				!props.outlined && !fake) &&
+			color !== 'transparent' &&
+				!props.outlined &&
+				!fake &&
 				'shadow-sm hover:shadow-lg',
 		]"
 		:disabled="disabled || fake"
