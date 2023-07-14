@@ -12,13 +12,13 @@ defineProps({
 	displayShare: {
 		type: Boolean,
 		default: false,
-	}
+	},
 });
 </script>
 
 <template>
 	<div
-		class="flex rounded-2xl bg-white px-5 py-3 shadow-md shadow-primary-50 dark:bg-primary-700 dark:shadow-primary-800"
+		class="flex items-center rounded-2xl bg-white px-6 py-4 shadow-md shadow-primary-50 dark:bg-primary-700 dark:shadow-primary-800"
 	>
 		<UIAvatar
 			v-for="editor in editors"

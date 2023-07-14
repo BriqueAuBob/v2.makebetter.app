@@ -1,4 +1,6 @@
 {
+	"how_to": "Comment faire?",
+
 	"navigation": {
 		"tools": "Outils",
 		"hiring": "Recrutements",
@@ -15,9 +17,14 @@
 			"load": {
 				"template": "Charger un template publique",
 				"save": "Charger une sauvegarde"
+			},
+
+			"theme": {
+				"title": "Changer le thème",
+				"description": "Regarde le rendu de tes messages avec les différents thèmes de Discord."
 			}
 		},
-		
+
 		"discord": {
 			"embed": {
 				"name": "Créateur d'embeds",
@@ -43,7 +50,8 @@
 					},
 					"buttons": {
 						"title": "Boutons",
-						"add": "Ajouter un bouton"
+						"add": "Ajouter un bouton",
+						"bot": "Le webhook dois avoir été créé par un bot pour pouvoir ajouter des boutons."
 					},
 					"add_message": "Ajouter un message"
 				},
@@ -155,7 +163,9 @@
 		"download": "Télécharger",
 		"make_public": "Rendre public",
 		"send": "Envoyer",
-		"share": "Partager"
+		"share": "Partager",
+		"apply": "Appliquer",
+		"cancel": "Annuler"
 	},
 
 	"banners": {

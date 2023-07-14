@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/auth";
 import { useI18n } from "#i18n";
-import type { NavigationItems, NavigationItem } from '~/types/navigation';
+import type { NavigationItems, NavigationItem } from "~/types/navigation";
 
 const localePath = useLocalePath();
 
@@ -10,6 +10,7 @@ const isDark = computed(() => colorMode.value === "dark");
 
 const toggleDark = () => {
 	colorMode.value = isDark.value ? "light" : "dark";
+	localStorage.setItem("nuxt-color-mode", colorMode.value);
 };
 
 const authUrl = computed(() => {
@@ -32,25 +33,26 @@ const items: NavigationItems = [
 	{
 		label: t("navigation.hiring"),
 		href: "https://umaestro.fr/recrutements",
-		target: "_blank"
+		target: "_blank",
 	},
 ];
-const currentItem = ref<NavigationItem|null>(null)
+const currentItem = ref<NavigationItem | null>(null);
 
 const x = ref(0);
-const megaMenu = ref<HTMLElement|null>(null);
+const megaMenu = ref<HTMLElement | null>(null);
 onMounted(() => {
-	megaMenu.value = document.getElementById('megamenu');
-})
+	megaMenu.value = document.getElementById("megamenu");
+});
 
 const onHover = (e: MouseEvent, item: NavigationItem) => {
-	if(!e.target) return;
+	if (!e.target) return;
 	const target = e.target as HTMLElement;
 	const link = target.parentElement!.getBoundingClientRect();
-	const navbar = target.parentElement!.parentElement!.parentElement!.parentElement!.getBoundingClientRect();
+	const navbar =
+		target.parentElement!.parentElement!.parentElement!.parentElement!.getBoundingClientRect();
 	x.value = link.left - navbar.left + link.width / 2;
-	currentItem.value = item
-}
+	currentItem.value = item;
+};
 </script>
 
 <template>
@@ -69,13 +71,22 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
 			</NuxtLink>
 			<ul class="flex items-center gap-6 text-sm text-gray-300">
 				<li v-for="(item, id) of items" :key="id">
-					<NuxtLink :to="localePath(item?.href)" :target="item?.target" @mouseover="(e) => onHover(e, item)">
+					<NuxtLink
+						:to="localePath(item?.href)"
+						:target="item?.target"
+						@mouseover="(e) => onHover(e, item)"
+					>
 						{{ item.label }}
 					</NuxtLink>
 				</li>
 			</ul>
 			<transition name="fade">
-				<NavigationMegaMenu v-if="currentItem && currentItem.megaMenu" :item="currentItem" :x="x" :y="66" />
+				<NavigationMegaMenu
+					v-if="currentItem && currentItem.megaMenu"
+					:item="currentItem"
+					:x="x"
+					:y="66"
+				/>
 			</transition>
 		</div>
 		<div class="flex items-center gap-8">
