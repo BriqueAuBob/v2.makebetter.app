@@ -32,12 +32,22 @@ type UIModalType = {
 const switcher = ref();
 const current = ref<number>(0);
 const webhook = ref<DiscordWebhook | null>(null);
+
 const themeModal = ref<UIModalType>();
 const colorMode = useColorMode();
 const theme = reactive({
 	current: themes[0],
 	selected: themes[0],
 });
+
+const exportModal = ref<UIModalType>();
+const exportTypes = [
+	"JSON",
+	"Discord.js",
+	"Discord.js - EmbedBuilder()",
+] as const;
+type ExportType = (typeof exportTypes)[number];
+const exportType = ref<ExportType>("JSON");
 
 const defaultMessage: DiscordWebhookMessage = {
 	username: "",
@@ -213,6 +223,18 @@ watch(current, (value) => {
 		top: switcher?.value?.$el?.offsetTop - 16 ?? 0,
 	});
 });
+
+const generatedCode = computed(() => {
+	return generateCode(
+		getDriver(exportType.value),
+		form.messages,
+		form.webhook_url
+	);
+});
+
+const copyCode = () => {
+	navigator.clipboard.writeText(generatedCode.value);
+};
 </script>
 
 <template>
@@ -372,7 +394,42 @@ watch(current, (value) => {
 							<div
 								class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800"
 							>
-								<UIButton color="light"> Exporter </UIButton>
+								<UIButton
+									color="light"
+									@click="() => {
+										($refs.exportModal as UIModalType).setIsOpen(true);
+									}"
+								>
+									{{ $t("buttons.export") }}
+								</UIButton>
+								<UIModal
+									:title="$t('buttons.export')"
+									:description="
+										$t(
+											'tools.discord.embed.export.description'
+										)
+									"
+									ref="exportModal"
+									:okText="
+										$t(
+											'tools.discord.embed.export.copy_code'
+										)
+									"
+									:onApply="copyCode"
+								>
+									<div class="py-2">
+										<UISelect
+											v-model="exportType"
+											name="exportType"
+											label="Format de l'export"
+											:options="exportTypes"
+										/>
+										<UICode
+											class="mt-4"
+											:code="generatedCode"
+										></UICode>
+									</div>
+								</UIModal>
 								<UIButton @click="sendMessage">
 									Envoyer
 									<NuxtIcon name="paper_plane" class="icon" />

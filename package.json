@@ -55,6 +55,7 @@
 		"@nuxtjs/robots": "^3.0.0",
 		"@pinia/nuxt": "^0.4.7",
 		"aos": "^2.3.4",
+		"highlight.js": "^11.8.0",
 		"nuxt-icons": "^3.2.1",
 		"pinia": "^2.0.33",
 		"vue3-carousel": "^0.3.0"
