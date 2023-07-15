@@ -11,6 +11,9 @@ defineProps({
 	onApply: {
 		type: Function,
 	},
+	okText: {
+		type: String,
+	},
 });
 
 function setIsOpen(value: boolean) {
@@ -53,7 +56,7 @@ defineExpose({
 							leave-to="opacity-0 scale-95"
 						>
 							<HeadlessDialogPanel
-								class="min-w-xl w-full transform overflow-hidden rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
+								class="w-full max-w-2xl transform overflow-hidden rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
 							>
 								<HeadlessDialogTitle
 									v-if="title"
@@ -86,7 +89,7 @@ defineExpose({
 											}
 										"
 									>
-										{{ $t("buttons.apply") }}
+										{{ okText || $t("buttons.apply") }}
 									</UIButton>
 								</div>
 							</HeadlessDialogPanel>

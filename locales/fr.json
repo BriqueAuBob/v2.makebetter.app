@@ -35,6 +35,11 @@
 					"global": "Pour commencer à créer ton embed et l'envoyer sur ton serveur, suis les différentes étapes de la création ci-dessous."
 				},
 
+				"export": {
+					"description": "Génère un code qui permettra d'envoyer ton embed via une autre méthode. (JSON, Discord.js, ...)",
+					"copy_code": "Copier le code"
+				},
+
 				"steps": {
 					"load_messages": "Charger un ensemble de messages",
 					"edit_message_id": "Edition du message n°{id}",
@@ -165,7 +170,8 @@
 		"send": "Envoyer",
 		"share": "Partager",
 		"apply": "Appliquer",
-		"cancel": "Annuler"
+		"cancel": "Annuler",
+		"export": "Exporter"
 	},
 
 	"banners": {

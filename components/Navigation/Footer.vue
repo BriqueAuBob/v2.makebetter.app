@@ -1,19 +1,19 @@
 <script setup>
-	const { locale, locales, setLocale } = useI18n()
+const { locale, locales, setLocale } = useI18n();
 
-	const localePath = useLocalePath();
-	const selectLanguage = reactive({
-		locale: locale.value,
-	});
-	async function changeLocale() {
-		await setLocale(selectLanguage.locale)
-		await navigateTo(localePath(useRoute().path));
-	};
+const localePath = useLocalePath();
+const selectLanguage = reactive({
+	locale: locale.value,
+});
+async function changeLocale() {
+	await setLocale(selectLanguage.locale);
+	await navigateTo(localePath(useRoute().path));
+}
 </script>
 
 <template>
 	<footer
-		class="shadow-top2xl bg-footer bg-cover bg-center bg-no-repeat py-24 text-white shadow-primary-500"
+		class="bg-footer bg-cover bg-center bg-no-repeat py-24 text-white shadow-top2xl shadow-primary-500"
 	>
 		<div class="container grid gap-16 lg:grid-cols-5">
 			<div class="col-span-2">
@@ -25,11 +25,19 @@
 					Nous ne sommes pas affiliés avec les services pour lesquels
 					nous proposons des outils.
 				</i>
-				<select class="block bg-primary-500 mt-4 pl-2 pr-8 py-2 rounded-lg" v-model="selectLanguage.locale" @change="changeLocale()">
-					<option v-for="l in locales" :key="l.code" :value="l.code" :selected="locale === l.code">
-						{{ l.name }}
-					</option>
-				</select>
+				<UISelect
+					class="mt-4 max-w-xs"
+					v-model="selectLanguage.locale"
+					@change="changeLocale()"
+					:options="
+						locales.map((l) => ({
+							label: l.name,
+							value: l.code,
+							icon: 'flags/' + l.code,
+						}))
+					"
+					color="white"
+				/>
 				<div class="mt-8 flex gap-4">
 					<a href="https://twitter.com/GUMaestro" target="_blank">
 						<NuxtIcon name="socials/twitter" class="icon big" />
