@@ -1,16 +1,16 @@
 <script setup>
-import { useAuthStore } from "~/stores/auth";
+import { useAuthStore } from '~/stores/auth';
 
 const auth = useAuthStore();
 
 const user = computed(() => (auth.isLoggedIn ? auth.user : {}));
 
 definePageMeta({
-	middleware: "auth",
+    middleware: 'auth',
 });
 </script>
 
 <template>
-	<UIAvatar :user="user" size="lg" />
-	<div>Bonjour {{ user.username }}</div>
+    <UIAvatar :user="user" size="lg" />
+    <div>Bonjour {{ user.username }}</div>
 </template>

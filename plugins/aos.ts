@@ -1,6 +1,6 @@
-import { defineNuxtPlugin } from "nuxt/app";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { defineNuxtPlugin } from 'nuxt/app';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default defineNuxtPlugin((nuxtApp) => {
     if (typeof window === 'undefined') return;
