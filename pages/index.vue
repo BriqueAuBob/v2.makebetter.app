@@ -79,9 +79,9 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                 <strong>{{ $t('homepage.collaborative.description.in_real_time') }}</strong>
             </i18n-t>
             <UIGroupCollapse :elements="collapsibleElements" />
-            <UIButton data-aos="bounce" class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
+            <UIButton class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
         </div>
-        <div class="relative" data-aos="bounce">
+        <div class="relative">
             <div
                 class="absolute left-1/2 top-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 to-primary-300 opacity-25 blur-3xl"
             ></div>
@@ -100,7 +100,6 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                 :header-grid="true"
                 :title="$t('homepage.share.collaborators.title')"
                 :description="$t('homepage.share.collaborators.description')"
-                data-aos="bounce"
             >
                 <template #header>
                     <div class="mx-auto flex max-w-sm flex-col gap-4">
@@ -122,7 +121,6 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                 :header-grid="true"
                 :title="$t('homepage.share.public.title')"
                 :description="$t('homepage.share.public.description')"
-                data-aos="bounce"
             >
                 <template #header>
                     <div class="mx-auto flex max-w-sm gap-4">
@@ -150,7 +148,7 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
             {{ $t('homepage.need_help') }}
         </h1>
         <div class="mt-8 grid grid-cols-3 gap-6">
-            <CardArticle v-for="i in 6" data-aos="bounce" :data-aos-offset="100 + i * 100"></CardArticle>
+            <CardArticle v-for="i in 6" :data-aos-offset="100 + i * 100"></CardArticle>
         </div>
         <div class="flex justify-center">
             <UIButton class="mt-12" color="color-mode">
@@ -174,7 +172,6 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                 :key="id"
                 :author="testimonial.author"
                 :content="testimonial.message"
-                data-aos="bounce"
                 :data-aos-offset="100 + id * 100"
             ></CardReview>
         </div>

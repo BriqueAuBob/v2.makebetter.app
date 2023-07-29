@@ -70,7 +70,7 @@ body {
 }
 
 .circle {
-    @apply absolute z-0 rounded-full bg-primary-500 bg-opacity-50;
+    @apply absolute z-0 rounded-full bg-primary-300 dark:bg-primary-700;
     width: 200px;
     height: 200px;
     filter: blur(84px);
@@ -112,6 +112,17 @@ body {
 .fadescale-leave-to {
     opacity: 0;
     transform: translateY(8px) scale(0.95);
+}
+
+.fadescalebottom-enter-active,
+.fadescalebottom-leave-active {
+    transition: all 0.5s ease;
+}
+
+.fadescalebottom-enter-from,
+.fadescalebottom-leave-to {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.95);
 }
 
 [data-aos^='zoom'][data-aos^='zoom'],

@@ -96,46 +96,44 @@ watch(
                 <button class="rounded-xl border px-4 py-2 text-xs text-gray-400">Upload</button>
             </div>
         </div>
-        <div
-            class="mx-8 rounded-b-3xl border-x-2 border-b-2 border-dashed border-gray-200 bg-gray-50 px-6 pb-6 pt-4 shadow-sm dark:border-primary-800 dark:bg-primary-900"
-        >
-            <div class="text-sm font-semibold text-gray-400">Files uploaded</div>
+        <Transition name="fadescalebottom">
             <div
-                class="mt-2 flex items-center gap-3"
-                v-for="file of form.files"
                 v-if="form.files?.length && form.files?.length > 0"
+                class="mx-8 rounded-b-3xl border-x-2 border-b-2 border-dashed border-gray-200 bg-gray-50 px-6 pb-6 pt-4 shadow-sm dark:border-primary-800 dark:bg-primary-900"
             >
-                <div class="rounded-xl bg-gray-200 p-2 dark:bg-primary-800">
-                    <img
-                        v-if="['png', 'jpeg', 'jpg'].includes(getFileExtension(file))"
-                        :src="imageUrl(file)"
-                        class="aspect-square h-16 w-16 rounded-lg object-cover"
-                    />
-                    <div v-else class="relative">
-                        <NuxtIcon class="icon xl text-gray-600" name="file" />
-                        <div
-                            class="absolute left-1 top-6 rounded-lg px-2 py-1 text-xs font-bold text-white"
-                            :class="fileExtensionColor(file)"
-                        >
-                            {{ getFileExtension(file) }}
+                <div class="text-sm font-semibold text-gray-400">Files uploaded</div>
+                <div class="mt-2 flex items-center gap-3" v-for="file of form.files">
+                    <div class="rounded-xl bg-gray-200 p-2 dark:bg-primary-800">
+                        <img
+                            v-if="['png', 'jpeg', 'jpg'].includes(getFileExtension(file))"
+                            :src="imageUrl(file)"
+                            class="aspect-square h-16 w-16 rounded-lg object-cover"
+                        />
+                        <div v-else class="relative">
+                            <NuxtIcon class="icon xl text-gray-600" name="file" />
+                            <div
+                                class="absolute left-1 top-6 rounded-lg px-2 py-1 text-xs font-bold text-white"
+                                :class="fileExtensionColor(file)"
+                            >
+                                {{ getFileExtension(file) }}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="text-md overflow-hidden overflow-ellipsis font-semibold text-gray-600">
-                        {{ file.name }}
+                    <div>
+                        <div class="text-md overflow-hidden overflow-ellipsis font-semibold text-gray-600">
+                            {{ file.name }}
+                        </div>
+                        <div class="mt-1 text-xs text-gray-400">{{ fileSize(file) }}</div>
                     </div>
-                    <div class="mt-1 text-xs text-gray-400">{{ fileSize(file) }}</div>
-                </div>
-                <div class="ml-auto">
-                    <NuxtIcon
-                        @click="removeFile(file)"
-                        class="icon text-gray-400 duration-200 ease-out hover:text-red-500"
-                        name="trash"
-                    />
+                    <div class="ml-auto">
+                        <NuxtIcon
+                            @click="removeFile(file)"
+                            class="icon text-gray-400 duration-200 ease-out hover:text-red-500"
+                            name="trash"
+                        />
+                    </div>
                 </div>
             </div>
-            <div v-else>No files uploaded</div>
-        </div>
+        </Transition>
     </div>
 </template>
