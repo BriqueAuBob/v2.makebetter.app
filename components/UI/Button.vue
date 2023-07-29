@@ -68,6 +68,8 @@ const colorsClasses = computed(() => {
             return (
                 {
                     primary: 'bg-primary-500 text-white dark:border-primary-600',
+                    // primary:
+                    //     'bg-gradient-to-b from-primary-500 to-primary-00 hover:brightness-125 text-white dark:border-primary-600',
                     secondary: 'bg-secondary-500 text-white',
                     danger: 'bg-red-500 text-white',
                     warning: 'bg-warning-500 text-white',
@@ -83,7 +85,7 @@ const colorsClasses = computed(() => {
 });
 const hoverClasses = computed(() => {
     return {
-        primary: 'hover:bg-primary-700',
+        primary: 'hover:bg-primary-400',
         secondary: 'hover:bg-secondary-700',
         danger: 'hover:bg-red-700',
         warning: 'hover:bg-warning-700',
