@@ -68,7 +68,11 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
             </NuxtLink>
             <ul class="flex items-center gap-6 text-sm text-gray-300">
                 <li v-for="(item, id) of items" :key="id">
-                    <NuxtLink :to="localePath(item?.href)" :target="item?.target" @mouseover="(e) => onHover(e, item)">
+                    <NuxtLink
+                        :to="localePath(item?.href)"
+                        :target="item?.target"
+                        @mouseover="(e: MouseEvent) => onHover(e, item)"
+                    >
                         {{ item.label }}
                     </NuxtLink>
                 </li>

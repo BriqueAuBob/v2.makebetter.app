@@ -47,7 +47,7 @@
                     "content": "Contenu du message",
                     "embed": {
                         "author": "Auteur de l'embed",
-                        "images": "Images",
+                        "images": "Images de l'embed",
                         "body": "Corps de l'embed",
                         "footer": "Footer de l'embed",
                         "fields": "Champs de l'embed",
