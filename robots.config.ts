@@ -4,8 +4,8 @@ import { appVersion, prodUrl, devUrl } from './main.config';
 export default [
     { UserAgent: '*' },
     { Disallow: '/legal/' },
-	{ CrawlDelay: 60 },
+    { CrawlDelay: 60 },
     { BlankLine: true },
-	{ Host: process.env.NODE_ENV === 'development' ? devUrl : prodUrl },
+    { Host: process.env.NODE_ENV === 'development' ? devUrl : prodUrl },
     { Sitemap: `${process.env.NODE_ENV === 'development' ? devUrl : prodUrl}/${appVersion}/static/sitemap.xml` },
-]
+];

@@ -11,7 +11,7 @@ const props = defineProps({
     delete: {
         type: Boolean,
         default: false,
-    }
+    },
 });
 
 const isCollapsed = ref(props.collapse);
@@ -33,12 +33,14 @@ defineEmits(['delete']);
                 <div class="flex gap-2">
                     <NuxtIcon
                         v-if="delete"
-                        class="icon duration-200 text-red-500 ease-smooth"
+                        class="icon text-red-500 duration-200 ease-smooth"
                         name="trash"
-                        @click="(e) => {
-                            e.stopPropagation();
-                            $emit('delete');
-                        }"
+                        @click="
+                            (e) => {
+                                e.stopPropagation();
+                                $emit('delete');
+                            }
+                        "
                     ></NuxtIcon>
                     <NuxtIcon
                         class="icon duration-200 ease-smooth"
@@ -48,9 +50,9 @@ defineEmits(['delete']);
                 </div>
             </div>
         </template>
-        <div 
-            class="duration-300 ease-out" 
-            :class="isCollapsed ? 'max-h-0 overflow-hidden -mt-8 opacity-0' : 'mt-4 mb-2'"
+        <div
+            class="duration-300 ease-out"
+            :class="isCollapsed ? '-mt-8 max-h-0 overflow-hidden opacity-0' : 'mb-2 mt-4'"
         >
             <slot></slot>
         </div>

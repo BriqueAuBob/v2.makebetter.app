@@ -1,5 +1,5 @@
 export type User = {
-	username: string;
-	discriminator: number;
-	avatar: string;
+    username: string;
+    discriminator: number;
+    avatar: string;
 };

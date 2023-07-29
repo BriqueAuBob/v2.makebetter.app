@@ -1,3 +1,1 @@
-<template>
-    Coucou
-</template>
+<template>Coucou</template>

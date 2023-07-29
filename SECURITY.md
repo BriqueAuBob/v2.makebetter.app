@@ -4,10 +4,10 @@
 
 ## Supported Versions
 
-| Version      | Supported          |
-| ------------ | :----------------: |
-| `2.0.x`-stable | ✅ |
-| `1.x.x`-stable | ❌ |
+| Version        | Supported |
+| -------------- | :-------: |
+| `2.0.x`-stable |    ✅     |
+| `1.x.x`-stable |    ❌     |
 
 ---
 

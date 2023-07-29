@@ -6,6 +6,6 @@ export type ToolCategory = {
     name: string;
     slug: string;
     color: HexColor | RGBColor;
-}
+};
 
 export type ToolCategories = Array<ToolCategory>;
