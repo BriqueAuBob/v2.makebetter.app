@@ -48,6 +48,9 @@ module.exports = {
                 1: '1deg',
                 2: '2deg',
             },
+            zIndex: {
+                '-1': '-1',
+            },
         },
     },
     plugins: [
