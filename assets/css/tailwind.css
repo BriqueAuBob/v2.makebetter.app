@@ -168,6 +168,10 @@ body {
     margin-bottom: 0 !important;
 }
 
+div[aria-alive='assertive'] {
+    z-index: 9999 !important;
+}
+
 @keyframes circle {
     0% {
         left: -20%;
