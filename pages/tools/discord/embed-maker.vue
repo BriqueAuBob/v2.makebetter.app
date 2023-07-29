@@ -52,6 +52,7 @@ const defaultMessage: DiscordWebhookMessage = {
             components: [],
         },
     ],
+    files: null,
 };
 
 const form = reactive({
@@ -72,7 +73,7 @@ onMounted(() => {
                 title: 'MakeBetter',
                 description:
                     'MakeBetter est un bot Discord qui permet de faire des sondages, des giveaways, des quiz et bien plus encore !',
-                url: 'https://makebetter.xyz',
+                url: 'https://makebetter.app',
                 color: _primary['500'],
                 fields: [],
                 author: {
@@ -145,17 +146,23 @@ const removeEmptyFields = (object: any) => {
 
 const sendMessage = async () => {
     for (const message of form.messages) {
+        const formMessage = new FormData();
         const messageCopy = JSON.parse(JSON.stringify(message));
         removeEmptyFields(messageCopy);
         if (messageCopy.components[0].components.length === 0) {
             delete messageCopy.components;
         }
+        formMessage.append('payload_json', JSON.stringify(messageCopy));
+        if (message.files) {
+            let i = 0;
+            for (const file of message.files) {
+                formMessage.append(`file${i}`, await transformFileIntoBlob(file as File), (file as File).name);
+                i++;
+            }
+        }
         await fetch(form.webhook_url + '?wait=true', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(messageCopy),
+            body: formMessage,
         });
     }
 };

@@ -139,7 +139,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
             longText
             @change="(value: string) => updateField('content', value)"
         />
-        <UIFileUploader placeholder="Upload a file" />
+        <UIFileUploader placeholder="Upload a file" v-model="message.files" />
         <ToolsCardCollapsible collapse title="Embeds" noHover>
             <TransitionGroup name="fadescale" tag="div" class="flex flex-col gap-4">
                 <ToolsCardCollapsible
@@ -180,6 +180,22 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.author_url.label')"
                             :placeholder="$t('tools.discord.embed.fields.author_url.placeholder')"
                             @change="(value: string) => updateEmbedField(embedId, 'author.url', value)"
+                        />
+                    </UICollapse>
+                    <UICollapse :title="$t('tools.discord.embed.steps.embed.images')" smallTitle>
+                        <UIInput
+                            class="mb-4"
+                            :name="`thumbnail_message_${id}_embed_${embedId}`"
+                            :label="$t('tools.discord.embed.fields.thumbnail.label')"
+                            placeholder="https://imageplaceholder.com/image.jpg"
+                            @change="(value: string) => updateEmbedField(embedId, 'thumbnail.url', value)"
+                        />
+                        <UIInput
+                            class="mb-4"
+                            :name="`image_url_message_${id}_embed_${embedId}`"
+                            :label="$t('tools.discord.embed.fields.image.label')"
+                            placeholder="https://imageplaceholder.com/image.jpg"
+                            @change="(value: string) => updateEmbedField(embedId, 'image.url', value)"
                         />
                     </UICollapse>
                     <UICollapse :title="$t('tools.discord.embed.steps.embed.body')" smallTitle>
