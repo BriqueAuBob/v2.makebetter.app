@@ -154,7 +154,8 @@ export default defineNuxtConfig({
         '@nuxtjs/device', // https://nuxt.com/modules/device
         '@nuxtjs/robots', // https://nuxt.com/modules/robots
         'nuxt-icons', // https://nuxt.com/modules/icons
-        'nuxt-headlessui', // https://nuxt.com/modules/headlessui
+        'nuxt-headlessui', // https://nuxt.com/modules/headlessui,
+        '@tailvue/nuxt', // https://nuxt.com/modules/tailvue
     ],
 
     plugins: [{ src: '~/plugins/aos', mode: 'client' }],
