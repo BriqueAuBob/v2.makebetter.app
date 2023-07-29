@@ -37,7 +37,11 @@
 
                 "export": {
                     "description": "Génère un code qui permettra d'envoyer ton embed via une autre méthode. (JSON, Discord.js, ...)",
-                    "copy_code": "Copier le code"
+                    "copy_code": "Copier le code",
+                    "copied": {
+                        "title": "Code copié!",
+                        "message": "Le code de ton message a été copié dans ton presse-papier. | Le code de tes messages a été copié dans ton presse-papier."
+                    }
                 },
 
                 "steps": {

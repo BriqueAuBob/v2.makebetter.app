@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useNuxtApp } from '#app';
 import { _primary } from '#tailwind-config/theme/colors';
 import type { DiscordWebhookMessage, DiscordWebhook, Component } from 'types/discord';
 import { themes, ThemeType } from '@/composables/discordThemes';
 
 const MessageEdition = resolveComponent('ToolsDiscordEmbedMakerMessageEdition');
 const { t } = useI18n();
+const { $toast } = useNuxtApp();
 
 const editors = [
     {
@@ -218,6 +220,12 @@ const generatedCode = computed(() => {
 
 const copyCode = () => {
     navigator.clipboard.writeText(generatedCode.value);
+    $toast.show({
+        title: t('tools.discord.embed.export.copied.title'),
+        message: t('tools.discord.embed.export.copied.message', form.messages.length),
+        type: 'success',
+        timeout: 8,
+    });
     return true;
 };
 </script>
