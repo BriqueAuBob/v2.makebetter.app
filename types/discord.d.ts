@@ -55,6 +55,7 @@ export type DiscordWebhookMessage = {
     content: string;
     embeds: Embed[];
     components: Component[];
+    files: FileList | null;
 };
 
 export type DiscordWebhook = {

@@ -47,6 +47,7 @@
                     "content": "Contenu du message",
                     "embed": {
                         "author": "Auteur de l'embed",
+                        "images": "Images",
                         "body": "Corps de l'embed",
                         "footer": "Footer de l'embed",
                         "fields": "Champs de l'embed",
@@ -112,12 +113,10 @@
                         "placeholder": "Timestamp de l'embed"
                     },
                     "image": {
-                        "label": "Image",
-                        "placeholder": "URL de l'image"
+                        "label": "Image"
                     },
                     "thumbnail": {
-                        "label": "Thumbnail",
-                        "placeholder": "URL du thumbnail"
+                        "label": "Miniature"
                     },
                     "author": {
                         "label": "Auteur",

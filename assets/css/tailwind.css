@@ -1,6 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
+@font-face {
+    font-family: 'Whitney';
+    src: url('~/assets/fonts/whitney-300.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whitney';
+    src: url('~/assets/fonts/whitney-400.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whitney';
+    src: url('~/assets/fonts/whitney-500.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whitney';
+    src: url('~/assets/fonts/whitney-600.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Whitney';
+    src: url('~/assets/fonts/whitney-700.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,12 +53,20 @@ body {
     @apply overflow-x-hidden;
 }
 
+.font-whitney {
+    font-family: 'Whitney', sans-serif;
+}
+
 .icon {
     @apply text-2xl;
 }
 
 .icon.big {
     @apply text-4xl;
+}
+
+.icon.xl {
+    @apply text-6xl;
 }
 
 .circle {
