@@ -162,9 +162,27 @@ const sendMessage = async () => {
                 i++;
             }
         }
-        await fetch(form.webhook_url + '?wait=true', {
+        await $fetch(form.webhook_url + '?wait=true', {
             method: 'POST',
             body: formMessage,
+        }).catch((err) => {
+            const data = err.data;
+            if (data) {
+                for (const error of Object.values(data)) {
+                    $toast.show({
+                        title: t('errors.encountered'),
+                        message: error as string,
+                        type: 'danger',
+                        timeout: 5,
+                    });
+                }
+            } else {
+                $toast.show({
+                    title: t('errors.encountered'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+            }
         });
     }
 };
