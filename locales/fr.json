@@ -1,4 +1,8 @@
 {
+    "errors": {
+        "encountered": "Une erreur est survenue."
+    },
+
     "how_to": "Comment faire?",
 
     "navigation": {
