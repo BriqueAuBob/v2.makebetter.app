@@ -11,6 +11,8 @@ defineProps({
         default: '*',
     },
     modelValue: {
+        type: Array as unknown as () => FileList | null,
+        required: false,
         default: [],
     },
 });

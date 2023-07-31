@@ -37,10 +37,7 @@ const createObjectURL = (file: File): string => {
                 <TransitionGroup v-if="message.files" name="fadescale" tag="div" class="flex flex-col gap-1">
                     <div v-for="(file, id) of message.files" :key="id">
                         <div v-if="file.type.startsWith('image') && file.type !== 'image/svg+xml'">
-                            <img
-                                class="max-h-[300px] max-w-[400px] cursor-pointer rounded-md"
-                                :src="createObjectURL(file)"
-                            />
+                            <img class="max-h-[300px] cursor-pointer rounded-md" :src="createObjectURL(file)" />
                         </div>
                         <div
                             v-else

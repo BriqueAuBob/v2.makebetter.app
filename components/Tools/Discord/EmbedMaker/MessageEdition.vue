@@ -313,7 +313,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                 }}
             </UIButton>
         </ToolsCardCollapsible>
-        <div class="relative" :class="!webhookCreatedByBot && 'p-12'">
+        <div class="relative pb-12 lg:pb-12" :class="!webhookCreatedByBot && 'p-12'">
             <ToolsCardCollapsible collapse :title="$t('tools.discord.embed.steps.buttons.title')" smallTitle>
                 <TransitionGroup name="fadescale" tag="div" class="flex flex-col gap-4">
                     <ToolsCardCollapsible
@@ -352,11 +352,14 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                 </UIButton>
             </ToolsCardCollapsible>
             <div
-                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center gap-4 rounded-3xl border-2 border-dashed border-gray-100 bg-white bg-opacity-90 text-center text-lg font-semibold backdrop-blur-md dark:border-primary-700 dark:bg-primary-800 lg:px-24"
+                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-gray-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-primary-700 dark:bg-primary-800 lg:flex-row lg:items-center lg:justify-center lg:gap-8 lg:p-10"
                 v-if="!webhookCreatedByBot"
             >
-                {{ $t('tools.discord.embed.steps.buttons.bot') }}
-                <UIButton size="md" color="light">{{ $t('how_to') }}</UIButton>
+                <nuxt-img src="/images/tools/discord/bot.png" class="w-12 lg:w-auto" />
+                <div class="text-primary-400">
+                    {{ $t('tools.discord.embed.steps.buttons.bot') }}
+                    <UIButton class="mt-2" size="sm" color="light">{{ $t('how_to') }}</UIButton>
+                </div>
             </div>
         </div>
     </div>

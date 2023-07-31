@@ -35,6 +35,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     });
 
     setTimeout(() => {
+        if (process.server) return;
         if (cookieBeta.value) return;
         $toast.show({
             title: 'Confidentialité',

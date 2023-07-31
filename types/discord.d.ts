@@ -66,4 +66,10 @@ export type DiscordWebhook = {
     channel_id: string;
     guild_id: string;
     application_id: string | null;
+    channel?: DiscordChannel | null;
+};
+
+export type DiscordChannel = {
+    name: string;
+    type: 0 | 15;
 };
