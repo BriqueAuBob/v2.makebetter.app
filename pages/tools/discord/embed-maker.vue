@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNuxtApp } from '#app';
 import { _primary } from '#tailwind-config/theme/colors';
-import type { DiscordWebhookMessage, DiscordWebhook, Component } from 'types/discord';
+import type { DiscordWebhookMessage, DiscordWebhook, Component, DiscordChannel } from 'types/discord';
 import { themes, ThemeType } from '@/composables/discordThemes';
 
 const MessageEdition = resolveComponent('ToolsDiscordEmbedMakerMessageEdition');
@@ -195,7 +195,7 @@ const fetchWebhook = () => {
         },
     })
         .then((res) => res.json())
-        .then((data: DiscordWebhook) => {
+        .then(async (data: DiscordWebhook) => {
             webhook.value = data;
             for (const message of form.messages) {
                 if (!message.username || message.username === '') {
@@ -204,6 +204,15 @@ const fetchWebhook = () => {
                 if (!message.avatar_url) {
                     message.avatar_url = data.avatar ?? 'http://localhost:3333/images/tools/discord/default_avatar.png';
                 }
+            }
+            if (data.channel_id) {
+                const { channel } = (await $fetchApi('/discord/channels/' + data.channel_id)) as {
+                    channel: DiscordChannel;
+                };
+                webhook.value = {
+                    ...webhook.value,
+                    channel,
+                };
             }
         });
 };
@@ -268,7 +277,7 @@ const copyCode = () => {
                 </div>
                 <ToolsEditors :editors="editors" :displayShare="true" />
             </div>
-            <div class="grid grid-cols-2 gap-8 pt-12">
+            <div class="grid gap-8 pt-12 md:grid-cols-2">
                 <div class="flex flex-col gap-12">
                     <div>
                         <div class="mb-2 font-display text-lg font-semibold">
@@ -368,6 +377,7 @@ const copyCode = () => {
                         </TransitionGroup>
                         <template #footer>
                             <div class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800">
+                                {{ webhook?.channel?.name }}
                                 <UIButton
                                     color="light"
                                     @click="() => {

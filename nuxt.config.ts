@@ -2,6 +2,12 @@
 import { appVersion, prodUrl, devUrl } from './main.config';
 
 export default defineNuxtConfig({
+    runtimeConfig: {
+        public: {
+            baseUrl: 'https://api.umaestro.fr/',
+        },
+    },
+
     app: {
         head: {
             title: `MakeBetter.app`,
