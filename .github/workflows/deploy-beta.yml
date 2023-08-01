@@ -7,16 +7,15 @@ jobs:
     test-application:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - name: Test Application
-              uses: actions/setup-node@v3
+            - uses: actions/checkout@v2
+            - name: Install dependencies
+              uses: actions/setup-node@v2
               with:
-                node-version: "16.13.0"
-                cache: 'yarn'
-            - run: |
-              yarn
-              yarn build
-              yarn ci:test
+                  node-version: '16.13.0'
+                  cache: 'yarn'
+            - run: yarn
+            - run: yarn build
+            - run: yarn ci:test
 
     create-deployment-artifacts:
         needs: test-application
@@ -26,7 +25,7 @@ jobs:
             - name: Build App Artifacts
               uses: actions/setup-node@v3
               with:
-                  node-version: "16.13.0"
+                  node-version: '16.13.0'
                   cache: 'yarn'
             - run: |
                   touch .env
