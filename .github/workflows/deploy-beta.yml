@@ -93,7 +93,7 @@ jobs:
                   envs: RELEASE_PATH,ACTIVE_RELEASE_PATH
                   script: |
                       ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-                      chown -R www-data:www-data ${RELEASE_PATH}
+                      sudo chown -R www-data:www-data ${RELEASE_PATH}
 
     clean-up:
         name: 'Clean up old versions'
