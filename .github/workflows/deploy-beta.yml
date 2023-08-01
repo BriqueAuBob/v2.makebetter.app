@@ -9,14 +9,14 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Test Application
-                uses: actions/setup-node@v3
-                with:
-                node-version: 16.13.0
-                cache: 'yarn'
+			  uses: actions/setup-node@v3
+			  with:
+			    node-version: 16.13.0
+			    cache: 'yarn'
             - run: |
-                yarn
-                yarn build
-                yarn ci:test
+              yarn
+			  yarn build
+			  yarn ci:test
 
     create-deployment-artifacts:
         needs: test-application
