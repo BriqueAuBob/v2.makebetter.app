@@ -4,7 +4,8 @@ import { appVersion, prodUrl, devUrl } from './main.config';
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
-            baseUrl: 'https://api.umaestro.fr/',
+            baseUrl: process.env.API_BASE_URL,
+            gitHash: process.env.GIT_SHA,
         },
     },
 
@@ -206,7 +207,7 @@ export default defineNuxtConfig({
     },
 
     i18n: {
-        baseUrl: 'https://makebetter.app/',
+        baseUrl: process.env.BASE_URL,
         langDir: 'locales/',
         locales: [
             {

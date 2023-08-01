@@ -1,5 +1,6 @@
 <script setup>
 const { locale, locales, setLocale } = useI18n();
+const config = useRuntimeConfig();
 
 const localePath = useLocalePath();
 const selectLanguage = reactive({
@@ -20,6 +21,7 @@ async function changeLocale() {
                 <i class="text-sm font-semibold text-gray-400">
                     Nous ne sommes pas affiliés avec les services pour lesquels nous proposons des outils.
                 </i>
+                <p class="mt-1 text-xs italic text-gray-600">{{ config.public.gitHash }}</p>
                 <UISelect
                     class="mt-4 max-w-xs"
                     v-model="selectLanguage.locale"
