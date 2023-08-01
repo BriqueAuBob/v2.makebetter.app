@@ -31,6 +31,7 @@ const switcher = ref();
 const current = ref<number>(0);
 const webhook = ref<DiscordWebhook | null>(null);
 
+const channelModal = ref<UIModalType>();
 const themeModal = ref<UIModalType>();
 const colorMode = useColorMode();
 const theme = reactive({
@@ -61,6 +62,8 @@ const form = reactive({
     webhook_url:
         'https://discord.com/api/webhooks/1127532943238246440/6Bi9R6ynUV9Zu9aZrukyB4VHU-Zikv2RaV4nIFOrVJCQ9Nia0I4sbAc33YW33HYxQ_dR',
     messages: [] as DiscordWebhookMessage[],
+    thread_name: '',
+    thread_id: '',
 });
 
 onMounted(() => {
@@ -154,6 +157,7 @@ const sendMessage = async () => {
         if (messageCopy.components[0].components.length === 0) {
             delete messageCopy.components;
         }
+        messageCopy.thread_name = form.thread_name;
         formMessage.append('payload_json', JSON.stringify(messageCopy));
         if (message.files) {
             let i = 0;
@@ -162,7 +166,7 @@ const sendMessage = async () => {
                 i++;
             }
         }
-        await $fetch(form.webhook_url + '?wait=true', {
+        await $fetch(form.webhook_url + '?wait=true' + (form.thread_id ? `&thread_id=${form.thread_id}` : ''), {
             method: 'POST',
             body: formMessage,
         }).catch((err) => {
@@ -377,8 +381,8 @@ const copyCode = () => {
                         </TransitionGroup>
                         <template #footer>
                             <div class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800">
-                                {{ webhook?.channel?.name }}
                                 <UIButton
+                                    size="sm"
                                     color="light"
                                     @click="() => {
 										($refs.exportModal as UIModalType).setIsOpen(true);
@@ -403,10 +407,75 @@ const copyCode = () => {
                                         <UICode class="mt-4" :code="generatedCode"></UICode>
                                     </div>
                                 </UIModal>
-                                <UIButton @click="sendMessage">
-                                    Envoyer
-                                    <NuxtIcon name="paper_plane" class="icon" />
-                                </UIButton>
+                                <UIGroupButton>
+                                    <UIButton size="sm" @click="sendMessage">
+                                        Envoyer
+                                        <NuxtIcon name="paper_plane" class="icon" />
+                                    </UIButton>
+                                    <HeadlessMenu as="div" class="relative z-20">
+                                        <HeadlessMenuButton
+                                            class="rounded-r-2xl border-2 border-gray-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-primary-600"
+                                        >
+                                            <NuxtIcon name="chevron/down" class="icon" />
+                                        </HeadlessMenuButton>
+                                        <transition
+                                            enter-active-class="transition duration-100 ease-out"
+                                            enter-from-class="transform scale-95 opacity-0"
+                                            enter-to-class="transform scale-100 opacity-100"
+                                            leave-active-class="transition duration-75 ease-in"
+                                            leave-from-class="transform scale-100 opacity-100"
+                                            leave-to-class="transform scale-95 opacity-0"
+                                        >
+                                            <HeadlessMenuItems
+                                                class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                            >
+                                                <HeadlessMenuItem v-slot="{ active }">
+                                                    <button
+                                                        :class="[
+                                                            active ? 'bg-primary-500 text-white' : 'text-gray-900',
+                                                            'group flex w-full cursor-pointer items-center rounded-md px-2 py-2 text-sm',
+                                                        ]"
+                                                        @click="() => {
+															($refs.channelModal as UIModalType).setIsOpen(true);
+														}"
+                                                    >
+                                                        Send in a thread
+                                                    </button>
+                                                </HeadlessMenuItem>
+                                                <HeadlessMenuItem v-slot="{ active }">
+                                                    <button
+                                                        :class="[
+                                                            active ? 'bg-primary-500 text-white' : 'text-gray-900',
+                                                            'group flex w-full cursor-pointer items-center rounded-md px-2 py-2 text-sm',
+                                                        ]"
+                                                        @click="sendMessage"
+                                                    >
+                                                        Send normally
+                                                    </button>
+                                                </HeadlessMenuItem>
+                                            </HeadlessMenuItems>
+                                        </transition>
+                                    </HeadlessMenu>
+                                    <UIModal
+                                        :title="$t('tools.discord.embed.send_in_thread.title')"
+                                        :description="$t('tools.discord.embed.send_in_thread.description')"
+                                        ref="channelModal"
+                                        :onApply="sendMessage"
+                                    >
+                                        <UIInput
+                                            v-model="form.thread_id"
+                                            placeholder="thread id"
+                                            name="threadId"
+                                            label="Thread ID"
+                                        />
+                                        <UIInput
+                                            v-model="form.thread_name"
+                                            placeholder="thread name"
+                                            name="threadName"
+                                            label="Thread name"
+                                        />
+                                    </UIModal>
+                                </UIGroupButton>
                             </div>
                         </template>
                     </UICard>
