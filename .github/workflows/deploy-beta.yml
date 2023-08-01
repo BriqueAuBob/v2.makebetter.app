@@ -38,12 +38,12 @@ jobs:
                       mkdir .output
                       tar -xzf "${{ github.sha }}".tar.gz -C .output
             - uses: actions/checkout@v2
-			  with:
-				  fetch-depth: 0
-			- run: |
-				pm2 delete makebetter-beta
-				cd /var/www/.output/server
-				pm2 start index.mjs --name "makebetter-beta"
+              with:
+                  fetch-depth: 0
+            - run: |
+                  pm2 delete makebetter-beta
+                  cd /var/www/.output/server
+                  pm2 start index.mjs --name "makebetter-beta"
 
             - uses: rjstone/discord-webhook-notify@v1
               if: success()
