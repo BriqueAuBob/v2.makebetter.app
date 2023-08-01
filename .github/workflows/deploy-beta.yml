@@ -4,61 +4,107 @@ on:
         branches: [beta]
 
 jobs:
-    build:
-        runs-on: self-hosted
+    create-deployment-artifacts:
+        needs: test-application
+        runs-on: ubuntu-latest
         steps:
-            - uses: rjstone/discord-webhook-notify@v1
+            - uses: actions/checkout@v3
+            - name: Build App Artifacts
+              uses: actions/setup-node@v3
               with:
-                  severity: info
-                  details: Deployment started...
-                  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-            - uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0
+                  node-version: 16.13.0
+                  cache: 'yarn'
             - run: |
                   touch .env
-                  echo "APP_ENV=beta" >> .env
+ 				  echo "APP_ENV=beta" >> .env
                   echo "BASE_URL=https://beta.makebetter.app" >> .env
                   echo "API_BASE_URL=https://api.umaestro.fr" >> .env
                   echo "GIT_SHA=${{ github.sha }}" >> .env
-                  npm install
-                  npm run build
+                  yarn
+                  yarn build
                   cp .env .output/server/.env
                   tar -czf "${GITHUB_SHA}".tar.gz .output
-                  sudo mv "${GITHUB_SHA}".tar.gz /var/www/beta_makebetter
-                  cd ..
-                  rm -rf beta_makebetter_new
-                  cp -r beta_makebetter beta_makebetter_new
-                  cd beta_makebetter_new
-                  git checkout main
-                  git reset --hard origin/main
-                  git pull
-                  npm rebuild
-                  npm install
-                  npm run build
-                  cd ../
-                  mv beta_makebetter beta_makebetter_old
-                  mv beta_makebetter_new beta_makebetter
-                  cd beta_makebetter
-                  pm2 delete makebetter-beta
-                  pm2 start
-                  rm -rf ../beta_makebetter_old
+            - name: Store app-artifacts for distribution
+              uses: actions/upload-artifact@v3
+              with:
+                  name: app-artifacts
+                  path: ${{ github.sha }}.tar.gz
 
-            - uses: rjstone/discord-webhook-notify@v1
-              if: success()
+    prepare-release-on-servers:
+        needs: create-deployment-artifacts
+        name: 'Prepare release on INT server'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/download-artifact@v3
               with:
-                  severity: info
-                  details: Nouvelle version déployée avec succès! 🪄
-                  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-            - uses: rjstone/discord-webhook-notify@v1
-              if: failure()
+                  name: app-artifacts
+            - uses: actions/download-artifact@v3
               with:
-                  severity: error
-                  details: Une erreur est survenue...
-                  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-            - uses: rjstone/discord-webhook-notify@v1
-              if: cancelled()
+                  name: database-artifacts
+            - name: Upload app-artifacts
+              uses: appleboy/scp-action@master
               with:
-                  severity: warn
-                  details: Déploiement annulé...
-                  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+                  host: 51.178.37.81
+                  port: '22'
+                  username: 'debian'
+                  key: ${{ secrets.SSH_KEY }}
+                  source: ${{ github.sha }}.tar.gz
+                  target: /var/www/beta_makebetter/artifacts
+
+            - name: Extract archive and create directories
+              uses: appleboy/ssh-action@master
+              env:
+                  GITHUB_SHA: ${{ github.sha }}
+              with:
+                  host: 51.178.37.81
+                  username: 'debian'
+                  key: ${{ secrets.SSH_KEY }}
+                  port: '22'
+                  envs: GITHUB_SHA
+                  script: |
+                      mkdir -p "/var/www/beta_makebetter/releases/${GITHUB_SHA}"
+                      tar xzf /var/www/beta_makebetter/artifacts/${GITHUB_SHA}.tar.gz -C "/var/www/beta_makebetter/releases/${GITHUB_SHA}"
+                      rm -rf /var/www/beta_makebetter/artifacts/${GITHUB_SHA}.tar.gz
+
+    activate-release:
+        name: 'Activate release'
+        runs-on: ubuntu-latest
+        needs: prepare-release-on-servers
+        steps:
+            - name: Activate Release
+              uses: appleboy/ssh-action@master
+              env:
+                  RELEASE_PATH: /var/www/beta_makebetter/releases/${{ github.sha }}
+                  ACTIVE_RELEASE_PATH: /var/www/beta_makebetter/live
+              with:
+                  host: 51.178.37.81
+                  username: 'debian'
+                  key: ${{ secrets.SSH_KEY }}
+                  port: '22'
+                  envs: RELEASE_PATH,ACTIVE_RELEASE_PATH
+                  script: |
+                      ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
+                      service nginx restart
+                      chown -R www-data:www-data ${RELEASE_PATH}
+
+    clean-up:
+        name: 'Clean up old versions'
+        runs-on: ubuntu-latest
+        needs: activate-release
+        steps:
+            - name: clean up old releases
+              uses: appleboy/ssh-action@master
+              with:
+                  host: 51.178.37.81
+                  username: 'debian'
+                  key: ${{ secrets.SSH_KEY }}
+                  port: '22'
+                  script: |
+                      cd /var/www/beta_makebetter/releases && ls -t -1 | tail -n +4 | xargs rm -rf
+                      cd /var/www/beta_makebetter/artifacts && rm -rf *
+            - uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: app-artifacts
+            - uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: database-artifacts
