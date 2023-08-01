@@ -26,24 +26,23 @@ jobs:
                   cp .env .output/server/.env
                   tar -czf "${GITHUB_SHA}".tar.gz .output
                   sudo mv "${GITHUB_SHA}".tar.gz /var/www/beta_makebetter
-            - uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.HOST }}
-                  username: debian
-                  key: ${{ secrets.SSH_KEY }}
-                  port: 22
-                  script: |
-                      cd /var/www/beta_makebetter
-                      sudo rm -rf .output
-                      sudo mkdir .output
-                      sudo tar -xzf "${{ github.sha }}".tar.gz -C .output
-            - uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0
-            - run: |
+                  cd ..
+                  rm -rf beta_makebetter_new
+                  cp -r beta_makebetter beta_makebetter_new
+                  cd beta_makebetter_new
+                  git checkout main
+                  git reset --hard origin/main
+                  git pull
+                  npm rebuild
+                  npm install
+                  npm run build
+                  cd ../
+                  mv beta_makebetter beta_makebetter_old
+                  mv beta_makebetter_new beta_makebetter
+                  cd beta_makebetter
                   pm2 delete makebetter-beta
-                  cd /var/www/.output/server
-                  pm2 start index.mjs --name "makebetter-beta"
+                  pm2 start
+                  rm -rf ../beta_makebetter_old
 
             - uses: rjstone/discord-webhook-notify@v1
               if: success()
