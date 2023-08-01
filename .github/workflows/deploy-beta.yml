@@ -16,7 +16,7 @@ jobs:
                   cache: 'yarn'
             - run: |
                   touch .env
- 				  echo "APP_ENV=beta" >> .env
+                  echo "APP_ENV=beta" >> .env
                   echo "BASE_URL=https://beta.makebetter.app" >> .env
                   echo "API_BASE_URL=https://api.umaestro.fr" >> .env
                   echo "GIT_SHA=${{ github.sha }}" >> .env
