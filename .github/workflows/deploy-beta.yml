@@ -25,7 +25,7 @@ jobs:
                   npm run build
                   cp .env .output/server/.env
                   tar -czf "${GITHUB_SHA}".tar.gz .output
-                  mv "${GITHUB_SHA}".tar.gz /var/www/beta_makebetter
+                  sudo mv "${GITHUB_SHA}".tar.gz /var/www/beta_makebetter
             - uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.HOST }}
