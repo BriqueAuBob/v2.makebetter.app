@@ -76,7 +76,7 @@ const colorsClasses = computed(() => {
                     success: 'bg-success-500 text-white',
                     info: 'bg-info-500 text-white',
                     light: 'bg-white text-black',
-                    dark: 'bg-dark-500 text-white',
+                    dark: 'bg-primary-700 text-white',
                     transparent: 'border-0 shadow-none',
                     'color-mode': 'bg-white text-black dark:bg-primary-900 dark:border-primary-700 dark:text-white',
                 }[props.color] + ' border-gray-200 border-opacity-50'
@@ -92,7 +92,7 @@ const hoverClasses = computed(() => {
         success: 'hover:bg-success-700',
         info: 'hover:bg-info-700',
         light: 'hover:bg-gray-100',
-        dark: 'hover:bg-dark-700',
+        dark: 'hover:bg-primary-600',
         transparent: 'hover:bg-gray-500 hover:bg-opacity-10',
         'color-mode': 'hover:bg-gray-100 dark:hover:bg-primary-800',
     }[props.color];

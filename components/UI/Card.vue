@@ -34,13 +34,16 @@ defineProps({
 
 <template>
     <div
-        class="overflow-hidden rounded-3xl border-2 bg-white duration-300 ease-out dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900"
-        :class="!noHover && 'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg'"
+        class="rounded-3xl border-2 bg-white duration-300 ease-out dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900"
+        :class="[
+            !noHover && 'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg',
+            headerGrid && 'overflow-hidden',
+        ]"
     >
         <div class="relative" :class="!noPb && 'pb-4'" v-if="$slots.header">
             <div :class="headerGrid && 'relative bg-grid-square bg-[30%] bg-repeat p-12'">
                 <div
-                    class="-z-1 absolute left-0 top-0 h-full w-full bg-gradient-radial from-transparent to-white dark:to-primary-900"
+                    class="absolute left-0 top-0 -z-1 h-full w-full bg-gradient-radial from-transparent to-white dark:to-primary-900"
                     v-if="headerGrid"
                 ></div>
                 <div class="relative z-10">
