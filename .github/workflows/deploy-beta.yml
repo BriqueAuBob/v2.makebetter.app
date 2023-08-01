@@ -25,7 +25,7 @@ jobs:
                   npm run build
                   cp .env .output/server/.env
                   tar -czf "${GITHUB_SHA}".tar.gz .output
-                  mv "${GITHUB_SHA}".tar.gz .output
+                  mv "${GITHUB_SHA}".tar.gz /var/www/beta_makebetter
             - uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.HOST }}
@@ -33,14 +33,17 @@ jobs:
                   key: ${{ secrets.SSH_KEY }}
                   port: 22
                   script: |
-                      cd /var/www
+                      cd /var/www/beta_makebetter
                       rm -rf .output
                       mkdir .output
-                      tar -xzf "${GITHUB_SHA}".tar.gz -C .output
-                      rm "${GITHUB_SHA}".tar.gz
-                      cd .output
-                      pm2 delete beta_makebetter
-                      pm2 start server/index.mjs --env beta --name beta_makebetter
+                      tar -xzf "${{ github.sha }}".tar.gz -C .output
+            - uses: actions/checkout@v2
+			  with:
+				  fetch-depth: 0
+			- run: |
+				pm2 delete makebetter-beta
+				cd /var/www/.output/server
+				pm2 start index.mjs --name "makebetter-beta"
 
             - uses: rjstone/discord-webhook-notify@v1
               if: success()
