@@ -34,9 +34,9 @@ jobs:
                   port: 22
                   script: |
                       cd /var/www/beta_makebetter
-                      rm -rf .output
-                      mkdir .output
-                      tar -xzf "${{ github.sha }}".tar.gz -C .output
+                      sudo rm -rf .output
+                      sudo mkdir .output
+                      sudo tar -xzf "${{ github.sha }}".tar.gz -C .output
             - uses: actions/checkout@v2
               with:
                   fetch-depth: 0
