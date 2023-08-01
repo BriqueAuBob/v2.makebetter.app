@@ -352,7 +352,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                 </UIButton>
             </ToolsCardCollapsible>
             <div
-                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-gray-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-primary-700 dark:bg-primary-800 lg:flex-row lg:items-center lg:justify-center lg:gap-8 lg:p-10"
+                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-gray-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-primary-700 dark:from-primary-900 dark:to-primary-800 lg:flex-row lg:items-center lg:justify-center lg:gap-8 lg:p-10"
                 v-if="!webhookCreatedByBot"
             >
                 <nuxt-img src="/images/tools/discord/bot.png" class="w-12 lg:w-auto" />
