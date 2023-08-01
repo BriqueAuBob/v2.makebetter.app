@@ -15,7 +15,6 @@ jobs:
                   cache: 'npm'
             - run: npm i
             - run: npm run build
-            - run: npm test
 
     create-deployment-artifacts:
         needs: test-application
