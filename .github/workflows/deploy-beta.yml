@@ -93,6 +93,8 @@ jobs:
                   envs: RELEASE_PATH,ACTIVE_RELEASE_PATH
                   script: |
                       ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
+                      cd ${ACTIVE_RELEASE_PATH}
+                      pm2 delete "makebetter-beta" 2> /dev/null &&  pm2 start
                       sudo chown -R www-data:www-data ${RELEASE_PATH}
 
     clean-up:
