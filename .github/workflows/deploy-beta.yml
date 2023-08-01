@@ -93,7 +93,6 @@ jobs:
                   envs: RELEASE_PATH,ACTIVE_RELEASE_PATH
                   script: |
                       ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-                      service nginx restart
                       chown -R www-data:www-data ${RELEASE_PATH}
 
     clean-up:
