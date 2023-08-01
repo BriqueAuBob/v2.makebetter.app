@@ -12,10 +12,10 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: '16.13.0'
-                  cache: 'yarn'
-            - run: yarn
-            - run: yarn build
-            - run: yarn ci:test
+                  cache: 'npm run'
+            - run: npm run
+            - run: npm run build
+            - run: npm test
 
     create-deployment-artifacts:
         needs: test-application
