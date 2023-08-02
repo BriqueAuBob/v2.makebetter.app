@@ -93,8 +93,7 @@ jobs:
                   envs: RELEASE_PATH,ACTIVE_RELEASE_PATH
                   script: |
                       ln -s -n -f $RELEASE_PATH $ACTIVE_RELEASE_PATH
-                      cd ${ACTIVE_RELEASE_PATH}
-                      sudo systemctl restart beta_makebetter
+                      pm2 delete "makebetter-beta" 2> /dev/null && pm2 start .output/server/index.mjs --name "makebetter-beta" --port 3024
                       sudo chown -R www-data:www-data ${RELEASE_PATH}
 
     clean-up:
