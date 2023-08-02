@@ -13,7 +13,7 @@
 
 ## Reporting a Vulnerability
 
-Contact us via our discord support: https://umaestro.fr
+Contact us via our discord support: https://diose.io/discord
 
 ## Reporting a Bug
 
