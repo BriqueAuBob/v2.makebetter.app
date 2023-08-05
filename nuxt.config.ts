@@ -6,6 +6,7 @@ export default defineNuxtConfig({
         public: {
             baseUrl: process.env.API_BASE_URL,
             gitHash: process.env.GIT_SHA,
+            authUrl: process.env.AUTH_URL || 'https://auth.umaestro.fr',
         },
     },
 
