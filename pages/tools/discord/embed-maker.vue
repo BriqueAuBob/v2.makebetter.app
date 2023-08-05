@@ -267,6 +267,17 @@ const switcherRerender = async () => {
     await nextTick();
     renderSwitcher.value = true;
 };
+
+const router = useRouter();
+const onShare = () => {
+    // url params
+    router.push({
+        query: {
+            id: 'abcde',
+            token: 'abchudbzg',
+        },
+    });
+};
 </script>
 
 <template>
@@ -290,6 +301,7 @@ const switcherRerender = async () => {
                 <ToolsEditors
                     :editors="editors"
                     :displayShare="true"
+                    :onShare="onShare"
                 />
             </div>
             <div class="grid gap-8 pt-12 md:grid-cols-2">

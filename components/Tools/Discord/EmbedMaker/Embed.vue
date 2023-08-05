@@ -47,12 +47,17 @@ const getFieldColumn = (field: EmbedField) => {
 
     return `${start}/${end}`;
 };
+
+const emits = defineEmits(['delete']);
+const deleteEmbed = () => emits('delete');
 </script>
 
 <template>
     <div
-        class="embed relative cursor-pointer border-l-4 duration-200 after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded-r-sm after:bg-primary-50 after:opacity-0 after:duration-300 after:ease-in hover:after:opacity-80 dark:after:bg-gradient-to-br dark:after:from-primary-700 dark:after:to-primary-800"
-        :style="`border-color: ${embed.color}; max-width: ${embed?.image?.url ? '432' : '516'}px; background-color: ${
+        class="embed group relative cursor-pointer border-l-4 duration-200 after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded-r-sm after:bg-[--color] after:opacity-0 after:duration-200 after:ease-in hover:animate-pulse dark:after:bg-gradient-to-br dark:after:from-primary-700 dark:after:to-primary-800"
+        :style="`
+			--color: ${embed.color};
+			border-color: ${embed.color}; max-width: ${embed?.image?.url ? '432' : '516'}px; background-color: ${
             isDark ? '#2B2D31' : '#F2F3F5'
         };`"
     >
@@ -71,7 +76,11 @@ const getFieldColumn = (field: EmbedField) => {
                     v-if="embed.author?.icon_url || embed.author?.name"
                     class="mb-2 flex items-center text-sm font-semibold"
                 >
-                    <img v-if="embed.author.icon_url" class="mr-2 h-6 w-6 rounded-full" :src="embed.author.icon_url" />
+                    <img
+                        v-if="embed.author.icon_url"
+                        class="mr-2 h-6 w-6 rounded-full"
+                        :src="embed.author.icon_url"
+                    />
                     {{ embed.author?.name }}
                 </div>
                 <a
@@ -83,7 +92,10 @@ const getFieldColumn = (field: EmbedField) => {
                 >
                     {{ embed.title }}
                 </a>
-                <div v-else-if="embed.title" class="font-semibold">
+                <div
+                    v-else-if="embed.title"
+                    class="font-semibold"
+                >
                     {{ embed.title }}
                 </div>
                 <p
@@ -106,8 +118,14 @@ const getFieldColumn = (field: EmbedField) => {
                     </div>
                 </div>
             </div>
-            <div class="flex-none" v-if="embed.thumbnail?.url">
-                <img class="w-20 rounded-[4px]" :src="embed.thumbnail.url" />
+            <div
+                class="flex-none"
+                v-if="embed.thumbnail?.url"
+            >
+                <img
+                    class="w-20 rounded-[4px]"
+                    :src="embed.thumbnail.url"
+                />
             </div>
         </div>
         <div v-if="embed.image?.url">
@@ -119,14 +137,34 @@ const getFieldColumn = (field: EmbedField) => {
                 :src="embed.image.url"
             />
         </div>
-        <footer v-if="embed.timestamp || embed.footer?.text || embed.footer?.icon_url" class="mt-2 flex items-center">
-            <img v-if="embed.footer?.icon_url" class="mr-2 h-5 w-5 rounded-full" :src="embed.footer.icon_url" />
+        <footer
+            v-if="embed.timestamp || embed.footer?.text || embed.footer?.icon_url"
+            class="mt-2 flex items-center"
+        >
+            <img
+                v-if="embed.footer?.icon_url"
+                class="mr-2 h-5 w-5 rounded-full"
+                :src="embed.footer.icon_url"
+            />
             <span class="text-xs text-gray-400">
                 <span v-if="embed.footer?.text">{{ embed.footer?.text }}</span>
-                <span class="mx-1" v-if="embed.timestamp && embed.footer?.text">•</span>
+                <span
+                    class="mx-1"
+                    v-if="embed.timestamp && embed.footer?.text"
+                    >•</span
+                >
                 <span v-if="embed.timestamp">{{ embed.timestamp }}</span>
             </span>
         </footer>
+        <div
+            class="absolute -right-2 -top-2 z-10 rounded-xl border-2 border-gray-200 bg-white p-2 opacity-0 duration-500 ease-smooth group-hover:opacity-100"
+            @click="deleteEmbed"
+        >
+            <NuxtIcon
+                name="trash"
+                class="icon sm text-red-500"
+            />
+        </div>
     </div>
 </template>
 

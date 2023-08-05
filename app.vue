@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { $fetchApi } from '~/composables/fetch';
 import { useAuthStore } from '~/stores/auth';
 /* @ts-ignore */
 import AOS from 'aos';
@@ -13,9 +14,10 @@ const cookie = useCookie('token', {
 onMounted(async () => {
     if (!route.query.code) return;
 
-    const { token, user } = await fetch(`https://api.umaestro.fr/auth/user/code?code=${route.query.code}`).then((res) =>
-        res.json()
-    );
+    const { token, user } = (await $fetchApi(`/auth/user/code?code=${route.query.code}`)) as {
+        token: any;
+        user: any;
+    };
 
     if (!token) return;
 

@@ -1,11 +1,13 @@
 <script setup>
+import { $fetchApi } from '~/composables/fetch';
+
 defineI18nRoute({
     paths: {
         fr: '/avis',
     },
 });
 
-const { data } = useAsyncData(() => fetch('https://api.umaestro.fr/testimonials').then((res) => res.json()));
+const { data } = useAsyncData(() => $fetchApi('testimonials'));
 </script>
 
 <template>

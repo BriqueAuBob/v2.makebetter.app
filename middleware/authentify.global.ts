@@ -1,5 +1,6 @@
 import { useAuthStore } from '~/stores/auth';
 import { useNuxtApp } from '#app';
+import { $fetchApi } from '~/composables/fetch';
 
 export default defineNuxtRouteMiddleware(async (to) => {
     const authStore = useAuthStore();
@@ -10,12 +11,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
     if (!authStore.isLoggedIn) {
         const token = cookie.value;
         if (token) {
-            const { user } = await fetch(`https://api.umaestro.fr/auth/user`, {
+            const { user } = await $fetchApi<{ user: any }>(`/auth/user`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-            }).then((res) => res.json());
+            });
             authStore.login(token, user);
         }
     }
