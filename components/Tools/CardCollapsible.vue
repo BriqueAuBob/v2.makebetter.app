@@ -24,7 +24,7 @@ defineEmits(['delete']);
 </script>
 
 <template>
-    <UICard noPb>
+    <UICard class="overflow-hidden" noPb>
         <template #header>
             <div class="flex cursor-pointer justify-between px-8 pt-8" :class="isCollapsed && 'pb-8'" @click="toggle">
                 <h2 class="text-lg font-bold">

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import draggable from 'vuedraggable';
 import { fileSize } from '@/composables/Blob';
 import type { DiscordWebhookMessage } from '../../../../types/discord';
 
@@ -16,6 +17,11 @@ defineProps({
 const createObjectURL = (file: File): string => {
     console.log(file);
     return URL.createObjectURL(file);
+};
+
+const emits = defineEmits(['change']);
+const onChange = (message: any) => {
+    emits('change', message);
 };
 </script>
 
@@ -55,20 +61,32 @@ const createObjectURL = (file: File): string => {
                         </div>
                     </div>
                 </TransitionGroup>
-                <TransitionGroup name="fadescale" tag="div" class="flex flex-col gap-1">
-                    <ToolsDiscordEmbedMakerEmbed
-                        v-for="(embed, id) of message.embeds"
-                        :key="id"
-                        :embed="embed"
-                        :isDark="isDark"
-                    />
-                </TransitionGroup>
-                <TransitionGroup v-if="message.components[0].components" name="fadescale" tag="div" class="mt-2 flex">
+                <draggable
+                    v-model="message.embeds"
+                    :drag-options="{
+                        animation: 200,
+                        ghostClass: 'opacity-25',
+                    }"
+                    tag="div"
+                    class="flex flex-col gap-1"
+                    @change="() => onChange(message)"
+                    :itemKey="'id'"
+                >
+                    <template #item="{ element }">
+                        <ToolsDiscordEmbedMakerEmbed :embed="element" :isDark="isDark" />
+                    </template>
+                </draggable>
+                <TransitionGroup
+                    v-if="message?.components?.[0]?.components"
+                    name="fadescale"
+                    tag="div"
+                    class="mt-2 flex"
+                >
                     <a
                         :href="component.url"
                         target="_blank"
                         class="relative ml-0 mr-2 flex items-center gap-2 rounded-sm bg-[#4F545C] px-4 py-1 font-medium text-white duration-200 ease-in hover:bg-[#686D73]"
-                        v-for="(component, id) of message.components[0].components"
+                        v-for="(component, id) of message?.components?.[0]?.components"
                         :key="id"
                     >
                         {{ component.label }}

@@ -46,7 +46,11 @@ watch(
         >
             <template #header>
                 <div class="flex items-center justify-between px-6 pt-6 font-display text-lg font-semibold">
-                    <NuxtIcon name="arrow/left" class="mr-2 p-2 text-xl" @click="setActiveElement(activeElement - 1)" />
+                    <NuxtIcon
+                        name="arrow/left"
+                        class="mr-2 p-2 text-xl"
+                        @click="setActiveElement(activeElement - 1)"
+                    />
                     {{ element.title }}
                     <NuxtIcon
                         name="arrow/right"
@@ -55,7 +59,11 @@ watch(
                     />
                 </div>
             </template>
-            <component :is="element.component" :id="index" v-bind="element.props" />
+            <component
+                :is="element.component"
+                :id="index"
+                v-bind="element.props"
+            />
         </UICard>
     </div>
 </template>

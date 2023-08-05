@@ -5,8 +5,11 @@ import { Slide } from 'vue3-carousel';
 import { useI18n } from '#i18n';
 const localePath = useLocalePath();
 
-const { t } = useI18n();
-const previews = ['images/demos/emoji_maker.jpg', 'images/demos/emoji_maker.jpg'];
+const { locale, t } = useI18n();
+const language = reactive({
+    locale: locale.value,
+});
+const previews = [`images/demos/embedcreator-${language.locale}.png`, `images/demos/emojimaker-${language.locale}.png`];
 const collapsibleElements: CollapseGroupItems = [
     {
         title: t('tools.discord.embed.name'),
