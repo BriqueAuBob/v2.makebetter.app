@@ -40,7 +40,7 @@ const theme = reactive({
 });
 
 const exportModal = ref<UIModalType>();
-const exportTypes = ['JSON', 'Discord.js', 'Discord.js - EmbedBuilder()'] as const;
+const exportTypes = ['JSON', 'Discord.js', 'Discord.js - EmbedBuilder()'];
 type ExportType = (typeof exportTypes)[number];
 const exportType = ref<ExportType>('JSON');
 
@@ -75,6 +75,7 @@ onMounted(() => {
             'https://cdn.discordapp.com/avatars/983094528791683182/3ca96d35287c9c560f435c143f4b3448.webp?size=128',
         embeds: [
             {
+                id: 'IUFHUIdg8987989fg7zg7fzg',
                 title: 'MakeBetter',
                 description:
                     'MakeBetter est un bot Discord qui permet de faire des sondages, des giveaways, des quiz et bien plus encore !',
@@ -134,7 +135,7 @@ const addMessage = () => {
 
 const removeEmptyFields = (object: any) => {
     for (const key in object) {
-        if (object[key] === '') {
+        if (object[key] === '' || key === 'id') {
             delete object[key];
         }
         if (typeof object[key] === 'object') {
@@ -259,6 +260,13 @@ const copyCode = () => {
     });
     return true;
 };
+
+const renderSwitcher = ref(true);
+const switcherRerender = async () => {
+    renderSwitcher.value = false;
+    await nextTick();
+    renderSwitcher.value = true;
+};
 </script>
 
 <template>
@@ -279,7 +287,10 @@ const copyCode = () => {
                         {{ $t('tools.discord.embed.instructions.global') }}
                     </h2>
                 </div>
-                <ToolsEditors :editors="editors" :displayShare="true" />
+                <ToolsEditors
+                    :editors="editors"
+                    :displayShare="true"
+                />
             </div>
             <div class="grid gap-8 pt-12 md:grid-cols-2">
                 <div class="flex flex-col gap-12">
@@ -297,7 +308,11 @@ const copyCode = () => {
                         />
                     </div>
                     <ToolsLoadSaveTemplate :title="$t('tools.discord.embed.steps.load_messages')" />
-                    <ToolsCardSwitcher :elements="elements" :current="current" ref="switcher" />
+                    <ToolsCardSwitcher
+                        :elements="elements"
+                        :current="current"
+                        ref="switcher"
+                    />
                     <UIButton @click="addMessage">
                         {{ $t('tools.discord.embed.steps.add_message') }}
                     </UIButton>
@@ -361,7 +376,10 @@ const copyCode = () => {
                                                 :show="theme.selected.name === discordTheme.name"
                                                 appear
                                             >
-                                                <HeadlessTransitionChild name="fade" appear>
+                                                <HeadlessTransitionChild
+                                                    name="fade"
+                                                    appear
+                                                >
                                                     <NuxtIcon
                                                         name="check"
                                                         class="icon"
@@ -374,10 +392,24 @@ const copyCode = () => {
                                 </UIModal>
                             </div>
                         </template>
-                        <TransitionGroup name="fadescale" tag="div" class="flex flex-col gap-4 pt-5">
-                            <ToolsDiscordEmbedMakerPreview" v-for="(message, key) in form.messages" :key="key"
-                            :message="message" :isDark="theme.current.name === 'Default' ? colorMode.value === 'dark' :
-                            theme.current.isDark" />
+                        <TransitionGroup
+                            name="fadescale"
+                            tag="div"
+                            class="flex flex-col gap-4 pt-5"
+                        >
+                            <ToolsDiscordEmbedMakerPreview
+                                v-for="(message, key) in form.messages"
+                                :key="key"
+                                :message="message"
+                                :isDark="
+                                    theme.current.name === 'Default' ? colorMode.value === 'dark' : theme.current.isDark
+                                "
+                                @change="(message: any) => {
+									console.log(message)
+                            		form.messages[current] = message;
+									switcherRerender();
+								}"
+                            />
                         </TransitionGroup>
                         <template #footer>
                             <div class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800">
@@ -404,19 +436,34 @@ const copyCode = () => {
                                             label="Format de l'export"
                                             :options="exportTypes"
                                         />
-                                        <UICode class="mt-4" :code="generatedCode"></UICode>
+                                        <UICode
+                                            class="mt-4"
+                                            :code="generatedCode"
+                                        ></UICode>
                                     </div>
                                 </UIModal>
                                 <UIGroupButton>
-                                    <UIButton size="sm" @click="sendMessage">
+                                    <UIButton
+                                        size="sm"
+                                        @click="sendMessage"
+                                    >
                                         Envoyer
-                                        <NuxtIcon name="paper_plane" class="icon" />
+                                        <NuxtIcon
+                                            name="paper_plane"
+                                            class="icon"
+                                        />
                                     </UIButton>
-                                    <HeadlessMenu as="div" class="relative z-20">
+                                    <HeadlessMenu
+                                        as="div"
+                                        class="relative z-20"
+                                    >
                                         <HeadlessMenuButton
                                             class="rounded-r-2xl border-2 border-gray-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-primary-600"
                                         >
-                                            <NuxtIcon name="chevron/down" class="icon" />
+                                            <NuxtIcon
+                                                name="chevron/down"
+                                                class="icon"
+                                            />
                                         </HeadlessMenuButton>
                                         <transition
                                             enter-active-class="transition duration-100 ease-out"
@@ -461,6 +508,7 @@ const copyCode = () => {
                                         :description="$t('tools.discord.embed.send_in_thread.description')"
                                         ref="channelModal"
                                         :onApply="sendMessage"
+                                        :okText="$t('buttons.send')"
                                     >
                                         <UIInput
                                             v-model="form.thread_id"

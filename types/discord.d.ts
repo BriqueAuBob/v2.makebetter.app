@@ -24,6 +24,7 @@ export type EmbedThumbnail = {
 };
 
 export type Embed = {
+    id?: string;
     author: EmbedAuthor;
     title: string;
     description: string;

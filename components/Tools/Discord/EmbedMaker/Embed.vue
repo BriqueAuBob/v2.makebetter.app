@@ -51,7 +51,7 @@ const getFieldColumn = (field: EmbedField) => {
 
 <template>
     <div
-        class="embed border-l-4"
+        class="embed relative cursor-pointer border-l-4 duration-200 after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded-r-sm after:bg-primary-50 after:opacity-0 after:duration-300 after:ease-in hover:after:opacity-80 dark:after:bg-gradient-to-br dark:after:from-primary-700 dark:after:to-primary-800"
         :style="`border-color: ${embed.color}; max-width: ${embed?.image?.url ? '432' : '516'}px; background-color: ${
             isDark ? '#2B2D31' : '#F2F3F5'
         };`"
