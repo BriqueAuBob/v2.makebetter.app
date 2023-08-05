@@ -13,8 +13,9 @@ const toggleDark = () => {
     localStorage.setItem('nuxt-color-mode', colorMode.value);
 };
 
+const config = useRuntimeConfig();
 const authUrl = computed(() => {
-    return `https://auth.umaestro.fr/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
+    return config.public.authUrl + `/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
 });
 
 const authStore = useAuthStore();
@@ -63,11 +64,17 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
                 id="branding"
                 :to="localePath('/')"
             >
-                <nuxt-img class="h-7 w-7" src="/images/makebetter.svg" />
+                <nuxt-img
+                    class="h-7 w-7"
+                    src="/images/makebetter.svg"
+                />
                 makebetter.app
             </NuxtLink>
             <ul class="flex items-center gap-6 text-sm text-gray-300">
-                <li v-for="(item, id) of items" :key="id">
+                <li
+                    v-for="(item, id) of items"
+                    :key="id"
+                >
                     <NuxtLink
                         :to="localePath(item?.href)"
                         :target="item?.target"
@@ -78,20 +85,47 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
                 </li>
             </ul>
             <transition name="fade">
-                <NavigationMegaMenu v-if="currentItem && currentItem.megaMenu" :item="currentItem" :x="x" :y="66" />
+                <NavigationMegaMenu
+                    v-if="currentItem && currentItem.megaMenu"
+                    :item="currentItem"
+                    :x="x"
+                    :y="66"
+                />
             </transition>
         </div>
         <div class="flex items-center gap-8">
-            <button class="text-gray-100" @click="toggleDark">
-                <NuxtIcon name="moon" v-if="!isDark" class="icon big" />
-                <NuxtIcon name="sun" v-else class="icon big" />
+            <button
+                class="text-gray-100"
+                @click="toggleDark"
+            >
+                <NuxtIcon
+                    name="moon"
+                    v-if="!isDark"
+                    class="icon big"
+                />
+                <NuxtIcon
+                    name="sun"
+                    v-else
+                    class="icon big"
+                />
             </button>
             <ClientOnly>
-                <UIButton v-if="!authStore.isLoggedIn" :href="authUrl" color="light">{{
-                    $t('navigation.login')
-                }}</UIButton>
-                <UIButton v-else href="/account" color="light" class="flex items-center gap-2">
-                    <UIAvatar size="sm" :user="authStore.user" />
+                <UIButton
+                    v-if="!authStore.isLoggedIn"
+                    :href="authUrl"
+                    color="light"
+                    >{{ $t('navigation.login') }}</UIButton
+                >
+                <UIButton
+                    v-else
+                    href="/account"
+                    color="light"
+                    class="flex items-center gap-2"
+                >
+                    <UIAvatar
+                        size="sm"
+                        :user="authStore.user"
+                    />
                     {{ authStore.user.username }}
                 </UIButton>
             </ClientOnly>

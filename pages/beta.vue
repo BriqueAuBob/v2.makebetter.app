@@ -16,8 +16,9 @@ useHead({
     ],
 });
 
+const config = useRuntimeConfig();
 const authUrl = computed(() => {
-    return `https://auth.umaestro.fr/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
+    return config.public.authUrl + `/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
 });
 
 const { $toast } = useNuxtApp();
@@ -53,19 +54,45 @@ onMounted(() => {
         <h2 class="mb-4 text-lg">Nous proposons un accès anticipé pour accéder au site.</h2>
         <p class="mt-1">
             Si tu souhaites participer à l'accès anticipé, fait ta demande
-            <a class="underline" href="https://makebetter.app/beta">en cliquant ici.</a><br />
+            <a
+                class="underline"
+                href="https://makebetter.app/beta"
+                >en cliquant ici.</a
+            ><br />
         </p>
         <p class="mt-2">
             On aura besoin de t'avoir sur notre serveur Discord si tu t'inscris à la beta, alors si tu n'es pas encore
-            présent sur notre serveur Discord, <a class="underline" href="https://diose.io/discord">rejoins nous!</a>
+            présent sur notre serveur Discord,
+            <a
+                class="underline"
+                href="https://diose.io/discord"
+                >rejoins nous!</a
+            >
         </p>
         <div class="mt-8 flex flex-col justify-end gap-1 lg:flex-row">
-            <NuxtLink class="block w-full lg:w-fit" to="https://makebetter.app" target="_blank">
-                <UIButton color="transparent" class="w-full"> Aller sur la version normale </UIButton>
+            <NuxtLink
+                class="block w-full lg:w-fit"
+                to="https://makebetter.app"
+                target="_blank"
+            >
+                <UIButton
+                    color="transparent"
+                    class="w-full"
+                >
+                    Aller sur la version normale
+                </UIButton>
             </NuxtLink>
             <ClientOnly>
-                <NuxtLink :to="authUrl" class="block w-full lg:w-fit">
-                    <UIButton class="w-full" color="light"> Accéder à la béta </UIButton>
+                <NuxtLink
+                    :to="authUrl"
+                    class="block w-full lg:w-fit"
+                >
+                    <UIButton
+                        class="w-full"
+                        color="light"
+                    >
+                        Accéder à la béta
+                    </UIButton>
                 </NuxtLink>
             </ClientOnly>
         </div>
