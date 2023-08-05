@@ -26,8 +26,14 @@ const onChange = (message: any) => {
 </script>
 
 <template>
-    <div class="flex gap-3" :class="isDark ? 'text-gray-200' : 'text-gray-900'">
-        <img class="h-10 w-10 rounded-full" :src="message.avatar_url" />
+    <div
+        class="flex gap-3"
+        :class="isDark ? 'text-gray-200' : 'text-gray-900'"
+    >
+        <img
+            class="h-10 w-10 rounded-full"
+            :src="message.avatar_url"
+        />
         <div class="font-whitney w-full">
             <div class="flex items-center gap-1 text-base">
                 <span class="font-medium">{{ message.username }}</span>
@@ -40,10 +46,21 @@ const onChange = (message: any) => {
                 <p class="whitespace-pre-line break-words text-base font-normal leading-snug text-gray-400">
                     {{ message.content }}
                 </p>
-                <TransitionGroup v-if="message.files" name="fadescale" tag="div" class="flex flex-col gap-1">
-                    <div v-for="(file, id) of message.files" :key="id">
+                <TransitionGroup
+                    v-if="message.files"
+                    name="fadescale"
+                    tag="div"
+                    class="flex flex-col gap-1"
+                >
+                    <div
+                        v-for="(file, id) of message.files"
+                        :key="id"
+                    >
                         <div v-if="file.type.startsWith('image') && file.type !== 'image/svg+xml'">
-                            <img class="max-h-[300px] cursor-pointer rounded-md" :src="createObjectURL(file)" />
+                            <img
+                                class="max-h-[300px] cursor-pointer rounded-md"
+                                :src="createObjectURL(file)"
+                            />
                         </div>
                         <div
                             v-else
@@ -51,7 +68,11 @@ const onChange = (message: any) => {
                             :style="'background: ' + (isDark ? '#2B2D31;' : '#F2F3F5;')"
                             :class="isDark ? 'border-neutral-800' : 'border-gray-200'"
                         >
-                            <NuxtIcon class="icon big" name="platforms/discord/file" filled />
+                            <NuxtIcon
+                                class="icon big"
+                                name="platforms/discord/file"
+                                filled
+                            />
                             <div class="flex flex-col">
                                 <span class="cursor-pointer text-sm text-blue-500 hover:underline">{{
                                     file.name
@@ -65,15 +86,25 @@ const onChange = (message: any) => {
                     v-model="message.embeds"
                     :drag-options="{
                         animation: 200,
-                        ghostClass: 'opacity-25',
                     }"
                     tag="div"
                     class="flex flex-col gap-1"
                     @change="() => onChange(message)"
                     :itemKey="'id'"
+                    ghost-class="dragging"
+                    id="embeds_draggable"
                 >
                     <template #item="{ element }">
-                        <ToolsDiscordEmbedMakerEmbed :embed="element" :isDark="isDark" />
+                        <ToolsDiscordEmbedMakerEmbed
+                            :embed="element"
+                            :isDark="isDark"
+                            @delete="
+                                () => {
+                                    message.embeds.splice(message.embeds.indexOf(element), 1);
+                                    onChange(message);
+                                }
+                            "
+                        />
                     </template>
                 </draggable>
                 <TransitionGroup
@@ -90,7 +121,12 @@ const onChange = (message: any) => {
                         :key="id"
                     >
                         {{ component.label }}
-                        <svg aria-hidden="false" width="16" height="16" viewBox="0 0 24 24">
+                        <svg
+                            aria-hidden="false"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                        >
                             <path
                                 fill="currentColor"
                                 d="M10 5V3H5.375C4.06519 3 3 4.06519 3 5.375V18.625C3 19.936 4.06519 21 5.375 21H18.625C19.936 21 21 19.936 21 18.625V14H19V19H5V5H10Z"
@@ -106,3 +142,9 @@ const onChange = (message: any) => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.dragging {
+    @apply animate-wiggle after:opacity-25;
+}
+</style>

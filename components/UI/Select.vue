@@ -93,11 +93,14 @@ const colors: Record<
 		"
     >
         <div class="relative mt-1">
-            <label v-if="label" class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400">
+            <label
+                v-if="label"
+                class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400"
+            >
                 {{ label }}
             </label>
             <HeadlessListboxButton
-                class="relative flex w-full cursor-default cursor-pointer items-center justify-between rounded-lg border-2 px-4 py-3 text-left shadow-md duration-300 ease-in sm:text-sm"
+                class="relative flex w-full cursor-pointer items-center justify-between rounded-lg border-2 px-4 py-3 text-left shadow-md duration-300 ease-in sm:text-sm"
                 :class="colors[color].button"
             >
                 <div class="flex items-center gap-2 font-semibold">
@@ -109,7 +112,10 @@ const colors: Record<
                     />
                     {{ typeof selected === 'string' ? selected : selected.label }}
                 </div>
-                <NuxtIcon name="chevron/down" class="text-gray-400" />
+                <NuxtIcon
+                    name="chevron/down"
+                    class="text-gray-400"
+                />
             </HeadlessListboxButton>
             <HeadlessTransitionRoot>
                 <HeadlessTransitionChild
@@ -164,7 +170,10 @@ const colors: Record<
                                     v-if="selected"
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-primary-600"
                                 >
-                                    <NuxtIcon name="check" class="icon" />
+                                    <NuxtIcon
+                                        name="check"
+                                        class="icon"
+                                    />
                                 </span>
                             </li>
                         </HeadlessListboxOption>

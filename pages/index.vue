@@ -9,7 +9,12 @@ const { locale, t } = useI18n();
 const language = reactive({
     locale: locale.value,
 });
-const previews = [`images/demos/embedcreator-${language.locale}.png`, `images/demos/emojimaker-${language.locale}.png`];
+const previews = [
+    `images/demos/embedcreator-${language.locale}.png`,
+    `images/demos/emojimaker-${language.locale}.png`,
+    `images/demos/badgecreator-${language.locale}.png`,
+    `images/demos/markdowneditor-${language.locale}.png`,
+];
 const collapsibleElements: CollapseGroupItems = [
     {
         title: t('tools.discord.embed.name'),
@@ -32,32 +37,67 @@ type Testimonials = {
 type Statistics = {
     members: number;
 };
-const { data: testimonialsData } = await useFetch<TestimonialsType>('https://api.umaestro.fr/testimonials?max=3');
-const { data: statisticsData } = await useFetch<StatisticsType>('https://api.umaestro.fr/statistics');
+const { data: testimonialsData } = await useFetchApi<TestimonialsType>('testimonials?max=3');
+const { data: statisticsData } = await useFetchApi<StatisticsType>('statistics');
+
+const hasScrolled = ref(false);
+onMounted(() => {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            hasScrolled.value = true;
+        } else {
+            hasScrolled.value = false;
+        }
+    });
+});
 </script>
 
 <template>
-    <header class="relative bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat py-72 pt-48 text-white">
-        <h1 class="text-center text-4xl font-black lg:text-4xl xl:text-8xl">
-            {{ $t('homepage.header.title') }}
-        </h1>
-        <h2
-            class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-relaxed lg:max-w-xl lg:text-2xl lg:leading-relaxed xl:max-w-5xl xl:text-4xl xl:leading-relaxed"
+    <header class="relative text-white">
+        <div
+            class="bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 py-72 pt-48 shadow-xl shadow-primary-200 duration-500 ease-out dark:shadow-primary-800"
+            :class="hasScrolled ? 'mx-0 scale-105' : 'rounded-b-[100px] md:mx-4 lg:mx-16'"
         >
-            {{ $t('homepage.header.description') }}
-        </h2>
-        <div class="mt-12 flex items-center justify-center gap-6">
-            <UIButton size="lg" color="light">{{ $t('homepage.header.buttons.use_tool') }}</UIButton>
-            <NuxtLink to="https://discord.com/invite/GWpGBK8gmA" target="_blank">
-                <UIButton size="lg" :outlined="true" color="light">
-                    {{ $t('homepage.header.buttons.join_discord') }}
-                </UIButton>
-            </NuxtLink>
+            <h1 class="text-center text-4xl font-black lg:text-4xl xl:text-8xl">
+                {{ $t('homepage.header.title') }}
+            </h1>
+            <h2
+                class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-relaxed lg:max-w-xl lg:text-2xl lg:leading-relaxed xl:max-w-5xl xl:text-4xl xl:leading-relaxed"
+            >
+                {{ $t('homepage.header.description') }}
+            </h2>
+            <div class="mt-12 flex items-center justify-center gap-6">
+                <UIButton
+                    size="lg"
+                    color="light"
+                    class="text-sm lg:text-lg"
+                    >{{ $t('homepage.header.buttons.use_tool') }}</UIButton
+                >
+                <NuxtLink
+                    to="https://discord.com/invite/GWpGBK8gmA"
+                    target="_blank"
+                >
+                    <UIButton
+                        size="lg"
+                        :outlined="true"
+                        color="light"
+                        class="text-sm lg:text-lg"
+                    >
+                        {{ $t('homepage.header.buttons.join_discord') }}
+                    </UIButton>
+                </NuxtLink>
+            </div>
         </div>
-        <div id="examples" class="absolute left-1/2 flex w-full max-w-full -translate-x-1/2 translate-y-8">
+        <div
+            id="examples"
+            class="absolute bottom-0 left-1/2 flex w-full max-w-full -translate-x-1/2 translate-y-8"
+        >
             <div class="flex translate-y-24 justify-center gap-4 lg:gap-8 xl:gap-16">
                 <UICarousel>
-                    <Slide v-for="(preview, index) in previews" :key="index">
+                    <Slide
+                        v-for="(preview, index) in previews"
+                        :key="index"
+                    >
                         <div class="w-full overflow-hidden rounded-3xl border-8 border-primary-600">
                             <nuxt-img
                                 :src="preview"
@@ -76,7 +116,11 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
             <h1 class="text-xl font-bold">
                 {{ $t('homepage.collaborative.title') }}
             </h1>
-            <i18n-t class="mb-4 mt-2" tag="p" keypath="homepage.collaborative.description.base">
+            <i18n-t
+                class="mb-4 mt-2"
+                tag="p"
+                keypath="homepage.collaborative.description.base"
+            >
                 <strong>{{ $t('homepage.collaborative.description.system') }}</strong>
                 <strong>{{ $t('homepage.collaborative.description.work_in_team') }}</strong>
                 <strong>{{ $t('homepage.collaborative.description.in_real_time') }}</strong>
@@ -114,7 +158,11 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                             class="mx-auto w-full"
                             fake
                         ></UIInput>
-                        <UIButton color="color-mode" size="md" fake>
+                        <UIButton
+                            color="color-mode"
+                            size="md"
+                            fake
+                        >
                             {{ $t('buttons.share') }}
                         </UIButton>
                     </div>
@@ -130,13 +178,26 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
                         <div
                             class="flex h-32 w-52 items-center justify-center rounded-2xl border bg-white dark:border-primary-700 dark:bg-primary-800"
                         >
-                            <nuxt-img class="h-24 w-24" src="/images/fake_icon.svg" />
+                            <nuxt-img
+                                class="h-24 w-24"
+                                src="/images/fake_icon.svg"
+                            />
                         </div>
                         <div class="flex w-full flex-col gap-4">
-                            <UIButton class="h-full w-full" color="color-mode" size="md" fake>
+                            <UIButton
+                                class="h-full w-full"
+                                color="color-mode"
+                                size="md"
+                                fake
+                            >
                                 {{ $t('buttons.download') }}
                             </UIButton>
-                            <UIButton class="h-full w-full" color="color-mode" size="md" fake>
+                            <UIButton
+                                class="h-full w-full"
+                                color="color-mode"
+                                size="md"
+                                fake
+                            >
                                 {{ $t('buttons.make_public') }}
                             </UIButton>
                         </div>
@@ -151,10 +212,16 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
             {{ $t('homepage.need_help') }}
         </h1>
         <div class="mt-8 grid grid-cols-3 gap-6">
-            <CardArticle v-for="i in 6" :data-aos-offset="100 + i * 100"></CardArticle>
+            <CardArticle
+                v-for="i in 6"
+                :data-aos-offset="100 + i * 100"
+            ></CardArticle>
         </div>
         <div class="flex justify-center">
-            <UIButton class="mt-12" color="color-mode">
+            <UIButton
+                class="mt-12"
+                color="color-mode"
+            >
                 {{ $t('homepage.view_tutorials') }}
             </UIButton>
         </div>
@@ -179,10 +246,17 @@ const { data: statisticsData } = await useFetch<StatisticsType>('https://api.uma
             ></CardReview>
         </div>
         <div class="flex items-center justify-center gap-6">
-            <UIButton class="mt-12" color="color-mode">
+            <UIButton
+                class="mt-12"
+                color="color-mode"
+            >
                 {{ $t('testimonials.publish') }}
             </UIButton>
-            <UIButton :href="localePath('testimonials')" class="mt-12" color="transparent">
+            <UIButton
+                :href="localePath('testimonials')"
+                class="mt-12"
+                color="transparent"
+            >
                 {{ $t('testimonials.view') }}
             </UIButton>
         </div>

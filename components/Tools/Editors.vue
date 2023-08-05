@@ -13,6 +13,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    onShare: {
+        type: Function as PropType<() => void>,
+        default: () => {},
+    },
 });
 </script>
 
@@ -26,6 +30,14 @@ defineProps({
             :user="editor"
             class="-ml-2 -mr-2 border-2 border-white"
         />
-        <UIButton v-if="displayShare" class="ml-4" size="sm" color="light"> Partager </UIButton>
+        <UIButton
+            v-if="displayShare"
+            class="ml-4"
+            size="sm"
+            color="light"
+            @click="onShare"
+        >
+            Partager
+        </UIButton>
     </div>
 </template>
