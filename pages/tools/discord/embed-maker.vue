@@ -3,25 +3,24 @@ import { useNuxtApp } from '#app';
 import { _primary } from '#tailwind-config/theme/colors';
 import type { DiscordWebhookMessage, DiscordWebhook, Component, DiscordChannel } from 'types/discord';
 import { themes, ThemeType } from '@/composables/discordThemes';
+import useSocket from '~/composables/socket';
+import { Socket } from 'socket.io-client';
+import type { User } from 'types/user';
 
 const MessageEdition = resolveComponent('ToolsDiscordEmbedMakerMessageEdition');
 const { t } = useI18n();
 const { $toast } = useNuxtApp();
 
-const editors = [
-    {
-        username: 'Brique au bob',
-        avatar: 'https://cdn.discordapp.com/avatars/307531336388968458/450ed5f16e48774180bcccdbc9867c3d.png?size=256',
-    },
-    {
-        username: 'Brique au bob',
-        avatar: 'https://cdn.discordapp.com/avatars/307531336388968458/450ed5f16e48774180bcccdbc9867c3d.png?size=256',
-    },
-    {
-        username: 'Brique au bob',
-        avatar: 'https://cdn.discordapp.com/avatars/307531336388968458/450ed5f16e48774180bcccdbc9867c3d.png?size=256',
-    },
-];
+type Editor = User & {
+    socketId: string;
+    color: string;
+    textColor: string;
+    position: {
+        x: number;
+        y: number;
+    };
+};
+const editors = ref<Editor[]>([]);
 
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
@@ -269,8 +268,8 @@ const switcherRerender = async () => {
 };
 
 const router = useRouter();
+const route = useRoute();
 const onShare = () => {
-    // url params
     router.push({
         query: {
             id: 'abcde',
@@ -278,6 +277,55 @@ const onShare = () => {
         },
     });
 };
+
+const onLeavePage = () => {
+    if (form.messages.length > 0) {
+        localStorage.setItem('discordEmbed', JSON.stringify(form.messages));
+    }
+    socket.value?.disconnect();
+};
+
+const socket = ref<any>();
+const messages = computed(() => {
+    return form.messages;
+});
+onMounted(() => {
+    if (route.query.id && route.query.token) {
+        socket.value = useSocket(route.query.id as string, route.query.token as string);
+    }
+    window.onunload = onLeavePage;
+});
+
+onUnmounted(() => {
+    window.onunload = null;
+    onLeavePage();
+});
+watch(
+    () => route.query,
+    (value) => {
+        if (value.id && value.token) {
+            socket.value = useSocket(value.id as string, value.token as string);
+        }
+    }
+);
+watch(
+    () => socket.value,
+    (value) => {
+        if (value) {
+            value.on('onlineUsers', (users: any) => {
+                editors.value = users;
+            });
+            value.on('valueChange', (data: any) => {
+                console.log(data);
+                form.messages = data;
+            });
+        }
+    }
+);
+
+const editorsCursors = computed(() => {
+    return editors.value.filter((editor) => editor.socketId !== socket.value?.id);
+});
 </script>
 
 <template>
@@ -303,6 +351,25 @@ const onShare = () => {
                     :displayShare="true"
                     :onShare="onShare"
                 />
+            </div>
+            <div
+                v-for="(editor, id) in editorsCursors"
+                :key="id"
+                class="absolute z-[200] rounded-lg border border-gray-200 px-2 py-1 text-xs font-semibold"
+                :style="`
+                    top: ${editor.position?.y + 12}px;
+                    left: ${editor.position?.x + 24}px;
+					background: ${editor.color};
+					color: ${editor.textColor};
+                `"
+            >
+                <NuxtIcon
+                    name="cursor"
+                    class="icon sm absolute -left-6 -top-2"
+                    :style="`color: ${editor.color};`"
+                    filled
+                />
+                {{ editor.username }}
             </div>
             <div class="grid gap-8 pt-12 md:grid-cols-2">
                 <div class="flex flex-col gap-12">
@@ -417,7 +484,6 @@ const onShare = () => {
                                     theme.current.name === 'Default' ? colorMode.value === 'dark' : theme.current.isDark
                                 "
                                 @change="(message: any) => {
-									console.log(message)
                             		form.messages[current] = message;
 									switcherRerender();
 								}"

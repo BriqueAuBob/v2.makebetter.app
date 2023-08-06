@@ -21,6 +21,10 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    style: {
+        type: String,
+        default: '',
+    },
 });
 
 const sizes = {
@@ -31,7 +35,7 @@ const sizes = {
 const size = computed(() => sizes[props.size]);
 
 const avatar = computed(() => {
-    if (props.user.avatar) return props.user.avatar;
+    if (props.user.avatar) return props.user?.avatar;
     if (props.src) return props.src;
     return '/images/avatar_demo.png';
 });
@@ -44,16 +48,22 @@ const hasError = ref(false);
         <nuxt-img
             v-if="!hasError"
             :src="avatar"
-            :alt="`${props.user.username}#${props.user.discriminator} Avatar`"
+            :alt="`${props.user?.username}#${props.user?.discriminator} Avatar`"
             :class="size + ' rounded-full' + ' ' + props.class"
+            :style="props.style"
             @error="() => (hasError = true)"
             preset="avatar"
         />
         <div
             v-else
-            :class="size + ' flex items-center justify-center rounded-full bg-primary-500 text-xl font-bold text-white'"
+            :class="
+                size +
+                ' flex items-center justify-center rounded-full bg-primary-500 text-xl font-bold text-white ' +
+                props.class
+            "
+            :style="props.style"
         >
-            {{ props.user.username[0] }}
+            {{ props.user?.username?.[0] }}
         </div>
     </ClientOnly>
 </template>
