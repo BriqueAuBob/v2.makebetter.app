@@ -20,10 +20,13 @@ defineProps({
 <template>
     <UICard :no-heading="true">
         <div class="flex items-center gap-2">
-            <UIAvatar :user="author" />
+            <UIAvatar
+                v-if="author"
+                :user="author"
+            />
             <div class="ml-1 flex flex-col">
-                <span class="text-lg font-bold">{{ author.username }}</span>
-                <span class="text-gray-500">{{ author.discriminator }}</span>
+                <span class="text-lg font-bold">{{ author?.username }}</span>
+                <span class="text-gray-500">{{ author?.discriminator }}</span>
             </div>
         </div>
         <p class="mt-4 text-sm text-gray-500 dark:text-gray-300">

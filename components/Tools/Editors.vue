@@ -6,7 +6,13 @@ type User = {
 
 defineProps({
     editors: {
-        type: Array<User>,
+        type: Array as PropType<
+            Array<
+                User & {
+                    color?: string;
+                }
+            >
+        >,
         required: true,
     },
     displayShare: {
@@ -28,7 +34,8 @@ defineProps({
             v-for="editor in editors"
             :key="editor.username"
             :user="editor"
-            class="-ml-2 -mr-2 border-2 border-white"
+            class="-ml-2 -mr-2 border-2"
+            :style="editor?.color ? `border-color: ${editor.color};` : 'border-color: #FFF;'"
         />
         <UIButton
             v-if="displayShare"
