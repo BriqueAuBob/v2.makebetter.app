@@ -401,6 +401,7 @@ const editorsCursors = computed(() => {
                         class="sticky top-4"
                         :class="theme.current.isDark ? 'dark' : ''"
                         noHover
+                        noPadding
                         noPb
                         ref="previewCard"
                         :contentStyle="
@@ -474,7 +475,7 @@ const editorsCursors = computed(() => {
                         <TransitionGroup
                             name="fadescale"
                             tag="div"
-                            class="flex flex-col gap-4 pt-5"
+                            class="flex max-h-[60vh] flex-col gap-4 overflow-y-auto px-8 py-8"
                         >
                             <ToolsDiscordEmbedMakerPreview
                                 v-for="(message, key) in form.messages"
