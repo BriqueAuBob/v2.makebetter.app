@@ -40,7 +40,7 @@ watch(
             :class="
                 activeElement === index
                     ? 'relative z-[99]'
-                    : 'absolute -top-2 z-10 max-h-96 w-full translate-x-2 rotate-1 opacity-25'
+                    : 'absolute -top-2 z-10 max-h-96 w-full translate-x-2 rotate-1 overflow-hidden opacity-25'
             "
             :noHover="activeElement !== index"
         >

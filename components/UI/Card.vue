@@ -25,6 +25,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    noPadding: {
+        type: Boolean,
+        default: false,
+    },
     contentStyle: {
         type: String,
         default: '',
@@ -40,7 +44,11 @@ defineProps({
             headerGrid && 'overflow-hidden',
         ]"
     >
-        <div class="relative" :class="!noPb && 'pb-4'" v-if="$slots.header">
+        <div
+            class="relative"
+            :class="!noPb && 'pb-4'"
+            v-if="$slots.header"
+        >
             <div :class="headerGrid && 'relative bg-grid-square bg-[30%] bg-repeat p-12'">
                 <div
                     class="absolute left-0 top-0 -z-1 h-full w-full bg-gradient-radial from-transparent to-white dark:to-primary-900"
@@ -52,7 +60,7 @@ defineProps({
             </div>
         </div>
         <div
-            :class="[!$slots.header ? 'p-8' : 'px-8 pb-8', contentStyle && 'duration-300 ease-out']"
+            :class="[!$slots.header ? 'p-8' : noPadding ? '' : 'px-8 pb-8', contentStyle && 'duration-300 ease-out']"
             :style="contentStyle"
         >
             <slot>
