@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import draggable from 'vuedraggable';
 import { useNuxtApp } from '#app';
 import { _primary } from '#tailwind-config/theme/colors';
 import type { DiscordWebhookMessage, DiscordWebhook, Component, DiscordChannel } from 'types/discord';
@@ -472,24 +473,33 @@ const editorsCursors = computed(() => {
                                 </UIModal>
                             </div>
                         </template>
-                        <TransitionGroup
-                            name="fadescale"
+                        <draggable
+                            v-model="form.messages"
+                            :drag-options="{
+                                animation: 200,
+                            }"
                             tag="div"
                             class="flex max-h-[60vh] flex-col gap-4 overflow-y-auto px-8 py-8"
+                            :itemKey="'id'"
+                            ghost-class="dragging"
+                            id="messages_draggable"
                         >
-                            <ToolsDiscordEmbedMakerPreview
-                                v-for="(message, key) in form.messages"
-                                :key="key"
-                                :message="message"
-                                :isDark="
-                                    theme.current.name === 'Default' ? colorMode.value === 'dark' : theme.current.isDark
-                                "
-                                @change="(message: any) => {
-                            		form.messages[current] = message;
-									switcherRerender();
-								}"
-                            />
-                        </TransitionGroup>
+                            <template #item="{ element }">
+                                <ToolsDiscordEmbedMakerPreview
+                                    class="cursor-pointer duration-300 ease-out hover:animate-pulse"
+                                    :message="element"
+                                    :isDark="
+                                        theme.current.name === 'Default'
+                                            ? colorMode.value === 'dark'
+                                            : theme.current.isDark
+                                    "
+                                    @change="(message: any) => {
+										form.messages[current] = message;
+										switcherRerender();
+									}"
+                                />
+                            </template>
+                        </draggable>
                         <template #footer>
                             <div class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800">
                                 <UIButton
@@ -611,3 +621,9 @@ const editorsCursors = computed(() => {
         </section>
     </div>
 </template>
+
+<style scoped>
+.dragging {
+    @apply animate-wiggle after:opacity-25;
+}
+</style>
