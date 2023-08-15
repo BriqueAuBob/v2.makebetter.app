@@ -17,7 +17,7 @@ const props = defineProps({
         required: true,
     },
     modelValue: {
-        type: String,
+        type: [String, Array],
         required: true,
     },
     color: {
@@ -26,6 +26,14 @@ const props = defineProps({
     },
     label: {
         type: String,
+    },
+    displayLabel: {
+        type: Boolean,
+        default: true,
+    },
+    multiple: {
+        type: Boolean,
+        default: false,
     },
 });
 
@@ -41,7 +49,7 @@ const options = computed<SelectOption[]>(() => {
         return option;
     });
 });
-const selected = ref<string | SelectOption>(
+const selected = ref<(string | SelectOption)[] | string | SelectOption>(
     props.placeholder ||
         options.value.find((option: string | SelectOption) =>
             typeof option !== 'string' ? option.value === props.modelValue : option === props.modelValue
@@ -86,31 +94,51 @@ const colors: Record<
         :model-value="modelValue"
         @update:modelValue="
 			(value: string) => {
-				selected = options.find((o: SelectOption) => o.value === value)!;
+				if(multiple) {
+					selected = options.filter((o: SelectOption) => value.includes(o.value));
+				} else {
+					selected = options.find((o: SelectOption) => o.value === value)!;
+				}
 				emit('update:modelValue', value);
 				emit('change', value);
 			}
 		"
+        :multiple="multiple"
     >
-        <div class="relative mt-1">
+        <div class="relative">
             <label
-                v-if="label"
+                v-if="label && displayLabel"
                 class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400"
             >
                 {{ label }}
             </label>
             <HeadlessListboxButton
-                class="relative flex w-full cursor-pointer items-center justify-between rounded-lg border-2 px-4 py-3 text-left shadow-md duration-300 ease-in sm:text-sm"
+                class="relative flex w-full cursor-pointer items-center justify-between rounded-xl border-2 px-4 py-3 text-left shadow-md duration-300 ease-in sm:text-sm"
                 :class="colors[color].button"
             >
-                <div class="flex items-center gap-2 font-semibold">
+                <div
+                    class="flex items-center gap-2 font-semibold"
+                    v-if="typeof selected === 'string' || (selected as SelectOption)?.label"
+                >
                     <NuxtIcon
-                        v-if="typeof selected !== 'string' && selected.icon"
-                        :name="selected.icon"
+                        v-if="typeof selected !== 'string' && 'icon' in selected"
+                        :name="selected?.icon!"
                         class="flex items-center rounded-md text-base"
                         filled
                     />
-                    {{ typeof selected === 'string' ? selected : selected.label }}
+                    {{ typeof selected === 'object' ? (selected as SelectOption)?.label : selected }}
+                </div>
+                <div
+                    class="flex items-center gap-2 overflow-hidden font-semibold"
+                    v-else
+                >
+                    {{ placeholder }}
+                    <span
+                        v-if="(selected as [])?.length > 0"
+                        class="flex h-5 w-5 items-center justify-center rounded-full border border-white bg-primary-400 text-xs"
+                    >
+                        {{ (selected as [])?.length }}
+                    </span>
                 </div>
                 <NuxtIcon
                     name="chevron/down"
@@ -127,7 +155,7 @@ const colors: Record<
                     leave-to="transform opacity-0 scale-95"
                 >
                     <HeadlessListboxOptions
-                        class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg focus:outline-none sm:text-sm"
+                        class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl py-1 text-base shadow-lg focus:outline-none sm:text-sm"
                         :class="colors[color].options"
                     >
                         <HeadlessListboxOption
@@ -164,7 +192,7 @@ const colors: Record<
                                         option.disabled && 'pl-6',
                                         option.icon && 'pl-5',
                                     ]"
-                                    >{{ option.label }}</span
+                                    >{{ option?.label }}</span
                                 >
                                 <span
                                     v-if="selected"

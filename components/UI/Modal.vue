@@ -14,6 +14,10 @@ defineProps({
     okText: {
         type: String,
     },
+    size: {
+        type: String as PropType<'small' | 'medium' | 'large'>,
+        default: 'medium',
+    },
 });
 
 function setIsOpen(value: boolean) {
@@ -26,9 +30,17 @@ defineExpose({
 </script>
 
 <template>
-    <HeadlessTransitionRoot class="absolute" appear :show="isOpen">
+    <HeadlessTransitionRoot
+        class="absolute"
+        appear
+        :show="isOpen"
+    >
         <ClientOnly>
-            <HeadlessDialog as="div" @close="setIsOpen" class="relative z-[100]">
+            <HeadlessDialog
+                as="div"
+                @close="setIsOpen"
+                class="relative z-[100]"
+            >
                 <HeadlessTransitionChild
                     enter="duration-300 ease-out"
                     enter-from="opacity-0"
@@ -50,7 +62,12 @@ defineExpose({
                             leave-to="opacity-0 scale-95"
                         >
                             <HeadlessDialogPanel
-                                class="w-full max-w-2xl transform overflow-hidden rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
+                                class="w-full transform overflow-hidden rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
+                                :class="{
+                                    'max-w-xl': size === 'small',
+                                    'max-w-2xl': size === 'medium',
+                                    'max-w-fd': size === 'large',
+                                }"
                             >
                                 <HeadlessDialogTitle
                                     v-if="title"
@@ -59,12 +76,19 @@ defineExpose({
                                 >
                                     {{ title }}
                                 </HeadlessDialogTitle>
-                                <HeadlessDialogDescription v-if="description" class="mt-2 text-sm text-gray-500" as="p">
+                                <HeadlessDialogDescription
+                                    v-if="description"
+                                    class="mt-2 text-sm text-gray-500"
+                                    as="p"
+                                >
                                     {{ description }}
                                 </HeadlessDialogDescription>
                                 <slot></slot>
                                 <div class="mt-4 flex justify-end gap-2">
-                                    <UIButton color="transparent" @click="setIsOpen(false)">
+                                    <UIButton
+                                        color="transparent"
+                                        @click="setIsOpen(false)"
+                                    >
                                         {{ $t('buttons.cancel') }}
                                     </UIButton>
                                     <UIButton
