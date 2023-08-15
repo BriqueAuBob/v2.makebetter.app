@@ -13,7 +13,7 @@ async function changeLocale() {
 </script>
 
 <template>
-    <footer class="bg-footer bg-cover bg-center bg-no-repeat py-24 text-white shadow-top2xl shadow-primary-500">
+    <footer class="bg-footer bg-cover bg-center bg-no-repeat pb-16 pt-24 text-white shadow-top2xl shadow-primary-500">
         <div class="container grid gap-16 lg:grid-cols-5">
             <div class="col-span-2">
                 <h1 class="text-2xl font-bold">MakeBetter</h1>
@@ -36,14 +36,32 @@ async function changeLocale() {
                     color="white"
                 />
                 <div class="mt-8 flex gap-4">
-                    <a href="https://twitter.com/GUMaestro" target="_blank">
-                        <NuxtIcon name="socials/twitter" class="icon big" />
+                    <a
+                        href="https://twitter.com/GUMaestro"
+                        target="_blank"
+                    >
+                        <NuxtIcon
+                            name="socials/twitter"
+                            class="icon big"
+                        />
                     </a>
-                    <a href="https://discord.com/invite/GWpGBK8gmA" target="_blank">
-                        <NuxtIcon name="socials/discord" class="icon big" />
+                    <a
+                        href="https://discord.com/invite/GWpGBK8gmA"
+                        target="_blank"
+                    >
+                        <NuxtIcon
+                            name="socials/discord"
+                            class="icon big"
+                        />
                     </a>
-                    <a href="https://youtube.com/channel/UC9Z6Y5zXx7BUVrZ9YXxZQ8w" target="_blank">
-                        <NuxtIcon name="socials/youtube" class="icon big" />
+                    <a
+                        href="https://youtube.com/channel/UC9Z6Y5zXx7BUVrZ9YXxZQ8w"
+                        target="_blank"
+                    >
+                        <NuxtIcon
+                            name="socials/youtube"
+                            class="icon big"
+                        />
                     </a>
                 </div>
             </div>
@@ -90,5 +108,15 @@ async function changeLocale() {
                 </ul>
             </div>
         </div>
+        <p class="mt-16 text-center text-base text-gray-300">
+            Fait avec <span class="inline-block animate-bounce">❤️</span> par
+            <a
+                class="font-semibold text-white underline"
+                href="https://diose.io"
+                target="_blank"
+            >
+                Diose
+            </a>
+        </p>
     </footer>
 </template>
