@@ -36,6 +36,9 @@ const webhook = ref<DiscordWebhook | null>(null);
 const channelModal = ref<UIModalType>();
 const themeModal = ref<UIModalType>();
 const saveModal = ref<UIModalType>();
+const permissionsModal = ref<{
+    open: () => void;
+}>();
 const modifyCurrentSave = ref<boolean>();
 const colorMode = useColorMode();
 const theme = reactive({
@@ -133,6 +136,7 @@ const elements = computed(() => {
 
 const setMessage = (id: number, message: DiscordWebhookMessage) => {
     form.messages[id] = message;
+    socket.value?.emit('valueChange', form.messages);
 };
 
 const addMessage = () => {
@@ -342,12 +346,10 @@ const switcherRerender = async () => {
 const router = useRouter();
 const route = useRoute();
 const onShare = () => {
-    router.push({
-        query: {
-            id: 'abcde',
-            token: 'abchudbzg',
-        },
-    });
+    if (!route?.query?.id) {
+        return $toast.show({ type: 'danger', title: t('tools.global.collaboration.need_to_save'), timeout: 5 });
+    }
+    permissionsModal.value?.open();
 };
 
 const onLeavePage = () => {
@@ -361,9 +363,22 @@ const socket = ref<any>();
 const messages = computed(() => {
     return form.messages;
 });
-onMounted(() => {
-    if (route.query.id && route.query.token) {
-        socket.value = useSocket(route.query.id as string, route.query.token as string);
+const saveRef = ref<any>();
+onMounted(async () => {
+    if (route.query.id) {
+        try {
+            const { save } = await $fetchApi<{ save: any }>(`/makebetter/tools/saves/${route.query.id}`);
+            if (save?.permissions?.length > 0) {
+                socket.value = useSocket(route.query.id as string);
+            }
+            saveRef.value = save;
+        } catch (err) {
+            router.push({
+                query: {
+                    id: undefined,
+                },
+            });
+        }
     }
     window.onunload = onLeavePage;
 });
@@ -375,8 +390,12 @@ onUnmounted(() => {
 watch(
     () => route.query,
     (value) => {
-        if (value.id && value.token) {
-            socket.value = useSocket(value.id as string, value.token as string);
+        if (socket.value) {
+            socket.value.disconnect();
+            socket.value = null;
+        }
+        if (value.id) {
+            socket.value = useSocket(value.id as string);
         }
     }
 );
@@ -388,8 +407,10 @@ watch(
                 editors.value = users;
             });
             value.on('valueChange', (data: any) => {
-                console.log(data);
                 form.messages = data;
+            });
+            value.on('change_permissions', (permissions: any) => {
+                saveRef.value.permissions = permissions;
             });
         }
     }
@@ -398,6 +419,28 @@ watch(
 const editorsCursors = computed(() => {
     return editors.value.filter((editor) => editor.socketId !== socket.value?.id);
 });
+
+const onChangePermissions = (permissions: any[]) => {
+    saveRef.value.permissions = permissions;
+    if (permissions.filter((p) => p.permission !== 'none' && p.permission !== 'admin').length > 0) {
+        socket.value ??= useSocket(route.query.id as string);
+    } else if (socket.value) {
+        editors.value = [];
+        socket.value.disconnect();
+        socket.value = null;
+    }
+};
+
+const authStore = useAuthStore();
+const hasEditPermission = computed(
+    () =>
+        !route.query.id ||
+        !saveRef ||
+        saveRef.value?.authorId === authStore?.user?.id ||
+        saveRef.value?.permissions?.find(
+            (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
+        )
+);
 </script>
 
 <template>
@@ -412,7 +455,7 @@ const editorsCursors = computed(() => {
             class="container py-24"
             id="tool"
         >
-            <div class="flex justify-between">
+            <div class="flex flex-col justify-between gap-4 xl:flex-row">
                 <div>
                     <h1 class="text-2xl font-bold">
                         {{ $t('tools.discord.embed.name') }}
@@ -425,6 +468,10 @@ const editorsCursors = computed(() => {
                     :editors="editors"
                     :displayShare="true"
                     :onShare="onShare"
+                />
+                <LazyToolsPermissionsModal
+                    ref="permissionsModal"
+                    @change="onChangePermissions"
                 />
             </div>
             <div
@@ -479,14 +526,33 @@ const editorsCursors = computed(() => {
                             }
                         "
                     />
-                    <ToolsCardSwitcher
-                        :elements="elements"
-                        :current="current"
-                        ref="switcher"
-                    />
-                    <UIButton @click="addMessage">
-                        {{ $t('tools.discord.embed.steps.add_message') }}
-                    </UIButton>
+                    <div class="relative">
+                        <div
+                            class="flex flex-col gap-12 duration-300 ease-out"
+                            :class="!hasEditPermission && 'pointer-events-none opacity-20'"
+                        >
+                            <ToolsCardSwitcher
+                                :elements="elements"
+                                :current="current"
+                                ref="switcher"
+                            />
+                            <UIButton @click="addMessage">
+                                {{ $t('tools.discord.embed.steps.add_message') }}
+                            </UIButton>
+                        </div>
+                        <Transition name="fade">
+                            <div
+                                v-if="!hasEditPermission"
+                                class="absolute top-0 z-[100] h-full w-full py-32 text-center text-lg font-semibold"
+                            >
+                                <div
+                                    class="mx-auto w-fit rounded-xl border border-dashed border-primary-500 bg-primary-500/50 px-6 py-4 backdrop-blur-sm"
+                                >
+                                    Tu n'as pas la permission d'éditer cette sauvegarde.
+                                </div>
+                            </div>
+                        </Transition>
+                    </div>
                 </div>
                 <div>
                     <UICard

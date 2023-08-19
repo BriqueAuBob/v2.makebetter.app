@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
     name: {
         type: String,
         required: true,
@@ -41,6 +41,10 @@ defineProps({
         type: Boolean,
         default: true,
     },
+    autoComplete: {
+        type: Array as PropType<any[]>,
+        required: false,
+    },
 });
 
 const input = ref<HTMLInputElement>();
@@ -56,6 +60,8 @@ const focus = () => {
 defineExpose({
     focus,
 });
+
+const hasFocus = ref(false);
 </script>
 
 <template>
@@ -81,6 +87,36 @@ defineExpose({
             :disabled="fake || disabled"
             :type="secure ? 'password' : type || 'text'"
             ref="input"
+            @focusout="hasFocus = false"
+            @focusin="hasFocus = true"
         />
+        <Transition name="fade">
+            <div
+                v-if="autoComplete && hasFocus"
+                class="absolute left-0 top-full z-10 w-full translate-y-1 rounded-xl border border-dashed bg-white shadow-lg dark:divide-primary-500 dark:border-primary-500 dark:bg-primary-700 dark:text-white dark:shadow-primary-800"
+            >
+                <TransitionGroup name="fadescale">
+                    <div
+                        v-for="item in autoComplete"
+                        :key="item.id"
+                        class="m-1 flex cursor-pointer items-center justify-between rounded-lg px-2 py-2 hover:bg-primary-500"
+                        @click="
+                            () => {
+                                updateValue(item.username);
+                                emit('enter', item);
+                            }
+                        "
+                    >
+                        <div class="flex items-center">
+                            <UIAvatar
+                                :user="item!"
+                                size="xs"
+                            />
+                            <span class="ml-2 text-sm">{{ item?.username }}</span>
+                        </div>
+                    </div>
+                </TransitionGroup>
+            </div>
+        </Transition>
     </div>
 </template>

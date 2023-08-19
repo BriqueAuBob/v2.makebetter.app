@@ -26,6 +26,16 @@
             "theme": {
                 "title": "Changer le thème",
                 "description": "Regarde le rendu de tes messages avec les différents thèmes de Discord."
+            },
+
+            "collaboration": {
+                "need_to_save": "Vous devez sauvegarder votre création avant de pouvoir collaborer avec d'autres personnes.",
+                "permissions": {
+                    "admin": "Admin",
+                    "edit": "Editeur",
+                    "view": "Spectateur",
+                    "none": "Aucune permission"
+                }
             }
         },
 

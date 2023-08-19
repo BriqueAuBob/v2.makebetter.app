@@ -78,7 +78,7 @@ defineExpose({
                                 :class="{
                                     'max-w-xl': size === 'small',
                                     'max-w-2xl': size === 'medium',
-                                    'max-w-fd': size === 'large',
+                                    'max-w-4xl': size === 'large',
                                 }"
                             >
                                 <HeadlessDialogTitle

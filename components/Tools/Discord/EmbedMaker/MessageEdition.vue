@@ -121,16 +121,6 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
     component[field] = value;
     updateField('components', components);
 };
-
-// const shouldRenderEmbeds = ref(true);
-// watch(
-//     () => props.message.embeds,
-//     async () => {
-//         shouldRenderEmbeds.value = false;
-//         await nextTick();
-//         shouldRenderEmbeds.value = true;
-//     }
-// );
 </script>
 
 <template>
@@ -161,6 +151,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
             :placeholder="$t('tools.discord.embed.fields.content.placeholder')"
             longText
             @change="(value: string) => updateField('content', value)"
+            v-model="message.content"
         />
         <UIFileUploader
             placeholder="Upload a file"
@@ -203,6 +194,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.author.label')"
                             :placeholder="$t('tools.discord.embed.fields.author.placeholder')"
                             v-model="embed.author.name"
+                            @change="(value: string) => updateEmbedField(embedId, 'author.name', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -210,6 +202,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.author_icon.label')"
                             :placeholder="$t('tools.discord.embed.fields.author_icon.placeholder')"
                             v-model="embed.author.icon_url"
+                            @change="(value: string) => updateEmbedField(embedId, 'author.icon_url', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -217,6 +210,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.author_url.label')"
                             :placeholder="$t('tools.discord.embed.fields.author_url.placeholder')"
                             v-model="embed.author.url"
+                            @change="(value: string) => updateEmbedField(embedId, 'author.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
@@ -229,6 +223,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.thumbnail.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.thumbnail.url"
+                            @change="(value: string) => updateEmbedField(embedId, 'thumbnail.url', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -236,6 +231,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.image.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.image.url"
+                            @change="(value: string) => updateEmbedField(embedId, 'image.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
@@ -248,6 +244,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.title.label')"
                             :placeholder="$t('tools.discord.embed.fields.title.placeholder')"
                             v-model="embed.title"
+                            @change="(value: string) => updateEmbedField(embedId, 'title', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -255,6 +252,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :label="$t('tools.discord.embed.fields.description.label')"
                             :placeholder="$t('tools.discord.embed.fields.description.placeholder')"
                             v-model="embed.description"
+                            @change="(value: string) => updateEmbedField(embedId, 'description', value)"
                             longText
                         />
                         <UIInput
@@ -262,6 +260,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             :name="`url_message_${id}_embed_${embedId}`"
                             :label="$t('tools.discord.embed.fields.url.label')"
                             :placeholder="$t('tools.discord.embed.fields.url.placeholder')"
+                            @change="(value: string) => updateEmbedField(embedId, 'url', value)"
                             v-model="embed.url"
                         />
                         <div>
@@ -305,6 +304,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                                     :label="$t('tools.discord.embed.fields.field_name.label')"
                                     :placeholder="$t('tools.discord.embed.fields.field_name.placeholder')"
                                     v-model="field.name"
+                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIInput
                                     class="mb-4"
@@ -312,12 +312,14 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                                     :label="$t('tools.discord.embed.fields.field_value.label')"
                                     :placeholder="$t('tools.discord.embed.fields.field_value.placeholder')"
                                     v-model="field.value"
+                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIToggle
                                     class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
                                     :label="$t('tools.discord.embed.fields.field_inline.label')"
                                     v-model="field.inline"
+                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                             </ToolsCardCollapsible>
                         </TransitionGroup>
