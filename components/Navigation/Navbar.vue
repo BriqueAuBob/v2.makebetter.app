@@ -76,7 +76,7 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
                     :key="id"
                 >
                     <NuxtLink
-                        :to="localePath(item?.href)"
+                        :to="localePath(item?.href) || item?.href"
                         :target="item?.target"
                         @mouseover="(e: MouseEvent) => onHover(e, item)"
                     >
