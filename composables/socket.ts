@@ -1,18 +1,19 @@
 import io from 'socket.io-client';
+import { useAuthStore } from '~/stores/auth';
 
 const socketConnection = reactive({
     connected: false,
 });
-const useSocket = (sessionId: string, sessionToken: string) => {
+const useSocket = (sessionId: string) => {
     if (socketConnection.connected) return;
 
     const cookie = useCookie('token');
+    const authStore = useAuthStore();
 
     const socket = io('http://localhost:3000', {
         transports: ['websocket'],
         query: {
             sessionId,
-            sessionToken,
             token: cookie.value,
         },
     });
@@ -24,6 +25,16 @@ const useSocket = (sessionId: string, sessionToken: string) => {
     socket.on('disconnect', () => {
         console.log('socket disconnected');
         socket.close();
+    });
+
+    socket.on('change_permissions', (permissions: any) => {
+        if (
+            !permissions.find(
+                (permission: any) => permission.userId === useAuthStore().user?.id && permission.permission !== 'none'
+            )
+        ) {
+            window.location.reload();
+        }
     });
 
     window.addEventListener('mousemove', (e: MouseEvent) => {
