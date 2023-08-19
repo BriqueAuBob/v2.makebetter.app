@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { _primary, _red } from '#tailwind-config/theme/colors';
+import { _primary, _red, _green, _yellow } from '#tailwind-config/theme/colors';
 
 defineProps({
     template: {
@@ -19,6 +19,11 @@ const isDark = computed(() => colorMode.value === 'dark');
 const tagsColors: { [key: string]: string } = {
     rules: _red[500],
     presentation: _primary[400],
+    french: '#082A98',
+    english: '#EC2329',
+    commands: '#333333',
+    tickets: _green[600],
+    announcements: _yellow[600],
 };
 </script>
 
@@ -74,7 +79,7 @@ const tagsColors: { [key: string]: string } = {
                                 v-for="(tag, id) of template.tags"
                                 :key="id"
                                 class="rounded-lg px-2 py-1 text-xs font-semibold text-white shadow-md"
-                                :style="`background-color: ${tagsColors[tag]};`"
+                                :style="`background: ${tagsColors[tag]};`"
                             >
                                 {{ $t('tools.discord.embed.save.tags.' + tag) }}
                             </span>

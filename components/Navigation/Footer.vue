@@ -69,16 +69,16 @@ async function changeLocale() {
                 <h1 class="text-xl font-bold">Liens utiles</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <a href="#">Accueil</a>
+                        <NuxtLink :to="localePath('/')">Accueil</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Créateur d'embeds</a>
+                        <NuxtLink :to="localePath('/tools/discord/embed-maker')">Créateur d'embeds</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Nos tutoriels</a>
+                        <NuxtLink to="#">Nos tutoriels</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Avis des utilisateurs</a>
+                        <NuxtLink :to="localePath('testimonials')">Avis des utilisateurs</NuxtLink>
                     </li>
                 </ul>
             </div>
@@ -86,13 +86,13 @@ async function changeLocale() {
                 <h1 class="text-xl font-bold">Groupe</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <a href="#">Site</a>
+                        <NuxtLink to="https://diose.io">Site</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Recrutements</a>
+                        <NuxtLink to="https://umaestro.fr/recrutements">Recrutements</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Partenaires</a>
+                        <NuxtLink to="#">Partenaires</NuxtLink>
                     </li>
                 </ul>
             </div>
@@ -100,10 +100,10 @@ async function changeLocale() {
                 <h1 class="text-xl font-bold">Confidentialité & Sécurité</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <a href="#">Conditions générales d'utilisation</a>
+                        <NuxtLink to="#">Conditions générales d'utilisation</NuxtLink>
                     </li>
                     <li>
-                        <a href="#">Politique de confidentialité</a>
+                        <NuxtLink to="#">Politique de confidentialité</NuxtLink>
                     </li>
                 </ul>
             </div>

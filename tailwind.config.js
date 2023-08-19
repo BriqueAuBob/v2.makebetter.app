@@ -6,8 +6,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                display: 'Montserrat, Arial, sans-serif',
-                sans: 'Open Sans, Arial, sans-serif',
+                display: 'Public Sans, Montserrat, Arial, sans-serif',
+                sans: 'Public Sans, Open Sans, Arial, sans-serif',
             },
             colors: {
                 tools: {

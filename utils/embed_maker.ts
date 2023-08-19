@@ -95,8 +95,13 @@ function getDriver(driver: string): Driver {
 }
 
 export const getDiscordMessageSaveTags = () => [
+    { label: 'french', value: 'french', shouldTranslate: 'tools.discord.embed.save.tags.french' },
+    { label: 'english', value: 'english', shouldTranslate: 'tools.discord.embed.save.tags.english' },
     { label: 'rules', value: 'rules', shouldTranslate: 'tools.discord.embed.save.tags.rules' },
     { label: 'presentation', value: 'presentation', shouldTranslate: 'tools.discord.embed.save.tags.presentation' },
+    { label: 'commands', value: 'commands', shouldTranslate: 'tools.discord.embed.save.tags.commands' },
+    { label: 'tickets', value: 'tickets', shouldTranslate: 'tools.discord.embed.save.tags.tickets' },
+    { label: 'announcements', value: 'announcements', shouldTranslate: 'tools.discord.embed.save.tags.announcements' },
 ];
 
 export { generateCode, getDriver, JsonDriver, DiscordJsDriver, DiscordJsBuilderDriver };

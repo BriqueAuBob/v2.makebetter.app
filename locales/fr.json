@@ -72,7 +72,12 @@
 
                     "tags": {
                         "rules": "Réglement",
-                        "presentation": "Présentation"
+                        "presentation": "Présentation",
+                        "commands": "Commandes",
+                        "tickets": "Tickets",
+                        "announcements": "Annonces",
+                        "french": "Français",
+                        "english": "Anglais"
                     },
 
                     "should_be_public": "Rendre publique",
