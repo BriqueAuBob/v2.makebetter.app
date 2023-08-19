@@ -7,7 +7,7 @@ export type EmbedAuthor = {
 export type EmbedField = {
     name: string;
     value: string;
-    inline?: boolean;
+    inline: boolean;
 };
 
 export type EmbedFooter = {
