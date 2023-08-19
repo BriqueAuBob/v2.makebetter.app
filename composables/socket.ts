@@ -10,7 +10,7 @@ const useSocket = (sessionId: string) => {
     const cookie = useCookie('token');
     const authStore = useAuthStore();
 
-    const socket = io('http://localhost:3000', {
+    const socket = io('https://api.umaestro.fr', {
         transports: ['websocket'],
         query: {
             sessionId,
