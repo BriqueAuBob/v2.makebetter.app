@@ -48,6 +48,37 @@
                     }
                 },
 
+                "save": {
+                    "title": "Sauvegarder le message|Sauvegarder les messages",
+                    "description": "Sauvegarde ton message pour pouvoir le réutiliser plus tard.|Sauvegarde tes messages pour pouvoir les réutiliser plus tard.",
+                    "infos": "Informations de la sauvegarde",
+                    "load": "Charger cette sauvegarde",
+                    "load_template": "Charger ce template",
+
+                    "list": "Liste de tes sauvegardes",
+                    "list_description": "Charge une sauvegarde faite précédemment.",
+                    "templates_community": "Templates de la communauté",
+                    "templates_community_description": "Utilise les templates créés par la communauté ou par l'équipe de MakeBetter.",
+
+                    "tags": {
+                        "rules": "Réglement",
+                        "presentation": "Présentation"
+                    },
+
+                    "should_be_public": "Rendre publique",
+
+                    "form": {
+                        "name": {
+                            "placeholder": "Entrez le nom de la sauvegarde...",
+                            "label": "Nom de la sauvegarde"
+                        },
+                        "description": {
+                            "placeholder": "Entrez la description de la sauvegarde...",
+                            "label": "Description de la sauvegarde"
+                        }
+                    }
+                },
+
                 "steps": {
                     "load_messages": "Charger un ensemble de messages",
                     "edit_message_id": "Edition du message n°{id}",
@@ -178,7 +209,8 @@
         "share": "Partager",
         "apply": "Appliquer",
         "cancel": "Annuler",
-        "export": "Exporter"
+        "export": "Exporter",
+        "save": "Sauvegarder"
     },
 
     "banners": {

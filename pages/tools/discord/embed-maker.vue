@@ -7,6 +7,8 @@ import { themes, ThemeType } from '@/composables/discordThemes';
 import useSocket from '~/composables/socket';
 import { Socket } from 'socket.io-client';
 import type { User } from 'types/user';
+import { getDiscordMessageSaveTags } from '~/utils/embed_maker';
+import { useAuthStore } from '~/stores/auth';
 
 const MessageEdition = resolveComponent('ToolsDiscordEmbedMakerMessageEdition');
 const { t } = useI18n();
@@ -33,6 +35,8 @@ const webhook = ref<DiscordWebhook | null>(null);
 
 const channelModal = ref<UIModalType>();
 const themeModal = ref<UIModalType>();
+const saveModal = ref<UIModalType>();
+const modifyCurrentSave = ref<boolean>();
 const colorMode = useColorMode();
 const theme = reactive({
     current: themes[0],
@@ -64,6 +68,13 @@ const form = reactive({
     messages: [] as DiscordWebhookMessage[],
     thread_name: '',
     thread_id: '',
+});
+
+const formSave = reactive({
+    name: '',
+    description: '',
+    tags: [] as string[],
+    isPublic: false,
 });
 
 onMounted(() => {
@@ -190,6 +201,66 @@ const sendMessage = async () => {
             }
         });
     }
+};
+
+const saveMessages = async () => {
+    useFetchApi('/makebetter/tools/saves', {
+        method: 'POST',
+        body: {
+            type: 'discord_embed',
+            name: formSave.name,
+            description: formSave.description,
+            tags: formSave.tags,
+            data: form.messages,
+            isPublic: formSave.isPublic,
+        },
+    })
+        .then((res) => {
+            $toast.show({
+                title: t('tools.discord.embed.save.success.title'),
+                message: t('tools.discord.embed.save.success.message'),
+                type: 'success',
+                timeout: 5,
+            });
+        })
+        .catch((err) => {
+            $toast.show({
+                title: t('tools.discord.embed.save.error.title'),
+                message: t('tools.discord.embed.save.error.message'),
+                type: 'danger',
+                timeout: 5,
+            });
+        });
+};
+
+const updateMessages = async () => {
+    useFetchApi('/makebetter/tools/saves/' + route?.query?.id, {
+        method: 'PUT',
+        body: {
+            type: 'discord_embed',
+            name: formSave.name,
+            description: formSave.description,
+            tags: formSave.tags,
+            data: form.messages,
+            isPublic: formSave.isPublic,
+        },
+    })
+        .then((res) => {
+            $toast.show({
+                title: t('tools.discord.embed.save.success.title'),
+                message: t('tools.discord.embed.save.success.message'),
+                type: 'success',
+                timeout: 5,
+            });
+        })
+        .catch((err) => {
+            $toast.show({
+                title: t('tools.discord.embed.save.error.title'),
+                message: t('tools.discord.embed.save.error.message'),
+                type: 'danger',
+                timeout: 5,
+            });
+        });
 };
 
 const fetchWebhook = () => {
@@ -337,7 +408,10 @@ const editorsCursors = computed(() => {
             :description="$t('tools.discord.embed.description')"
             :buttonText="$t('tools.discord.embed.button')"
         />
-        <section class="container py-24">
+        <section
+            class="container py-24"
+            id="tool"
+        >
             <div class="flex justify-between">
                 <div>
                     <h1 class="text-2xl font-bold">
@@ -372,7 +446,7 @@ const editorsCursors = computed(() => {
                 />
                 {{ editor.username }}
             </div>
-            <div class="grid gap-8 pt-12 md:grid-cols-2">
+            <div class="grid gap-8 pt-12 lg:grid-cols-2">
                 <div class="flex flex-col gap-12">
                     <div>
                         <div class="mb-2 font-display text-lg font-semibold">
@@ -387,7 +461,24 @@ const editorsCursors = computed(() => {
                             secure
                         />
                     </div>
-                    <ToolsLoadSaveTemplate :title="$t('tools.discord.embed.steps.load_messages')" />
+                    <ToolsLoadSaveTemplate
+                        :title="$t('tools.discord.embed.steps.load_messages')"
+                        @load="
+                            (e, isPersonal: boolean) => {
+								router.push({
+									query: {
+										id: isPersonal ? e._id : undefined,
+									}
+								})
+                                form.messages = e.data;
+								formSave.name = e.name;
+								formSave.description = e.description;
+								formSave.tags = e.tags;
+								formSave.isPublic = e.isPublic;
+                                switcherRerender();
+                            }
+                        "
+                    />
                     <ToolsCardSwitcher
                         :elements="elements"
                         :current="current"
@@ -501,7 +592,111 @@ const editorsCursors = computed(() => {
                             </template>
                         </draggable>
                         <template #footer>
-                            <div class="flex justify-end gap-2 border-t p-8 dark:border-t-primary-800">
+                            <div class="flex flex-wrap justify-end gap-2 border-t p-8 dark:border-t-primary-800">
+                                <UIButton
+                                    size="sm"
+                                    color="light"
+                                    @click="() => {
+										($refs.saveModal as UIModalType).setIsOpen(true);
+									}"
+                                >
+                                    {{ $t('buttons.save') }}
+                                </UIButton>
+                                <UIModal
+                                    :title="$t('tools.discord.embed.save.title', { count: form.messages.length })"
+                                    :description="
+                                        $t('tools.discord.embed.save.description', { count: form.messages.length })
+                                    "
+                                    ref="saveModal"
+                                    :onApply="modifyCurrentSave ? updateMessages : saveMessages"
+                                    :okText="$t('buttons.save')"
+                                    size="large"
+                                    :noButtons="!!route.query.id && !modifyCurrentSave"
+                                    @close="
+                                        () => {
+                                            modifyCurrentSave = false;
+                                        }
+                                    "
+                                >
+                                    <div
+                                        class="grid gap-4 pb-2 pt-6 lg:grid-cols-2"
+                                        v-if="!route.query.id || modifyCurrentSave"
+                                    >
+                                        <div class="flex flex-col gap-2">
+                                            <div class="text-md font-semibold text-gray-500">
+                                                {{ $t('tools.discord.embed.save.infos') }}
+                                            </div>
+                                            <UIInput
+                                                v-model="formSave.name"
+                                                :placeholder="$t('tools.discord.embed.save.form.name.placeholder')"
+                                                name="name"
+                                                :label="$t('tools.discord.embed.save.form.name.label')"
+                                                required
+                                            />
+                                            <UIInput
+                                                v-model="formSave.description"
+                                                :placeholder="
+                                                    $t('tools.discord.embed.save.form.description.placeholder')
+                                                "
+                                                name="description"
+                                                :label="$t('tools.discord.embed.save.form.description.label')"
+                                            />
+                                            <UISelect
+                                                v-model="formSave.tags"
+                                                placeholder="Tags"
+                                                :options="getDiscordMessageSaveTags()"
+                                                name="tags"
+                                                label="Tags"
+                                                multiple
+                                            />
+                                            <UIToggle
+                                                v-model="formSave.isPublic"
+                                                name="isPublic"
+                                                :label="$t('tools.discord.embed.save.should_be_public')"
+                                            />
+                                        </div>
+                                        <ToolsDiscordEmbedMakerCardSave
+                                            :template="{
+                                                name: formSave.name,
+                                                description: formSave.description,
+                                                tags: formSave.tags,
+                                                data: form.messages,
+                                                author: useAuthStore().user,
+                                                createdAt: new Date(),
+                                            }"
+                                        />
+                                    </div>
+                                    <div
+                                        class="grid gap-4 pb-2 pt-6 lg:grid-cols-2"
+                                        v-else
+                                    >
+                                        <UIButton
+                                            @click="
+                                                () => {
+                                                    router.push({
+                                                        query: {
+                                                            id: undefined,
+                                                        },
+                                                    });
+                                                    formSave.name = '';
+                                                    formSave.description = '';
+                                                    formSave.tags = [];
+                                                    formSave.isPublic = false;
+                                                    modifyCurrentSave = true;
+                                                }
+                                            "
+                                            >Créer une nouvelle sauvegarde</UIButton
+                                        >
+                                        <UIButton
+                                            @click="
+                                                () => {
+                                                    modifyCurrentSave = true;
+                                                }
+                                            "
+                                            >Modifier la sauvegarde</UIButton
+                                        >
+                                    </div>
+                                </UIModal>
                                 <UIButton
                                     size="sm"
                                     color="light"

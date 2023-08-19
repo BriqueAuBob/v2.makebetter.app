@@ -166,7 +166,10 @@ export default defineNuxtConfig({
         '@tailvue/nuxt', // https://nuxt.com/modules/tailvue
     ],
 
-    plugins: [{ src: '~/plugins/aos', mode: 'client' }],
+    plugins: [
+        { src: '~/plugins/aos', mode: 'client' },
+        { src: '~/plugins/loading.ts', mode: 'client' },
+    ],
 
     devtools: {
         enabled: true,

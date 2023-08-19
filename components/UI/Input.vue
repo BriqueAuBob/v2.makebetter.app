@@ -43,11 +43,19 @@ defineProps({
     },
 });
 
-const emit = defineEmits(['update:modelValue', 'change', 'focus']);
+const input = ref<HTMLInputElement>();
+const emit = defineEmits(['update:modelValue', 'change', 'focus', 'enter']);
 function updateValue(value: string) {
     emit('update:modelValue', value);
     emit('change', value);
 }
+
+const focus = () => {
+    input.value?.focus();
+};
+defineExpose({
+    focus,
+});
 </script>
 
 <template>
@@ -69,8 +77,10 @@ function updateValue(value: string) {
             :value="modelValue"
             @input="updateValue($event.target.value)"
             @focus="emit('focus')"
+            @keyup.enter="emit('enter')"
             :disabled="fake || disabled"
             :type="secure ? 'password' : type || 'text'"
+            ref="input"
         />
     </div>
 </template>

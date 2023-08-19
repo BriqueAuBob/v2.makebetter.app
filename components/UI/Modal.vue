@@ -18,10 +18,22 @@ defineProps({
         type: String as PropType<'small' | 'medium' | 'large'>,
         default: 'medium',
     },
+    buttonDisabled: {
+        type: Boolean,
+        default: false,
+    },
+    noButtons: {
+        type: Boolean,
+        default: false,
+    },
 });
 
+const emits = defineEmits(['close']);
 function setIsOpen(value: boolean) {
     isOpen.value = value;
+    if (!value) {
+        emits('close');
+    }
 }
 
 defineExpose({
@@ -62,7 +74,7 @@ defineExpose({
                             leave-to="opacity-0 scale-95"
                         >
                             <HeadlessDialogPanel
-                                class="w-full transform overflow-hidden rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
+                                class="w-full transform rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
                                 :class="{
                                     'max-w-xl': size === 'small',
                                     'max-w-2xl': size === 'medium',
@@ -84,7 +96,10 @@ defineExpose({
                                     {{ description }}
                                 </HeadlessDialogDescription>
                                 <slot></slot>
-                                <div class="mt-4 flex justify-end gap-2">
+                                <div
+                                    class="mt-4 flex justify-end gap-2"
+                                    v-if="!noButtons"
+                                >
                                     <UIButton
                                         color="transparent"
                                         @click="setIsOpen(false)"
@@ -99,6 +114,7 @@ defineExpose({
                                                 setIsOpen(false);
                                             }
                                         "
+                                        :disabled="buttonDisabled"
                                     >
                                         {{ okText || $t('buttons.apply') }}
                                     </UIButton>

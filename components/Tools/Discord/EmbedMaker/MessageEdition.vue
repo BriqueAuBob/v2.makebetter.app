@@ -313,12 +313,11 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                                     :placeholder="$t('tools.discord.embed.fields.field_value.placeholder')"
                                     v-model="field.value"
                                 />
-                                <UIInput
-                                    class="mb-4"
+                                <UIToggle
+                                    class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
                                     :label="$t('tools.discord.embed.fields.field_inline.label')"
-                                    :placeholder="$t('tools.discord.embed.fields.field_inline.placeholder')"
-                                    v-model="field.value"
+                                    v-model="field.inline"
                                 />
                             </ToolsCardCollapsible>
                         </TransitionGroup>

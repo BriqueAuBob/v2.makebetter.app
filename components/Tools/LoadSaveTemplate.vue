@@ -11,6 +11,9 @@ defineProps({
 });
 
 const modal = ref<UIModalType>();
+const personal = ref<boolean>(false);
+
+const emits = defineEmits(['load']);
 </script>
 
 <template>
@@ -19,17 +22,32 @@ const modal = ref<UIModalType>();
         <div class="mt-4 flex gap-4">
             <UIButton
                 color="light"
-                @click="(modal as UIModalType).setIsOpen(true)"
+                @click="() => {
+					personal = false;
+					(modal as UIModalType).setIsOpen(true)
+				}"
             >
                 {{ $t('tools.global.load.template') }}
             </UIButton>
-            <UIButton color="light">
+            <UIButton
+                color="light"
+                @click="
+				() => {
+					personal = true;
+					(modal as UIModalType).setIsOpen(true)
+				}
+			"
+            >
                 {{ $t('tools.global.load.save') }}
             </UIButton>
         </div>
         <div class="mt-3 text-sm font-medium italic">
             Le chargement effacera toutes les modifications non sauvegardées.
         </div>
-        <ToolsTemplatesModal ref="modal" />
+        <LazyToolsTemplatesModal
+            :personal="personal"
+            @load="emits('load', $event, personal)"
+            ref="modal"
+        />
     </div>
 </template>

@@ -71,7 +71,7 @@ watch(
 
 <template>
     <div>
-        <div class="relative">
+        <div class="group relative">
             <input
                 type="file"
                 class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
@@ -82,11 +82,14 @@ watch(
                 :accept="accept"
             />
             <div
-                class="flex w-full items-center justify-between rounded-3xl border-2 border-dashed border-gray-200 p-4 dark:border-primary-700 dark:bg-primary-800"
+                class="flex w-full items-center justify-between rounded-3xl border-2 border-dashed border-gray-200 p-4 duration-300 ease-out dark:border-primary-700 dark:bg-primary-800"
             >
                 <div class="flex items-center gap-3">
                     <div class="rounded-xl bg-gray-100 p-4 dark:bg-primary-700">
-                        <NuxtIcon class="icon big text-gray-600 dark:text-primary-200" name="image" />
+                        <NuxtIcon
+                            class="icon big text-gray-600 dark:text-primary-200"
+                            name="image"
+                        />
                     </div>
                     <div>
                         <div class="text-md font-semibold text-gray-600 dark:text-gray-300">
@@ -95,7 +98,11 @@ watch(
                         <div class="mt-1 text-xs text-gray-400">SVG, JPG, PNG or GIF...</div>
                     </div>
                 </div>
-                <button class="rounded-xl border px-4 py-2 text-xs text-gray-400">Upload</button>
+                <button
+                    class="ease rounded-xl border px-4 py-2 text-xs text-gray-400 duration-300 group-hover:bg-white group-hover:text-gray-700"
+                >
+                    Upload
+                </button>
             </div>
         </div>
         <Transition name="fadescalebottom">
@@ -104,15 +111,24 @@ watch(
                 class="mx-8 rounded-b-3xl border-x-2 border-b-2 border-dashed border-gray-200 bg-gray-50 px-6 pb-6 pt-4 shadow-sm dark:border-primary-800 dark:bg-primary-900"
             >
                 <div class="text-sm font-semibold text-gray-400">Files uploaded</div>
-                <div class="mt-2 flex items-center gap-3" v-for="file of form.files">
+                <div
+                    class="mt-2 flex items-center gap-3"
+                    v-for="file of form.files"
+                >
                     <div class="rounded-xl bg-gray-200 p-2 dark:bg-primary-800">
                         <img
                             v-if="['png', 'jpeg', 'jpg'].includes(getFileExtension(file))"
                             :src="imageUrl(file)"
                             class="aspect-square h-16 w-16 rounded-lg object-cover"
                         />
-                        <div v-else class="relative">
-                            <NuxtIcon class="icon xl text-gray-600" name="file" />
+                        <div
+                            v-else
+                            class="relative"
+                        >
+                            <NuxtIcon
+                                class="icon xl text-gray-600"
+                                name="file"
+                            />
                             <div
                                 class="absolute left-1 top-6 rounded-lg px-2 py-1 text-xs font-bold text-white"
                                 :class="fileExtensionColor(file)"
