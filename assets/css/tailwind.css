@@ -40,6 +40,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    scroll-behavior: smooth;
+}
+
 h1,
 h2,
 h3,
@@ -145,6 +149,40 @@ body {
     animation: aos-bounce 0.5s 0s both !important;
 }
 
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::before {
+    @apply rounded-xl backdrop-blur-sm;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    animation: fadein 0.2s ease-in-out;
+    opacity: 0;
+}
+
+.loading::after {
+    @apply border-2 border-white;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite, fadein 0.5s ease-in-out;
+    opacity: 0;
+    z-index: 70;
+}
+
 @keyframes aos-bounce {
     0% {
         transform: scale(0, 0) translateY(24px);
@@ -163,6 +201,15 @@ body {
     }
 }
 
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .hover\:-translate-y-1:hover {
     @apply -translate-y-1 !important;
 }
@@ -174,6 +221,30 @@ body {
 
 div[aria-alive='assertive'] {
     z-index: 9999 !important;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 24px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 24px;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-primary-200;
+    border-radius: 24px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    @apply bg-primary-800;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    @apply bg-primary-600;
 }
 
 @keyframes circle {

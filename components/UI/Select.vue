@@ -4,6 +4,7 @@ type SelectOption = {
     value: string;
     disabled?: boolean;
     icon?: string;
+    shouldTranslate?: string;
 };
 
 type SelectColors = 'primary' | 'white';
@@ -93,9 +94,14 @@ const colors: Record<
         as="div"
         :model-value="modelValue"
         @update:modelValue="
-			(value: string) => {
-				if(multiple) {
-					selected = options.filter((o: SelectOption) => value.includes(o.value));
+			(value: string[] | string) => {
+				if(multiple && typeof value !== 'string') {
+					if(value.find((i: string) => i === 'all')) {
+						selected = options.filter((o: SelectOption) => o.value === 'all');
+						emit('update:modelValue', ['all']);
+					} else {
+						selected = options.filter((o: SelectOption) => value.includes(o.value));
+					}
 				} else {
 					selected = options.find((o: SelectOption) => o.value === value)!;
 				}
@@ -192,10 +198,10 @@ const colors: Record<
                                         option.disabled && 'pl-6',
                                         option.icon && 'pl-5',
                                     ]"
-                                    >{{ option?.label }}</span
+                                    >{{ option.shouldTranslate ? $t(option.shouldTranslate) : option?.label }}</span
                                 >
                                 <span
-                                    v-if="selected"
+                                    v-show="selected"
                                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-primary-600"
                                 >
                                     <NuxtIcon

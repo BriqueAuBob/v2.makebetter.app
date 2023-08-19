@@ -94,4 +94,9 @@ function getDriver(driver: string): Driver {
     }
 }
 
+export const getDiscordMessageSaveTags = () => [
+    { label: 'rules', value: 'rules', shouldTranslate: 'tools.discord.embed.save.tags.rules' },
+    { label: 'presentation', value: 'presentation', shouldTranslate: 'tools.discord.embed.save.tags.presentation' },
+];
+
 export { generateCode, getDriver, JsonDriver, DiscordJsDriver, DiscordJsBuilderDriver };

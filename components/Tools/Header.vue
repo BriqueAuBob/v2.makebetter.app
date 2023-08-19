@@ -48,21 +48,29 @@ onMounted(() => {
             <div
                 class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-gray-200 bg-white shadow-lg"
             >
-                <NuxtIcon name="socials/makebetter" class="icon big text-black" />
+                <NuxtIcon
+                    name="socials/makebetter"
+                    class="icon big text-black"
+                />
             </div>
             +
             <div
                 class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-gray-200 bg-white shadow-lg"
             >
-                <NuxtIcon :name="`socials/${platform}`" class="icon big text-black" />
+                <NuxtIcon
+                    :name="`socials/${platform}`"
+                    class="icon big text-black"
+                />
             </div>
         </div>
         <h1 class="mb-6 text-5xl font-black">{{ title }}</h1>
         <h2 class="mx-auto max-w-xl text-lg">{{ description }}</h2>
         <div class="mt-8 flex items-center justify-center gap-4">
-            <UIButton color="light">
-                {{ buttonText }}
-            </UIButton>
+            <NuxtLink to="#tool">
+                <UIButton color="light">
+                    {{ buttonText }}
+                </UIButton>
+            </NuxtLink>
             <UIButton color="transparent"> Voir d'autres outils </UIButton>
         </div>
     </header>
