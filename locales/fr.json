@@ -36,6 +36,17 @@
                     "view": "Spectateur",
                     "none": "Aucune permission"
                 }
+            },
+
+            "save": {
+                "success": {
+                    "title": "Création sauvegardée avec succès!",
+                    "message": "Votre création a été sauvegardée."
+                },
+                "error": {
+                    "title": "Erreur lors de la sauvegarde!",
+                    "message": "Une erreur est survenue lors de la sauvegarde de votre création."
+                }
             }
         },
 
@@ -205,6 +216,14 @@
                         "placeholder": "URL du bouton"
                     }
                 }
+            },
+            "badges": {
+                "name": "Créateur d'icones de rôles",
+                "description": "Créée tes propres icones de rôles pour ton serveur Discord avec notre outil !"
+            },
+            "emojis": {
+                "name": "Créateur d'emojis",
+                "description": "Créée de grands emojis pour customiser ton serveur, ton profil Discord ou encore tes messages !"
             }
         }
     },
