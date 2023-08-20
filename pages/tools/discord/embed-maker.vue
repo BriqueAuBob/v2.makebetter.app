@@ -221,8 +221,8 @@ const saveMessages = async () => {
     })
         .then((res) => {
             $toast.show({
-                title: t('tools.discord.embed.save.success.title'),
-                message: t('tools.discord.embed.save.success.message'),
+                title: t('tools.global.save.success.title'),
+                message: t('tools.global.save.success.message'),
                 type: 'success',
                 timeout: 5,
             });
@@ -251,8 +251,8 @@ const updateMessages = async () => {
     })
         .then((res) => {
             $toast.show({
-                title: t('tools.discord.embed.save.success.title'),
-                message: t('tools.discord.embed.save.success.message'),
+                title: t('tools.global.save.success.title'),
+                message: t('tools.global.save.success.message'),
                 type: 'success',
                 timeout: 5,
             });
@@ -522,6 +522,7 @@ const hasEditPermission = computed(
 								formSave.description = e.description;
 								formSave.tags = e.tags;
 								formSave.isPublic = e.isPublic;
+								saveRef.value = e;
                                 switcherRerender();
                             }
                         "

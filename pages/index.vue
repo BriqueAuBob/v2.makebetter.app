@@ -4,7 +4,6 @@ import type { Testimonials as TestimonialsType, Statistics as StatisticsType } f
 import { Slide } from 'vue3-carousel';
 import { useI18n } from '#i18n';
 const localePath = useLocalePath();
-
 const { locale, t } = useI18n();
 const language = reactive({
     locale: locale.value,
@@ -22,12 +21,12 @@ const collapsibleElements: CollapseGroupItems = [
         defaultOpen: true,
     },
     {
-        title: t('tools.discord.embed.name'),
-        content: t('tools.discord.embed.description'),
+        title: t('tools.discord.badges.name'),
+        content: t('tools.discord.badges.description'),
     },
     {
-        title: t('tools.discord.embed.name'),
-        content: t('tools.discord.embed.description'),
+        title: t('tools.discord.emojis.name'),
+        content: t('tools.discord.emojis.description'),
     },
 ];
 
@@ -37,8 +36,15 @@ type Testimonials = {
 type Statistics = {
     members: number;
 };
+type Articles = {
+    articles: any[];
+};
 const { data: testimonialsData } = await useFetchApi<TestimonialsType>('testimonials?max=3');
 const { data: statisticsData } = await useFetchApi<StatisticsType>('statistics');
+const { data: articlesPagination } = await useFetchApi<{
+    meta: any;
+    articles: any[];
+}>('articles?type=makebetter&search=');
 
 const hasScrolled = ref(false);
 onMounted(() => {
@@ -211,10 +217,13 @@ onMounted(() => {
         <h1 class="mx-auto text-center text-xl font-bold">
             {{ $t('homepage.need_help') }}
         </h1>
-        <div class="mt-8 grid grid-cols-3 gap-6">
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <CardArticle
-                v-for="i in 6"
+                v-for="(article, i) in articlesPagination?.articles"
+                :key="i"
                 :data-aos-offset="100 + i * 100"
+                :article="article"
+                :views="article.views_count"
             ></CardArticle>
         </div>
         <div class="flex justify-center">

@@ -55,7 +55,7 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
 
 <template>
     <nav
-        class="ease container absolute left-1/2 top-2 z-10 mx-auto flex -translate-x-1/2 items-center justify-between rounded-xl py-6 duration-300"
+        class="ease container absolute left-1/2 top-2 z-10 mx-auto flex -translate-x-1/2 flex-wrap items-center justify-between rounded-xl py-6 duration-300"
         @mouseleave="currentItem = null"
     >
         <div class="flex items-center gap-8">

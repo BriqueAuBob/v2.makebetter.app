@@ -1,12 +1,8 @@
 <script setup lang="ts">
 defineProps({
-    title: {
-        type: String,
-        default: 'Card Title',
-    },
-    description: {
-        type: String,
-        default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    article: {
+        type: Object,
+        required: true,
     },
     views: {
         type: Number,
@@ -21,27 +17,59 @@ defineProps({
         default: false,
     },
 });
+
+const localePath = useLocalePath();
+const localeRoute = useLocaleRoute();
+const { locale, t } = useI18n();
+const language = reactive({
+    locale: locale.value,
+});
 </script>
 
 <template>
-    <UICard>
-        <template #header>
-            <nuxt-img src="/images/articles/fake.png" class="w-full" />
-        </template>
-        <template #footer>
-            <div class="-mt-4 flex items-center justify-between px-8 pb-8">
-                <div class="rounded-md bg-primary-500 px-2 py-1 text-sm font-medium text-white">Nouveau</div>
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2">
-                        <NuxtIcon name="eye" class="icon" />
-                        <span class="text-gray-500">{{ views }}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <NuxtIcon name="heart" class="icon" :filled="!liked" />
-                        <span class="text-gray-500">{{ likes }}</span>
+    <NuxtLink
+        :to="
+            localeRoute({
+                name: 'tutorials-slug',
+                params: {
+                    slug: locale === 'fr' ? article.slug_fr : article.slug_en,
+                },
+            })
+        "
+    >
+        <UICard
+            class="overflow-hidden"
+            :title="article.title_fr"
+            :description="article.description_fr"
+        >
+            <template #header>
+                <nuxt-img
+                    src="/images/tuto_embeds.png"
+                    class="w-full"
+                />
+            </template>
+            <template #footer>
+                <div class="-mt-4 flex items-center justify-between px-8 pb-8">
+                    <div class="rounded-md bg-primary-500 px-2 py-1 text-sm font-medium text-white">Nouveau</div>
+                    <div class="flex items-center gap-4">
+                        <!-- <div class="flex items-center gap-2">
+                            <NuxtIcon
+                                name="eye"
+                                class="icon"
+                            />
+                            <span class="text-gray-500">{{ views }}</span>
+                        </div> -->
+                        <!-- <div class="flex items-center gap-2">
+                            <NuxtIcon
+                                name="heart"
+                                class="icon"
+                                :filled="!liked"
+                            />
+                            <span class="text-gray-500">{{ likes }}</span>
+                        </div> -->
                     </div>
                 </div>
-            </div>
-        </template>
-    </UICard>
+            </template>
+        </UICard>
+    </NuxtLink>
 </template>
