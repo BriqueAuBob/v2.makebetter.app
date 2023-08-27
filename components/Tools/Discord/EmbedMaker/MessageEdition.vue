@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import type { DiscordWebhookMessage, Embed, Component } from '../../../../types/discord';
+import type { DiscordWebhookMessage, Embed, Component } from '~/types/discord';
 import { _primary } from '#tailwind-config/theme/colors';
 
 const props = defineProps({

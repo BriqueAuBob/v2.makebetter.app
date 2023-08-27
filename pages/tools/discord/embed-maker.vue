@@ -2,11 +2,11 @@
 import draggable from 'vuedraggable';
 import { useNuxtApp } from '#app';
 import { _primary } from '#tailwind-config/theme/colors';
-import type { DiscordWebhookMessage, DiscordWebhook, Component, DiscordChannel } from 'types/discord';
+import type { DiscordWebhookMessage, DiscordWebhook, Component, DiscordChannel } from '~/types/discord';
 import { themes, ThemeType } from '@/composables/discordThemes';
 import useSocket from '~/composables/socket';
 import { Socket } from 'socket.io-client';
-import type { User } from 'types/user';
+import type { User } from '~/types/user';
 import { getDiscordMessageSaveTags } from '~/utils/embed_maker';
 import { useAuthStore } from '~/stores/auth';
 
@@ -522,7 +522,7 @@ const hasEditPermission = computed(
 								formSave.description = e.description;
 								formSave.tags = e.tags;
 								formSave.isPublic = e.isPublic;
-								saveRef.value = e;
+								saveRef = e;
                                 switcherRerender();
                             }
                         "
@@ -637,7 +637,7 @@ const hasEditPermission = computed(
                                 animation: 200,
                             }"
                             tag="div"
-                            class="flex max-h-[60vh] flex-col gap-4 overflow-y-auto px-8 py-8"
+                            class="flex max-h-[70vh] flex-col gap-4 overflow-y-auto px-8 py-8"
                             :itemKey="'id'"
                             ghost-class="dragging"
                             id="messages_draggable"

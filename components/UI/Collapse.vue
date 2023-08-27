@@ -46,8 +46,11 @@ const collapseStyle = computed(() => {
 
 <template>
     <div class="border-b border-gray-200 dark:border-primary-800">
-        <div class="flex cursor-pointer justify-between py-4" @click="toggle">
-            <h2 :class="smallTitle ? 'text-md font-semibold' : 'text-lg font-bold'">
+        <div
+            class="flex cursor-pointer justify-between py-4"
+            @click="toggle"
+        >
+            <h2 :class="[smallTitle ? 'text-md font-semibold' : 'text-lg font-bold', 'select-none']">
                 {{ title }}
             </h2>
             <NuxtIcon

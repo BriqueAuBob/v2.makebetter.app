@@ -1,4 +1,4 @@
-import type { DiscordWebhookMessage } from 'types/discord';
+import type { DiscordWebhookMessage } from '~/types/discord';
 
 interface Driver {
     generateCode(messages: DiscordWebhookMessage[], webhook_url: string): string;

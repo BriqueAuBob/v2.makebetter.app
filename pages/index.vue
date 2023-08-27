@@ -30,15 +30,6 @@ const collapsibleElements: CollapseGroupItems = [
     },
 ];
 
-type Testimonials = {
-    testimonials: any[];
-};
-type Statistics = {
-    members: number;
-};
-type Articles = {
-    articles: any[];
-};
 const { data: testimonialsData } = await useFetchApi<TestimonialsType>('testimonials?max=3');
 const { data: statisticsData } = await useFetchApi<StatisticsType>('statistics');
 const { data: articlesPagination } = await useFetchApi<{
@@ -96,13 +87,14 @@ onMounted(() => {
         </div>
         <div
             id="examples"
-            class="absolute bottom-0 left-1/2 flex w-full max-w-full -translate-x-1/2 translate-y-8"
+            class="pointer-events-none absolute bottom-0 left-1/2 flex w-full max-w-full -translate-x-1/2 translate-y-8"
         >
             <div class="flex translate-y-24 justify-center gap-4 lg:gap-8 xl:gap-16">
                 <UICarousel>
                     <Slide
                         v-for="(preview, index) in previews"
                         :key="index"
+                        :duration="500"
                     >
                         <div class="w-full overflow-hidden rounded-3xl border-8 border-primary-600">
                             <nuxt-img
@@ -141,14 +133,14 @@ onMounted(() => {
             <FakerEmbedCreatorDemo />
         </div>
     </section>
-    <section class="container relative gap-16 pb-48 pt-16">
+    <section class="container relative pb-48 pt-16">
         <h1 class="mx-auto text-center text-xl font-bold">
             {{ $t('homepage.share.title') }}
         </h1>
         <div
             class="to-primary-30 absolute left-1/2 top-1/2 -z-10 h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 opacity-10 blur-3xl"
         ></div>
-        <div class="mt-8 grid grid-cols-2 gap-8">
+        <div class="mt-8 grid gap-8 md:grid-cols-2">
             <UICard
                 :header-grid="true"
                 :title="$t('homepage.share.collaborators.title')"
@@ -240,12 +232,12 @@ onMounted(() => {
             {{
                 $t('homepage.stat_usage_rates', {
                     usersCount: statisticsData?.members,
-                    ratesCount: 250,
+                    ratesCount: statisticsData?.testimonials,
                 })
             }}
         </p>
         <h1 class="text-center text-3xl font-black">Pourquoi pas toi&nbsp;?</h1>
-        <div class="mt-8 grid grid-cols-3 gap-6">
+        <div class="mt-8 grid gap-6 lg:grid-cols-3">
             <CardReview
                 v-for="(testimonial, id) in testimonialsData?.testimonials"
                 :key="id"

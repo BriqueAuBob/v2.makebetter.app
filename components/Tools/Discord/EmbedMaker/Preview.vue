@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable';
 import { fileSize } from '@/composables/Blob';
-import type { DiscordWebhookMessage } from '../../../../types/discord';
+import type { DiscordWebhookMessage } from '~/types/discord';
+import { parse } from 'discord-markdown-parser';
+import SimpleMarkdown from 'simple-markdown';
 
-defineProps({
+const props = defineProps({
     message: {
         type: Object as PropType<DiscordWebhookMessage>,
         required: true,
@@ -43,9 +45,10 @@ const onChange = (message: any) => {
                 <span class="ml-1 self-end rounded-md text-xs text-gray-600 dark:text-gray-200"> 12/08/2022 </span>
             </div>
             <div class="mt-1 flex w-full flex-col gap-1">
-                <p class="whitespace-pre-line break-words text-base font-normal leading-snug text-gray-400">
-                    {{ message.content }}
-                </p>
+                <ToolsDiscordMarkdown
+                    class="whitespace-pre-line break-words text-base font-normal leading-snug text-gray-400"
+                    :content="message.content"
+                ></ToolsDiscordMarkdown>
                 <TransitionGroup
                     v-if="message.files"
                     name="fadescale"
@@ -56,7 +59,7 @@ const onChange = (message: any) => {
                         v-for="(file, id) of message.files"
                         :key="id"
                     >
-                        <div v-if="file.type.startsWith('image') && file.type !== 'image/svg+xml'">
+                        <div v-if="file.type?.startsWith('image') && file?.type !== 'image/svg+xml'">
                             <img
                                 class="max-h-[300px] cursor-pointer rounded-md"
                                 :src="createObjectURL(file)"
