@@ -122,7 +122,7 @@
                     "buttons": {
                         "title": "Boutons",
                         "add": "Ajouter un bouton",
-                        "bot": "Le webhook dois avoir été créé par un bot pour pouvoir ajouter des boutons."
+                        "bot": "Le webhook doit avoir été créé par un bot pour pouvoir ajouter des boutons."
                     },
                     "add_message": "Ajouter un message"
                 },
@@ -251,7 +251,7 @@
         "hiring": {
             "title": "Recrutement",
             "description": "Afin de continuer à vous proposer des services comme celui-ci, nous avons besoin de vous ! Nous recrutons des développeurs, des graphistes, des modérateurs et tout un tas d'autres postes... N'hésitez pas à postuler !",
-            "button": "Voir les postes disponibles"
+            "button": "Postuler"
         }
     },
 

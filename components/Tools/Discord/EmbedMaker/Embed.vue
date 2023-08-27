@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Embed, EmbedField } from 'types/discord';
+import { Embed, EmbedField } from '~/types/discord';
 
 const props = defineProps({
     embed: {

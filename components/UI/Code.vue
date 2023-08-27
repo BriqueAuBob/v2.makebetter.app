@@ -20,7 +20,6 @@ const props = defineProps({
 });
 
 const code = computed(() => {
-    console.log(hljs.listLanguages());
     return hljs.highlightAuto(props.code).value;
 });
 </script>

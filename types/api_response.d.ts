@@ -11,4 +11,5 @@ export type Testimonials = {
 
 export type Statistics = {
     members: number;
+    testimonials: number;
 };

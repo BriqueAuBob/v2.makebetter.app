@@ -28,7 +28,7 @@ defineProps({
 
 <template>
     <div
-        class="flex items-center rounded-2xl bg-white px-6 py-4 shadow-md shadow-primary-50 dark:bg-primary-700 dark:shadow-primary-800"
+        class="flex items-center justify-center rounded-2xl bg-white px-4 py-2 shadow-md shadow-primary-50 dark:bg-primary-700 dark:shadow-primary-800"
     >
         <UIAvatar
             v-for="editor in editors"
@@ -39,7 +39,7 @@ defineProps({
         />
         <UIButton
             v-if="displayShare"
-            class="ml-4"
+            :class="editors.length > 0 ? 'ml-4' : ''"
             size="sm"
             color="light"
             @click="onShare"
