@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         head: {
             title: `MakeBetter.app`,
             bodyAttrs: {
-                class: 'dark:bg-primary-950 dark:text-gray-100 ease-out duration-300',
+                class: 'bg-gray-50 dark:bg-primary-950 dark:text-gray-100 ease-out duration-300',
             },
             meta: [
                 { charset: `utf-8` },

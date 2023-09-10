@@ -257,7 +257,8 @@
 
     "homepage": {
         "header": {
-            "title": "Build Better Projects",
+            "presentation": "Le site Internet pour les créateurs de contenus",
+            "title": "Créée ton projet",
             "description": "Nous proposons les outils qui permettront à ton projet de grandir rapidement.",
             "buttons": {
                 "use_tool": "Utiliser un outil",
@@ -287,6 +288,10 @@
         },
         "need_help": "Besoin d'aide pour créer ton projet?",
         "view_tutorials": "Voir les tutoriels",
-        "stat_usage_rates": "{usersCount} personnes utilisent nos outils!\n{ratesCount} d'entre elles ont publié un avis..."
+        "stat_usage_rates": "{usersCount} personnes utilisent nos outils!\n{ratesCount} d'entre elles ont publié un avis...",
+        "our_tools": "Nos outils",
+        "features": {
+            "title": "Fonctionnalités"
+        }
     }
 }
