@@ -24,7 +24,7 @@
                 />
                 <img
                     src="/images/team/draks.png"
-                    class="aspect-square w-20 rounded-full border-2 border-red-500 bg-gradient-to-b from-red-400 to-red-900 px-6 py-5 shadow-md shadow-red-800"
+                    class="aspect-square w-20 rounded-full border-2 border-red-500 bg-gradient-to-b from-red-400 to-red-900 p-2 shadow-md shadow-red-800"
                 />
                 <img
                     src="/images/team/flayte.png"
