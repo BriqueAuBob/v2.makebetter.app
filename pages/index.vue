@@ -133,7 +133,7 @@ onMounted(() => {
             />
             <ToolsCard
                 title="Créateur d'icônes de rôles"
-                description="Créée des icônes pour tes rôles sur ton serveur Discord !"
+                description="Crée des icônes pour tes rôles sur ton serveur Discord !"
                 image="roles-icons-maker.png"
                 platform="discord"
                 url="#"
