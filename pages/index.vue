@@ -146,10 +146,10 @@ onMounted(() => {
             {{ $t('homepage.features.title') }}
         </h1>
         <div class="mt-6 grid gap-4 lg:grid-cols-4 xl:grid-cols-6">
-            <PagesHomepageFeaturesCollaborationCard class="col-span-2" />
-            <PagesHomepageFeaturesTemplatesCard class="col-span-2" />
-            <PagesHomepageFeaturesAiCard class="col-span-2" />
-            <PagesHomepageFeaturesPermissionsCard class="col-span-2 xl:col-span-3" />
+            <PagesHomepageFeaturesCollaborationCard class="col-span-4 md:col-span-2" />
+            <PagesHomepageFeaturesTemplatesCard class="col-span-4 md:col-span-2" />
+            <PagesHomepageFeaturesAiCard class="col-span-4 md:col-span-2" />
+            <PagesHomepageFeaturesPermissionsCard class="col-span-4 md:col-span-2 xl:col-span-3" />
             <PagesHomepageFeaturesAvailableOnCard class="col-span-4 xl:col-span-3" />
         </div>
     </section>
