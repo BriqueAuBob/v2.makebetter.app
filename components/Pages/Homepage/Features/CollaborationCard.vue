@@ -1,13 +1,5 @@
-<script setup lang="ts">
-const colorMode = useColorMode();
-const isDark = computed(() => colorMode.value === 'dark');
-</script>
-
 <template>
-    <article
-        class="cursor-collab relative overflow-hidden rounded-3xl border-2 text-center shadow-md"
-        :style="`border-color: ${isDark ? '#1a03bf' : '#e8e6ff'};`"
-    >
+    <article class="cursor-collab relative overflow-hidden rounded-3xl border-2 text-center shadow-md">
         <img
             src="/images/features/realtime_collaboration/blurry_circle.png"
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
@@ -59,3 +51,13 @@ const isDark = computed(() => colorMode.value === 'dark');
         </div>
     </article>
 </template>
+
+<style scoped>
+article {
+    border-color: #e8e6ff;
+}
+
+html.dark article {
+    border-color: #1a03bf;
+}
+</style>

@@ -3,16 +3,10 @@ const hasClicked = ref(false);
 const handleClick = () => {
     hasClicked.value = !hasClicked.value;
 };
-
-const colorMode = useColorMode();
-const isDark = computed(() => colorMode.value === 'dark');
 </script>
 
 <template>
-    <article
-        class="relative overflow-hidden rounded-3xl border-2 text-center shadow-md"
-        :style="`border-color: ${isDark ? '#ff00a6' : '#ffe6f8'};`"
-    >
+    <article class="relative overflow-hidden rounded-3xl border-2 text-center shadow-md">
         <img
             src="/images/features/ai/blurry_circle.png"
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
@@ -57,3 +51,13 @@ const isDark = computed(() => colorMode.value === 'dark');
         </div>
     </article>
 </template>
+
+<style scoped>
+article {
+    border-color: #ffe6f8;
+}
+
+html.dark article {
+    border-color: #ff00a6;
+}
+</style>

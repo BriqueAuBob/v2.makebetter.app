@@ -1,13 +1,5 @@
-<script setup lang="ts">
-const colorMode = useColorMode();
-const isDark = computed(() => colorMode.value === 'dark');
-</script>
-
 <template>
-    <article
-        class="relative overflow-hidden rounded-3xl border-2 text-center shadow-md"
-        :style="`border-color: ${isDark ? '#00ffb3' : '#e6ffe7'};`"
-    >
+    <article class="relative overflow-hidden rounded-3xl border-2 text-center shadow-md">
         <img
             src="/images/features/templates/blurry_circle.png"
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
@@ -28,3 +20,13 @@ const isDark = computed(() => colorMode.value === 'dark');
         ></div>
     </article>
 </template>
+
+<style scoped>
+article {
+    border-color: #e6ffe7;
+}
+
+html.dark article {
+    border-color: #00ffb3;
+}
+</style>
