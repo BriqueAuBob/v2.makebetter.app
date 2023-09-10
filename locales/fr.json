@@ -12,8 +12,8 @@
     },
 
     "redirect": {
-        "message": "Vous allez être redirigé dans quelques secondes...",
-        "link": "Cliquez ici si vous ne voulez pas attendre."
+        "message": "Tu vas être redirigé dans quelques secondes...",
+        "link": "Clique ici si tu ne souhaites pas attendre."
     },
 
     "tools": {
@@ -29,7 +29,7 @@
             },
 
             "collaboration": {
-                "need_to_save": "Vous devez sauvegarder votre création avant de pouvoir collaborer avec d'autres personnes.",
+                "need_to_save": "Tu dois sauvegarder ta création avant de pouvoir collaborer avec d'autres personnes.",
                 "permissions": {
                     "admin": "Admin",
                     "edit": "Editeur",
@@ -41,11 +41,11 @@
             "save": {
                 "success": {
                     "title": "Création sauvegardée avec succès!",
-                    "message": "Votre création a été sauvegardée."
+                    "message": "Ta création a été sauvegardée."
                 },
                 "error": {
                     "title": "Erreur lors de la sauvegarde!",
-                    "message": "Une erreur est survenue lors de la sauvegarde de votre création."
+                    "message": "Une erreur est survenue lors de la sauvegarde de ta création."
                 }
             }
         },
@@ -53,7 +53,7 @@
         "discord": {
             "embed": {
                 "name": "Créateur d'embeds",
-                "description": "Notre créateur d'embed vous permettra de créer et envoyer vos embeds sur votre serveur de la plus simple des manières !",
+                "description": "Notre créateur d'embed te permettra de créer et envoyer tes embeds sur ton serveur de la plus simple des manières !",
                 "button": "Commencer à créer mon embed",
 
                 "instructions": {
@@ -250,7 +250,7 @@
     "banners": {
         "hiring": {
             "title": "Recrutement",
-            "description": "Afin de continuer à vous proposer des services comme celui-ci, nous avons besoin de vous ! Nous recrutons des développeurs, des graphistes, des modérateurs et tout un tas d'autres postes... N'hésitez pas à postuler !",
+            "description": "Afin de continuer à te proposer des services comme celui-ci, nous avons besoin de toi ! Nous recrutons des développeurs, des graphistes, des modérateurs et tout un tas d'autres postes... N'hésite pas à postuler !",
             "button": "Postuler"
         }
     },
@@ -268,7 +268,7 @@
         "collaborative": {
             "title": "Utilisez nos outils en équipe !",
             "description": {
-                "base": "Tous nos outils disposent d'un {0}, vous pourrez ainsi {1} sur vos projets {2}.",
+                "base": "Tous nos outils disposent d'un {0}, tu pourras ainsi {1} sur tes projets {2}.",
                 "system": "système de collaboration",
                 "work_in_team": "travailler en équipe",
                 "in_real_time": "en temps réel"
