@@ -495,6 +495,35 @@ const hasEditPermission = computed(
             </div>
             <div class="grid gap-8 pt-12 lg:grid-cols-2">
                 <div class="flex flex-col gap-12">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            :class="
+                                true
+                                    ? '-translate-y-2 border-primary-500 shadow-xl'
+                                    : 'shadow hover:-translate-y-2 hover:border-primary-300 hover:shadow-xl'
+                            "
+                        >
+                            <div class="mb-3 text-2xl font-semibold">Utiliser un webhook</div>
+                            <p class="text-sm">
+                                Envoie ton message de la manière la plus simple possible! Utilise simplement un webhook
+                                pour l'envoyer !
+                            </p>
+                        </div>
+                        <div
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            :class="
+                                false
+                                    ? '-translate-y-2 border-primary-500 shadow-xl'
+                                    : 'shadow hover:-translate-y-2 hover:border-primary-300 hover:shadow-xl'
+                            "
+                        >
+                            <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
+                            <p class="text-sm">
+                                Utilise le bot MakeBetter ou ton propre bot pour envoyer ton message !
+                            </p>
+                        </div>
+                    </div>
                     <div>
                         <div class="mb-2 font-display text-lg font-semibold">
                             Commence par entrer l'URL de ton Webhook
@@ -511,7 +540,7 @@ const hasEditPermission = computed(
                     <ToolsLoadSaveTemplate
                         :title="$t('tools.discord.embed.steps.load_messages')"
                         @load="
-                            (e, isPersonal: boolean) => {
+                            (e: any, isPersonal: boolean) => {
 								router.push({
 									query: {
 										id: isPersonal ? e._id : undefined,

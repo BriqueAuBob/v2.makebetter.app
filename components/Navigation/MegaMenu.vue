@@ -20,7 +20,14 @@ defineProps({
 </script>
 
 <template>
-    <UIPopover id="megamenu" :relative="false" :center="false" :x="x" :y="y" width="40vw">
+    <UIPopover
+        id="megamenu"
+        :relative="false"
+        :center="false"
+        :x="x"
+        :y="y"
+        width="40vw"
+    >
         <template #popover>
             <component :is="item.component" />
         </template>
