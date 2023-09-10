@@ -497,7 +497,7 @@ const hasEditPermission = computed(
                 <div class="flex flex-col gap-12">
                     <div class="grid grid-cols-2 gap-4">
                         <div
-                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out dark:bg-primary-800"
                             :class="
                                 true
                                     ? '-translate-y-2 border-primary-500 shadow-xl'
@@ -511,7 +511,7 @@ const hasEditPermission = computed(
                             </p>
                         </div>
                         <div
-                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            class="hidden cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
                             :class="
                                 false
                                     ? '-translate-y-2 border-primary-500 shadow-xl'

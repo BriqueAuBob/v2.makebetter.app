@@ -40,7 +40,7 @@ const { data: articlesPagination } = await useFetchApi<{
 const hasScrolled = ref(false);
 onMounted(() => {
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
+        if (window.scrollY > 50) {
             hasScrolled.value = true;
         } else {
             hasScrolled.value = false;
@@ -51,15 +51,15 @@ onMounted(() => {
 
 <template>
     <header class="relative text-white">
-        <div
-            class="bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 py-72 pt-48 shadow-xl shadow-primary-200 duration-500 ease-out dark:shadow-primary-800"
-            :class="hasScrolled ? 'mx-0 scale-105' : 'rounded-b-[100px] md:mx-4 lg:mx-16'"
-        >
-            <h1 class="text-center text-4xl font-black lg:text-4xl xl:text-8xl">
+        <div class="rounded-b-[200px] bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 pb-72 pt-44">
+            <span class="text-md mb-3 block text-center font-semibold text-gray-300 lg:text-xl">
+                {{ $t('homepage.header.presentation') }}
+            </span>
+            <h1 class="text-center text-5xl font-black lg:text-7xl xl:text-8xl">
                 {{ $t('homepage.header.title') }}
             </h1>
             <h2
-                class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-relaxed lg:max-w-xl lg:text-2xl lg:leading-relaxed xl:max-w-5xl xl:text-4xl xl:leading-relaxed"
+                class="mx-auto mt-4 text-center font-sans text-xl font-bold leading-relaxed lg:max-w-xl lg:text-2xl lg:leading-relaxed xl:max-w-3xl xl:text-4xl xl:leading-relaxed"
             >
                 {{ $t('homepage.header.description') }}
             </h2>
@@ -85,123 +85,72 @@ onMounted(() => {
                 </NuxtLink>
             </div>
         </div>
+        <img
+            src="/images/arc_demo.png"
+            class="absolute left-1/2 top-full -z-1 w-full max-w-7xl -translate-x-1/2 -translate-y-32 xl:w-4/5"
+        />
         <div
-            id="examples"
-            class="pointer-events-none absolute bottom-0 left-1/2 flex w-full max-w-full -translate-x-1/2 translate-y-8"
+            class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out dark:shadow-primary-800 lg:w-2/3 xl:w-1/2"
+            :class="hasScrolled ? '-translate-y-52 scale-110' : 'perspective'"
         >
-            <div class="flex translate-y-24 justify-center gap-4 lg:gap-8 xl:gap-16">
-                <UICarousel>
-                    <Slide
-                        v-for="(preview, index) in previews"
-                        :key="index"
-                        :duration="500"
-                    >
-                        <div class="w-full overflow-hidden rounded-3xl border-8 border-primary-600">
-                            <nuxt-img
-                                :src="preview"
-                                class="w-full object-cover"
-                                alt="Tool Demo"
-                                sizes="sm:100vw lg:50vw"
-                            />
-                        </div>
-                    </Slide>
-                </UICarousel>
-            </div>
+            <header class="relative border-b border-gray-100 px-4">
+                <ul class="flex gap-6 font-semibold">
+                    <li class="cursor-pointer py-4">Créateur d'embeds</li>
+                    <!-- <li class="cursor-pointer py-4">Créateur d'icônes de rôles</li>
+                    <li class="cursor-pointer py-4">Créateur d'emojis</li> -->
+                </ul>
+                <div class="absolute bottom-0 left-14 h-1 w-16 rounded-t-xl bg-gray-200"></div>
+            </header>
+            <main class="relative p-4">
+                <img
+                    src="/images/temp_embeds.png"
+                    class="w-full"
+                />
+                <UIButton
+                    :href="localePath('tools-discord-embed-maker')"
+                    class="absolute left-1/2 -mt-2 -translate-x-1/2"
+                >
+                    Utiliser cet outil
+                    <NuxtIcon
+                        name="arrow/circle/right"
+                        class="text-xl"
+                    />
+                </UIButton>
+            </main>
         </div>
     </header>
-    <section class="container grid items-center gap-16 pb-36 pt-80 lg:grid-cols-2">
-        <div>
-            <h1 class="text-xl font-bold">
-                {{ $t('homepage.collaborative.title') }}
-            </h1>
-            <i18n-t
-                class="mb-4 mt-2"
-                tag="p"
-                keypath="homepage.collaborative.description.base"
-            >
-                <strong>{{ $t('homepage.collaborative.description.system') }}</strong>
-                <strong>{{ $t('homepage.collaborative.description.work_in_team') }}</strong>
-                <strong>{{ $t('homepage.collaborative.description.in_real_time') }}</strong>
-            </i18n-t>
-            <UIGroupCollapse :elements="collapsibleElements" />
-            <UIButton class="mt-12">{{ $t('homepage.collaborative.view_tools') }}</UIButton>
-        </div>
-        <div class="relative">
-            <div
-                class="absolute left-1/2 top-1/2 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 to-primary-300 opacity-25 blur-3xl"
-            ></div>
-            <FakerEmbedCreatorDemo />
+    <section class="container mt-32 gap-16 pb-16 pt-80 xl:mt-32 xl:pt-96">
+        <h1 class="mx-auto text-center text-xl font-bold">
+            {{ $t('homepage.our_tools') }}
+        </h1>
+        <div class="mt-6 grid gap-4 lg:grid-cols-3">
+            <ToolsCard
+                title="Créateur d'embeds"
+                description="Envoie des messages customisés sur ton serveur Discord. Impressionne tes membres avec tes messages !"
+                image="embed-maker.png"
+                platform="discord"
+                url="tools-discord-embed-maker"
+            />
+            <ToolsCard
+                title="Créateur d'icônes de rôles"
+                description="Créée des icônes pour tes rôles sur ton serveur Discord !"
+                image="roles-icons-maker.png"
+                platform="discord"
+                url="#"
+                :coming-soon="true"
+            />
         </div>
     </section>
     <section class="container relative pb-48 pt-16">
         <h1 class="mx-auto text-center text-xl font-bold">
-            {{ $t('homepage.share.title') }}
+            {{ $t('homepage.features.title') }}
         </h1>
-        <div
-            class="to-primary-30 absolute left-1/2 top-1/2 -z-10 h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary-700 opacity-10 blur-3xl"
-        ></div>
-        <div class="mt-8 grid gap-8 md:grid-cols-2">
-            <UICard
-                :header-grid="true"
-                :title="$t('homepage.share.collaborators.title')"
-                :description="$t('homepage.share.collaborators.description')"
-            >
-                <template #header>
-                    <div class="mx-auto flex max-w-sm flex-col gap-4">
-                        <UIInput
-                            name="fake_embed_creator"
-                            label="URL"
-                            type="text"
-                            placeholder="makebetter.app/tools/discord/embeds/05448f3b-4b1a-467f-93e4-6487a182e6f7"
-                            class="mx-auto w-full"
-                            fake
-                        ></UIInput>
-                        <UIButton
-                            color="color-mode"
-                            size="md"
-                            fake
-                        >
-                            {{ $t('buttons.share') }}
-                        </UIButton>
-                    </div>
-                </template>
-            </UICard>
-            <UICard
-                :header-grid="true"
-                :title="$t('homepage.share.public.title')"
-                :description="$t('homepage.share.public.description')"
-            >
-                <template #header>
-                    <div class="mx-auto flex max-w-sm gap-4">
-                        <div
-                            class="flex h-32 w-52 items-center justify-center rounded-2xl border bg-white dark:border-primary-700 dark:bg-primary-800"
-                        >
-                            <nuxt-img
-                                class="h-24 w-24"
-                                src="/images/fake_icon.svg"
-                            />
-                        </div>
-                        <div class="flex w-full flex-col gap-4">
-                            <UIButton
-                                class="h-full w-full"
-                                color="color-mode"
-                                size="md"
-                                fake
-                            >
-                                {{ $t('buttons.download') }}
-                            </UIButton>
-                            <UIButton
-                                class="h-full w-full"
-                                color="color-mode"
-                                size="md"
-                                fake
-                            >
-                                {{ $t('buttons.make_public') }}
-                            </UIButton>
-                        </div>
-                    </div>
-                </template>
-            </UICard>
+        <div class="mt-6 grid gap-4 lg:grid-cols-4 xl:grid-cols-6">
+            <PagesHomepageFeaturesCollaborationCard class="col-span-2" />
+            <PagesHomepageFeaturesTemplatesCard class="col-span-2" />
+            <PagesHomepageFeaturesAiCard class="col-span-2" />
+            <PagesHomepageFeaturesPermissionsCard class="col-span-2 xl:col-span-3" />
+            <PagesHomepageFeaturesAvailableOnCard class="col-span-4 xl:col-span-3" />
         </div>
     </section>
     <BannerHiring />
