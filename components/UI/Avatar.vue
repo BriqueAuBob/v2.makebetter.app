@@ -33,6 +33,7 @@ const sizes = {
     md: 'h-12 w-12',
     lg: 'h-16 w-16',
     xl: 'h-24 w-24',
+    '2xl': 'h-32 w-32',
 };
 const size = computed(() => sizes[props.size]);
 
@@ -51,7 +52,7 @@ const hasError = ref(false);
             v-if="!hasError"
             :src="avatar"
             :alt="`${props.user?.username}#${props.user?.discriminator} Avatar`"
-            :class="size + ' rounded-full' + ' ' + props.class"
+            :class="size + ' rounded-full border-4 border-white ' + ' ' + props.class"
             :style="props.style"
             @error="() => (hasError = true)"
             preset="avatar"
