@@ -69,7 +69,7 @@ const hasFocus = ref(false);
         <label
             :for="name"
             class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400"
-            :class="!displayLabel && 'hidden'"
+            v-if="label"
         >
             {{ label }}
         </label>
@@ -79,7 +79,7 @@ const hasFocus = ref(false);
             :name="name"
             :placeholder="placeholder"
             class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm placeholder:text-xs placeholder:italic placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-primary-500 dark:bg-primary-700 dark:text-white dark:placeholder:text-neutral-200 dark:placeholder:text-neutral-500"
-            :class="displayLabel && 'mt-1'"
+            :class="label && 'mt-1'"
             :value="modelValue"
             @input="updateValue($event.target.value)"
             @focus="emit('focus')"
