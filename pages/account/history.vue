@@ -3,6 +3,9 @@ definePageMeta({
     layout: 'account',
     middleware: 'auth',
 });
+
+const router = useRouter();
+const localePath = useLocalePath();
 </script>
 
 <template>
@@ -46,7 +49,7 @@ definePageMeta({
             button-text="Découvrir nos outils"
             :button-action="
                 () => {
-                    router.push('/tools');
+                    router.push(localePath('tools'));
                 }
             "
         />
