@@ -5,11 +5,15 @@ const auth = useAuthStore();
 
 const user = computed(() => (auth.isLoggedIn ? auth.user : {}));
 
-definePageMeta({
-    middleware: 'auth',
-});
-
+const router = useRouter();
 const localePath = useLocalePath();
+const token = useCookie('token');
+
+const logout = () => {
+    auth.logout();
+    token.value = null;
+    router.push(localePath('/'));
+};
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const localePath = useLocalePath();
                 <li>
                     <NuxtLink
                         :to="localePath('account')"
-                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500"
+                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500 dark:text-primary-300 dark:hover:bg-primary-800 dark:hover:text-white"
                     >
                         <NuxtIcon
                             name="user"
@@ -47,7 +51,7 @@ const localePath = useLocalePath();
                 <li>
                     <NuxtLink
                         :to="localePath('account-history')"
-                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500"
+                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500 dark:text-primary-300 dark:hover:bg-primary-800 dark:hover:text-white"
                     >
                         <NuxtIcon
                             name="clock"
@@ -58,7 +62,8 @@ const localePath = useLocalePath();
                 </li>
             </ul>
             <button
-                class="group flex items-center gap-2 rounded-md bg-red-50 px-4 py-3 text-left text-red-500 duration-300 ease-out hover:bg-red-100"
+                class="group flex items-center gap-2 rounded-md bg-red-50 px-4 py-3 text-left text-red-500 duration-300 ease-out hover:bg-red-100 dark:bg-red-950 dark:hover:bg-red-900 dark:hover:text-white"
+                @click="logout"
             >
                 <NuxtIcon
                     name="sign-out"
@@ -78,7 +83,7 @@ const localePath = useLocalePath();
 
 <style scoped>
 .router-link-active {
-    @apply bg-primary-100 text-primary-500;
+    @apply bg-primary-100 text-primary-500 dark:bg-primary-800 dark:text-white;
 }
 .router-link-active span {
     @apply ml-2;
