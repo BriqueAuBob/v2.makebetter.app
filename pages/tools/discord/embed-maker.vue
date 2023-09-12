@@ -496,9 +496,9 @@ const sendWithWebhook = ref(true);
             </div>
             <div class="grid gap-8 pt-12 lg:grid-cols-2">
                 <div class="flex flex-col gap-12">
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-4">
                         <div
-                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out dark:bg-primary-800"
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out dark:border-primary-700 dark:bg-primary-800 dark:bg-primary-800"
                             :class="
                                 sendWithWebhook
                                     ? '-translate-y-2 border-primary-500 shadow-xl'
@@ -513,7 +513,7 @@ const sendWithWebhook = ref(true);
                             </p>
                         </div>
                         <div
-                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out dark:border-primary-700 dark:bg-primary-800"
                             :class="
                                 !sendWithWebhook
                                     ? '-translate-y-2 border-primary-500 shadow-xl'
