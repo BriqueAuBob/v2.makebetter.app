@@ -66,8 +66,7 @@ const defaultMessage: DiscordWebhookMessage = {
 };
 
 const form = reactive({
-    webhook_url:
-        'https://discord.com/api/webhooks/1127532943238246440/6Bi9R6ynUV9Zu9aZrukyB4VHU-Zikv2RaV4nIFOrVJCQ9Nia0I4sbAc33YW33HYxQ_dR',
+    webhook_url: '',
     messages: [] as DiscordWebhookMessage[],
     thread_name: '',
     thread_id: '',
@@ -441,6 +440,8 @@ const hasEditPermission = computed(
             (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
         )
 );
+
+const sendWithWebhook = ref(true);
 </script>
 
 <template>
@@ -495,14 +496,15 @@ const hasEditPermission = computed(
             </div>
             <div class="grid gap-8 pt-12 lg:grid-cols-2">
                 <div class="flex flex-col gap-12">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-2">
                         <div
                             class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out dark:bg-primary-800"
                             :class="
-                                true
+                                sendWithWebhook
                                     ? '-translate-y-2 border-primary-500 shadow-xl'
-                                    : 'shadow hover:-translate-y-2 hover:border-primary-300 hover:shadow-xl'
+                                    : 'opacity-50 shadow hover:-translate-y-2 hover:border-primary-300 hover:opacity-100 hover:shadow-xl'
                             "
+                            @click="sendWithWebhook = true"
                         >
                             <div class="mb-3 text-2xl font-semibold">Utiliser un webhook</div>
                             <p class="text-sm">
@@ -511,12 +513,13 @@ const hasEditPermission = computed(
                             </p>
                         </div>
                         <div
-                            class="hidden cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
+                            class="cursor-pointer rounded-3xl border-2 border-gray-200 bg-white p-6 duration-300 ease-out"
                             :class="
-                                false
+                                !sendWithWebhook
                                     ? '-translate-y-2 border-primary-500 shadow-xl'
-                                    : 'shadow hover:-translate-y-2 hover:border-primary-300 hover:shadow-xl'
+                                    : 'opacity-50 shadow hover:-translate-y-2 hover:border-primary-300 hover:opacity-100 hover:shadow-xl'
                             "
+                            @click="sendWithWebhook = false"
                         >
                             <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
                             <p class="text-sm">
