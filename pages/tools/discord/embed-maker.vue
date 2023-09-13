@@ -498,133 +498,150 @@ const useCustomBot = ref(true);
             </div>
             <div class="grid gap-8 pt-12 lg:grid-cols-2">
                 <div class="flex flex-col gap-12">
-                    <div class="relative grid grid-cols-2 rounded-3xl bg-gray-100">
-                        <div
-                            class="absolute h-full w-1/2 rounded-3xl border bg-white duration-300 ease-out"
-                            :class="!sendWithWebhook ? 'left-1/2' : 'left-0'"
-                        ></div>
-                        <div
-                            class="relative z-10 flex cursor-pointer flex-col items-center justify-center p-6 text-center"
-                            @click="sendWithWebhook = true"
-                        >
-                            <div class="mb-3 text-2xl font-semibold">Utiliser un webhook</div>
-                            <p class="text-sm">
-                                Envoie ton message de la manière la plus simple possible! Utilise simplement un webhook
-                                pour l'envoyer !
-                            </p>
-                        </div>
-                        <div
-                            class="relative z-10 flex cursor-pointer flex-col items-center justify-center p-6 text-center"
-                            @click="sendWithWebhook = false"
-                        >
-                            <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
-                            <p class="text-sm">
-                                Utilise le bot MakeBetter ou ton propre bot pour envoyer ton message !
-                            </p>
-                        </div>
-                    </div>
-                    <Transition name="fadescale">
-                        <div v-if="sendWithWebhook">
-                            <div class="mb-2 font-display text-lg font-semibold">
-                                Commence par entrer l'URL de ton Webhook
-                            </div>
-                            <UIInput
-                                v-model="form.webhook_url"
-                                type="password"
-                                name="webhook_url"
-                                label="Webhook URL"
-                                placeholder="https://discord.com/api/v10/webhooks/..."
-                                secure
-                            />
-                        </div>
-                        <div v-else>
-                            <div class="mb-2 font-display text-lg font-semibold">
-                                Envoyer le(s) message(s) avec un bot
-                            </div>
-                            <UIToggle
-                                v-model="useCustomBot"
-                                name="useCustomBot"
-                                :label="$t('tools.discord.embed.use_custom_bot')"
-                            />
-                            <UIInput
-                                class="duration-300 ease-out"
-                                v-model="form.bot_token"
-                                type="password"
-                                name="webhook_url"
-                                label="Bot token"
-                                placeholder="ODMzMDQ5NjI4NzY5NjI4NzY5.YH5Z5A.5YH5Z5A5YH5Z5A5YH5Z5A5YH5Z5A"
-                                secure
-                                :disabled="!useCustomBot"
-                            />
+                    <div>
+                        <div class="relative grid grid-cols-2 rounded-t-3xl bg-gray-100 dark:bg-primary-900">
                             <div
-                                class="mt-2 flex items-center gap-2 duration-300 ease-out"
-                                :class="!useCustomBot && 'opacity-25'"
+                                class="absolute h-full w-1/2 rounded-t-3xl border bg-white duration-300 ease-out dark:border-primary-700 dark:bg-primary-800"
+                                :class="!sendWithWebhook ? 'left-1/2' : 'left-0 '"
+                            ></div>
+                            <div
+                                class="relative z-10 flex cursor-pointer flex-col items-center justify-center p-6 text-center"
+                                @click="sendWithWebhook = true"
                             >
-                                <NuxtIcon
-                                    name="alert_circle"
-                                    class="text-lg text-yellow-500"
-                                />
-                                <p class="text-xs font-medium text-gray-400">
-                                    Nous n'aurons jamais accès au token de ton bot! Lorsque tu utilises un bot
-                                    personnalisé, toutes les interactions avec l'API de Discord se font directement dans
-                                    ton navigateur.
+                                <div class="mb-3 text-2xl font-semibold">Utiliser un webhook</div>
+                                <p class="text-sm">
+                                    Envoie ton message de la manière la plus simple possible! Utilise simplement un
+                                    webhook pour l'envoyer !
                                 </p>
                             </div>
-                            <div class="mt-6 grid grid-cols-6 rounded-3xl bg-neutral-800">
-                                <aside class="max-h-96 overflow-auto rounded-l-3xl bg-neutral-950 p-6">
-                                    <ul class="flex flex-col gap-2">
-                                        <li v-for="i in 4">
-                                            <img
-                                                class="mx-auto h-14 w-14 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
-                                                :class="
-                                                    i === 2
-                                                        ? 'rounded-xl border-neutral-500'
-                                                        : 'rounded-[50px] border-transparent opacity-50 hover:border-neutral-500'
-                                                "
-                                                src="https://cdn.discordapp.com/avatars/307531336388968458/450ed5f16e48774180bcccdbc9867c3d.png"
-                                            />
-                                        </li>
-                                    </ul>
-                                </aside>
-                                <main class="col-span-5 flex flex-col gap-4 p-6 text-gray-300">
-                                    <div>
-                                        <div class="font-semibold text-gray-400">🟡 Diose</div>
-                                        <ul class="mt-1">
-                                            <li
-                                                class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-neutral-700"
-                                            >
-                                                <NuxtIcon name="platforms/discord/announcements" />
-                                                annonces
-                                            </li>
-                                            <li
-                                                class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-neutral-700"
-                                            >
-                                                <NuxtIcon name="platforms/discord/announcements" />
-                                                règlement
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-400">😁 Communauté</div>
-                                        <ul class="mt-1">
-                                            <li
-                                                class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-neutral-700"
-                                            >
-                                                <NuxtIcon name="platforms/discord/announcements" />
-                                                annonces
-                                            </li>
-                                            <li
-                                                class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-neutral-700"
-                                            >
-                                                <NuxtIcon name="platforms/discord/announcements" />
-                                                règlement
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </main>
+                            <div
+                                class="relative z-10 flex cursor-pointer flex-col items-center justify-center p-6 text-center"
+                                @click="sendWithWebhook = false"
+                            >
+                                <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
+                                <p class="text-sm">
+                                    Utilise le bot MakeBetter ou ton propre bot pour envoyer ton message !
+                                </p>
                             </div>
                         </div>
-                    </Transition>
+                        <div
+                            class="relative rounded-b-3xl border bg-white p-8 dark:border-primary-700 dark:bg-primary-900"
+                        >
+                            <Transition
+                                name="fadescale"
+                                mode="out-in"
+                            >
+                                <div v-if="sendWithWebhook">
+                                    <div class="mb-2 font-display text-lg font-semibold">
+                                        Commence par entrer l'URL de ton Webhook
+                                    </div>
+                                    <UIInput
+                                        v-model="form.webhook_url"
+                                        type="password"
+                                        name="webhook_url"
+                                        label="Webhook URL"
+                                        placeholder="https://discord.com/api/v10/webhooks/..."
+                                        secure
+                                    />
+                                </div>
+                                <div v-else>
+                                    <div class="mb-2 font-display text-lg font-semibold">
+                                        Envoyer le(s) message(s) avec un bot
+                                    </div>
+                                    <UIToggle
+                                        v-model="useCustomBot"
+                                        name="useCustomBot"
+                                        :label="$t('tools.discord.embed.use_custom_bot')"
+                                    />
+                                    <UIInput
+                                        class="duration-300 ease-out"
+                                        v-model="form.bot_token"
+                                        type="password"
+                                        name="webhook_url"
+                                        label="Bot token"
+                                        placeholder="ODMzMDQ5NjI4NzY5NjI4NzY5.YH5Z5A.5YH5Z5A5YH5Z5A5YH5Z5A5YH5Z5A"
+                                        secure
+                                        :disabled="!useCustomBot"
+                                    />
+                                    <div
+                                        class="mt-2 flex items-center gap-2 duration-300 ease-out"
+                                        :class="!useCustomBot && 'opacity-25'"
+                                    >
+                                        <NuxtIcon
+                                            name="alert_circle"
+                                            class="text-lg text-yellow-500"
+                                        />
+                                        <p class="text-xs font-medium text-gray-400">
+                                            Nous n'aurons jamais accès au token de ton bot! Lorsque tu utilises un bot
+                                            personnalisé, toutes les interactions avec l'API de Discord se font
+                                            directement dans ton navigateur.
+                                        </p>
+                                    </div>
+                                    <div class="mt-6 grid grid-cols-6 rounded-3xl bg-gray-100 dark:bg-neutral-800">
+                                        <aside
+                                            class="max-h-96 overflow-auto rounded-l-3xl bg-gray-200 p-6 dark:bg-neutral-950"
+                                        >
+                                            <ul class="flex flex-col gap-2">
+                                                <li v-for="i in 4">
+                                                    <img
+                                                        class="mx-auto h-14 w-14 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
+                                                        :class="
+                                                            i === 2
+                                                                ? 'rounded-xl border-white dark:border-neutral-500'
+                                                                : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-neutral-500'
+                                                        "
+                                                        src="https://cdn.discordapp.com/avatars/307531336388968458/450ed5f16e48774180bcccdbc9867c3d.png"
+                                                    />
+                                                </li>
+                                            </ul>
+                                        </aside>
+                                        <main
+                                            class="col-span-5 flex flex-col gap-4 p-6 text-gray-600 dark:text-gray-300"
+                                        >
+                                            <div>
+                                                <div class="font-semibold text-gray-400 dark:text-gray-400">
+                                                    🟡 Diose
+                                                </div>
+                                                <ul class="mt-1">
+                                                    <li
+                                                        class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                                    >
+                                                        <NuxtIcon name="platforms/discord/announcements" />
+                                                        annonces
+                                                    </li>
+                                                    <li
+                                                        class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                                    >
+                                                        <NuxtIcon name="platforms/discord/announcements" />
+                                                        règlement
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-400 dark:text-gray-400">
+                                                    😁 Communauté
+                                                </div>
+                                                <ul class="mt-1">
+                                                    <li
+                                                        class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                                    >
+                                                        <NuxtIcon name="platforms/discord/announcements" />
+                                                        annonces
+                                                    </li>
+                                                    <li
+                                                        class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                                    >
+                                                        <NuxtIcon name="platforms/discord/announcements" />
+                                                        règlement
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </main>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </div>
+                    </div>
                     <ToolsLoadSaveTemplate
                         :title="$t('tools.discord.embed.steps.load_messages')"
                         @load="
