@@ -1,9 +1,9 @@
 {
     "tools": {
         "discord": {
-            "embed": {
+            "embed-maker": {
                 "name": "Créateur d'embeds",
-                "description": "Notre créateur d'embed te permettra de créer et envoyer tes embeds sur ton serveur de la plus simple des manières !",
+                "description": "Envoie des messages customisés sur ton serveur Discord. Impressionne tes membres avec tes messages !",
                 "button": "Commencer à créer mon embed",
 
                 "instructions": {

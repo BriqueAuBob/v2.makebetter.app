@@ -35,5 +35,8 @@
         "save": "Sauvegarder"
     },
 
-    "how_to": "Comment faire?"
+    "how_to": "Comment faire?",
+    "use_tool": "Utiliser cet outil",
+    "access_tool": "Accéder à l'outil",
+    "coming_soon": "Bientôt disponible"
 }

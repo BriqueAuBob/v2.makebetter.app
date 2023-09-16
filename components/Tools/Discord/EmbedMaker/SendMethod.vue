@@ -85,7 +85,7 @@ const guildSelected = ref<number | boolean>(false);
                 <UIToggle
                     v-model="useCustomBot"
                     name="useCustomBot"
-                    :label="$t('tools.discord.embed.use_custom_bot')"
+                    :label="$t('tools.discord.embed-maker.use_custom_bot')"
                 />
                 <UIInput
                     class="duration-300 ease-out"

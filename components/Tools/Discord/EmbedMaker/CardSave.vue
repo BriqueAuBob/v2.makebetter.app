@@ -81,7 +81,7 @@ const tagsColors: { [key: string]: string } = {
                                 class="rounded-lg px-2 py-1 text-xs font-semibold text-white shadow-md"
                                 :style="`background: ${tagsColors[tag]};`"
                             >
-                                {{ $t('tools.discord.embed.save.tags.' + tag) }}
+                                {{ $t('tools.discord.embed-maker.save.tags.' + tag) }}
                             </span>
                         </div>
                     </div>

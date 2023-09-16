@@ -1,13 +1,5 @@
 <script setup lang="ts">
 const props = defineProps({
-    title: {
-        type: String,
-        default: '',
-    },
-    description: {
-        type: String,
-        default: '',
-    },
     image: {
         type: String,
         default: '',
@@ -16,7 +8,7 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    url: {
+    slug: {
         type: String,
         default: '',
     },
@@ -34,7 +26,7 @@ const platformUpperFirst = computed(() => {
 </script>
 
 <template>
-    <NuxtLink :to="localePath(url)">
+    <NuxtLink :to="localePath(`tools-${platform}-${slug}`)">
         <article
             class="relative h-full cursor-pointer overflow-hidden rounded-3xl border-2 border-primary-200 bg-cover bg-center p-8 pb-96 duration-300 ease-out dark:border-primary-500"
             :style="`background-image: url(/images/tools/cards/${image});`"
@@ -47,21 +39,21 @@ const platformUpperFirst = computed(() => {
                 />
                 {{ platformUpperFirst }}
             </div>
-            <h3 class="mb-2 text-3xl font-bold text-white">{{ title }}</h3>
+            <h3 class="mb-2 text-3xl font-bold text-white">{{ $t(`tools.${platform}.${slug}.name`) }}</h3>
             <p class="mb-4 text-white">
-                {{ description }}
+                {{ $t(`tools.${platform}.${slug}.description`) }}
             </p>
             <UIButton
                 color="light"
                 size="sm"
             >
-                Accéder à l'outil
+                {{ $t('access_tool') }}
             </UIButton>
             <div
                 class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-primary-500 bg-opacity-80 text-xl font-semibold text-white backdrop-blur-sm"
                 v-if="comingSoon"
             >
-                Bientôt disponible!
+                {{ $t('coming_soon') }}
             </div>
         </article>
     </NuxtLink>

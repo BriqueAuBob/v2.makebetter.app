@@ -5,10 +5,9 @@
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
         />
         <div class="p-8">
-            <h1 class="mb-2 text-2xl font-bold">Collaboration en temps réel</h1>
+            <h1 class="mb-2 text-2xl font-bold">{{ $t('homepage.features.collaboration.title') }}</h1>
             <p class="text-md text-gray-400">
-                Tous nos outils disposent d’un mode collaboratif, fait toi aider par les membres de ton équipe pour
-                réaliser ton projet!
+                {{ $t('homepage.features.collaboration.description') }}
             </p>
             <div class="pointer-events-none relative select-none">
                 <img

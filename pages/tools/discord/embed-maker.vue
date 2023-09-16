@@ -121,7 +121,7 @@ onMounted(() => {
 const elements = computed(() => {
     return form.messages.map((message, id) => {
         return {
-            title: t('tools.discord.embed.steps.edit_message_id', {
+            title: t('tools.discord.embed-maker.steps.edit_message_id', {
                 id: id + 1,
             }),
             component: MessageEdition,
@@ -260,8 +260,8 @@ const saveMessages = async () => {
         })
         .catch((err) => {
             $toast.show({
-                title: t('tools.discord.embed.save.error.title'),
-                message: t('tools.discord.embed.save.error.message'),
+                title: t('tools.discord.embed-maker.save.error.title'),
+                message: t('tools.discord.embed-maker.save.error.message'),
                 type: 'danger',
                 timeout: 5,
             });
@@ -290,8 +290,8 @@ const updateMessages = async () => {
         })
         .catch((err) => {
             $toast.show({
-                title: t('tools.discord.embed.save.error.title'),
-                message: t('tools.discord.embed.save.error.message'),
+                title: t('tools.discord.embed-maker.save.error.title'),
+                message: t('tools.discord.embed-maker.save.error.message'),
                 type: 'danger',
                 timeout: 5,
             });
@@ -359,8 +359,8 @@ const generatedCode = computed(() => {
 const copyCode = () => {
     navigator.clipboard.writeText(generatedCode.value);
     $toast.show({
-        title: t('tools.discord.embed.export.copied.title'),
-        message: t('tools.discord.embed.export.copied.message', form.messages.length),
+        title: t('tools.discord.embed-maker.export.copied.title'),
+        message: t('tools.discord.embed-maker.export.copied.message', form.messages.length),
         type: 'success',
         timeout: 8,
     });
@@ -481,9 +481,9 @@ const useCustomBot = ref(true);
     <div>
         <ToolsHeader
             platform="discord"
-            :title="$t('tools.discord.embed.name')"
-            :description="$t('tools.discord.embed.description')"
-            :buttonText="$t('tools.discord.embed.button')"
+            :title="$t('tools.discord.embed-maker.name')"
+            :description="$t('tools.discord.embed-maker.description')"
+            :buttonText="$t('tools.discord.embed-maker.button')"
         />
         <section
             class="container py-24"
@@ -492,10 +492,10 @@ const useCustomBot = ref(true);
             <div class="flex flex-col justify-between gap-4 xl:flex-row">
                 <div>
                     <h1 class="text-2xl font-bold">
-                        {{ $t('tools.discord.embed.name') }}
+                        {{ $t('tools.discord.embed-maker.name') }}
                     </h1>
                     <h2 class="text-md mt-2 font-medium">
-                        {{ $t('tools.discord.embed.instructions.global') }}
+                        {{ $t('tools.discord.embed-maker.instructions.global') }}
                     </h2>
                 </div>
                 <ToolsEditors
@@ -549,7 +549,7 @@ const useCustomBot = ref(true);
                         />
                     </div>
                     <ToolsLoadSaveTemplate
-                        :title="$t('tools.discord.embed.steps.load_messages')"
+                        :title="$t('tools.discord.embed-maker.steps.load_messages')"
                         @load="
                             (e: any, isPersonal: boolean) => {
 								router.push({
@@ -578,7 +578,7 @@ const useCustomBot = ref(true);
                                 ref="switcher"
                             />
                             <UIButton @click="addMessage">
-                                {{ $t('tools.discord.embed.steps.add_message') }}
+                                {{ $t('tools.discord.embed-maker.steps.add_message') }}
                             </UIButton>
                         </div>
                         <Transition name="fade">
@@ -710,9 +710,11 @@ const useCustomBot = ref(true);
                                     {{ $t('buttons.save') }}
                                 </UIButton>
                                 <UIModal
-                                    :title="$t('tools.discord.embed.save.title', { count: form.messages.length })"
+                                    :title="$t('tools.discord.embed-maker.save.title', { count: form.messages.length })"
                                     :description="
-                                        $t('tools.discord.embed.save.description', { count: form.messages.length })
+                                        $t('tools.discord.embed-maker.save.description', {
+                                            count: form.messages.length,
+                                        })
                                     "
                                     ref="saveModal"
                                     :onApply="modifyCurrentSave ? updateMessages : saveMessages"
@@ -731,22 +733,24 @@ const useCustomBot = ref(true);
                                     >
                                         <div class="flex flex-col gap-2">
                                             <div class="text-md font-semibold text-gray-500">
-                                                {{ $t('tools.discord.embed.save.infos') }}
+                                                {{ $t('tools.discord.embed-maker.save.infos') }}
                                             </div>
                                             <UIInput
                                                 v-model="formSave.name"
-                                                :placeholder="$t('tools.discord.embed.save.form.name.placeholder')"
+                                                :placeholder="
+                                                    $t('tools.discord.embed-maker.save.form.name.placeholder')
+                                                "
                                                 name="name"
-                                                :label="$t('tools.discord.embed.save.form.name.label')"
+                                                :label="$t('tools.discord.embed-maker.save.form.name.label')"
                                                 required
                                             />
                                             <UIInput
                                                 v-model="formSave.description"
                                                 :placeholder="
-                                                    $t('tools.discord.embed.save.form.description.placeholder')
+                                                    $t('tools.discord.embed-maker.save.form.description.placeholder')
                                                 "
                                                 name="description"
-                                                :label="$t('tools.discord.embed.save.form.description.label')"
+                                                :label="$t('tools.discord.embed-maker.save.form.description.label')"
                                             />
                                             <UISelect
                                                 v-model="formSave.tags"
@@ -759,7 +763,7 @@ const useCustomBot = ref(true);
                                             <UIToggle
                                                 v-model="formSave.isPublic"
                                                 name="isPublic"
-                                                :label="$t('tools.discord.embed.save.should_be_public')"
+                                                :label="$t('tools.discord.embed-maker.save.should_be_public')"
                                             />
                                         </div>
                                         <ToolsDiscordEmbedMakerCardSave
@@ -815,9 +819,9 @@ const useCustomBot = ref(true);
                                 </UIButton>
                                 <UIModal
                                     :title="$t('buttons.export')"
-                                    :description="$t('tools.discord.embed.export.description')"
+                                    :description="$t('tools.discord.embed-maker.export.description')"
                                     ref="exportModal"
-                                    :okText="$t('tools.discord.embed.export.copy_code')"
+                                    :okText="$t('tools.discord.embed-maker.export.copy_code')"
                                     :onApply="copyCode"
                                 >
                                     <div class="py-2">
@@ -895,8 +899,8 @@ const useCustomBot = ref(true);
                                         </transition>
                                     </HeadlessMenu>
                                     <UIModal
-                                        :title="$t('tools.discord.embed.send_in_thread.title')"
-                                        :description="$t('tools.discord.embed.send_in_thread.description')"
+                                        :title="$t('tools.discord.embed-maker.send_in_thread.title')"
+                                        :description="$t('tools.discord.embed-maker.send_in_thread.description')"
                                         ref="channelModal"
                                         :onApply="sendMessage"
                                         :okText="$t('buttons.send')"

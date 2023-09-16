@@ -1,19 +1,11 @@
 <script setup lang="ts">
 const tools = [
+    { image: 'embed-maker.png', platform: 'discord', slug: 'embed-maker' },
     {
-        title: "Créateur d'embeds",
-        description:
-            'Envoie des messages customisés sur ton serveur Discord. Impressionne tes membres avec tes messages !',
-        image: 'embed-maker.png',
-        platform: 'discord',
-        url: 'tools-discord-embed-maker',
-    },
-    {
-        title: "Créateur d'icônes de rôles",
         description: 'Crée des icônes pour tes rôles sur ton serveur Discord !',
         image: 'roles-icons-maker.png',
         platform: 'discord',
-        url: '#',
+        slug: 'roles-icons-maker',
         comingSoon: true,
     },
 ];

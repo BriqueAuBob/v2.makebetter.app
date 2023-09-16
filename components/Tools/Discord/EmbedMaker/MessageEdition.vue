@@ -133,22 +133,22 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
             <UIInput
                 class="mb-4"
                 :name="`username_message_${id}`"
-                :label="$t('tools.discord.embed.fields.username.label')"
-                :placeholder="$t('tools.discord.embed.fields.username.placeholder')"
+                :label="$t('tools.discord.embed-maker.fields.username.label')"
+                :placeholder="$t('tools.discord.embed-maker.fields.username.placeholder')"
                 @change="(value: string) => updateField('username', value)"
             />
             <UIInput
                 class="mb-4"
                 :name="`avatar_url_message_${id}`"
-                :label="$t('tools.discord.embed.fields.avatar_url.label')"
-                :placeholder="$t('tools.discord.embed.fields.avatar_url.placeholder')"
+                :label="$t('tools.discord.embed-maker.fields.avatar_url.label')"
+                :placeholder="$t('tools.discord.embed-maker.fields.avatar_url.placeholder')"
                 @change="(value: string) => updateField('avatar_url', value)"
             />
         </ToolsCardCollapsible>
         <UIInput
             :name="`content_message_${id}`"
-            :label="$t('tools.discord.embed.fields.content.label')"
-            :placeholder="$t('tools.discord.embed.fields.content.placeholder')"
+            :label="$t('tools.discord.embed-maker.fields.content.label')"
+            :placeholder="$t('tools.discord.embed-maker.fields.content.placeholder')"
             longText
             @change="(value: string) => updateField('content', value)"
             v-model="message.content"
@@ -185,42 +185,42 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                     "
                 >
                     <UICollapse
-                        :title="$t('tools.discord.embed.steps.embed.author')"
+                        :title="$t('tools.discord.embed-maker.steps.embed.author')"
                         smallTitle
                     >
                         <UIInput
                             class="mb-4"
                             :name="`author_username_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.author.label')"
-                            :placeholder="$t('tools.discord.embed.fields.author.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.author.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.author.placeholder')"
                             v-model="embed.author.name"
                             @change="(value: string) => updateEmbedField(embedId, 'author.name', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`author_icon_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.author_icon.label')"
-                            :placeholder="$t('tools.discord.embed.fields.author_icon.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.author_icon.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.author_icon.placeholder')"
                             v-model="embed.author.icon_url"
                             @change="(value: string) => updateEmbedField(embedId, 'author.icon_url', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`author_url_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.author_url.label')"
-                            :placeholder="$t('tools.discord.embed.fields.author_url.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.author_url.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.author_url.placeholder')"
                             v-model="embed.author.url"
                             @change="(value: string) => updateEmbedField(embedId, 'author.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
-                        :title="$t('tools.discord.embed.steps.embed.images')"
+                        :title="$t('tools.discord.embed-maker.steps.embed.images')"
                         smallTitle
                     >
                         <UIInput
                             class="mb-4"
                             :name="`thumbnail_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.thumbnail.label')"
+                            :label="$t('tools.discord.embed-maker.fields.thumbnail.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.thumbnail.url"
                             @change="(value: string) => updateEmbedField(embedId, 'thumbnail.url', value)"
@@ -228,29 +228,29 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                         <UIInput
                             class="mb-4"
                             :name="`image_url_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.image.label')"
+                            :label="$t('tools.discord.embed-maker.fields.image.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.image.url"
                             @change="(value: string) => updateEmbedField(embedId, 'image.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
-                        :title="$t('tools.discord.embed.steps.embed.body')"
+                        :title="$t('tools.discord.embed-maker.steps.embed.body')"
                         smallTitle
                     >
                         <UIInput
                             class="mb-4"
                             :name="`title_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.title.label')"
-                            :placeholder="$t('tools.discord.embed.fields.title.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.title.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.title.placeholder')"
                             v-model="embed.title"
                             @change="(value: string) => updateEmbedField(embedId, 'title', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`description_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.description.label')"
-                            :placeholder="$t('tools.discord.embed.fields.description.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.description.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.description.placeholder')"
                             v-model="embed.description"
                             @change="(value: string) => updateEmbedField(embedId, 'description', value)"
                             longText
@@ -258,14 +258,14 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                         <UIInput
                             class="mb-4"
                             :name="`url_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.url.label')"
-                            :placeholder="$t('tools.discord.embed.fields.url.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.url.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.url.placeholder')"
                             @change="(value: string) => updateEmbedField(embedId, 'url', value)"
                             v-model="embed.url"
                         />
                         <div>
                             <div class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400">
-                                {{ $t('tools.discord.embed.fields.color.label') }}
+                                {{ $t('tools.discord.embed-maker.fields.color.label') }}
                             </div>
                             <UIColorGroup
                                 class="mt-1"
@@ -274,7 +274,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                         </div>
                     </UICollapse>
                     <UICollapse
-                        :title="$t('tools.discord.embed.steps.embed.fields')"
+                        :title="$t('tools.discord.embed-maker.steps.embed.fields')"
                         smallTitle
                     >
                         <TransitionGroup
@@ -301,23 +301,23 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                                 <UIInput
                                     class="mb-4"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_name`"
-                                    :label="$t('tools.discord.embed.fields.field_name.label')"
-                                    :placeholder="$t('tools.discord.embed.fields.field_name.placeholder')"
+                                    :label="$t('tools.discord.embed-maker.fields.field_name.label')"
+                                    :placeholder="$t('tools.discord.embed-maker.fields.field_name.placeholder')"
                                     v-model="field.name"
                                     @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIInput
                                     class="mb-4"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_value`"
-                                    :label="$t('tools.discord.embed.fields.field_value.label')"
-                                    :placeholder="$t('tools.discord.embed.fields.field_value.placeholder')"
+                                    :label="$t('tools.discord.embed-maker.fields.field_value.label')"
+                                    :placeholder="$t('tools.discord.embed-maker.fields.field_value.placeholder')"
                                     v-model="field.value"
                                     @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIToggle
                                     class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
-                                    :label="$t('tools.discord.embed.fields.field_inline.label')"
+                                    :label="$t('tools.discord.embed-maker.fields.field_inline.label')"
                                     v-model="field.inline"
                                     @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
@@ -327,32 +327,32 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             class="mb-2 mt-4 w-full"
                             @click="addField(id)"
                         >
-                            {{ $t('tools.discord.embed.steps.embed.add_field') }}
+                            {{ $t('tools.discord.embed-maker.steps.embed.add_field') }}
                         </UIButton>
                     </UICollapse>
                     <UICollapse
-                        :title="$t('tools.discord.embed.steps.embed.footer')"
+                        :title="$t('tools.discord.embed-maker.steps.embed.footer')"
                         smallTitle
                     >
                         <UIInput
                             class="mb-4"
                             :name="`footer_text_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.footer_text.label')"
-                            :placeholder="$t('tools.discord.embed.fields.footer_text.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.footer_text.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.footer_text.placeholder')"
                             @change="(value: string) => updateEmbedField(embedId, 'footer.text', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`footer_icon_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.footer_icon.label')"
-                            :placeholder="$t('tools.discord.embed.fields.footer_icon.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.footer_icon.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.footer_icon.placeholder')"
                             @change="(value: string) => updateEmbedField(embedId, 'footer.icon_url', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`timestamp_message_${id}_embed_${embedId}`"
-                            :label="$t('tools.discord.embed.fields.timestamp.label')"
-                            :placeholder="$t('tools.discord.embed.fields.timestamp.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.timestamp.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.timestamp.placeholder')"
                             @change="(value: string) => updateEmbedField(embedId, 'timestamp', value)"
                             type="datetime-local"
                         />
@@ -365,7 +365,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                 @click="addEmbed"
             >
                 {{
-                    $t('tools.discord.embed.steps.embed.add', {
+                    $t('tools.discord.embed-maker.steps.embed.add', {
                         amount: message.embeds.length,
                         max: 10,
                     })
@@ -379,7 +379,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
             <ToolsCardCollapsible
                 class="overflow-hidden"
                 collapse
-                :title="$t('tools.discord.embed.steps.buttons.title')"
+                :title="$t('tools.discord.embed-maker.steps.buttons.title')"
                 smallTitle
             >
                 <TransitionGroup
@@ -403,16 +403,16 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                         <UIInput
                             class="mb-4"
                             :name="`message_${id}_components_${componentId}_label`"
-                            :label="$t('tools.discord.embed.fields.button_label.label')"
-                            :placeholder="$t('tools.discord.embed.fields.button_label.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.button_label.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.button_label.placeholder')"
                             v-model="component.label"
                             @change="(value: string) => updateComponent(componentId, 'label', value)"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`message_${id}_components_${componentId}_url`"
-                            :label="$t('tools.discord.embed.fields.button_url.label')"
-                            :placeholder="$t('tools.discord.embed.fields.button_url.placeholder')"
+                            :label="$t('tools.discord.embed-maker.fields.button_url.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.button_url.placeholder')"
                             v-model="component.url"
                             @change="(value: string) => updateComponent(componentId, 'url', value)"
                         />
@@ -422,7 +422,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                     class="mt-8 w-full"
                     @click="addButton"
                 >
-                    {{ $t('tools.discord.embed.steps.buttons.add') }}
+                    {{ $t('tools.discord.embed-maker.steps.buttons.add') }}
                 </UIButton>
             </ToolsCardCollapsible>
             <div
@@ -434,7 +434,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                     class="w-12 lg:w-auto"
                 />
                 <div class="text-primary-400">
-                    {{ $t('tools.discord.embed.steps.buttons.bot') }}
+                    {{ $t('tools.discord.embed-maker.steps.buttons.bot') }}
                     <UIButton
                         class="mt-2"
                         size="sm"

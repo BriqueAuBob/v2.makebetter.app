@@ -33,7 +33,7 @@ defineProps({
             <div
                 class="rounded-2xl bg-white px-6 py-4 font-display font-bold shadow-md shadow-primary-100 dark:bg-primary-700 dark:shadow-primary-800"
             >
-                {{ $t('tools.discord.embed.name') }}
+                {{ $t('tools.discord.embed-maker.name') }}
             </div>
             <ToolsEditors :editors="editors" />
         </div>

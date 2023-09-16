@@ -101,13 +101,19 @@ const loadSave = async () => {
     <UIModal
         ref="modal"
         size="large"
-        :title="personal ? $t('tools.discord.embed.save.list') : $t('tools.discord.embed.save.templates_community')"
+        :title="
+            personal
+                ? $t('tools.discord.embed-maker.save.list')
+                : $t('tools.discord.embed-maker.save.templates_community')
+        "
         :description="
             personal
-                ? $t('tools.discord.embed.save.list_description')
-                : $t('tools.discord.embed.save.templates_community_description')
+                ? $t('tools.discord.embed-maker.save.list_description')
+                : $t('tools.discord.embed-maker.save.templates_community_description')
         "
-        :okText="personal ? $t('tools.discord.embed.save.load') : $t('tools.discord.embed.save.load_template')"
+        :okText="
+            personal ? $t('tools.discord.embed-maker.save.load') : $t('tools.discord.embed-maker.save.load_template')
+        "
         :buttonDisabled="!selected"
         :onApply="loadSave"
     >
