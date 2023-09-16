@@ -2,8 +2,15 @@
     "tools": {
         "global": {
             "load": {
-                "template": "Charger un template publique",
-                "save": "Charger une sauvegarde"
+                "template": {
+                    "title": "Charger un template publique",
+                    "description": "Charge la réalisation d'un autre utilisateur pour l'éditer à ta guise."
+                },
+                "save": {
+                    "title": "Charger une sauvegarde",
+                    "description": "Utilise l'une de tes sauvegarde pour l'éditer ou la partager avec d'autres personnes."
+                },
+                "warning": "Le chargement effacera toutes les modifications non sauvegardées."
             },
 
             "theme": {

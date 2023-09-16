@@ -115,16 +115,6 @@ async function changeLocale() {
                 </ul>
             </div>
         </div>
-        <!-- <p class="mt-16 text-center text-base text-gray-300">
-             Fait avec <span class="inline-block animate-bounce">❤️</span> par
-            <a
-                class="font-semibold text-white underline"
-                href="https://diose.io"
-                target="_blank"
-            >
-                Diose
-            </a>
-        </p> -->
         <i18n-t
             keypath="footer.made_with"
             tag="p"
