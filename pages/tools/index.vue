@@ -43,7 +43,7 @@ defineI18nRoute({
         <div class="grid grid-cols-3 gap-4">
             <ToolsCard
                 v-for="tool in tools"
-                :key="tool.url"
+                :key="tool.slug"
                 v-bind="tool"
             />
         </div>

@@ -37,6 +37,11 @@ const useCustomBot = computed({
         }),
 });
 const guildSelected = ref<number | boolean>(false);
+
+const config = useRuntimeConfig();
+const authUrl = computed(() => {
+    return config.public.authUrl + `/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
+});
 </script>
 
 <template>
@@ -93,7 +98,7 @@ const guildSelected = ref<number | boolean>(false);
                     type="password"
                     name="webhook_url"
                     label="Bot token"
-                    placeholder="ODMzMDQ5NjI4NzY5NjI4NzY5.YH5Z5A.5YH5Z5A5YH5Z5A5YH5Z5A5YH5Z5A"
+                    placeholder="Token..."
                     secure
                     :disabled="!useCustomBot"
                 />
@@ -110,9 +115,9 @@ const guildSelected = ref<number | boolean>(false);
                         les interactions avec l'API de Discord se font directement dans ton navigateur.
                     </p>
                 </div>
-                <div class="mt-6 flex rounded-2xl bg-gray-100 dark:bg-neutral-800">
+                <div class="mt-6 flex rounded-2xl bg-gray-100 dark:bg-primary-700">
                     <aside
-                        class="max-h-96 overflow-auto rounded-l-2xl bg-gray-200 p-6 duration-300 ease-out dark:bg-neutral-950"
+                        class="max-h-96 overflow-auto rounded-l-2xl bg-gray-200 p-6 duration-300 ease-out dark:bg-primary-800"
                         :class="guildSelected ? 'w-32' : 'w-full rounded-2xl'"
                     >
                         <ul :class="!guildSelected ? 'grid grid-cols-6 gap-4' : 'flex flex-col gap-2'">
@@ -124,8 +129,8 @@ const guildSelected = ref<number | boolean>(false);
                                     class="mx-auto h-16 w-16 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
                                     :class="
                                         i === guildSelected
-                                            ? 'rounded-xl border-white dark:border-neutral-500'
-                                            : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-neutral-500'
+                                            ? 'rounded-xl border-white dark:border-primary-500'
+                                            : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-primary-500'
                                     "
                                     :src="
                                         [
@@ -147,13 +152,13 @@ const guildSelected = ref<number | boolean>(false);
                             <div class="font-semibold text-gray-400 dark:text-gray-400">🟡 Diose</div>
                             <ul class="mt-1">
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     annonces
                                 </li>
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     règlement
@@ -164,13 +169,13 @@ const guildSelected = ref<number | boolean>(false);
                             <div class="font-semibold text-gray-400 dark:text-gray-400">😁 Communauté</div>
                             <ul class="mt-1">
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     annonces
                                 </li>
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-neutral-700"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     règlement
@@ -178,6 +183,22 @@ const guildSelected = ref<number | boolean>(false);
                             </ul>
                         </div>
                     </main>
+                </div>
+                <div
+                    class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-b-3xl bg-white bg-opacity-75 text-lg font-bold backdrop-blur-sm dark:bg-primary-800 dark:bg-opacity-75"
+                >
+                    <span class="rounded-full border border-gray-500 bg-gray-100 px-4 py-2 text-xs text-gray-500">{{
+                        $t('limited_access')
+                    }}</span>
+                    <span class="max-w-xs text-center">{{ $t('feature_auth') }}</span>
+                    <ClientOnly>
+                        <UIButton
+                            color="black"
+                            :href="authUrl"
+                        >
+                            {{ $t('navigation.login') }}
+                        </UIButton>
+                    </ClientOnly>
                 </div>
             </div>
         </Transition>

@@ -381,6 +381,7 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                 collapse
                 :title="$t('tools.discord.embed-maker.steps.buttons.title')"
                 smallTitle
+                noHover
             >
                 <TransitionGroup
                     name="fadescale"
