@@ -1,0 +1,47 @@
+{
+    "tools": {
+        "global": {
+            "load": {
+                "template": "Charger un template publique",
+                "save": "Charger une sauvegarde"
+            },
+
+            "theme": {
+                "title": "Changer le thème",
+                "description": "Regarde le rendu de tes messages avec les différents thèmes de Discord."
+            },
+
+            "collaboration": {
+                "need_to_save": "Tu dois sauvegarder ta création avant de pouvoir collaborer avec d'autres personnes.",
+                "permissions": {
+                    "admin": "Admin",
+                    "edit": "Editeur",
+                    "view": "Spectateur",
+                    "none": "Aucune permission"
+                }
+            },
+
+            "save": {
+                "success": {
+                    "title": "Création sauvegardée avec succès!",
+                    "message": "Ta création a été sauvegardée."
+                },
+                "error": {
+                    "title": "Erreur lors de la sauvegarde!",
+                    "message": "Une erreur est survenue lors de la sauvegarde de ta création."
+                }
+            }
+        },
+
+        "discord": {
+            "badges": {
+                "name": "Créateur d'icones de rôles",
+                "description": "Créée tes propres icones de rôles pour ton serveur Discord avec notre outil !"
+            },
+            "emojis": {
+                "name": "Créateur d'emojis",
+                "description": "Créée de grands emojis pour customiser ton serveur, ton profil Discord ou encore tes messages !"
+            }
+        }
+    }
+}

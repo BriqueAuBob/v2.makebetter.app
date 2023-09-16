@@ -32,10 +32,10 @@ html.dark .arrow {
 </style>
 
 <template>
-    <div :class="relative && 'relative'">
+    <div :class="[relative && 'relative', 'group']">
         <slot name="trigger"></slot>
         <div
-            class="absolute left-1/2 top-full min-w-[400px] -translate-x-1/2 translate-y-4 rounded-2xl border-2 border-gray-200 bg-white shadow-xl duration-300 ease-out arrow dark:border-gray-900 dark:bg-black"
+            class="absolute left-1/2 top-full z-50 -translate-x-1/2 translate-y-4 rounded-2xl border-2 border-gray-200 bg-white opacity-0 shadow-xl duration-300 ease-out arrow group-hover:opacity-100 dark:border-gray-900 dark:bg-black"
             :style="{
                 left: x + 'px',
                 top: y + 'px',

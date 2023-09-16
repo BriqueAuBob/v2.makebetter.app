@@ -1,0 +1,39 @@
+{
+    "errors": {
+        "encountered": "Une erreur est survenue."
+    },
+
+    "redirect": {
+        "message": "Tu vas être redirigé dans quelques secondes...",
+        "link": "Clique ici si tu ne souhaites pas attendre."
+    },
+
+    "testimonials": {
+        "title": "Avis des utilisateurs",
+        "description": "Découvrez ce que nos utilisateurs pensent de notre plateforme.",
+        "no_testimonials": "Aucun avis n'a été publié pour le moment.",
+        "view": "Voir les avis",
+        "publish": "Publier un avis"
+    },
+
+    "banners": {
+        "hiring": {
+            "title": "Recrutement",
+            "description": "Afin de continuer à te proposer des services comme celui-ci, nous avons besoin de toi ! Nous recrutons des développeurs, des graphistes, des modérateurs et tout un tas d'autres postes... N'hésite pas à postuler !",
+            "button": "Postuler"
+        }
+    },
+
+    "buttons": {
+        "download": "Télécharger",
+        "make_public": "Rendre public",
+        "send": "Envoyer",
+        "share": "Partager",
+        "apply": "Appliquer",
+        "cancel": "Annuler",
+        "export": "Exporter",
+        "save": "Sauvegarder"
+    },
+
+    "how_to": "Comment faire?"
+}
