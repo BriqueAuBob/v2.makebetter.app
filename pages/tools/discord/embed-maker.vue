@@ -475,6 +475,12 @@ const hasEditPermission = computed(
 
 const sendWithWebhook = ref(false);
 const useCustomBot = ref(true);
+
+defineI18nRoute({
+    paths: {
+        fr: 'outils/discord/createur-dembeds',
+    },
+});
 </script>
 
 <template>

@@ -9,6 +9,12 @@ const tools = [
         comingSoon: true,
     },
 ];
+
+defineI18nRoute({
+    paths: {
+        fr: '/outils',
+    },
+});
 </script>
 
 <template>
