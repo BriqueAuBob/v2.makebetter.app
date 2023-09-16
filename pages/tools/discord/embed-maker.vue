@@ -478,7 +478,7 @@ const useCustomBot = ref(true);
 
 defineI18nRoute({
     paths: {
-        fr: 'outils/discord/createur-dembeds',
+        fr: '/outils/discord/createur-dembeds',
     },
 });
 </script>
