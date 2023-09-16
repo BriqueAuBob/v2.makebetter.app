@@ -9,11 +9,11 @@ const form = reactive({
 </script>
 
 <template>
-    <FakerDemo :title="$t('tools.discord.embed.name')">
+    <FakerDemo :title="$t('tools.discord.embed-maker.name')">
         <UIInput
             name="webhook_url"
-            :label="$t('tools.discord.embed.fields.webhook_url.label')"
-            :placeholder="$t('tools.discord.embed.fields.webhook_url.placeholder')"
+            :label="$t('tools.discord.embed-maker.fields.webhook_url.label')"
+            :placeholder="$t('tools.discord.embed-maker.fields.webhook_url.placeholder')"
             v-model="form.webhook_url"
             @focus="
                 form.webhook_url =
@@ -22,22 +22,22 @@ const form = reactive({
         />
         <UIInput
             name="title"
-            :label="$t('tools.discord.embed.fields.title.label')"
-            :placeholder="$t('tools.discord.embed.fields.title.label')"
+            :label="$t('tools.discord.embed-maker.fields.title.label')"
+            :placeholder="$t('tools.discord.embed-maker.fields.title.label')"
             v-model="form.title"
             :disabled="form.webhook_url === ''"
             :class="form.webhook_url === '' && 'blur-xs'"
-            @focus="form.title = $t('tools.discord.embed.faker.title')"
+            @focus="form.title = $t('tools.discord.embed-maker.faker.title')"
         />
         <UIInput
             name="description"
-            :label="$t('tools.discord.embed.fields.description.label')"
-            :placeholder="$t('tools.discord.embed.fields.description.placeholder')"
+            :label="$t('tools.discord.embed-maker.fields.description.label')"
+            :placeholder="$t('tools.discord.embed-maker.fields.description.placeholder')"
             :long-text="true"
             v-model="form.description"
             :disabled="form.title === ''"
             :class="form.title === '' && 'blur-xs'"
-            @focus="form.description = $t('tools.discord.embed.faker.description')"
+            @focus="form.description = $t('tools.discord.embed-maker.faker.description')"
         />
         <UIButton
             :class="form.description === '' && 'blur-xs'"

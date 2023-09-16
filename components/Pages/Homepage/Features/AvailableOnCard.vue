@@ -5,9 +5,9 @@
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
         />
         <div class="p-8">
-            <h1 class="mb-2 text-2xl font-bold">Outils disponible pour +1 plateformes</h1>
+            <h1 class="mb-2 text-2xl font-bold">{{ $t('homepage.features.tools_available.title', { count: 1 }) }}</h1>
             <p class="text-md text-gray-400">
-                Nous te proposons des outils pour de multiples plateformes! Essaye les tous!
+                {{ $t('homepage.features.tools_available.description') }}
             </p>
             <img
                 src="/images/features/platforms/illustration.png"

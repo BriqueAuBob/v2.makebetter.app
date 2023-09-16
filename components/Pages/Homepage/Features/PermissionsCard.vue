@@ -25,10 +25,9 @@ const users = ref([
             class="pointer-events-none absolute bottom-0 left-0 w-full select-none"
         />
         <div class="p-8">
-            <h1 class="mb-2 text-center text-2xl font-bold">Permissions personnalisées</h1>
+            <h1 class="mb-2 text-center text-2xl font-bold">{{ $t('homepage.features.permissions.title') }}</h1>
             <p class="text-md text-center text-gray-400">
-                Quand tu utilises la collaboration en temps réel, tu as la possibilité d’uniquement autoriser la
-                visualisation de ce que tu fait !
+                {{ $t('homepage.features.permissions.description') }}
             </p>
             <div class="mx-auto mt-6 flex max-w-sm flex-col gap-2">
                 <div

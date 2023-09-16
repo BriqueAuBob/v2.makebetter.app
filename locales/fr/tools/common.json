@@ -34,11 +34,11 @@
         },
 
         "discord": {
-            "badges": {
+            "roles-icons-maker": {
                 "name": "Créateur d'icones de rôles",
-                "description": "Créée tes propres icones de rôles pour ton serveur Discord avec notre outil !"
+                "description": "Créée tes propres icones de rôles pour ton serveur Discord !"
             },
-            "emojis": {
+            "emojis-maker": {
                 "name": "Créateur d'emojis",
                 "description": "Créée de grands emojis pour customiser ton serveur, ton profil Discord ou encore tes messages !"
             }

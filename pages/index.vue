@@ -8,28 +8,6 @@ const { locale, t } = useI18n();
 const language = reactive({
     locale: locale.value,
 });
-const previews = [
-    `images/demos/embedcreator-${language.locale}.png`,
-    `images/demos/emojimaker-${language.locale}.png`,
-    `images/demos/badgecreator-${language.locale}.png`,
-    `images/demos/markdowneditor-${language.locale}.png`,
-];
-const collapsibleElements: CollapseGroupItems = [
-    {
-        title: t('tools.discord.embed.name'),
-        content: t('tools.discord.embed.description'),
-        defaultOpen: true,
-    },
-    {
-        title: t('tools.discord.badges.name'),
-        content: t('tools.discord.badges.description'),
-    },
-    {
-        title: t('tools.discord.emojis.name'),
-        content: t('tools.discord.emojis.description'),
-    },
-];
-
 const { data: testimonialsData } = await useFetchApi<TestimonialsType>('testimonials?max=3');
 const { data: statisticsData } = await useFetchApi<StatisticsType>('statistics');
 const { data: articlesPagination } = await useFetchApi<{
@@ -37,15 +15,22 @@ const { data: articlesPagination } = await useFetchApi<{
     articles: any[];
 }>('articles?type=makebetter&search=');
 
-const hasScrolled = ref(false);
+const hasScrolled = ref<number>(0);
 onMounted(() => {
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            hasScrolled.value = true;
-        } else {
-            hasScrolled.value = false;
-        }
+        hasScrolled.value = window.scrollY;
     });
+});
+
+const calculateRotation = computed(() => {
+    const initial = 30;
+    const final = 0;
+    return Math.max(initial - hasScrolled?.value / 10, final);
+});
+const calculateSize = computed(() => {
+    const initial = 1.3;
+    const final = 1;
+    return Math.max(initial - hasScrolled?.value / 1000, final);
 });
 </script>
 
@@ -89,9 +74,15 @@ onMounted(() => {
             src="/images/arc_demo.png"
             class="absolute left-1/2 top-full -z-1 w-full max-w-7xl -translate-x-1/2 -translate-y-32 xl:w-4/5"
         />
-        <div
+        <section
             class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out dark:shadow-primary-800 lg:w-2/3 xl:w-1/2"
-            :class="hasScrolled ? '-translate-y-52 scale-110' : 'perspective'"
+            :style="`
+                transform: 
+                    translate(-50%, -250px) 
+                    perspective(1000px) 
+                    rotateX(${calculateRotation}deg) 
+                    scale(${calculateSize});
+            `"
         >
             <header class="relative border-b border-gray-100 px-4">
                 <ul class="flex gap-6 font-semibold">
@@ -110,14 +101,14 @@ onMounted(() => {
                     :href="localePath('tools-discord-embed-maker')"
                     class="absolute left-1/2 -mt-2 -translate-x-1/2"
                 >
-                    Utiliser cet outil
+                    {{ $t('use_tool') }}
                     <NuxtIcon
                         name="arrow/circle/right"
                         class="text-xl"
                     />
                 </UIButton>
             </main>
-        </div>
+        </section>
     </header>
     <section class="container mt-32 gap-16 pb-16 pt-80 xl:mt-32 xl:pt-96">
         <h1 class="mx-auto text-center text-xl font-bold">
@@ -125,18 +116,14 @@ onMounted(() => {
         </h1>
         <div class="mt-6 grid gap-4 lg:grid-cols-3">
             <ToolsCard
-                title="Créateur d'embeds"
-                description="Envoie des messages customisés sur ton serveur Discord. Impressionne tes membres avec tes messages !"
                 image="embed-maker.png"
                 platform="discord"
-                url="tools-discord-embed-maker"
+                slug="embed-maker"
             />
             <ToolsCard
-                title="Créateur d'icônes de rôles"
-                description="Crée des icônes pour tes rôles sur ton serveur Discord !"
                 image="roles-icons-maker.png"
                 platform="discord"
-                url="#"
+                slug="roles-icons-maker"
                 :coming-soon="true"
             />
         </div>
@@ -185,7 +172,7 @@ onMounted(() => {
                 })
             }}
         </p>
-        <h1 class="text-center text-3xl font-black">Pourquoi pas toi&nbsp;?</h1>
+        <h1 class="text-center text-3xl font-black">{{ $t('homepage.why_not_you') }}</h1>
         <div class="mt-8 grid gap-6 lg:grid-cols-3">
             <CardReview
                 v-for="(testimonial, id) in testimonialsData?.testimonials"

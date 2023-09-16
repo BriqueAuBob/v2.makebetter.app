@@ -6,7 +6,6 @@ const props = defineProps({
     },
     label: {
         type: String,
-        required: true,
     },
     placeholder: {
         type: String,
@@ -36,10 +35,6 @@ const props = defineProps({
     secure: {
         type: Boolean,
         default: false,
-    },
-    displayLabel: {
-        type: Boolean,
-        default: true,
     },
     autoComplete: {
         type: Array as PropType<any[]>,

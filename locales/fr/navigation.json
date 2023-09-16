@@ -5,5 +5,31 @@
         "login": "Accéder à mon compte"
     },
 
-    "footer": {}
+    "footer": {
+        "description": "Améliore tes projets avec nos outils destinés à tout le monde !",
+        "not_affiliated": "Nous ne sommes pas affiliés aux plateformes pour lesquelles nous proposons des outils.",
+
+        "useful_links": {
+            "title": "Liens utiles",
+            "home": "Accueil",
+            "tutorials": "Nos tutoriels",
+            "testimonials": "Avis des utilisateurs"
+        },
+
+        "group": {
+            "title": "Groupe",
+            "website": "Site Internet",
+            "about": "À propos",
+            "partners": "Partenaires",
+            "hiring": "Recrutements"
+        },
+
+        "security": {
+            "title": "Confidentialité et sécurité",
+            "privacy_policy": "Politique de confidentialité",
+            "terms_of_service": "Conditions générales d'utilisation"
+        },
+
+        "made_with": "Fait avec {emoji} par {link}."
+    }
 }

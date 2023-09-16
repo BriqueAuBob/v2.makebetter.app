@@ -17,9 +17,9 @@ async function changeLocale() {
         <div class="container grid gap-16 lg:grid-cols-5">
             <div class="col-span-2">
                 <h1 class="text-2xl font-bold">MakeBetter</h1>
-                <p class="mb-1 mt-4">Améliore tout tes projets avec nos outils !</p>
+                <p class="mb-1 mt-4">{{ $t('footer.description') }}</p>
                 <i class="text-sm font-semibold text-gray-400">
-                    Nous ne sommes pas affiliés avec les services pour lesquels nous proposons des outils.
+                    {{ $t('footer.not_affiliated') }}
                 </i>
                 <p class="mt-1 text-xs italic text-gray-600">{{ config.public.gitHash }}</p>
                 <UISelect
@@ -66,50 +66,57 @@ async function changeLocale() {
                 </div>
             </div>
             <div>
-                <h1 class="text-xl font-bold">Liens utiles</h1>
+                <h1 class="text-xl font-bold">{{ $t('footer.useful_links.title') }}</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <NuxtLink :to="localePath('/')">Accueil</NuxtLink>
+                        <NuxtLink :to="localePath('/')">{{ $t('footer.useful_links.home') }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink :to="localePath('/tools/discord/embed-maker')">Créateur d'embeds</NuxtLink>
+                        <NuxtLink :to="localePath('/tools/discord/embed-maker')">{{
+                            $t('tools.discord.embed-maker.name')
+                        }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="#">Nos tutoriels</NuxtLink>
+                        <NuxtLink to="#">{{ $t('footer.useful_links.tutorials') }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink :to="localePath('testimonials')">Avis des utilisateurs</NuxtLink>
+                        <NuxtLink :to="localePath('testimonials')">{{
+                            $t('footer.useful_links.testimonials')
+                        }}</NuxtLink>
                     </li>
                 </ul>
             </div>
             <div>
-                <h1 class="text-xl font-bold">Groupe</h1>
+                <h1 class="text-xl font-bold">{{ $t('footer.group.title') }}</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <NuxtLink to="https://diose.io">Site</NuxtLink>
+                        <NuxtLink to="https://diose.io">{{ $t('footer.group.website') }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="https://umaestro.fr/recrutements">Recrutements</NuxtLink>
+                        <NuxtLink to="#">{{ $t('footer.group.about') }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="#">Partenaires</NuxtLink>
+                        <NuxtLink to="https://umaestro.fr/recrutements">{{ $t('footer.group.hiring') }}</NuxtLink>
+                    </li>
+                    <li>
+                        <NuxtLink to="#">{{ $t('footer.group.partners') }}</NuxtLink>
                     </li>
                 </ul>
             </div>
             <div>
-                <h1 class="text-xl font-bold">Confidentialité & Sécurité</h1>
+                <h1 class="text-xl font-bold">{{ $t('footer.security.title') }}</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <NuxtLink to="#">Conditions générales d'utilisation</NuxtLink>
+                        <NuxtLink to="#">{{ $t('footer.security.terms_of_service') }}</NuxtLink>
                     </li>
                     <li>
-                        <NuxtLink to="#">Politique de confidentialité</NuxtLink>
+                        <NuxtLink to="#">{{ $t('footer.security.privacy_policy') }}</NuxtLink>
                     </li>
                 </ul>
             </div>
         </div>
-        <p class="mt-16 text-center text-base text-gray-300">
-            Fait avec <span class="inline-block animate-bounce">❤️</span> par
+        <!-- <p class="mt-16 text-center text-base text-gray-300">
+             Fait avec <span class="inline-block animate-bounce">❤️</span> par
             <a
                 class="font-semibold text-white underline"
                 href="https://diose.io"
@@ -117,6 +124,24 @@ async function changeLocale() {
             >
                 Diose
             </a>
-        </p>
+        </p> -->
+        <i18n-t
+            keypath="footer.made_with"
+            tag="p"
+            class="mt-16 text-center text-base text-gray-300"
+        >
+            <template #emoji>
+                <span class="inline-block animate-bounce">❤️</span>
+            </template>
+            <template #link>
+                <a
+                    class="font-semibold text-white underline"
+                    href="https://diose.io"
+                    target="_blank"
+                >
+                    Diose
+                </a>
+            </template>
+        </i18n-t>
     </footer>
 </template>
