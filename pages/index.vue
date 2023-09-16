@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import type { CollapseGroupItems } from '~/types/collapse';
 import type { Testimonials as TestimonialsType, Statistics as StatisticsType } from '~/types/api_response';
-import { Slide } from 'vue3-carousel';
-import { useI18n } from '#i18n';
 const localePath = useLocalePath();
-const { locale, t } = useI18n();
-const language = reactive({
-    locale: locale.value,
-});
 const { data: testimonialsData } = await useFetchApi<TestimonialsType>('testimonials?max=3');
 const { data: statisticsData } = await useFetchApi<StatisticsType>('statistics');
 const { data: articlesPagination } = await useFetchApi<{
@@ -49,12 +42,14 @@ const calculateSize = computed(() => {
                 {{ $t('homepage.header.description') }}
             </h2>
             <div class="mt-12 flex items-center justify-center gap-6">
-                <UIButton
-                    size="lg"
-                    color="light"
-                    class="text-sm lg:text-lg"
-                    >{{ $t('homepage.header.buttons.use_tool') }}</UIButton
-                >
+                <NuxtLinkLocale to="tools">
+                    <UIButton
+                        size="lg"
+                        color="light"
+                        class="text-sm lg:text-lg"
+                        >{{ $t('homepage.header.buttons.use_tool') }}</UIButton
+                    >
+                </NuxtLinkLocale>
                 <NuxtLink
                     to="https://discord.com/invite/GWpGBK8gmA"
                     target="_blank"
