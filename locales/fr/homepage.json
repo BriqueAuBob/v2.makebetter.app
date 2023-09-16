@@ -1,0 +1,41 @@
+{
+    "homepage": {
+        "header": {
+            "presentation": "Le site Internet pour les créateurs de contenus",
+            "title": "Crée ton projet",
+            "description": "Nous proposons les outils qui permettront à ton projet de grandir rapidement.",
+            "buttons": {
+                "use_tool": "Utiliser un outil",
+                "join_discord": "Rejoindre le Discord"
+            }
+        },
+        "collaborative": {
+            "title": "Utilisez nos outils en équipe !",
+            "description": {
+                "base": "Tous nos outils disposent d'un {0}, tu pourras ainsi {1} sur tes projets {2}.",
+                "system": "système de collaboration",
+                "work_in_team": "travailler en équipe",
+                "in_real_time": "en temps réel"
+            },
+            "view_tools": "Voir les outils"
+        },
+        "share": {
+            "title": "Partage tes réalisations",
+            "collaborators": {
+                "title": "Partage avec tes collaborateurs",
+                "description": "Nous proposons de générer un lien pour partager ta réalisation avec tes amis ! Ils pourront ainsi te proposer des modifications ou encore réutiliser ce que tu leurs à donner."
+            },
+            "public": {
+                "title": "Partage avec tout le monde",
+                "description": "Nous proposons de rendre ta réalisation publique, ainsi tout le monde pourra la voir et la réutiliser."
+            }
+        },
+        "need_help": "Besoin d'aide pour créer ton projet?",
+        "view_tutorials": "Voir les tutoriels",
+        "stat_usage_rates": "{usersCount} personnes utilisent nos outils!\n{ratesCount} d'entre elles ont publié un avis...",
+        "our_tools": "Nos outils",
+        "features": {
+            "title": "Fonctionnalités"
+        }
+    }
+}

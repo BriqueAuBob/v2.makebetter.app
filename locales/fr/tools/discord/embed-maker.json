@@ -1,0 +1,172 @@
+{
+    "tools": {
+        "discord": {
+            "embed": {
+                "name": "Créateur d'embeds",
+                "description": "Notre créateur d'embed te permettra de créer et envoyer tes embeds sur ton serveur de la plus simple des manières !",
+                "button": "Commencer à créer mon embed",
+
+                "instructions": {
+                    "global": "Pour commencer à créer ton embed et l'envoyer sur ton serveur, suis les différentes étapes de la création ci-dessous."
+                },
+
+                "export": {
+                    "description": "Génère un code qui permettra d'envoyer ton embed via une autre méthode. (JSON, Discord.js, ...)",
+                    "copy_code": "Copier le code",
+                    "copied": {
+                        "title": "Code copié!",
+                        "message": "Le code de ton message a été copié dans ton presse-papier. | Le code de tes messages a été copié dans ton presse-papier."
+                    }
+                },
+
+                "save": {
+                    "title": "Sauvegarder le message|Sauvegarder les messages",
+                    "description": "Sauvegarde ton message pour pouvoir le réutiliser plus tard.|Sauvegarde tes messages pour pouvoir les réutiliser plus tard.",
+                    "infos": "Informations de la sauvegarde",
+                    "load": "Charger cette sauvegarde",
+                    "load_template": "Charger ce template",
+
+                    "list": "Liste de tes sauvegardes",
+                    "list_description": "Charge une sauvegarde faite précédemment.",
+                    "templates_community": "Templates de la communauté",
+                    "templates_community_description": "Utilise les templates créés par la communauté ou par l'équipe de MakeBetter.",
+
+                    "tags": {
+                        "rules": "Réglement",
+                        "presentation": "Présentation",
+                        "commands": "Commandes",
+                        "tickets": "Tickets",
+                        "announcements": "Annonces",
+                        "french": "Français",
+                        "english": "Anglais"
+                    },
+
+                    "should_be_public": "Rendre publique",
+
+                    "form": {
+                        "name": {
+                            "placeholder": "Entrez le nom de la sauvegarde...",
+                            "label": "Nom de la sauvegarde"
+                        },
+                        "description": {
+                            "placeholder": "Entrez la description de la sauvegarde...",
+                            "label": "Description de la sauvegarde"
+                        }
+                    }
+                },
+
+                "steps": {
+                    "load_messages": "Charger un ensemble de messages",
+                    "edit_message_id": "Edition du message n°{id}",
+                    "author": "Auteur du message",
+                    "content": "Contenu du message",
+                    "embed": {
+                        "author": "Auteur de l'embed",
+                        "images": "Images de l'embed",
+                        "body": "Corps de l'embed",
+                        "footer": "Footer de l'embed",
+                        "fields": "Champs de l'embed",
+                        "add": "Ajouter un embed ({amount}/{max})",
+                        "add_field": "Ajouter un champ"
+                    },
+                    "buttons": {
+                        "title": "Boutons",
+                        "add": "Ajouter un bouton",
+                        "bot": "Le webhook doit avoir été créé par un bot pour pouvoir ajouter des boutons."
+                    },
+                    "add_message": "Ajouter un message"
+                },
+
+                "faker": {
+                    "title": "Réglement de MakeBetter",
+                    "description": "Voici le règlement de MakeBetter, merci de le lire attentivement."
+                },
+
+                "fields": {
+                    "webhook_url": {
+                        "label": "URL du Webhook",
+                        "placeholder": "https://discord.com/api/v10/webhooks..."
+                    },
+                    "content": {
+                        "label": "Contenu du message",
+                        "placeholder": "Bonjour, je suis un message !"
+                    },
+                    "username": {
+                        "label": "Nom d'utilisateur",
+                        "placeholder": "MakeBetter"
+                    },
+                    "avatar_url": {
+                        "label": "URL de l'avatar",
+                        "placeholder": "https://i.imgur.com/4M34hi2.png"
+                    },
+                    "title": {
+                        "label": "Titre",
+                        "placeholder": "Titre de l'embed"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Description de l'embed"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "placeholder": "URL de l'embed"
+                    },
+                    "color": {
+                        "label": "Couleur",
+                        "placeholder": "Couleur de l'embed"
+                    },
+                    "footer_text": {
+                        "label": "Texte",
+                        "placeholder": "Texte du footer"
+                    },
+                    "footer_icon": {
+                        "label": "Icone",
+                        "placeholder": "URL de l'icone du footer"
+                    },
+                    "timestamp": {
+                        "label": "Timestamp",
+                        "placeholder": "Timestamp de l'embed"
+                    },
+                    "image": {
+                        "label": "Image"
+                    },
+                    "thumbnail": {
+                        "label": "Miniature"
+                    },
+                    "author": {
+                        "label": "Auteur",
+                        "placeholder": "Nom de l'auteur"
+                    },
+                    "author_icon": {
+                        "label": "Icone de l'auteur",
+                        "placeholder": "URL de l'icone de l'auteur"
+                    },
+                    "author_url": {
+                        "label": "URL de l'auteur",
+                        "placeholder": "URL de l'auteur"
+                    },
+                    "field_name": {
+                        "label": "Nom du champ",
+                        "placeholder": "Nom du champ"
+                    },
+                    "field_value": {
+                        "label": "Valeur du champ",
+                        "placeholder": "Valeur du champ"
+                    },
+                    "field_inline": {
+                        "label": "Inline",
+                        "placeholder": "Inline"
+                    },
+                    "button_label": {
+                        "label": "Label du bouton",
+                        "placeholder": "Label du bouton"
+                    },
+                    "button_url": {
+                        "label": "URL du bouton",
+                        "placeholder": "URL du bouton"
+                    }
+                }
+            }
+        }
+    }
+}

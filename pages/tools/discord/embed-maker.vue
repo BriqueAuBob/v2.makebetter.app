@@ -182,28 +182,59 @@ const sendMessage = async () => {
                 i++;
             }
         }
-        await $fetch(form.webhook_url + '?wait=true' + (form.thread_id ? `&thread_id=${form.thread_id}` : ''), {
-            method: 'POST',
-            body: formMessage,
-        }).catch((err) => {
-            const data = err.data;
-            if (data) {
-                for (const error of Object.values(data)) {
+        if (sendWithWebhook.value) {
+            await $fetch(form.webhook_url + '?wait=true' + (form.thread_id ? `&thread_id=${form.thread_id}` : ''), {
+                method: 'POST',
+                body: formMessage,
+            }).catch((err) => {
+                const data = err.data;
+                if (data) {
+                    for (const error of Object.values(data)) {
+                        $toast.show({
+                            title: t('errors.encountered'),
+                            message: error as string,
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                    }
+                } else {
                     $toast.show({
                         title: t('errors.encountered'),
-                        message: error as string,
                         type: 'danger',
                         timeout: 5,
                     });
                 }
-            } else {
-                $toast.show({
-                    title: t('errors.encountered'),
-                    type: 'danger',
-                    timeout: 5,
-                });
-            }
-        });
+            });
+        } else if (useCustomBot.value) {
+            await $fetch('https://discord.com/api/v10/channels/1102525068493459518/messages', {
+                method: 'POST',
+                body: JSON.stringify({
+                    content: 'message',
+                }),
+                headers: {
+                    Authorization: 'Bot ' + form.bot_token,
+                },
+            }).catch((err) => {
+                console.log(err);
+                const data = err.data;
+                if (data) {
+                    for (const error of Object.values(data)) {
+                        $toast.show({
+                            title: t('errors.encountered'),
+                            message: error as string,
+                            type: 'danger',
+                            timeout: 5,
+                        });
+                    }
+                } else {
+                    $toast.show({
+                        title: t('errors.encountered'),
+                        type: 'danger',
+                        timeout: 5,
+                    });
+                }
+            });
+        }
     }
 };
 
