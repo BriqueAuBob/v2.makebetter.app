@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { nodeChildren } from '@nuxt/content/dist/runtime/markdown-parser/utils/node';
 import { parse, rules, rulesExtended } from 'discord-markdown-parser';
 import type { ASTNode, SingleASTNode } from 'simple-markdown';
 import SimpleMarkdown, { parserFor } from 'simple-markdown';
