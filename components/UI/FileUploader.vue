@@ -87,7 +87,7 @@ watch(
                 <div class="flex items-center gap-3">
                     <div class="rounded-xl bg-zinc-100 p-4 dark:bg-zinc-700">
                         <NuxtIcon
-                            class="icon big text-zinc-600 dark:text-primary-200"
+                            class="icon big text-zinc-600 dark:text-zinc-200"
                             name="image"
                         />
                     </div>

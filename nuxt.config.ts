@@ -3,6 +3,8 @@ import { appVersion, prodUrl, devUrl } from './main.config';
 
 export default defineNuxtConfig({
     runtimeConfig: {
+        bot_token: process.env.MAKEBETTER_BOT_TOKEN,
+
         public: {
             baseUrl: process.env.API_BASE_URL,
             gitHash: process.env.GIT_SHA,

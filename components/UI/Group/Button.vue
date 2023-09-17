@@ -14,7 +14,7 @@
 
 .btn-group > * {
     @apply hover:translate-y-0 !important;
-    @apply border-zinc-200 border-opacity-50 dark:border-zinc-600;
+    @apply border-zinc-200 border-opacity-50 dark:border-zinc-700;
 }
 .btn-group > *:first-child {
     @apply rounded-r-none border-r !important;

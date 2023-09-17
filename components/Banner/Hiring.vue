@@ -59,7 +59,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Yanis</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Modérateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Le modérateur au look éphémère 👓
+                            </span>
                         </div>
                     </template>
                 </UIPopover>
@@ -78,7 +80,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Ewan</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Modérateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Modère les sommets avec passion 🏔️
+                            </span>
                         </div>
                     </template>
                 </UIPopover>
@@ -97,9 +101,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="whitespace-nowrap text-lg font-semibold">Brique au bob</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500"
-                                >UI Designer spécialisé en bitmoji</span
-                            >
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Le couteau suisse de l'équipe 🖐️
+                            </span>
                         </div>
                     </template>
                 </UIPopover>
@@ -118,7 +122,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">DrakS</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Administrateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Le voyageur aux idées farfelues 🛫
+                            </span>
                         </div>
                     </template>
                 </UIPopover>
@@ -137,7 +143,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Kaito</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Rédactrice</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Rédige pour vous pousser vers la lumière ☀️
+                            </span>
                         </div>
                     </template>
                 </UIPopover>
@@ -156,7 +164,9 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Flayte</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Développeur Full Stack</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">
+                                Code avec une précision chirurgicale 😷
+                            </span>
                         </div>
                     </template>
                 </UIPopover>

@@ -62,9 +62,6 @@ const templates = ref<any[]>([]);
 const scrollTemplatesContainer = ref<HTMLDivElement>();
 const searchInput = ref<HTMLInputElement>();
 
-onMounted(() => {
-    fetchTemplates();
-});
 watch(
     () => scrollTemplatesContainer.value,
     (scrollContainer) => {
@@ -82,7 +79,12 @@ watch(
 
 watch(
     () => props.personal,
-    () => fetchTemplates()
+    () => {
+        page.value = 1;
+        loading.value = true;
+        templates.value = [];
+        fetchTemplates();
+    }
 );
 
 const debouncedFetchTemplates = useDebounce(300, fetchTemplates);
@@ -153,10 +155,10 @@ const loadSave = async () => {
                 />
             </div>
             <div
-                class="grid max-h-[60vh] w-full gap-3 overflow-y-auto py-2 lg:grid-cols-2"
+                class="grid max-h-[60vh] min-h-[50vh] w-full gap-3 overflow-y-auto py-2 lg:grid-cols-2"
                 ref="scrollTemplatesContainer"
                 v-loading="loading"
-                v-if="templates.length > 0"
+                v-if="templates.length > 0 || loading"
             >
                 <TransitionGroup
                     name="fadescale"
@@ -184,7 +186,6 @@ const loadSave = async () => {
                         fetchTemplates();
                     }
                 "
-                v-loading="loading"
                 v-else
             />
         </div>

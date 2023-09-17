@@ -71,6 +71,8 @@ const form = reactive({
     messages: [] as DiscordWebhookMessage[],
     thread_name: '',
     thread_id: '',
+    guildSelected: null as any | null,
+    channelSelected: null as DiscordChannel | null,
 });
 
 const formSave = reactive({
@@ -205,17 +207,20 @@ const sendMessage = async () => {
                     });
                 }
             });
-        } else if (useCustomBot.value) {
-            await $fetch('https://discord.com/api/v10/channels/1102525068493459518/messages', {
-                method: 'POST',
-                body: JSON.stringify({
-                    content: 'message',
-                }),
-                headers: {
-                    Authorization: 'Bot ' + form.bot_token,
-                },
-            }).catch((err) => {
-                console.log(err);
+        } else {
+            if (useCustomBot.value && form.bot_token) {
+                formMessage.append('token', form.bot_token);
+            }
+            await $fetch(
+                `/api/tools/discord/embed-maker/guilds/${form.guildSelected?.id}/channels/${form.channelSelected?.id}`,
+                {
+                    method: 'POST',
+                    body: formMessage,
+                    headers: {
+                        Authorization: 'Bearer ' + useAuthStore().token,
+                    },
+                }
+            ).catch((err) => {
                 const data = err.data;
                 if (data) {
                     for (const error of Object.values(data)) {
@@ -473,7 +478,7 @@ const hasEditPermission = computed(
         )
 );
 
-const sendWithWebhook = ref(false);
+const sendWithWebhook = ref(true);
 const useCustomBot = ref(true);
 
 defineI18nRoute({
@@ -626,7 +631,7 @@ defineI18nRoute({
                             <div class="flex items-center justify-between border-b p-8 dark:border-b-zinc-800">
                                 <div>
                                     <h3 class="mb-1 text-lg">Prévisualisation</h3>
-                                    <p class="text-sm text-zinc-700">Vois à quoi ressemblera ton embed !</p>
+                                    <p class="text-sm text-zinc-600">Vois à quoi ressemblera ton embed !</p>
                                 </div>
                                 <UIButton
                                     size="sm"
@@ -859,7 +864,7 @@ defineI18nRoute({
                                         class="relative z-20"
                                     >
                                         <HeadlessMenuButton
-                                            class="rounded-r-2xl border-2 border-zinc-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-zinc-600"
+                                            class="rounded-r-2xl border-2 border-zinc-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-zinc-700"
                                         >
                                             <NuxtIcon
                                                 name="chevron/down"

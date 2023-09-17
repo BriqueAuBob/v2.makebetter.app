@@ -57,7 +57,7 @@ const language = reactive({
                                 name="eye"
                                 class="icon"
                             />
-                            <span class="text-zinc-500">{{ views }}</span>
+                            <span class="text-stone-500">{{ views }}</span>
                         </div> -->
                         <!-- <div class="flex items-center gap-2">
                             <NuxtIcon
@@ -65,7 +65,7 @@ const language = reactive({
                                 class="icon"
                                 :filled="!liked"
                             />
-                            <span class="text-zinc-500">{{ likes }}</span>
+                            <span class="text-stone-500">{{ likes }}</span>
                         </div> -->
                     </div>
                 </div>
