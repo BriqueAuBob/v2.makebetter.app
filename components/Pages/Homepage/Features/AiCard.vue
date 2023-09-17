@@ -17,7 +17,7 @@ const handleClick = () => {
         />
         <div class="p-8">
             <h1 class="mb-2 text-2xl font-bold">{{ $t('homepage.features.ai.title') }}</h1>
-            <p class="text-md text-gray-400">
+            <p class="text-md text-zinc-400">
                 {{ $t('homepage.features.ai.description') }}
             </p>
             <div
@@ -25,7 +25,7 @@ const handleClick = () => {
                 :class="hasClicked && 'pb-32 xl:pb-0'"
             >
                 <div
-                    class="rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-300 duration-300 ease-out dark:bg-primary-950"
+                    class="rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-300 duration-300 ease-out dark:bg-zinc-950"
                     :class="!hasClicked && 'pb-28 xl:pb-24'"
                 >
                     {{ $t('homepage.features.ai.sentence.default') }}
@@ -39,7 +39,7 @@ const handleClick = () => {
                     {{ $t('homepage.features.ai.sentence.improve') }}
                 </UIButton>
                 <div
-                    class="absolute mt-4 w-full cursor-pointer rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-500 duration-300 ease-out hover:-translate-y-12 dark:bg-primary-950 xl:top-full"
+                    class="absolute mt-4 w-full cursor-pointer rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-500 duration-300 ease-out hover:-translate-y-12 dark:bg-zinc-950 xl:top-full"
                     :class="!hasClicked && 'translate-y-96 opacity-0'"
                     @click="handleClick"
                 >

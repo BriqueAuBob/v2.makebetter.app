@@ -24,21 +24,21 @@ defineProps({
 
 <template>
     <div
-        class="relative overflow-hidden rounded-3xl border-8 border-white bg-gray-100 bg-grid-square bg-center bg-repeat p-12 shadow-2xl shadow-primary-50 dark:border-primary-700 dark:bg-primary-900 dark:shadow-primary-800"
+        class="relative overflow-hidden rounded-3xl border-8 border-white bg-zinc-100 bg-grid-square bg-center bg-repeat p-12 shadow-2xl shadow-primary-50 dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-zinc-800"
     >
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="relative z-10 flex items-center justify-between">
             <div
-                class="rounded-2xl bg-white px-6 py-4 font-display font-bold shadow-md shadow-primary-100 dark:bg-primary-700 dark:shadow-primary-800"
+                class="rounded-2xl bg-white px-6 py-4 font-display font-bold shadow-md shadow-primary-100 dark:bg-zinc-700 dark:shadow-zinc-800"
             >
                 {{ $t('tools.discord.embed-maker.name') }}
             </div>
             <ToolsEditors :editors="editors" />
         </div>
         <div
-            class="relative z-10 mt-8 rounded-3xl bg-white p-10 shadow-md shadow-primary-100 dark:bg-primary-700 dark:shadow-primary-800"
+            class="relative z-10 mt-8 rounded-3xl bg-white p-10 shadow-md shadow-primary-100 dark:bg-zinc-700 dark:shadow-zinc-800"
         >
             <div class="font-display text-xl font-bold">
                 {{ title }}

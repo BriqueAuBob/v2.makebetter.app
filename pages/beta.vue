@@ -48,7 +48,7 @@ onMounted(() => {
 
 <template>
     <div
-        class="mx-4 max-w-xl rounded-3xl border-2 border-primary-700 bg-gradient-to-b from-primary-400 to-primary-600 p-12 text-white shadow-md shadow-primary-100 dark:from-primary-500 dark:to-primary-800 dark:shadow-primary-800"
+        class="mx-4 max-w-xl rounded-3xl border-2 border-primary-700 bg-gradient-to-b from-primary-400 to-primary-600 p-12 text-white shadow-md shadow-primary-100 dark:from-zinc-500 dark:to-zinc-800 dark:shadow-zinc-800"
     >
         <h1 class="mb-2 text-3xl">Accès anticipé</h1>
         <h2 class="mb-4 text-lg">Nous proposons un accès anticipé pour accéder au site.</h2>

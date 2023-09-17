@@ -26,7 +26,7 @@ const users = ref([
         />
         <div class="p-8">
             <h1 class="mb-2 text-center text-2xl font-bold">{{ $t('homepage.features.permissions.title') }}</h1>
-            <p class="text-md text-center text-gray-400">
+            <p class="text-md text-center text-zinc-400">
                 {{ $t('homepage.features.permissions.description') }}
             </p>
             <div class="mx-auto mt-6 flex max-w-sm flex-col gap-2">
@@ -38,7 +38,7 @@ const users = ref([
                     <div class="flex items-center gap-2 text-lg font-semibold">
                         <img
                             :src="user.avatar"
-                            class="h-12 w-12 rounded-full border-2 border-gray-100 dark:border-gray-800"
+                            class="h-12 w-12 rounded-full border-2 border-zinc-100 dark:border-zinc-800"
                         />
                         {{ user.name }}
                     </div>

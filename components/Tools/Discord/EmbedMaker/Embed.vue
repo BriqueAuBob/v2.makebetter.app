@@ -146,7 +146,7 @@ const deleteEmbed = () => emits('delete');
                 class="mr-2 h-5 w-5 rounded-full"
                 :src="embed.footer.icon_url"
             />
-            <span class="text-xs text-gray-400">
+            <span class="text-xs text-zinc-400">
                 <span v-if="embed.footer?.text">{{ embed.footer?.text }}</span>
                 <span
                     class="mx-1"
@@ -157,7 +157,7 @@ const deleteEmbed = () => emits('delete');
             </span>
         </footer>
         <div
-            class="absolute -right-2 -top-2 z-10 rounded-xl border-2 border-gray-200 bg-white p-2 opacity-0 duration-500 ease-smooth group-hover:opacity-100"
+            class="absolute -right-2 -top-2 z-10 rounded-xl border-2 border-zinc-200 bg-white p-2 opacity-0 duration-500 ease-smooth group-hover:opacity-100"
             @click="deleteEmbed"
         >
             <NuxtIcon

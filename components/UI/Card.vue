@@ -38,7 +38,7 @@ defineProps({
 
 <template>
     <div
-        class="rounded-3xl border-2 bg-white duration-300 ease-out dark:border-primary-800 dark:border-opacity-50 dark:bg-primary-900"
+        class="rounded-3xl border-2 bg-white duration-300 ease-out dark:border-zinc-800 dark:border-opacity-50 dark:bg-zinc-900"
         :class="[
             !noHover && 'hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg',
             headerGrid && 'overflow-hidden',
@@ -51,7 +51,7 @@ defineProps({
         >
             <div :class="headerGrid && 'relative bg-grid-square bg-[30%] bg-repeat p-12'">
                 <div
-                    class="absolute left-0 top-0 -z-1 h-full w-full bg-gradient-radial from-transparent to-white dark:to-primary-900"
+                    class="absolute left-0 top-0 -z-1 h-full w-full bg-gradient-radial from-transparent to-white dark:to-zinc-900"
                     v-if="headerGrid"
                 ></div>
                 <div class="relative z-10">
@@ -65,7 +65,7 @@ defineProps({
         >
             <slot>
                 <h3 class="mb-1 text-lg">{{ title }}</h3>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-zinc-700">
                     {{ description }}
                 </p>
             </slot>

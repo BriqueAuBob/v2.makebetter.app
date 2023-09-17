@@ -71,15 +71,15 @@ const colors: Record<
     }
 > = {
     primary: {
-        button: 'bg-white border-gray-200 dark:bg-primary-500 text-black dark:text-white dark:border-primary-700',
-        options: 'bg-white dark:bg-primary-50 text-black',
+        button: 'bg-white border-zinc-200 dark:bg-zinc-500 text-black dark:text-white dark:border-zinc-700',
+        options: 'bg-white dark:bg-zinc-50 text-black',
         option: {
             default: 'hover:bg-primary-50 dark:hover:bg-primary-300 cursor-pointer',
-            active: 'bg-primary-50 dark:bg-primary-200',
+            active: 'bg-primary-50 dark:bg-zinc-200',
         },
     },
     white: {
-        button: 'bg-white text-black hover:bg-gray-200',
+        button: 'bg-white text-black hover:bg-zinc-200',
         options: 'bg-white text-black',
         option: {
             default: 'hover:bg-primary-100 cursor-pointer',
@@ -114,7 +114,7 @@ const colors: Record<
         <div class="relative">
             <label
                 v-if="label && displayLabel"
-                class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400"
+                class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400"
             >
                 {{ label }}
             </label>
@@ -148,7 +148,7 @@ const colors: Record<
                 </div>
                 <NuxtIcon
                     name="chevron/down"
-                    class="text-gray-400"
+                    class="text-zinc-400"
                 />
             </HeadlessListboxButton>
             <HeadlessTransitionRoot>

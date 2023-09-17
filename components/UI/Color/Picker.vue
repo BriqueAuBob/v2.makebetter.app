@@ -16,7 +16,7 @@ function updateValue(value: string) {
 <template>
     <input
         type="color"
-        class="h-full w-full rounded-xl border-2 border-gray-950 border-opacity-25 outline-none"
+        class="h-full w-full rounded-xl border-2 border-zinc-950 border-opacity-25 outline-none"
         :style="`background: ${modelValue};`"
         :value="modelValue"
         @input="updateValue(($event.target as HTMLInputElement)?.value)"

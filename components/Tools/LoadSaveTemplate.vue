@@ -21,7 +21,7 @@ const emits = defineEmits(['load']);
         <div class="mb-2 font-display text-lg font-semibold">{{ title }}</div>
         <div class="mt-4 grid grid-cols-2 gap-2">
             <div
-                class="cursor-pointer rounded-3xl border border-gray-300 bg-gradient-to-bl from-white to-green-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-green-400 dark:from-green-500 dark:to-green-950 dark:shadow-green-900 dark:hover:brightness-125"
+                class="cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-green-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-green-400 dark:from-green-500 dark:to-green-950 dark:shadow-green-900 dark:hover:brightness-125"
                 @click="() => {
 					personal = false;
 					(modal as UIModalType).setIsOpen(true)
@@ -37,7 +37,7 @@ const emits = defineEmits(['load']);
                 </p>
             </div>
             <div
-                class="cursor-pointer rounded-3xl border border-gray-300 bg-gradient-to-bl from-white to-indigo-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-indigo-400 dark:from-indigo-500 dark:to-indigo-950 dark:shadow-indigo-900 dark:hover:brightness-125"
+                class="cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-indigo-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-indigo-400 dark:from-indigo-500 dark:to-indigo-950 dark:shadow-indigo-900 dark:hover:brightness-125"
                 @click="
 				() => {
 					personal = true;
@@ -55,7 +55,7 @@ const emits = defineEmits(['load']);
                 </p>
             </div>
         </div>
-        <div class="mt-3 flex items-center gap-1 text-xs font-medium text-gray-400">
+        <div class="mt-3 flex items-center gap-1 text-xs font-medium text-zinc-400">
             <NuxtIcon
                 name="alert_circle"
                 class="text-lg"

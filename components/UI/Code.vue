@@ -25,7 +25,7 @@ const code = computed(() => {
 </script>
 
 <template>
-    <pre class="max-h-96 overflow-auto rounded-xl bg-white p-4 shadow-lg dark:bg-primary-800 dark:shadow-primary-800">
+    <pre class="max-h-96 overflow-auto rounded-xl bg-white p-4 shadow-lg dark:bg-zinc-800 dark:shadow-zinc-800">
 <code v-html="code"></code>
 	</pre>
 </template>

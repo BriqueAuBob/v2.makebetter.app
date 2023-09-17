@@ -19,7 +19,7 @@ const logout = () => {
 <template>
     <NavigationNavbar />
     <header
-        class="rounded-b-[150px] bg-primary-500 bg-cover bg-center bg-no-repeat pb-52 pt-64 text-center text-xl font-semibold text-gray-300"
+        class="rounded-b-[150px] bg-primary-500 bg-cover bg-center bg-no-repeat pb-52 pt-64 text-center text-xl font-semibold text-zinc-300"
         style="background-image: url('/images/backgrounds/account.png')"
     >
         <UIAvatar
@@ -33,7 +33,7 @@ const logout = () => {
     </header>
     <main class="container grid grid-cols-4 py-24">
         <aside
-            class="flex flex-col justify-between rounded-l-2xl border border-gray-100 bg-white p-6 dark:border-primary-700 dark:bg-primary-900"
+            class="flex flex-col justify-between rounded-l-2xl border border-zinc-100 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900"
         >
             <ul class="mb-8 flex flex-col gap-3">
                 <li>
@@ -72,9 +72,7 @@ const logout = () => {
                 Déconnexion
             </button>
         </aside>
-        <div
-            class="col-span-3 rounded-r-2xl border border-gray-100 bg-white p-8 dark:border-primary-700 dark:bg-primary-900"
-        >
+        <div class="col-span-3 rounded-r-2xl border border-zinc-100 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-900">
             <NuxtPage />
         </div>
     </main>
@@ -83,7 +81,7 @@ const logout = () => {
 
 <style scoped>
 .router-link-active {
-    @apply bg-primary-100 text-primary-500 dark:bg-primary-800 dark:text-white;
+    @apply bg-primary-100 text-primary-500 dark:bg-zinc-800 dark:text-white;
 }
 .router-link-active span {
     @apply ml-2;

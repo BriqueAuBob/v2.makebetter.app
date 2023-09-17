@@ -45,7 +45,7 @@ const collapseStyle = computed(() => {
 </script>
 
 <template>
-    <div class="border-b border-gray-200 dark:border-primary-800">
+    <div class="border-b border-zinc-200 dark:border-zinc-800">
         <div
             class="flex cursor-pointer justify-between py-4"
             @click="toggle"

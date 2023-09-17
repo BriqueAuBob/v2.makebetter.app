@@ -70,7 +70,7 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
                 />
                 makebetter.app
             </NuxtLink>
-            <ul class="flex items-center gap-6 text-sm text-gray-300">
+            <ul class="flex items-center gap-6 text-sm text-zinc-300">
                 <li
                     v-for="(item, id) of items"
                     :key="id"
@@ -95,7 +95,7 @@ const onHover = (e: MouseEvent, item: NavigationItem) => {
         </div>
         <div class="flex items-center gap-8">
             <button
-                class="text-gray-100"
+                class="text-zinc-100"
                 @click="toggleDark"
             >
                 <NuxtIcon

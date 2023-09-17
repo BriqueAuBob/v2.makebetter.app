@@ -30,7 +30,7 @@ const calculateSize = computed(() => {
 <template>
     <header class="relative text-white">
         <div class="rounded-b-[200px] bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 pb-72 pt-44">
-            <span class="text-md mb-3 block text-center font-semibold text-gray-300 lg:text-xl">
+            <span class="text-md mb-3 block text-center font-semibold text-zinc-300 lg:text-xl">
                 {{ $t('homepage.header.presentation') }}
             </span>
             <h1 class="text-center text-5xl font-black lg:text-7xl xl:text-8xl">
@@ -70,7 +70,7 @@ const calculateSize = computed(() => {
             class="absolute left-1/2 top-full -z-1 w-full max-w-7xl -translate-x-1/2 -translate-y-32 xl:w-4/5"
         />
         <section
-            class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out dark:shadow-primary-800 lg:w-2/3 xl:w-1/2"
+            class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out dark:shadow-zinc-800 lg:w-2/3 xl:w-1/2"
             :style="`
                 transform: 
                     translate(-50%, -250px) 
@@ -79,13 +79,13 @@ const calculateSize = computed(() => {
                     scale(${calculateSize});
             `"
         >
-            <header class="relative border-b border-gray-100 px-4">
+            <header class="relative border-b border-zinc-100 px-4">
                 <ul class="flex gap-6 font-semibold">
                     <li class="cursor-pointer py-4">Créateur d'embeds</li>
                     <!-- <li class="cursor-pointer py-4">Créateur d'icônes de rôles</li>
                     <li class="cursor-pointer py-4">Créateur d'emojis</li> -->
                 </ul>
-                <div class="absolute bottom-0 left-14 h-1 w-16 rounded-t-xl bg-gray-200"></div>
+                <div class="absolute bottom-0 left-14 h-1 w-16 rounded-t-xl bg-zinc-200"></div>
             </header>
             <main class="relative p-4">
                 <img

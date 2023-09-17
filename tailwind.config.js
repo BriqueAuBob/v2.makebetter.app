@@ -2,7 +2,7 @@
 module.exports = {
     content: ['node_modules/tailvue/dist/tailvue.es.js'],
     darkMode: 'class',
-    safelist: ['dark:bg-primary-950', 'dark:text-gray-100'],
+    safelist: ['dark:bg-zinc-950', 'dark:text-zinc-100'],
     theme: {
         extend: {
             fontFamily: {

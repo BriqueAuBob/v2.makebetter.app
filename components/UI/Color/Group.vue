@@ -41,7 +41,7 @@ watch(
             <div
                 v-for="(col, index) in colors"
                 :key="index"
-                class="aspect-square rounded-xl border-2 border-gray-950 border-opacity-25"
+                class="aspect-square rounded-xl border-2 border-zinc-950 border-opacity-25"
                 :style="`background: ${col};`"
                 @click="color.value = col"
             ></div>

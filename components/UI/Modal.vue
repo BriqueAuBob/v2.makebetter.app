@@ -74,7 +74,7 @@ defineExpose({
                             leave-to="opacity-0 scale-95"
                         >
                             <HeadlessDialogPanel
-                                class="w-full transform rounded-3xl border-2 border-dashed border-gray-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-primary-700 dark:bg-primary-900 dark:bg-opacity-75 dark:shadow-primary-800"
+                                class="w-full transform rounded-3xl border-2 border-dashed border-zinc-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-zinc-700 dark:bg-zinc-900 dark:bg-opacity-75 dark:shadow-zinc-800"
                                 :class="{
                                     'max-w-xl': size === 'small',
                                     'max-w-2xl': size === 'medium',
@@ -84,13 +84,13 @@ defineExpose({
                                 <HeadlessDialogTitle
                                     v-if="title"
                                     as="h3"
-                                    class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-50"
+                                    class="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-50"
                                 >
                                     {{ title }}
                                 </HeadlessDialogTitle>
                                 <HeadlessDialogDescription
                                     v-if="description"
-                                    class="mt-2 text-sm text-gray-500"
+                                    class="mt-2 text-sm text-zinc-500"
                                     as="p"
                                 >
                                     {{ description }}

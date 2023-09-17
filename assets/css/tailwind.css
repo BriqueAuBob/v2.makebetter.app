@@ -82,7 +82,7 @@ body {
 }
 
 .circle {
-    @apply absolute z-0 rounded-full bg-primary-300 dark:bg-primary-700;
+    @apply absolute z-0 rounded-full bg-primary-300 dark:bg-zinc-700;
     width: 200px;
     height: 200px;
     filter: blur(84px);

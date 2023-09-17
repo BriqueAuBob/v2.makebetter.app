@@ -11,7 +11,7 @@ const { data } = useAsyncData(() => $fetchApi('testimonials'));
 </script>
 
 <template>
-    <header class="bg-gradient-to-b from-primary-400 to-transparent pb-24 pt-48 text-center dark:from-primary-800">
+    <header class="bg-gradient-to-b from-primary-400 to-transparent pb-24 pt-48 text-center dark:from-zinc-800">
         <h1 class="mb-4 text-3xl font-black">{{ $t('testimonials.title') }}</h1>
         <p class="text-lg font-semibold leading-relaxed">
             {{ $t('testimonials.description') }}

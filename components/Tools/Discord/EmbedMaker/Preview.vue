@@ -30,7 +30,7 @@ const onChange = (message: any) => {
 <template>
     <div
         class="flex gap-3"
-        :class="isDark ? 'text-gray-200' : 'text-gray-900'"
+        :class="isDark ? 'text-zinc-200' : 'text-zinc-900'"
     >
         <img
             class="h-10 w-10 rounded-full"
@@ -42,11 +42,11 @@ const onChange = (message: any) => {
                 <span class="rounded-sm bg-tools-discord-blurple px-1 text-[10px] font-medium leading-4 text-white">
                     BOT
                 </span>
-                <span class="ml-1 self-end rounded-md text-xs text-gray-600 dark:text-gray-200"> 12/08/2022 </span>
+                <span class="ml-1 self-end rounded-md text-xs text-zinc-600 dark:text-zinc-200"> 12/08/2022 </span>
             </div>
             <div class="mt-1 flex w-full flex-col gap-1">
                 <ToolsDiscordMarkdown
-                    class="whitespace-pre-line break-words text-base font-normal leading-snug text-gray-400"
+                    class="whitespace-pre-line break-words text-base font-normal leading-snug text-zinc-400"
                     :content="message.content"
                 ></ToolsDiscordMarkdown>
                 <TransitionGroup
@@ -69,7 +69,7 @@ const onChange = (message: any) => {
                             v-else
                             class="flex w-[432px] items-center gap-2 rounded-lg border-2 p-3"
                             :style="'background: ' + (isDark ? '#2B2D31;' : '#F2F3F5;')"
-                            :class="isDark ? 'border-neutral-800' : 'border-gray-200'"
+                            :class="isDark ? 'border-neutral-800' : 'border-zinc-200'"
                         >
                             <NuxtIcon
                                 class="icon big"
@@ -80,7 +80,7 @@ const onChange = (message: any) => {
                                 <span class="cursor-pointer text-sm text-blue-500 hover:underline">{{
                                     file.name
                                 }}</span>
-                                <span class="text-xs text-gray-400">{{ fileSize(file) }}</span>
+                                <span class="text-xs text-zinc-400">{{ fileSize(file) }}</span>
                             </div>
                         </div>
                     </div>
