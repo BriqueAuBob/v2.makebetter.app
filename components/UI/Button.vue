@@ -63,15 +63,15 @@ const colorsClasses = computed(() => {
                     dark: 'bg-transparent text-dark-500 border-dark-500',
                     black: 'bg-transparent text-black border-black',
                     transparent: 'border-0 shadow-none',
-                    'color-mode': 'bg-transparent text-white border-white hover:bg-opacity-25 dark:border-primary-800',
+                    'color-mode': 'bg-transparent text-white border-white hover:bg-opacity-25 dark:border-zinc-800',
                 }[props.color] + ' hover:bg-white hover:bg-opacity-20'
             );
         case false:
             return (
                 {
-                    primary: 'bg-primary-500 text-white dark:border-primary-600',
+                    primary: 'bg-primary-500 text-white dark:border-zinc-600',
                     // primary:
-                    //     'bg-gradient-to-b from-primary-500 to-primary-00 hover:brightness-125 text-white dark:border-primary-600',
+                    //     'bg-gradient-to-b from-primary-500 to-primary-00 hover:brightness-125 text-white dark:border-zinc-600',
                     secondary: 'bg-secondary-500 text-white',
                     danger: 'bg-red-500 text-white',
                     warning: 'bg-orange-500 text-white',
@@ -79,10 +79,10 @@ const colorsClasses = computed(() => {
                     info: 'bg-info-500 text-white',
                     light: 'bg-white text-black',
                     dark: 'bg-primary-700 text-white',
-                    black: 'bg-gray-900 text-white',
+                    black: 'bg-zinc-900 text-white',
                     transparent: 'border-0 shadow-none',
-                    'color-mode': 'bg-white text-black dark:bg-primary-900 dark:border-primary-700 dark:text-white',
-                }[props.color] + ' border-gray-200 border-opacity-50'
+                    'color-mode': 'bg-white text-black dark:bg-zinc-900 dark:border-zinc-700 dark:text-white',
+                }[props.color] + ' border-zinc-200 border-opacity-50'
             );
     }
 });
@@ -94,11 +94,11 @@ const hoverClasses = computed(() => {
         warning: 'hover:bg-orange-700',
         success: 'hover:bg-green-700',
         info: 'hover:bg-info-700',
-        light: 'hover:bg-gray-100',
+        light: 'hover:bg-zinc-100',
         dark: 'hover:bg-primary-600',
-        transparent: 'hover:bg-gray-500 hover:bg-opacity-10',
-        black: 'hover:bg-gray-800',
-        'color-mode': 'hover:bg-gray-100 dark:hover:bg-primary-800',
+        transparent: 'hover:bg-zinc-500 hover:bg-opacity-10',
+        black: 'hover:bg-zinc-800',
+        'color-mode': 'hover:bg-zinc-100 dark:hover:bg-primary-800',
     }[props.color];
 });
 

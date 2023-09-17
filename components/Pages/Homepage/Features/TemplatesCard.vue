@@ -6,7 +6,7 @@
         />
         <div class="p-8">
             <h1 class="mb-2 text-2xl font-bold">{{ $t('homepage.features.templates.title') }}</h1>
-            <p class="text-md text-gray-400">
+            <p class="text-md text-zinc-400">
                 {{ $t('homepage.features.templates.description') }}
             </p>
         </div>
@@ -21,7 +21,7 @@
                     v-for="i in 6"
                     :key="i"
                     :src="`/images/features/templates/pack_${i}.png`"
-                    class="w-24 rounded-3xl border border-gray-200 bg-green-50 px-5 py-6 shadow-md shadow-primary-100 duration-300 ease-out group-hover:bg-white"
+                    class="w-24 rounded-3xl border border-zinc-200 bg-green-50 px-5 py-6 shadow-md shadow-primary-100 duration-300 ease-out group-hover:bg-white"
                     :class="{
                         'group-hover:-translate-x-2 group-hover:-translate-y-3 group-hover:-rotate-20 group-hover:scale-110':
                             i === 1,

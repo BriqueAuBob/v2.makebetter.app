@@ -45,9 +45,9 @@ const authUrl = computed(() => {
 </script>
 
 <template>
-    <div class="relative grid grid-cols-2 rounded-t-3xl bg-gray-100 dark:bg-primary-900">
+    <div class="relative grid grid-cols-2 rounded-t-3xl bg-zinc-100 dark:bg-zinc-900">
         <div
-            class="absolute h-full w-1/2 rounded-t-3xl border bg-white duration-300 ease-out dark:border-primary-700 dark:bg-primary-800"
+            class="absolute h-full w-1/2 rounded-t-3xl border bg-white duration-300 ease-out dark:border-zinc-700 dark:bg-zinc-800"
             :class="!sendWithWebhook ? 'left-1/2' : 'left-0 '"
         ></div>
         <div
@@ -68,7 +68,7 @@ const authUrl = computed(() => {
         </div>
     </div>
     <div
-        class="relative rounded-b-3xl border bg-white p-8 dark:border-0 dark:border-t dark:border-primary-700 dark:bg-primary-900 dark:shadow-sm dark:shadow-primary-800"
+        class="relative rounded-b-3xl border bg-white p-8 dark:border-0 dark:border-t dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-sm dark:shadow-zinc-800"
     >
         <Transition
             name="fadescale"
@@ -110,14 +110,14 @@ const authUrl = computed(() => {
                         name="alert_circle"
                         class="text-lg text-yellow-500"
                     />
-                    <p class="text-xs font-medium text-gray-400">
+                    <p class="text-xs font-medium text-zinc-400">
                         Nous n'aurons jamais accès au token de ton bot! Lorsque tu utilises un bot personnalisé, toutes
                         les interactions avec l'API de Discord se font directement dans ton navigateur.
                     </p>
                 </div>
-                <div class="mt-6 flex rounded-2xl bg-gray-100 dark:bg-primary-700">
+                <div class="mt-6 flex rounded-2xl bg-zinc-100 dark:bg-zinc-700">
                     <aside
-                        class="max-h-96 overflow-auto rounded-l-2xl bg-gray-200 p-6 duration-300 ease-out dark:bg-primary-800"
+                        class="max-h-96 overflow-auto rounded-l-2xl bg-zinc-200 p-6 duration-300 ease-out dark:bg-zinc-800"
                         :class="guildSelected ? 'w-32' : 'w-full rounded-2xl'"
                     >
                         <ul :class="!guildSelected ? 'grid grid-cols-6 gap-4' : 'flex flex-col gap-2'">
@@ -129,7 +129,7 @@ const authUrl = computed(() => {
                                     class="mx-auto h-16 w-16 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
                                     :class="
                                         i === guildSelected
-                                            ? 'rounded-xl border-white dark:border-primary-500'
+                                            ? 'rounded-xl border-white dark:border-zinc-500'
                                             : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-primary-500'
                                     "
                                     :src="
@@ -145,20 +145,20 @@ const authUrl = computed(() => {
                         </ul>
                     </aside>
                     <main
-                        class="flex w-full flex-col gap-4 overflow-hidden p-6 text-gray-600 duration-500 ease-out dark:text-gray-300"
+                        class="flex w-full flex-col gap-4 overflow-hidden p-6 text-zinc-600 duration-500 ease-out dark:text-zinc-300"
                         :class="!guildSelected && 'max-w-0 px-0 opacity-0'"
                     >
                         <div>
-                            <div class="font-semibold text-gray-400 dark:text-gray-400">🟡 Diose</div>
+                            <div class="font-semibold text-zinc-400 dark:text-zinc-400">🟡 Diose</div>
                             <ul class="mt-1">
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     annonces
                                 </li>
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     règlement
@@ -166,16 +166,16 @@ const authUrl = computed(() => {
                             </ul>
                         </div>
                         <div>
-                            <div class="font-semibold text-gray-400 dark:text-gray-400">😁 Communauté</div>
+                            <div class="font-semibold text-zinc-400 dark:text-zinc-400">😁 Communauté</div>
                             <ul class="mt-1">
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     annonces
                                 </li>
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-gray-200 dark:hover:bg-primary-500"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
                                     règlement
@@ -185,9 +185,9 @@ const authUrl = computed(() => {
                     </main>
                 </div>
                 <div
-                    class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-b-3xl bg-white bg-opacity-75 text-lg font-bold backdrop-blur-sm dark:bg-primary-800 dark:bg-opacity-75"
+                    class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-b-3xl bg-white bg-opacity-75 text-lg font-bold backdrop-blur-sm dark:bg-zinc-800 dark:bg-opacity-75"
                 >
-                    <span class="rounded-full border border-gray-500 bg-gray-100 px-4 py-2 text-xs text-gray-500">{{
+                    <span class="rounded-full border border-zinc-500 bg-zinc-100 px-4 py-2 text-xs text-zinc-500">{{
                         $t('limited_access')
                     }}</span>
                     <span class="max-w-xs text-center">{{ $t('feature_auth') }}</span>

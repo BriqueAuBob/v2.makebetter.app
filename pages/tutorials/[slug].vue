@@ -50,7 +50,7 @@ const markdown = computed(() => {
                     <UIAvatar :user="article?.author" />
                     <div class="flex flex-col justify-center gap-1 text-left">
                         <span class="text-lg font-bold text-primary-900">@{{ article?.author?.username }}</span>
-                        <span class="text-sm text-gray-600">Rédacteur</span>
+                        <span class="text-sm text-zinc-600">Rédacteur</span>
                     </div>
                 </div>
                 <span class="mt-4 block text-xs">le {{ new Date(article.created_at).toLocaleDateString() }}</span>

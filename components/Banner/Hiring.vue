@@ -21,7 +21,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Willz</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Community Manager</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Community Manager</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -40,7 +40,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Gab</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Modérateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Modérateur</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -59,7 +59,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Yanis</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Modérateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Modérateur</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -78,7 +78,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Ewan</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Modérateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Modérateur</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -97,7 +97,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="whitespace-nowrap text-lg font-semibold">Brique au bob</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500"
+                            <span class="whitespace-nowrap text-sm text-zinc-500"
                                 >UI Designer spécialisé en bitmoji</span
                             >
                         </div>
@@ -118,7 +118,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">DrakS</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Administrateur</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Administrateur</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -137,7 +137,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Kaito</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Rédactrice</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Rédactrice</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -156,7 +156,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Flayte</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Développeur Full Stack</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Développeur Full Stack</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -175,7 +175,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Toinoux</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Graphiste</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Graphiste</span>
                         </div>
                     </template>
                 </UIPopover>
@@ -194,7 +194,7 @@
                     <template #popover>
                         <div class="px-4 py-2 text-center">
                             <div class="text-lg font-semibold">Chris</div>
-                            <span class="whitespace-nowrap text-sm text-gray-500">Graphiste</span>
+                            <span class="whitespace-nowrap text-sm text-zinc-500">Graphiste</span>
                         </div>
                     </template>
                 </UIPopover>

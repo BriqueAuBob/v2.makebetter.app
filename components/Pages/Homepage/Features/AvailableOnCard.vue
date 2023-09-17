@@ -6,7 +6,7 @@
         />
         <div class="p-8">
             <h1 class="mb-2 text-2xl font-bold">{{ $t('homepage.features.tools_available.title', { count: 1 }) }}</h1>
-            <p class="text-md text-gray-400">
+            <p class="text-md text-zinc-400">
                 {{ $t('homepage.features.tools_available.description') }}
             </p>
             <img

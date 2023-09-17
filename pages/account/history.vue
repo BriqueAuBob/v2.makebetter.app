@@ -32,7 +32,7 @@ const logsFilter = computed(() => logs?.value?.usages?.sort((a, b) => b.id - a.i
 
 <template>
     <div class="mb-2 text-lg font-semibold">Ton utilisations des outils</div>
-    <p class="mb-4 text-gray-500">Vois ce que t'as fait sur notre site!</p>
+    <p class="mb-4 text-zinc-500">Vois ce que t'as fait sur notre site!</p>
     <div v-if="logs?.usages?.length && logs?.usages?.length > 0">
         <TransitionGroup name="fade">
             <div

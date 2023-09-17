@@ -36,7 +36,7 @@ onMounted(() => {
 
 <template>
     <header
-        class="bg-cover bg-center bg-no-repeat px-8 pt-64 text-center text-white shadow-md shadow-primary-100 duration-500 ease-in-out dark:shadow-primary-800"
+        class="bg-cover bg-center bg-no-repeat px-8 pt-64 text-center text-white shadow-md shadow-primary-100 duration-500 ease-in-out dark:shadow-zinc-800"
         :style="`background-image: url(${image})`"
         :class="
             hasScrolled
@@ -46,7 +46,7 @@ onMounted(() => {
     >
         <div class="mb-6 flex items-center justify-center gap-4 text-5xl font-black">
             <div
-                class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-gray-200 bg-white shadow-lg"
+                class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-zinc-200 bg-white shadow-lg"
             >
                 <NuxtIcon
                     name="socials/makebetter"
@@ -55,7 +55,7 @@ onMounted(() => {
             </div>
             +
             <div
-                class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-gray-200 bg-white shadow-lg"
+                class="flex h-16 w-16 items-center justify-center rounded-xl border-2 border-zinc-200 bg-white shadow-lg"
             >
                 <NuxtIcon
                     :name="`socials/${platform}`"

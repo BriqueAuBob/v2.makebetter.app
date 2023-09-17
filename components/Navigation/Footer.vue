@@ -18,10 +18,10 @@ async function changeLocale() {
             <div class="col-span-2">
                 <h1 class="text-2xl font-bold">MakeBetter</h1>
                 <p class="mb-1 mt-4">{{ $t('footer.description') }}</p>
-                <i class="text-sm font-semibold text-gray-400">
+                <i class="text-sm font-semibold text-zinc-400">
                     {{ $t('footer.not_affiliated') }}
                 </i>
-                <p class="mt-1 text-xs italic text-gray-600">{{ config.public.gitHash }}</p>
+                <p class="mt-1 text-xs italic text-zinc-600">{{ config.public.gitHash }}</p>
                 <UISelect
                     class="mt-4 max-w-xs"
                     v-model="selectLanguage.locale"
@@ -118,7 +118,7 @@ async function changeLocale() {
         <i18n-t
             keypath="footer.made_with"
             tag="p"
-            class="mt-16 text-center text-base text-gray-300"
+            class="mt-16 text-center text-base text-zinc-300"
         >
             <template #emoji>
                 <span class="inline-block animate-bounce">❤️</span>

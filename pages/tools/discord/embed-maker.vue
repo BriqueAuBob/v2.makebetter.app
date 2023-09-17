@@ -517,7 +517,7 @@ defineI18nRoute({
             <div
                 v-for="(editor, id) in editorsCursors"
                 :key="id"
-                class="absolute z-[200] rounded-lg border border-gray-200 px-2 py-1 text-xs font-semibold"
+                class="absolute z-[200] rounded-lg border border-zinc-200 px-2 py-1 text-xs font-semibold"
                 :style="`
                     top: ${editor.position?.y + 12}px;
                     left: ${editor.position?.x + 24}px;
@@ -623,10 +623,10 @@ defineI18nRoute({
                         "
                     >
                         <template #header>
-                            <div class="flex items-center justify-between border-b p-8 dark:border-b-primary-800">
+                            <div class="flex items-center justify-between border-b p-8 dark:border-b-zinc-800">
                                 <div>
                                     <h3 class="mb-1 text-lg">Prévisualisation</h3>
-                                    <p class="text-sm text-gray-700">Vois à quoi ressemblera ton embed !</p>
+                                    <p class="text-sm text-zinc-700">Vois à quoi ressemblera ton embed !</p>
                                 </div>
                                 <UIButton
                                     size="sm"
@@ -648,11 +648,11 @@ defineI18nRoute({
                                         <div
                                             v-for="(discordTheme, id) of themes"
                                             :key="id"
-                                            class="relative flex aspect-square cursor-pointer items-center justify-center gap-2 rounded-full border border-gray-100 p-4 text-black after:absolute after:inset-0 after:rounded-full after:border-2 after:text-lg after:duration-300 after:ease-out after:content-[''] dark:border-gray-800"
+                                            class="relative flex aspect-square cursor-pointer items-center justify-center gap-2 rounded-full border border-zinc-100 p-4 text-black after:absolute after:inset-0 after:rounded-full after:border-2 after:text-lg after:duration-300 after:ease-out after:content-[''] dark:border-zinc-800"
                                             @click="theme.selected = discordTheme"
                                             :class="
                                                 theme.selected.name === discordTheme.name
-                                                    ? 'after:border-primary-500 after:bg-white after:bg-opacity-30'
+                                                    ? 'after:border-zinc-500 after:bg-white after:bg-opacity-30'
                                                     : 'after:border-transparent after:bg-opacity-0 after:text-transparent'
                                             "
                                             :style="`background: ${discordTheme.css['--discord-background']}`"
@@ -705,7 +705,7 @@ defineI18nRoute({
                             </template>
                         </draggable>
                         <template #footer>
-                            <div class="flex flex-wrap justify-end gap-2 border-t p-8 dark:border-t-primary-800">
+                            <div class="flex flex-wrap justify-end gap-2 border-t p-8 dark:border-t-zinc-800">
                                 <UIButton
                                     size="sm"
                                     color="light"
@@ -738,7 +738,7 @@ defineI18nRoute({
                                         v-if="!route.query.id || modifyCurrentSave"
                                     >
                                         <div class="flex flex-col gap-2">
-                                            <div class="text-md font-semibold text-gray-500">
+                                            <div class="text-md font-semibold text-zinc-500">
                                                 {{ $t('tools.discord.embed-maker.save.infos') }}
                                             </div>
                                             <UIInput
@@ -859,7 +859,7 @@ defineI18nRoute({
                                         class="relative z-20"
                                     >
                                         <HeadlessMenuButton
-                                            class="rounded-r-2xl border-2 border-gray-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-primary-600"
+                                            class="rounded-r-2xl border-2 border-zinc-200 border-opacity-50 bg-primary-500 p-2 text-white hover:bg-primary-400 dark:border-zinc-600"
                                         >
                                             <NuxtIcon
                                                 name="chevron/down"
@@ -875,12 +875,12 @@ defineI18nRoute({
                                             leave-to-class="transform scale-95 opacity-0"
                                         >
                                             <HeadlessMenuItems
-                                                class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                                class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-zinc-100 rounded-md bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                             >
                                                 <HeadlessMenuItem v-slot="{ active }">
                                                     <button
                                                         :class="[
-                                                            active ? 'bg-primary-500 text-white' : 'text-gray-900',
+                                                            active ? 'bg-primary-500 text-white' : 'text-zinc-900',
                                                             'group flex w-full cursor-pointer items-center rounded-md px-2 py-2 text-sm',
                                                         ]"
                                                         @click="() => {
@@ -893,7 +893,7 @@ defineI18nRoute({
                                                 <HeadlessMenuItem v-slot="{ active }">
                                                     <button
                                                         :class="[
-                                                            active ? 'bg-primary-500 text-white' : 'text-gray-900',
+                                                            active ? 'bg-primary-500 text-white' : 'text-zinc-900',
                                                             'group flex w-full cursor-pointer items-center rounded-md px-2 py-2 text-sm',
                                                         ]"
                                                         @click="sendMessage"

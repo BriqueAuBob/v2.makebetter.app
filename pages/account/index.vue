@@ -21,7 +21,7 @@ const deleteAccount = async () => {
 
 <template>
     <div class="mb-2 text-lg font-semibold">Mes informations</div>
-    <p class="mb-4 text-gray-500">
+    <p class="mb-4 text-zinc-500">
         Ici, vous pouvez voir toutes les informations que nous sauvegardons à propos de votre profil.
     </p>
     <div class="grid gap-4 italic md:grid-cols-2">
@@ -54,7 +54,7 @@ const deleteAccount = async () => {
         Suppression du compte
         <span class="ml-2 rounded-full bg-red-500 px-2 py-2 text-xs font-bold text-white"> ZONE DE DANGER </span>
     </div>
-    <p class="mb-4 text-gray-500">
+    <p class="mb-4 text-zinc-500">
         Attention! Cette action est irreversible, elle entrainera la destruction permanente de vos données dans notre
         base de données.
     </p>
@@ -103,16 +103,16 @@ const deleteAccount = async () => {
                         >
                             <HeadlessDialogTitle
                                 as="h3"
-                                class="text-lg font-medium leading-6 text-gray-900 dark:text-white"
+                                class="text-lg font-medium leading-6 text-zinc-900 dark:text-white"
                             >
                                 Êtes-vous sur de vouloir supprimer votre compte?
                             </HeadlessDialogTitle>
                             <div class="mt-2">
-                                <p class="mt-2 text-sm text-gray-500">
+                                <p class="mt-2 text-sm text-zinc-500">
                                     Cette action est irreversible, il sera impossible de retrouver vos données après
                                     avoir supprimer votre compte.
                                 </p>
-                                <p class="mt-4 text-sm text-gray-500">
+                                <p class="mt-4 text-sm text-zinc-500">
                                     Si vous êtes certain de votre choix, veuillez recopier
                                     <span class="italic text-red-500">{{ user?.username }}</span>
                                     et cliquer sur le bouton pour supprimer votre compte.

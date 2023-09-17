@@ -119,7 +119,7 @@ const loadSave = async () => {
     >
         <div class="my-6 flex flex-col items-center">
             <div
-                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 dark:border-primary-600 dark:bg-primary-600 dark:shadow-primary-800 lg:flex-row"
+                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 dark:border-zinc-600 dark:bg-zinc-600 dark:shadow-zinc-800 lg:flex-row"
             >
                 <UIInput
                     class="h-full w-full"

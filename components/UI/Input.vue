@@ -63,7 +63,7 @@ const hasFocus = ref(false);
     <div :class="disabled && 'cursor-not-allowed opacity-50 dark:text-white dark:opacity-75'">
         <label
             :for="name"
-            class="pointer-events-none ml-4 text-sm font-medium italic text-gray-400"
+            class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400"
             v-if="label"
         >
             {{ label }}
@@ -73,7 +73,7 @@ const hasFocus = ref(false);
             :id="name"
             :name="name"
             :placeholder="placeholder"
-            class="w-full rounded-xl border border-dashed border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm placeholder:text-xs placeholder:italic placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-primary-500 dark:bg-primary-700 dark:text-white dark:placeholder:text-neutral-300"
+            class="w-full rounded-xl border border-dashed border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm placeholder:text-xs placeholder:italic placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-zinc-500 dark:bg-zinc-700 dark:text-white dark:placeholder:text-neutral-300"
             :class="label && 'mt-1'"
             :value="modelValue"
             @input="updateValue($event.target.value)"
@@ -88,7 +88,7 @@ const hasFocus = ref(false);
         <Transition name="fade">
             <div
                 v-if="autoComplete && hasFocus"
-                class="absolute left-0 top-full z-10 w-full translate-y-1 rounded-xl border border-dashed bg-white shadow-lg dark:divide-primary-500 dark:border-primary-500 dark:bg-primary-700 dark:text-white dark:shadow-primary-800"
+                class="absolute left-0 top-full z-10 w-full translate-y-1 rounded-xl border border-dashed bg-white shadow-lg dark:divide-primary-500 dark:border-zinc-500 dark:bg-zinc-700 dark:text-white dark:shadow-zinc-800"
             >
                 <TransitionGroup name="fadescale">
                     <div

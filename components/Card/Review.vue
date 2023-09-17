@@ -32,7 +32,7 @@ defineProps({
                 <span class="text-lg font-bold">{{ author?.username || 'Unknown' }}</span>
             </div>
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-gray-500 dark:text-gray-300">
+        <p class="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-300">
             {{ content }}
         </p>
     </UICard>
