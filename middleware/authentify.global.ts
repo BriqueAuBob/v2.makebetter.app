@@ -25,13 +25,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
         }
     }
 
-    // if (to.path === '/beta') return;
-    // if (!authStore.isLoggedIn) {
-    //     return navigateTo('/beta?error=not_logged_in');
-    // }
-    // if (!authStore.user?.permissions?.includes('view_beta')) {
-    //     return navigateTo('/beta?error=access_denied');
-    // }
+    if (to.path === '/beta') return;
+    if (!authStore.isLoggedIn) {
+        return navigateTo('/beta?error=not_logged_in');
+    }
+    if (!authStore.user?.permissions?.includes('view_beta')) {
+        return navigateTo('/beta?error=access_denied');
+    }
 
     const { $toast } = useNuxtApp();
     const cookieBeta = useCookie('has_seen_beta_notices', {
