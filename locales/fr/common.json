@@ -40,5 +40,7 @@
     "access_tool": "Accéder à l'outil",
     "coming_soon": "Bientôt disponible",
     "limited_access": "Accès limité",
-    "feature_auth": "Tu dois être connecté pour accéder à cette fonctionnalité."
+    "feature_auth": "Tu dois être connecté pour accéder à cette fonctionnalité.",
+
+    "logout": "Me déconnecter"
 }

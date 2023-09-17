@@ -65,7 +65,7 @@ defineProps({
         >
             <slot>
                 <h3 class="mb-1 text-lg">{{ title }}</h3>
-                <p class="text-sm text-zinc-700">
+                <p class="text-sm text-zinc-500">
                     {{ description }}
                 </p>
             </slot>

@@ -28,7 +28,7 @@ const platformUpperFirst = computed(() => {
 <template>
     <NuxtLink :to="localePath(`tools-${platform}-${slug}`)">
         <article
-            class="relative h-full cursor-pointer overflow-hidden rounded-3xl border-2 border-primary-200 bg-cover bg-center p-8 pb-96 duration-300 ease-out dark:border-zinc-500"
+            class="relative h-full cursor-pointer overflow-hidden rounded-3xl border-2 border-primary-200 bg-cover bg-center p-8 pb-96 duration-300 ease-out dark:border-zinc-800"
             :style="`background-image: url(/images/tools/cards/${image});`"
             :class="comingSoon ? 'pointer-events-none select-none grayscale' : ' hover:-translate-y-2'"
         >

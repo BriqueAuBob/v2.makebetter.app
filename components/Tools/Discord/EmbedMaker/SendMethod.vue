@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth';
+
 const props = defineProps({
     sendWithWebhook: {
         type: Boolean,
@@ -36,18 +38,78 @@ const useCustomBot = computed({
             useCustomBot: value,
         }),
 });
-const guildSelected = ref<number | boolean>(false);
 
 const config = useRuntimeConfig();
 const authUrl = computed(() => {
     return config.public.authUrl + `/?redirect_uri=${encodeURIComponent(window ? window.location.href : '')}`;
 });
+const authStore = useAuthStore();
+const user = computed(() => authStore.user);
+
+const { $toast } = useNuxtApp();
+const { t } = useI18n();
+const guilds = ref<any[]>([]);
+const channels = ref<any[]>([]);
+const loading = ref<boolean>(false);
+const fetchGuilds = async () => {
+    loading.value = true;
+    try {
+        const guildsData = await $fetch('/api/tools/discord/embed-maker/guilds', {
+            headers: {
+                Authorization: `Bearer ${authStore.token}`,
+            },
+            body: JSON.stringify({
+                bot_token: props.form.bot_token,
+            }),
+            method: 'POST',
+        });
+        guilds.value = guildsData;
+    } catch (e) {
+        guilds.value = [];
+    } finally {
+        loading.value = false;
+    }
+};
+const fetchChannels = async (guildId: any) => {
+    loading.value = true;
+    try {
+        const channelsData = await $fetch(`/api/tools/discord/embed-maker/guilds/${guildId}/channels`, {
+            headers: {
+                Authorization: `Bearer ${authStore.token}`,
+            },
+            body: JSON.stringify({
+                bot_token: props.form.bot_token,
+            }),
+            method: 'POST',
+        });
+        channels.value = channelsData;
+    } catch (e) {
+        $toast.show({
+            title: t('errors.encountered'),
+            message: t('tools.discord.embed-maker.send_with_bot.bot_probably_not_in_guild'),
+            type: 'danger',
+            timeout: 5,
+        });
+        channels.value = [];
+    } finally {
+        loading.value = false;
+    }
+};
+
+watch(
+    () => props.useCustomBot,
+    () => {
+        if (!useCustomBot.value) {
+            fetchGuilds();
+        }
+    }
+);
 </script>
 
 <template>
-    <div class="relative grid grid-cols-2 rounded-t-3xl bg-zinc-100 dark:bg-zinc-900">
+    <div class="relative grid grid-cols-2 rounded-t-3xl border bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
         <div
-            class="absolute h-full w-1/2 rounded-t-3xl border bg-white duration-300 ease-out dark:border-zinc-700 dark:bg-zinc-800"
+            class="absolute h-full w-1/2 rounded-t-3xl border-x border-t bg-white duration-300 ease-out dark:border-zinc-700 dark:bg-zinc-800"
             :class="!sendWithWebhook ? 'left-1/2' : 'left-0 '"
         ></div>
         <div
@@ -61,14 +123,19 @@ const authUrl = computed(() => {
         </div>
         <div
             class="relative z-10 flex cursor-pointer flex-col items-center justify-center p-6 text-center"
-            @click="sendWithWebhook = false"
+            @click="
+                () => {
+                    fetchGuilds();
+                    sendWithWebhook = false;
+                }
+            "
         >
             <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
             <p class="text-sm">Utilise le bot MakeBetter ou ton propre bot pour envoyer ton message !</p>
         </div>
     </div>
     <div
-        class="relative rounded-b-3xl border bg-white p-8 dark:border-0 dark:border-t dark:border-zinc-700 dark:bg-zinc-900 dark:shadow-sm dark:shadow-zinc-800"
+        class="relative rounded-b-3xl border bg-white p-8 dark:border dark:border-zinc-800 dark:border-t-zinc-700 dark:bg-zinc-900 dark:shadow-sm dark:shadow-zinc-800"
     >
         <Transition
             name="fadescale"
@@ -90,7 +157,7 @@ const authUrl = computed(() => {
                 <UIToggle
                     v-model="useCustomBot"
                     name="useCustomBot"
-                    :label="$t('tools.discord.embed-maker.use_custom_bot')"
+                    :label="$t('tools.discord.embed-maker.send_with_bot.custom')"
                 />
                 <UIInput
                     class="duration-300 ease-out"
@@ -101,9 +168,11 @@ const authUrl = computed(() => {
                     placeholder="Token..."
                     secure
                     :disabled="!useCustomBot"
+                    @enter="fetchGuilds()"
+                    @blur="fetchGuilds()"
                 />
                 <div
-                    class="mt-2 flex items-center gap-2 duration-300 ease-out"
+                    class="mt-2 flex items-center gap-1 duration-300 ease-out"
                     :class="!useCustomBot && 'opacity-25'"
                 >
                     <NuxtIcon
@@ -111,94 +180,135 @@ const authUrl = computed(() => {
                         class="text-lg text-yellow-500"
                     />
                     <p class="text-xs font-medium text-zinc-400">
-                        Nous n'aurons jamais accès au token de ton bot! Lorsque tu utilises un bot personnalisé, toutes
-                        les interactions avec l'API de Discord se font directement dans ton navigateur.
+                        {{ $t('tools.discord.embed-maker.send_with_bot.no_token_save') }}
                     </p>
                 </div>
-                <div class="mt-6 flex rounded-2xl bg-zinc-100 dark:bg-zinc-700">
+                <div class="mt-6 flex max-h-96 rounded-2xl bg-zinc-100 dark:bg-zinc-700">
                     <aside
-                        class="max-h-96 overflow-auto rounded-l-2xl bg-zinc-200 p-6 duration-300 ease-out dark:bg-zinc-800"
-                        :class="guildSelected ? 'w-32' : 'w-full rounded-2xl'"
+                        class="overflow-auto rounded-l-2xl bg-zinc-200 p-6 duration-300 ease-out dark:bg-zinc-800"
+                        :class="form.guildSelected ? 'w-32' : 'w-full rounded-2xl'"
                     >
-                        <ul :class="!guildSelected ? 'grid grid-cols-6 gap-4' : 'flex flex-col gap-2'">
+                        <ul
+                            :class="!form.guildSelected ? 'grid grid-cols-6 gap-4' : 'flex flex-col gap-2'"
+                            v-if="guilds && guilds?.length > 0"
+                        >
                             <li
-                                v-for="i in 4"
-                                @click="guildSelected = i === guildSelected ? false : i"
+                                v-for="(guild, i) in guilds"
+                                @click="
+                                    () => {
+                                        form.guildSelected = guild?.id === form.guildSelected?.id ? false : guild;
+                                        fetchChannels(guild?.id);
+                                    }
+                                "
                             >
                                 <img
-                                    class="mx-auto h-16 w-16 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
+                                    class="mx-auto w-16 cursor-pointer border-2 transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
                                     :class="
-                                        i === guildSelected
-                                            ? 'rounded-xl border-white dark:border-zinc-500'
+                                        guild?.id === form.guildSelected?.id
+                                            ? 'rounded-xl border-white  dark:border-primary-500'
                                             : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-primary-500'
                                     "
-                                    :src="
-                                        [
-                                            'https://cdn.discordapp.com/icons/1041358976513753098/97dd922476b2b0b5ff029da036fc9121.webp?size=160',
-                                            'https://cdn.discordapp.com/icons/1099786599694336091/6ba4820fb69eb38fed18e9aab5e48aa3.webp?size=160',
-                                            'https://cdn.discordapp.com/icons/977518691006685244/ee32d496e93bab0bd145d12fad8ac63f.webp?size=160',
-                                            'https://cdn.discordapp.com/icons/977507903307145216/5e4479c3ddd6c52aafceb615bd280f7d.webp?size=160',
-                                        ][i - 1]
-                                    "
+                                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=160`"
+                                    v-if="guild?.icon"
                                 />
+                                <div
+                                    class="mx-auto flex h-16 w-16 cursor-pointer items-center justify-center overflow-hidden border-2 bg-zinc-600 text-center transition-all duration-300 ease-out hover:rounded-xl hover:opacity-100"
+                                    :class="
+                                        guild?.id === form.guildSelected?.id
+                                            ? 'rounded-xl border-white  dark:border-primary-500'
+                                            : 'rounded-[50px] border-transparent opacity-50 hover:border-white dark:hover:border-primary-500'
+                                    "
+                                    v-else
+                                >
+                                    {{ guild?.name }}
+                                </div>
                             </li>
                         </ul>
+                        <div
+                            v-else
+                            class="mx-auto flex h-full max-w-sm flex-col items-center justify-center text-center"
+                        >
+                            <div class="text-lg font-semibold">
+                                {{ $t('tools.discord.embed-maker.send_with_bot.no_guilds') }}
+                            </div>
+                            <p class="mb-4 mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                {{ $t('tools.discord.embed-maker.send_with_bot.logout_and_login') }}
+                            </p>
+                            <UIButton
+                                color="light"
+                                @click="
+                                    () => {
+                                        authStore.logout();
+                                    }
+                                "
+                                >{{ $t('logout') }}</UIButton
+                            >
+                        </div>
                     </aside>
                     <main
-                        class="flex w-full flex-col gap-4 overflow-hidden p-6 text-zinc-600 duration-500 ease-out dark:text-zinc-300"
-                        :class="!guildSelected && 'max-w-0 px-0 opacity-0'"
+                        class="flex w-full flex-col gap-4 overflow-auto p-6 text-zinc-600 duration-500 ease-out dark:text-zinc-300"
+                        :class="!form.guildSelected && 'max-w-0 px-0 opacity-0'"
+                        v-if="channels"
                     >
-                        <div>
-                            <div class="font-semibold text-zinc-400 dark:text-zinc-400">🟡 Diose</div>
+                        <div class="text-sm font-semibold">{{ form.guildSelected?.name }}</div>
+                        <div
+                            v-for="category of channels"
+                            :key="category?.id"
+                            v-if="channels.length > 0"
+                        >
+                            <div class="font-semibold text-zinc-400 dark:text-zinc-400">{{ category?.name }}</div>
                             <ul class="mt-1">
                                 <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
+                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl duration-300 ease-out hover:bg-zinc-200 dark:hover:bg-zinc-500"
+                                    :class="form.channelSelected?.id === channel?.id && 'bg-zinc-200 dark:bg-zinc-500'"
+                                    v-for="channel of category?.channels"
+                                    :key="channel?.id"
+                                    @click="form.channelSelected = channel"
                                 >
                                     <NuxtIcon name="platforms/discord/announcements" />
-                                    annonces
-                                </li>
-                                <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
-                                >
-                                    <NuxtIcon name="platforms/discord/announcements" />
-                                    règlement
+                                    {{ channel?.name }}
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <div class="font-semibold text-zinc-400 dark:text-zinc-400">😁 Communauté</div>
-                            <ul class="mt-1">
-                                <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
-                                >
-                                    <NuxtIcon name="platforms/discord/announcements" />
-                                    annonces
-                                </li>
-                                <li
-                                    class="flex cursor-pointer items-center gap-1 rounded-lg px-3 py-1 text-xl hover:bg-zinc-200 dark:hover:bg-primary-500"
-                                >
-                                    <NuxtIcon name="platforms/discord/announcements" />
-                                    règlement
-                                </li>
-                            </ul>
+                        <div
+                            v-else
+                            class="flex h-full flex-col items-center justify-center text-center"
+                        >
+                            <div class="mb-2 text-lg font-semibold text-zinc-400 dark:text-white">
+                                {{ $t('tools.discord.embed-maker.send_with_bot.no_channels') }}
+                            </div>
+                            <div class="text-zinc-400 dark:text-zinc-400">
+                                {{ $t('tools.discord.embed-maker.send_with_bot.bot_probably_not_in_guild') }}
+                            </div>
+                            <UIButton
+                                color="light"
+                                class="mt-4"
+                                href="https://discord.com/oauth2/authorize?client_id=983094528791683182&scope=bot%20applications.commands&permissions=805431344"
+                                target="_blank"
+                            >
+                                {{ $t('tools.discord.embed-maker.send_with_bot.invite_bot') }}
+                            </UIButton>
                         </div>
                     </main>
                 </div>
                 <div
-                    class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-b-3xl bg-white bg-opacity-75 text-lg font-bold backdrop-blur-sm dark:bg-zinc-800 dark:bg-opacity-75"
+                    class="absolute left-0 top-0 h-full w-full rounded-b-3xl bg-white bg-opacity-75 text-lg font-bold backdrop-blur-sm dark:bg-zinc-800 dark:bg-opacity-75"
+                    v-if="!user"
                 >
-                    <span class="rounded-full border border-zinc-500 bg-zinc-100 px-4 py-2 text-xs text-zinc-500">{{
-                        $t('limited_access')
-                    }}</span>
-                    <span class="max-w-xs text-center">{{ $t('feature_auth') }}</span>
-                    <ClientOnly>
-                        <UIButton
-                            color="black"
-                            :href="authUrl"
-                        >
-                            {{ $t('navigation.login') }}
-                        </UIButton>
-                    </ClientOnly>
+                    <div class="noise flex h-full w-full flex-col items-center justify-center gap-4">
+                        <span class="rounded-full border border-zinc-500 bg-zinc-100 px-4 py-2 text-xs text-zinc-500">{{
+                            $t('limited_access')
+                        }}</span>
+                        <span class="max-w-xs text-center">{{ $t('feature_auth') }}</span>
+                        <ClientOnly>
+                            <UIButton
+                                color="black"
+                                :href="authUrl"
+                            >
+                                {{ $t('navigation.login') }}
+                            </UIButton>
+                        </ClientOnly>
+                    </div>
                 </div>
             </div>
         </Transition>

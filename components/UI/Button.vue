@@ -69,7 +69,7 @@ const colorsClasses = computed(() => {
         case false:
             return (
                 {
-                    primary: 'bg-primary-500 text-white dark:border-zinc-600',
+                    primary: 'bg-primary-500 text-white dark:border-primary-700',
                     // primary:
                     //     'bg-gradient-to-b from-primary-500 to-primary-00 hover:brightness-125 text-white dark:border-zinc-600',
                     secondary: 'bg-secondary-500 text-white',
@@ -81,7 +81,7 @@ const colorsClasses = computed(() => {
                     dark: 'bg-primary-700 text-white',
                     black: 'bg-zinc-900 text-white',
                     transparent: 'border-0 shadow-none',
-                    'color-mode': 'bg-white text-black dark:bg-zinc-900 dark:border-zinc-700 dark:text-white',
+                    'color-mode': 'bg-white text-black dark:bg-zinc-800 dark:border-zinc-700 dark:text-white',
                 }[props.color] + ' border-zinc-200 border-opacity-50'
             );
     }
@@ -98,7 +98,7 @@ const hoverClasses = computed(() => {
         dark: 'hover:bg-primary-600',
         transparent: 'hover:bg-zinc-500 hover:bg-opacity-10',
         black: 'hover:bg-zinc-800',
-        'color-mode': 'hover:bg-zinc-100 dark:hover:bg-primary-800',
+        'color-mode': 'hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:border-zinc-600',
     }[props.color];
 });
 

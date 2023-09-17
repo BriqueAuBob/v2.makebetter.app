@@ -244,15 +244,32 @@ div[aria-alive='assertive'] {
 }
 
 .dark ::-webkit-scrollbar-track {
-    @apply bg-primary-800;
+    @apply bg-zinc-800;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    @apply bg-primary-600;
+    @apply bg-zinc-600;
 }
 
 .perspective {
     transform: translate(-50%, -250px) perspective(1000px) rotateX(30deg) scale(1.3);
+}
+
+.noise {
+    position: relative;
+}
+.noise::after {
+    @apply absolute;
+    content: '';
+    background-image: url('/images/noise.png');
+    background-repeat: repeat;
+    opacity: 0.75;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
 @keyframes circle {

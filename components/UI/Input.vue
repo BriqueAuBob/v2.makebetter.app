@@ -40,6 +40,10 @@ const props = defineProps({
         type: Array as PropType<any[]>,
         required: false,
     },
+    displayLabel: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const input = ref<HTMLInputElement>();
@@ -64,6 +68,7 @@ const hasFocus = ref(false);
         <label
             :for="name"
             class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400"
+            :class="label && !displayLabel && 'sr-only'"
             v-if="label"
         >
             {{ label }}
@@ -74,7 +79,7 @@ const hasFocus = ref(false);
             :name="name"
             :placeholder="placeholder"
             class="w-full rounded-xl border border-dashed border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm placeholder:text-xs placeholder:italic placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed dark:border-zinc-500 dark:bg-zinc-700 dark:text-white dark:placeholder:text-neutral-300"
-            :class="label && 'mt-1'"
+            :class="label && displayLabel && 'mt-1'"
             :value="modelValue"
             @input="updateValue($event.target.value)"
             @focus="emit('focus')"

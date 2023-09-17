@@ -71,6 +71,7 @@ export type DiscordWebhook = {
 };
 
 export type DiscordChannel = {
+    id: string;
     name: string;
     type: 0 | 15;
 };
