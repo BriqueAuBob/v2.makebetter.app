@@ -13,7 +13,8 @@
                     "bot_probably_not_in_guild": "Le bot n'est probablement pas sur ton serveur et c'est pour cela que nous n'avons pas pu récupéré les salons. Vérifie que le bot est bien sur ton serveur et réessaye.",
                     "invite_bot": "Inviter le bot",
                     "no_guilds": "Nous n'avons pas réussi à récupéré les serveurs dont tu es propriétaire.",
-                    "logout_and_login": "Déconnecte toi et reconnecte toi pour que nous puissions récupérer tes serveurs!"
+                    "logout_and_login": "Déconnecte toi et reconnecte toi pour que nous puissions récupérer tes serveurs!",
+                    "verify_bot_access_channel": "Vérifie que le bot a accès au salon!"
                 },
 
                 "instructions": {
