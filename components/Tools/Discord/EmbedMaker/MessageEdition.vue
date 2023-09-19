@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import type { DiscordWebhookMessage, Embed, Component } from '~/types/discord';
+import type { DiscordWebhookMessage } from '~/types/discord';
 import { _primary } from '#tailwind-config/theme/colors';
 
 const props = defineProps({
@@ -98,11 +98,6 @@ const addField = (id: number) => {
     });
 };
 
-const updateEmbedRealField = (embedId: number, field: any, subField: string, value: any) => {
-    field[subField] = value;
-    updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields);
-};
-
 const addButton = () => {
     const components = props.message.components;
     if (!components[0].components) components[0].components = [];
@@ -115,7 +110,7 @@ const addButton = () => {
     updateField('components', components);
 };
 
-const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
+const updateComponent = (id: number, field: 'url' | 'label' | 'style', value: any) => {
     const components = props.message.components;
     const component = components[0].components![id];
     component[field] = value;
@@ -417,6 +412,68 @@ const updateComponent = (id: number, field: 'url' | 'label', value: any) => {
                             v-model="component.url"
                             @change="(value: string) => updateComponent(componentId, 'url', value)"
                         />
+                        <div>
+                            <label class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400"
+                                >Style du bouton</label
+                            >
+                            <div class="mt-2 grid grid-cols-4 gap-2">
+                                <button
+                                    class="rounded-[4px] bg-[#5865F2] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                    :class="
+                                        component.style === 1
+                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
+                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                    "
+                                    @click="updateComponent(componentId, 'style', 1)"
+                                >
+                                    Bouton
+                                </button>
+                                <button
+                                    class="rounded-[4px] bg-[#43B581] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                    :class="
+                                        component.style === 2
+                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
+                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                    "
+                                    @click="updateComponent(componentId, 'style', 2)"
+                                >
+                                    Bouton
+                                </button>
+                                <button
+                                    class="rounded-[4px] bg-[#4F545C] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                    :class="
+                                        component.style === 3
+                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
+                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                    "
+                                    @click="updateComponent(componentId, 'style', 3)"
+                                >
+                                    Bouton
+                                </button>
+                                <button
+                                    class="rounded-[4px] bg-[#F04747] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                    :class="
+                                        component.style === 4
+                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
+                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                    "
+                                    @click="updateComponent(componentId, 'style', 4)"
+                                >
+                                    Bouton
+                                </button>
+                                <button
+                                    class="rounded-[4px] bg-[#4F545C] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                    :class="
+                                        component.style === 5
+                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
+                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                    "
+                                    @click="updateComponent(componentId, 'style', 5)"
+                                >
+                                    Bouton
+                                </button>
+                            </div>
+                        </div>
                     </ToolsCardCollapsible>
                 </TransitionGroup>
                 <UIButton

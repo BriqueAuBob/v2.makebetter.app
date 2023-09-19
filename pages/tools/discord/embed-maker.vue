@@ -208,37 +208,28 @@ const sendMessage = async () => {
                 }
             });
         } else {
-            if (useCustomBot.value && form.bot_token) {
-                formMessage.append('token', form.bot_token);
-            }
-            await $fetch(
-                `/api/tools/discord/embed-maker/guilds/${form.guildSelected?.id}/channels/${form.channelSelected?.id}`,
-                {
-                    method: 'POST',
-                    body: formMessage,
-                    headers: {
-                        Authorization: 'Bearer ' + useAuthStore().token,
-                    },
+            try {
+                if (useCustomBot.value && form.bot_token) {
+                    formMessage.append('token', form.bot_token);
                 }
-            ).catch((err) => {
-                const data = err.data;
-                if (data) {
-                    for (const error of Object.values(data)) {
-                        $toast.show({
-                            title: t('errors.encountered'),
-                            message: error as string,
-                            type: 'danger',
-                            timeout: 5,
-                        });
+                await $fetch(
+                    `/api/tools/discord/embed-maker/guilds/${form.guildSelected?.id}/channels/${form.channelSelected?.id}`,
+                    {
+                        method: 'POST',
+                        body: formMessage,
+                        headers: {
+                            Authorization: 'Bearer ' + useAuthStore().token,
+                        },
                     }
-                } else {
-                    $toast.show({
-                        title: t('errors.encountered'),
-                        type: 'danger',
-                        timeout: 5,
-                    });
-                }
-            });
+                );
+            } catch (err: any) {
+                $toast.show({
+                    title: t('errors.encountered'),
+                    message: t('tools.discord.embed-maker.send_with_bot.verify_bot_access_channel'),
+                    type: 'danger',
+                    timeout: 5,
+                });
+            }
         }
     }
 };
