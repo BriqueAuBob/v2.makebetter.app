@@ -104,10 +104,27 @@ watch(
         }
     }
 );
+
+const card_method = ref<HTMLElement | null>(null);
+watch(
+    () => props.sendWithWebhook,
+    () => {
+        if (!props.sendWithWebhook) {
+            fetchGuilds();
+            card_method.value?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+    }
+);
 </script>
 
 <template>
-    <div class="relative grid grid-cols-2 rounded-t-3xl border bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
+    <div
+        ref="card_method"
+        class="relative grid grid-cols-2 rounded-t-3xl border bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
+    >
         <div
             class="absolute h-full w-1/2 rounded-t-3xl border-x border-t bg-white duration-300 ease-out dark:border-zinc-700 dark:bg-zinc-800"
             :class="!sendWithWebhook ? 'left-1/2' : 'left-0 '"

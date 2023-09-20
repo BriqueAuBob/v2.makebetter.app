@@ -48,6 +48,7 @@ export type Component = {
     }>;
     url?: string;
     components?: Component[];
+    custom_id?: string;
 };
 
 export type DiscordWebhookMessage = {

@@ -131,6 +131,7 @@ const elements = computed(() => {
                 message,
                 webhookCreatedByBot: webhook.value?.application_id !== null,
                 setMessage: (message: DiscordWebhookMessage) => setMessage(id, message),
+                sendWithBot: !sendWithWebhook.value,
             },
         };
     });
@@ -174,6 +175,27 @@ const sendMessage = async () => {
         removeEmptyFields(messageCopy);
         if (messageCopy.components[0].components.length === 0) {
             delete messageCopy.components;
+        } else {
+            for (const component of messageCopy.components[0].components) {
+                if (component.style === 5) {
+                    delete component.custom_id;
+                } else {
+                    if (sendWithWebhook.value) {
+                        $toast.show({
+                            title: 'Attention !',
+                            message:
+                                "Tu dois utiliser un bot pour personnaliser l'apparence des boutons. Nous avons remis le style par défaut.",
+                            type: 'warning',
+                            timeout: 5,
+                        });
+                        component.style = 5;
+                        delete component.custom_id;
+                        component.url = component.url ?? 'https://makebetter.app';
+                    } else {
+                        delete component.url;
+                    }
+                }
+            }
         }
         messageCopy.thread_name = form.thread_name;
         formMessage.append('payload_json', JSON.stringify(messageCopy));
@@ -578,6 +600,7 @@ defineI18nRoute({
                                 :elements="elements"
                                 :current="current"
                                 ref="switcher"
+                                @use-bot="sendWithWebhook = false"
                             />
                             <UIButton @click="addMessage">
                                 {{ $t('tools.discord.embed-maker.steps.add_message') }}

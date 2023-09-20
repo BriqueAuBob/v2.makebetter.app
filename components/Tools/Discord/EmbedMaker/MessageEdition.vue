@@ -20,6 +20,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    sendWithBot: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const updateField = (field: string, value: any) => {
@@ -110,12 +114,14 @@ const addButton = () => {
     updateField('components', components);
 };
 
-const updateComponent = (id: number, field: 'url' | 'label' | 'style', value: any) => {
+const updateComponent = (id: number, field: 'url' | 'label' | 'style' | 'custom_id', value: any) => {
     const components = props.message.components;
     const component = components[0].components![id];
     component[field] = value;
     updateField('components', components);
 };
+
+const emit = defineEmits(['use-bot']);
 </script>
 
 <template>
@@ -412,66 +418,49 @@ const updateComponent = (id: number, field: 'url' | 'label' | 'style', value: an
                             v-model="component.url"
                             @change="(value: string) => updateComponent(componentId, 'url', value)"
                         />
-                        <div>
-                            <label class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400"
-                                >Style du bouton</label
-                            >
+                        <UIInput
+                            class="mb-4"
+                            :name="`message_${id}_components_${componentId}_custom_id`"
+                            :label="$t('tools.discord.embed-maker.fields.button_custom_id.label')"
+                            :placeholder="$t('tools.discord.embed-maker.fields.button_custom_id.placeholder')"
+                            v-model="component.custom_id"
+                            @change="(value: string) => updateComponent(componentId, 'custom_id', value)"
+                        />
+                        <div
+                            class="relative duration-300 ease-out"
+                            :class="!sendWithBot && 'py-8'"
+                        >
+                            <label class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400">
+                                Style du bouton
+                            </label>
                             <div class="mt-2 grid grid-cols-4 gap-2">
-                                <button
-                                    class="rounded-[4px] bg-[#5865F2] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
+                                <ToolsDiscordEmbedMakerButton
+                                    v-for="style in 5"
                                     :class="
-                                        component.style === 1
+                                        component.style === style && sendWithBot
                                             ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
                                             : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
                                     "
-                                    @click="updateComponent(componentId, 'style', 1)"
+                                    @click="updateComponent(componentId, 'style', style)"
+                                    :buttonStyle="style"
                                 >
                                     Bouton
-                                </button>
-                                <button
-                                    class="rounded-[4px] bg-[#43B581] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
-                                    :class="
-                                        component.style === 2
-                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
-                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
-                                    "
-                                    @click="updateComponent(componentId, 'style', 2)"
-                                >
-                                    Bouton
-                                </button>
-                                <button
-                                    class="rounded-[4px] bg-[#4F545C] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
-                                    :class="
-                                        component.style === 3
-                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
-                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
-                                    "
-                                    @click="updateComponent(componentId, 'style', 3)"
-                                >
-                                    Bouton
-                                </button>
-                                <button
-                                    class="rounded-[4px] bg-[#F04747] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
-                                    :class="
-                                        component.style === 4
-                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
-                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
-                                    "
-                                    @click="updateComponent(componentId, 'style', 4)"
-                                >
-                                    Bouton
-                                </button>
-                                <button
-                                    class="rounded-[4px] bg-[#4F545C] px-4 py-2 text-sm duration-300 ease-out hover:brightness-125"
-                                    :class="
-                                        component.style === 5
-                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
-                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
-                                    "
-                                    @click="updateComponent(componentId, 'style', 5)"
-                                >
-                                    Bouton
-                                </button>
+                                </ToolsDiscordEmbedMakerButton>
+                            </div>
+                            <div
+                                class="absolute left-0 top-0 flex h-full w-full scale-110 items-center justify-center backdrop-blur-sm dark:bg-zinc-900/75"
+                                v-if="!sendWithBot"
+                            >
+                                <div class="px-16 text-center">
+                                    Envoie ton message avec un bot pour pouvoir personnaliser le style des boutons
+                                    <UIButton
+                                        class="mx-auto mt-4"
+                                        color="color-mode"
+                                        @click="emit('use-bot')"
+                                    >
+                                        Utiliser un bot
+                                    </UIButton>
+                                </div>
                             </div>
                         </div>
                     </ToolsCardCollapsible>

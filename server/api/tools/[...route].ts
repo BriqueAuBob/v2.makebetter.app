@@ -97,7 +97,7 @@ router.post(
         const token = tokenBuffer?.toString('utf-8');
 
         const config = useRuntimeConfig();
-        const embed = await $fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
+        await $fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
             method: 'POST',
             headers: {
                 Authorization: `Bot ${token || config.bot_token}`,
