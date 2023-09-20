@@ -114,32 +114,19 @@ const onChange = (message: any) => {
                     v-if="message?.components?.[0]?.components"
                     name="fadescale"
                     tag="div"
-                    class="mt-2 flex"
+                    class="mt-1 flex gap-2"
                 >
-                    <a
+                    <component
+                        :is="component.style === 5 ? 'a' : 'button'"
                         :href="component.url"
                         target="_blank"
-                        class="relative ml-0 mr-2 flex items-center gap-2 rounded-sm bg-[#4F545C] px-4 py-1 font-medium text-white duration-200 ease-in hover:bg-[#686D73]"
                         v-for="(component, id) of message?.components?.[0]?.components"
                         :key="id"
                     >
-                        {{ component.label }}
-                        <svg
-                            aria-hidden="false"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M10 5V3H5.375C4.06519 3 3 4.06519 3 5.375V18.625C3 19.936 4.06519 21 5.375 21H18.625C19.936 21 21 19.936 21 18.625V14H19V19H5V5H10Z"
-                            ></path>
-                            <path
-                                fill="currentColor"
-                                d="M21 2.99902H14V4.99902H17.586L9.29297 13.292L10.707 14.706L19 6.41302V9.99902H21V2.99902Z"
-                            ></path>
-                        </svg>
-                    </a>
+                        <ToolsDiscordEmbedMakerButton :buttonStyle="component.style">
+                            {{ component.label }}
+                        </ToolsDiscordEmbedMakerButton>
+                    </component>
                 </TransitionGroup>
             </div>
         </div>

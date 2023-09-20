@@ -30,6 +30,8 @@ watch(
         setActiveElement(value || 0);
     }
 );
+
+const emit = defineEmits(['use-bot']);
 </script>
 
 <template>
@@ -63,6 +65,7 @@ watch(
                 :is="element.component"
                 :id="index"
                 v-bind="element.props"
+                @use-bot="emit('use-bot')"
             />
         </UICard>
     </div>
