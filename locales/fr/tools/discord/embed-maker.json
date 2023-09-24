@@ -175,6 +175,10 @@
                     "button_url": {
                         "label": "URL du bouton",
                         "placeholder": "URL du bouton"
+                    },
+                    "button_custom_id": {
+                        "label": "ID du bouton",
+                        "placeholder": "ID du bouton"
                     }
                 }
             }
