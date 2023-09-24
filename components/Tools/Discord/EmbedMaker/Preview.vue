@@ -17,7 +17,6 @@ const props = defineProps({
 });
 
 const createObjectURL = (file: File): string => {
-    console.log(file);
     return URL.createObjectURL(file);
 };
 

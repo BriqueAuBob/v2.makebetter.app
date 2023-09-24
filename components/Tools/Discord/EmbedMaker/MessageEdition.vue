@@ -2,6 +2,9 @@
 import type { PropType } from 'vue';
 import type { DiscordWebhookMessage } from '~/types/discord';
 import { _primary } from '#tailwind-config/theme/colors';
+import { useEmbedMakerStore } from '~/stores/embed-maker';
+
+const embedMakerStore = useEmbedMakerStore();
 
 const props = defineProps({
     id: {
@@ -12,26 +15,7 @@ const props = defineProps({
         type: Object as PropType<DiscordWebhookMessage>,
         required: true,
     },
-    setMessage: {
-        type: Function as PropType<(message: DiscordWebhookMessage) => void>,
-        required: true,
-    },
-    webhookCreatedByBot: {
-        type: Boolean,
-        default: false,
-    },
-    sendWithBot: {
-        type: Boolean,
-        default: false,
-    },
 });
-
-const updateField = (field: string, value: any) => {
-    props.setMessage({
-        ...props.message,
-        [field]: value,
-    });
-};
 
 const defaultEmbed = {
     title: '',
@@ -54,74 +38,20 @@ const defaultEmbed = {
         icon_url: '',
     },
     fields: [],
+    timestamp: '',
 };
+
 const addEmbed = () => {
-    if (props.message.embeds.length >= 10) return;
-    updateField('embeds', [
-        ...props.message.embeds,
-        { ...structuredClone(defaultEmbed), id: (Math.random() + 1).toString(36).substring(24) },
-    ]);
+    props.message.embeds.push(structuredClone(defaultEmbed));
 };
 
-const updateEmbed = (id: number, embed: any) => {
-    const embeds = props.message.embeds;
-    embeds[id] = embed;
-    updateField('embeds', embeds);
-};
-
-const recursiveUpdate = (object: any, fields: string[], value: any) => {
-    if (fields.length === 1) {
-        object[fields[0]] = value;
-        return;
-    }
-    const field = fields.shift()!;
-    recursiveUpdate(object[field], fields, value);
-};
-
-const updateEmbedField = (id: number, field: string, value: any) => {
-    const embeds = props.message.embeds;
-    const embed = embeds[id];
-    const fields = field.split('.');
-    recursiveUpdate(embed, fields, value);
-    updateEmbed(id, embed);
-};
-
-const addField = (id: number) => {
-    const embeds = props.message.embeds;
-    const embed = embeds[id];
-    updateEmbed(id, {
-        ...embed,
-        fields: [
-            ...embed.fields,
-            {
-                name: '',
-                value: '',
-                inline: false,
-            },
-        ],
+const addField = (embedId: number) => {
+    props.message.embeds[embedId].fields.push({
+        name: '',
+        value: '',
+        inline: false,
     });
 };
-
-const addButton = () => {
-    const components = props.message.components;
-    if (!components[0].components) components[0].components = [];
-    components[0].components.push({
-        type: 2,
-        style: 5,
-        label: '',
-        url: '',
-    });
-    updateField('components', components);
-};
-
-const updateComponent = (id: number, field: 'url' | 'label' | 'style' | 'custom_id', value: any) => {
-    const components = props.message.components;
-    const component = components[0].components![id];
-    component[field] = value;
-    updateField('components', components);
-};
-
-const emit = defineEmits(['use-bot']);
 </script>
 
 <template>
@@ -136,14 +66,14 @@ const emit = defineEmits(['use-bot']);
                 :name="`username_message_${id}`"
                 :label="$t('tools.discord.embed-maker.fields.username.label')"
                 :placeholder="$t('tools.discord.embed-maker.fields.username.placeholder')"
-                @change="(value: string) => updateField('username', value)"
+                v-model="message.username"
             />
             <UIInput
                 class="mb-4"
                 :name="`avatar_url_message_${id}`"
                 :label="$t('tools.discord.embed-maker.fields.avatar_url.label')"
                 :placeholder="$t('tools.discord.embed-maker.fields.avatar_url.placeholder')"
-                @change="(value: string) => updateField('avatar_url', value)"
+                v-model="message.avatar_url"
             />
         </ToolsCardCollapsible>
         <UIInput
@@ -151,7 +81,6 @@ const emit = defineEmits(['use-bot']);
             :label="$t('tools.discord.embed-maker.fields.content.label')"
             :placeholder="$t('tools.discord.embed-maker.fields.content.placeholder')"
             longText
-            @change="(value: string) => updateField('content', value)"
             v-model="message.content"
         />
         <UIFileUploader
@@ -177,13 +106,6 @@ const emit = defineEmits(['use-bot']);
                     v-for="(embed, embedId) in message.embeds"
                     :key="embedId"
                     delete
-                    @delete="
-                        () =>
-                            updateField(
-                                'embeds',
-                                message.embeds.filter((_, i) => i !== embedId)
-                            )
-                    "
                 >
                     <UICollapse
                         :title="$t('tools.discord.embed-maker.steps.embed.author')"
@@ -195,7 +117,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.author.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author.placeholder')"
                             v-model="embed.author.name"
-                            @change="(value: string) => updateEmbedField(embedId, 'author.name', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -203,7 +124,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.author_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_icon.placeholder')"
                             v-model="embed.author.icon_url"
-                            @change="(value: string) => updateEmbedField(embedId, 'author.icon_url', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -211,7 +131,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.author_url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_url.placeholder')"
                             v-model="embed.author.url"
-                            @change="(value: string) => updateEmbedField(embedId, 'author.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
@@ -224,7 +143,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.thumbnail.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.thumbnail.url"
-                            @change="(value: string) => updateEmbedField(embedId, 'thumbnail.url', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -232,7 +150,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.image.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.image.url"
-                            @change="(value: string) => updateEmbedField(embedId, 'image.url', value)"
                         />
                     </UICollapse>
                     <UICollapse
@@ -245,7 +162,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.title.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.title.placeholder')"
                             v-model="embed.title"
-                            @change="(value: string) => updateEmbedField(embedId, 'title', value)"
                         />
                         <UIInput
                             class="mb-4"
@@ -253,7 +169,6 @@ const emit = defineEmits(['use-bot']);
                             :label="$t('tools.discord.embed-maker.fields.description.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.description.placeholder')"
                             v-model="embed.description"
-                            @change="(value: string) => updateEmbedField(embedId, 'description', value)"
                             longText
                         />
                         <UIInput
@@ -261,7 +176,6 @@ const emit = defineEmits(['use-bot']);
                             :name="`url_message_${id}_embed_${embedId}`"
                             :label="$t('tools.discord.embed-maker.fields.url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.url.placeholder')"
-                            @change="(value: string) => updateEmbedField(embedId, 'url', value)"
                             v-model="embed.url"
                         />
                         <div>
@@ -290,14 +204,6 @@ const emit = defineEmits(['use-bot']);
                                 :title="`Champ n°${fieldId + 1}`"
                                 noHover
                                 delete
-                                @delete="
-                                    () =>
-                                        updateEmbedField(
-                                            embedId,
-                                            'fields',
-                                            embed.fields.filter((_, i) => i !== fieldId)
-                                        )
-                                "
                             >
                                 <UIInput
                                     class="mb-4"
@@ -305,7 +211,6 @@ const emit = defineEmits(['use-bot']);
                                     :label="$t('tools.discord.embed-maker.fields.field_name.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_name.placeholder')"
                                     v-model="field.name"
-                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIInput
                                     class="mb-4"
@@ -313,20 +218,18 @@ const emit = defineEmits(['use-bot']);
                                     :label="$t('tools.discord.embed-maker.fields.field_value.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_value.placeholder')"
                                     v-model="field.value"
-                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                                 <UIToggle
                                     class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
                                     :label="$t('tools.discord.embed-maker.fields.field_inline.label')"
                                     v-model="field.inline"
-                                    @change="(value: string) => updateEmbedField(embedId, 'fields', props.message.embeds[embedId].fields)"
                                 />
                             </ToolsCardCollapsible>
                         </TransitionGroup>
                         <UIButton
                             class="mb-2 mt-4 w-full"
-                            @click="addField(id)"
+                            @click="addField(embedId)"
                         >
                             {{ $t('tools.discord.embed-maker.steps.embed.add_field') }}
                         </UIButton>
@@ -340,21 +243,21 @@ const emit = defineEmits(['use-bot']);
                             :name="`footer_text_message_${id}_embed_${embedId}`"
                             :label="$t('tools.discord.embed-maker.fields.footer_text.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_text.placeholder')"
-                            @change="(value: string) => updateEmbedField(embedId, 'footer.text', value)"
+                            v-model="embed.footer.text"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`footer_icon_message_${id}_embed_${embedId}`"
                             :label="$t('tools.discord.embed-maker.fields.footer_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_icon.placeholder')"
-                            @change="(value: string) => updateEmbedField(embedId, 'footer.icon_url', value)"
+                            v-model="embed.footer.icon_url"
                         />
                         <UIInput
                             class="mb-4"
                             :name="`timestamp_message_${id}_embed_${embedId}`"
                             :label="$t('tools.discord.embed-maker.fields.timestamp.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.timestamp.placeholder')"
-                            @change="(value: string) => updateEmbedField(embedId, 'timestamp', value)"
+                            v-model="embed.timestamp"
                             type="datetime-local"
                         />
                     </UICollapse>
@@ -375,7 +278,7 @@ const emit = defineEmits(['use-bot']);
         </ToolsCardCollapsible>
         <div
             class="relative pb-12 lg:pb-12"
-            :class="!webhookCreatedByBot && 'p-12'"
+            :class="!embedMakerStore.webhook.application_id && 'p-12'"
         >
             <ToolsCardCollapsible
                 class="overflow-hidden"
@@ -410,22 +313,30 @@ const emit = defineEmits(['use-bot']);
                             v-model="component.label"
                             @change="(value: string) => updateComponent(componentId, 'label', value)"
                         />
-                        <UIInput
-                            class="mb-4"
-                            :name="`message_${id}_components_${componentId}_url`"
-                            :label="$t('tools.discord.embed-maker.fields.button_url.label')"
-                            :placeholder="$t('tools.discord.embed-maker.fields.button_url.placeholder')"
-                            v-model="component.url"
-                            @change="(value: string) => updateComponent(componentId, 'url', value)"
-                        />
-                        <UIInput
-                            class="mb-4"
-                            :name="`message_${id}_components_${componentId}_custom_id`"
-                            :label="$t('tools.discord.embed-maker.fields.button_custom_id.label')"
-                            :placeholder="$t('tools.discord.embed-maker.fields.button_custom_id.placeholder')"
-                            v-model="component.custom_id"
-                            @change="(value: string) => updateComponent(componentId, 'custom_id', value)"
-                        />
+                        <Transition
+                            name="fade"
+                            mode="out-in"
+                            :duration="200"
+                        >
+                            <UIInput
+                                class="mb-4"
+                                :name="`message_${id}_components_${componentId}_url`"
+                                :label="$t('tools.discord.embed-maker.fields.button_url.label')"
+                                :placeholder="$t('tools.discord.embed-maker.fields.button_url.placeholder')"
+                                v-model="component.url"
+                                @change="(value: string) => updateComponent(componentId, 'url', value)"
+                                v-if="component.style === 5"
+                            />
+                            <UIInput
+                                class="mb-4"
+                                :name="`message_${id}_components_${componentId}_custom_id`"
+                                :label="$t('tools.discord.embed-maker.fields.button_custom_id.label')"
+                                :placeholder="$t('tools.discord.embed-maker.fields.button_custom_id.placeholder')"
+                                v-model="component.custom_id"
+                                @change="(value: string) => updateComponent(componentId, 'custom_id', value)"
+                                v-else
+                            />
+                        </Transition>
                         <div
                             class="relative duration-300 ease-out"
                             :class="!sendWithBot && 'py-8'"
@@ -449,7 +360,7 @@ const emit = defineEmits(['use-bot']);
                             </div>
                             <div
                                 class="absolute left-0 top-0 flex h-full w-full scale-110 items-center justify-center backdrop-blur-sm dark:bg-zinc-900/75"
-                                v-if="!sendWithBot"
+                                v-if="!sendWithBot && !useCustomBot"
                             >
                                 <div class="px-16 text-center">
                                     Envoie ton message avec un bot pour pouvoir personnaliser le style des boutons
@@ -474,7 +385,7 @@ const emit = defineEmits(['use-bot']);
             </ToolsCardCollapsible>
             <div
                 class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-zinc-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800 lg:flex-row lg:items-center lg:justify-start lg:gap-8 lg:p-10"
-                v-if="!webhookCreatedByBot"
+                v-if="!embedMakerStore.webhook.application_id"
             >
                 <nuxt-img
                     src="/images/tools/discord/bot.png"
@@ -486,8 +397,9 @@ const emit = defineEmits(['use-bot']);
                         class="mt-2"
                         size="sm"
                         color="light"
-                        >{{ $t('how_to') }}</UIButton
                     >
+                        {{ $t('how_to') }}
+                    </UIButton>
                 </div>
             </div>
         </div>

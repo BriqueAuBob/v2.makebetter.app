@@ -31,15 +31,18 @@ const logout = () => {
             Bonjour, <span class="text-3xl text-white">{{ user.username }}</span>
         </div>
     </header>
-    <main class="container grid grid-cols-4 py-24">
+    <main
+        class="container grid grid-cols-4 py-24"
+        id="account"
+    >
         <aside
             class="flex flex-col justify-between rounded-l-2xl border border-zinc-100 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900"
         >
             <ul class="mb-8 flex flex-col gap-3">
                 <li>
                     <NuxtLink
-                        :to="localePath('account')"
-                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500 dark:text-primary-300 dark:hover:bg-primary-800 dark:hover:text-white"
+                        :to="localePath('account') + '#account'"
+                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-neutral-100 hover:text-neutral-500 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
                     >
                         <NuxtIcon
                             name="user"
@@ -50,8 +53,8 @@ const logout = () => {
                 </li>
                 <li>
                     <NuxtLink
-                        :to="localePath('account-history')"
-                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-primary-100 hover:text-primary-500 dark:text-primary-300 dark:hover:bg-primary-800 dark:hover:text-white"
+                        :to="localePath('account-history') + '#account'"
+                        class="group flex w-full items-center gap-2 rounded-md px-4 py-3 text-left font-semibold duration-300 ease-out hover:bg-neutral-100 hover:text-neutral-500 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white"
                     >
                         <NuxtIcon
                             name="clock"

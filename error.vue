@@ -8,7 +8,7 @@ const props = defineProps({
 const title = computed(() => {
     switch (props.error?.statusCode) {
         case 404:
-            return 'Page non trouvée';
+            return 'Oh non! La page est introuvable!';
         case 500:
             return 'Erreur du serveur';
         default:
@@ -18,7 +18,7 @@ const title = computed(() => {
 const message = computed(() => {
     switch (props.error?.statusCode) {
         case 404:
-            return "La page que tu recherches n'existe pas.";
+            return 'Il semble que la page que tu cherches soit partie explorer nos outils.';
         case 500:
             return 'Une erreur est survenue sur le serveur. Veuillez réessayer plus tard.';
         default:
@@ -36,37 +36,37 @@ const goBack = () => {
 <template>
     <div class="antialiased">
         <NuxtLayout color="red">
-            <div class="absolute left-0 top-0 w-full">
+            <header class="relative py-52">
                 <nuxt-img
-                    class="w-full -scale-x-100 hue-rotate-90"
+                    class="absolute top-0 -z-1 h-full w-full -scale-x-100 object-cover hue-rotate-90"
                     src="/images/backgrounds/account.png"
                     alt="404"
                 />
                 <div
-                    class="absolute left-0 top-0 z-20 h-full w-full bg-gradient-to-b from-transparent to-zinc-950"
+                    class="absolute left-0 top-0 -z-1 h-full w-full bg-gradient-to-b from-transparent to-zinc-950"
                 ></div>
-            </div>
-            <div class="relative z-20 flex min-h-[70vh] flex-col items-center justify-center">
-                <h1 class="mb-6 text-6xl font-bold">{{ title }}</h1>
-                <p class="text-2xl font-medium">{{ message }}</p>
-                <div class="flex items-center gap-2">
-                    <UIButton
-                        href="/"
-                        class="mt-8"
-                        color="light"
-                    >
-                        Retourner à l'accueil
-                    </UIButton>
-                    <UIButton
-                        class="mt-8"
-                        color="light"
-                        outlined
-                        @click="goBack"
-                    >
-                        Revenir en arrière
-                    </UIButton>
+                <div class="flex flex-col items-center justify-center px-8">
+                    <h1 class="mb-4 text-center text-6xl font-bold leading-tight">{{ title }}</h1>
+                    <p class="max-w-4xl text-center text-2xl font-medium leading-relaxed">{{ message }}</p>
+                    <div class="mt-2 flex items-center gap-2">
+                        <UIButton
+                            href="/"
+                            class="mt-8"
+                            color="light"
+                        >
+                            Retourner à l'accueil
+                        </UIButton>
+                        <UIButton
+                            class="mt-8"
+                            color="light"
+                            outlined
+                            @click="goBack"
+                        >
+                            Revenir en arrière
+                        </UIButton>
+                    </div>
                 </div>
-            </div>
+            </header>
         </NuxtLayout>
     </div>
 </template>

@@ -7,17 +7,6 @@ definePageMeta({
 const router = useRouter();
 const localePath = useLocalePath();
 
-// try {
-//   const { data } = await axios.get("auth/user/logs");
-//   this.logs = data.usages.sort((a, b) => b.id - a.id);
-// } catch (e) {
-//   console.log(e);
-// }
-
-// if (!this.user?.id) {
-//   return (window.location = "https://umaestro.fr");
-// }
-
 type LogData = {
     usages: {
         id: number;
@@ -38,7 +27,7 @@ const logsFilter = computed(() => logs?.value?.usages?.sort((a, b) => b.id - a.i
             <div
                 v-for="(log, id) in logsFilter"
                 :key="id"
-                class="dark:bg-dark-900 mt-2 flex items-center gap-1 rounded-lg bg-white p-4 shadow-sm"
+                class="mt-2 flex items-center gap-1 rounded-lg bg-gray-100 p-4 shadow-sm dark:bg-zinc-800"
             >
                 <div>
                     Utilisation de

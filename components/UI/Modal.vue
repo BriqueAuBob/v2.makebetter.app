@@ -60,7 +60,7 @@ defineExpose({
                     leave="duration-200 ease-in"
                     leave-from="opacity-100"
                     leave-to="opacity-0"
-                    class="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md"
+                    class="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md dark:bg-opacity-75"
                 >
                 </HeadlessTransitionChild>
                 <div class="fixed inset-0 overflow-y-auto">

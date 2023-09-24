@@ -161,7 +161,7 @@ const colors: Record<
                     leave-to="transform opacity-0 scale-95"
                 >
                     <HeadlessListboxOptions
-                        class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-xl py-1 text-base shadow-lg focus:outline-none sm:text-sm"
+                        class="absolute right-0 z-10 mt-1 max-h-60 w-full min-w-[200px] overflow-auto rounded-xl py-1 text-base shadow-lg focus:outline-none sm:text-sm"
                         :class="colors[color].options"
                     >
                         <HeadlessListboxOption
