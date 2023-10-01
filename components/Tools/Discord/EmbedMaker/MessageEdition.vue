@@ -15,6 +15,10 @@ const props = defineProps({
         type: Object as PropType<DiscordWebhookMessage>,
         required: true,
     },
+    onUpdate: {
+        type: Function as PropType<() => void>,
+        required: true,
+    }
 });
 
 const defaultEmbed = {
@@ -42,16 +46,38 @@ const defaultEmbed = {
 };
 
 const addEmbed = () => {
-    props.message.embeds.push(structuredClone(defaultEmbed));
+    props.message.embeds ??= [];
+    props?.message?.embeds?.push(structuredClone(defaultEmbed));
+    emitUpdate();
 };
 
 const addField = (embedId: number) => {
-    props.message.embeds[embedId].fields.push({
+    props.message.embeds![embedId] ??= structuredClone(defaultEmbed);
+    props.message.embeds![embedId].fields ??= [];
+    props.message.embeds![embedId]!.fields!.push({
         name: '',
         value: '',
         inline: false,
     });
+    emitUpdate();
 };
+
+const addButton = () => {
+    props.message?.components?.[0]?.components?.push({
+        type: 2,
+        style: 5,
+        label: '',
+        url: '',
+        custom_id: '',
+    });
+    emitUpdate();
+};
+
+const emit = defineEmits(['update:message']);
+const emitUpdate = () => {
+    emit('update:message', props.message);
+    props.onUpdate();
+}
 </script>
 
 <template>
@@ -67,6 +93,7 @@ const addField = (embedId: number) => {
                 :label="$t('tools.discord.embed-maker.fields.username.label')"
                 :placeholder="$t('tools.discord.embed-maker.fields.username.placeholder')"
                 v-model="message.username"
+                @change="emitUpdate"
             />
             <UIInput
                 class="mb-4"
@@ -74,6 +101,7 @@ const addField = (embedId: number) => {
                 :label="$t('tools.discord.embed-maker.fields.avatar_url.label')"
                 :placeholder="$t('tools.discord.embed-maker.fields.avatar_url.placeholder')"
                 v-model="message.avatar_url"
+                @change="emitUpdate"
             />
         </ToolsCardCollapsible>
         <UIInput
@@ -82,6 +110,7 @@ const addField = (embedId: number) => {
             :placeholder="$t('tools.discord.embed-maker.fields.content.placeholder')"
             longText
             v-model="message.content"
+                @change="emitUpdate"
         />
         <UIFileUploader
             placeholder="Upload a file"
@@ -117,6 +146,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.author.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author.placeholder')"
                             v-model="embed.author.name"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -124,6 +154,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.author_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_icon.placeholder')"
                             v-model="embed.author.icon_url"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -131,6 +162,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.author_url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_url.placeholder')"
                             v-model="embed.author.url"
+                @change="emitUpdate"
                         />
                     </UICollapse>
                     <UICollapse
@@ -143,6 +175,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.thumbnail.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.thumbnail.url"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -150,6 +183,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.image.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.image.url"
+                @change="emitUpdate"
                         />
                     </UICollapse>
                     <UICollapse
@@ -162,6 +196,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.title.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.title.placeholder')"
                             v-model="embed.title"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -169,6 +204,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.description.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.description.placeholder')"
                             v-model="embed.description"
+                @change="emitUpdate"
                             longText
                         />
                         <UIInput
@@ -177,6 +213,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.url.placeholder')"
                             v-model="embed.url"
+                @change="emitUpdate"
                         />
                         <div>
                             <div class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400">
@@ -185,6 +222,7 @@ const addField = (embedId: number) => {
                             <UIColorGroup
                                 class="mt-1"
                                 v-model="embed.color"
+                @change="emitUpdate"
                             />
                         </div>
                     </UICollapse>
@@ -211,6 +249,7 @@ const addField = (embedId: number) => {
                                     :label="$t('tools.discord.embed-maker.fields.field_name.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_name.placeholder')"
                                     v-model="field.name"
+                @change="emitUpdate"
                                 />
                                 <UIInput
                                     class="mb-4"
@@ -218,12 +257,14 @@ const addField = (embedId: number) => {
                                     :label="$t('tools.discord.embed-maker.fields.field_value.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_value.placeholder')"
                                     v-model="field.value"
+                @change="emitUpdate"
                                 />
                                 <UIToggle
                                     class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
                                     :label="$t('tools.discord.embed-maker.fields.field_inline.label')"
                                     v-model="field.inline"
+                @change="emitUpdate"
                                 />
                             </ToolsCardCollapsible>
                         </TransitionGroup>
@@ -244,6 +285,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.footer_text.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_text.placeholder')"
                             v-model="embed.footer.text"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -251,6 +293,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.footer_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_icon.placeholder')"
                             v-model="embed.footer.icon_url"
+                @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -258,6 +301,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.timestamp.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.timestamp.placeholder')"
                             v-model="embed.timestamp"
+                @change="emitUpdate"
                             type="datetime-local"
                         />
                     </UICollapse>
@@ -265,12 +309,12 @@ const addField = (embedId: number) => {
             </TransitionGroup>
             <UIButton
                 class="w-full"
-                :class="message.embeds.length > 0 ? 'mt-8' : 'mt-4'"
+                :class="message?.embeds?.length && message?.embeds?.length > 0 ? 'mt-8' : 'mt-4'"
                 @click="addEmbed"
             >
                 {{
                     $t('tools.discord.embed-maker.steps.embed.add', {
-                        amount: message.embeds.length,
+                        amount: message?.embeds?.length,
                         max: 10,
                     })
                 }}
@@ -278,7 +322,7 @@ const addField = (embedId: number) => {
         </ToolsCardCollapsible>
         <div
             class="relative pb-12 lg:pb-12"
-            :class="!embedMakerStore.webhook.application_id && 'p-12'"
+            :class="!embedMakerStore?.webhook?.application_id && 'p-12'"
         >
             <ToolsCardCollapsible
                 class="overflow-hidden"
@@ -294,16 +338,13 @@ const addField = (embedId: number) => {
                 >
                     <ToolsCardCollapsible
                         collapse
-                        v-for="(component, componentId) in message.components[0].components"
+                        v-for="(component, componentId) in message.components?.[0]?.components"
                         :key="componentId"
                         class="border-dashed"
                         :title="`Button n°${componentId + 1}`"
                         noHover
                         delete
-                        @delete="() => updateField('components', [{
-                            type: 1,
-                            components: message.components[0].components!.filter((_, i) => i !== componentId)
-                        }])"
+                        @delete="() => message?.components?.[0]?.components?.splice(componentId, 1)"
                     >
                         <UIInput
                             class="mb-4"
@@ -311,7 +352,7 @@ const addField = (embedId: number) => {
                             :label="$t('tools.discord.embed-maker.fields.button_label.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.button_label.placeholder')"
                             v-model="component.label"
-                            @change="(value: string) => updateComponent(componentId, 'label', value)"
+                @change="emitUpdate"
                         />
                         <Transition
                             name="fade"
@@ -324,8 +365,8 @@ const addField = (embedId: number) => {
                                 :label="$t('tools.discord.embed-maker.fields.button_url.label')"
                                 :placeholder="$t('tools.discord.embed-maker.fields.button_url.placeholder')"
                                 v-model="component.url"
-                                @change="(value: string) => updateComponent(componentId, 'url', value)"
                                 v-if="component.style === 5"
+                @change="emitUpdate"
                             />
                             <UIInput
                                 class="mb-4"
@@ -333,13 +374,13 @@ const addField = (embedId: number) => {
                                 :label="$t('tools.discord.embed-maker.fields.button_custom_id.label')"
                                 :placeholder="$t('tools.discord.embed-maker.fields.button_custom_id.placeholder')"
                                 v-model="component.custom_id"
-                                @change="(value: string) => updateComponent(componentId, 'custom_id', value)"
+                @change="emitUpdate"
                                 v-else
                             />
                         </Transition>
                         <div
                             class="relative duration-300 ease-out"
-                            :class="!sendWithBot && 'py-8'"
+                            :class="!embedMakerStore.settings.useWebhook && 'py-8'"
                         >
                             <label class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400">
                                 Style du bouton
@@ -348,11 +389,14 @@ const addField = (embedId: number) => {
                                 <ToolsDiscordEmbedMakerButton
                                     v-for="style in 5"
                                     :class="
-                                        component.style === style && sendWithBot
+                                        component.style === style && !embedMakerStore.settings.useWebhook
                                             ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
                                             : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
                                     "
-                                    @click="updateComponent(componentId, 'style', style)"
+                                    @click="() => {
+                                        component.style = style;
+                                        emitUpdate();
+                                    }"
                                     :buttonStyle="style"
                                 >
                                     Bouton
@@ -360,14 +404,13 @@ const addField = (embedId: number) => {
                             </div>
                             <div
                                 class="absolute left-0 top-0 flex h-full w-full scale-110 items-center justify-center backdrop-blur-sm dark:bg-zinc-900/75"
-                                v-if="!sendWithBot && !useCustomBot"
+                                v-if="embedMakerStore.settings.useWebhook && !embedMakerStore.settings.useCustomBot"
                             >
                                 <div class="px-16 text-center">
                                     Envoie ton message avec un bot pour pouvoir personnaliser le style des boutons
                                     <UIButton
                                         class="mx-auto mt-4"
                                         color="color-mode"
-                                        @click="emit('use-bot')"
                                     >
                                         Utiliser un bot
                                     </UIButton>
@@ -385,7 +428,7 @@ const addField = (embedId: number) => {
             </ToolsCardCollapsible>
             <div
                 class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-zinc-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800 lg:flex-row lg:items-center lg:justify-start lg:gap-8 lg:p-10"
-                v-if="!embedMakerStore.webhook.application_id"
+                v-if="!embedMakerStore?.webhook?.application_id"
             >
                 <nuxt-img
                     src="/images/tools/discord/bot.png"

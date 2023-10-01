@@ -35,7 +35,7 @@
     },
     "devDependencies": {
         "@nuxt/content": "^2.5.2",
-        "@nuxt/devtools": "^0.8.0",
+        "@nuxt/devtools": "^0.8.5",
         "@nuxt/image-edge": "^1.0.0-28004510.a0dc8e8",
         "@nuxtjs/device": "^3.1.0",
         "@nuxtjs/i18n": "^8.0.0-beta.10",
@@ -44,7 +44,7 @@
         "@types/marked": "^5.0.1",
         "@types/node": "^18.15.11",
         "cross-env": "^7.0.3",
-        "nuxt": "^3.7.3",
+        "nuxt": "^3.7.4",
         "nuxt-headlessui": "^1.1.4",
         "prettier": "^2.8.7",
         "prettier-plugin-tailwindcss": "^0.2.6",

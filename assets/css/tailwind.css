@@ -257,6 +257,7 @@ div[aria-alive='assertive'] {
 
 .noise {
     position: relative;
+    overflow: hidden;
 }
 .noise::after {
     @apply absolute;

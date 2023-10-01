@@ -36,7 +36,7 @@ const goBack = () => {
 <template>
     <div class="antialiased">
         <NuxtLayout color="red">
-            <header class="relative py-52">
+            <header class="relative py-52 text-white">
                 <nuxt-img
                     class="absolute top-0 -z-1 h-full w-full -scale-x-100 object-cover hue-rotate-90"
                     src="/images/backgrounds/account.png"

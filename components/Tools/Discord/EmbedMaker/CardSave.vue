@@ -74,7 +74,7 @@ const tagsColors: { [key: string]: string } = {
                         <span class="text-xs font-medium text-zinc-500"
                             >Créé le {{ new Date(template.createdAt).toLocaleDateString() }}</span
                         >
-                        <div class="flex flex-wrap items-center gap-1">
+                        <div class="flex flex-wrap items-center justify-end gap-1">
                             <span
                                 v-for="(tag, id) of template.tags"
                                 :key="id"
