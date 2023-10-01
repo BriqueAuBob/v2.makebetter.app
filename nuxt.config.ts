@@ -155,6 +155,7 @@ export default defineNuxtConfig({
     },
 
     modules: [
+        '@nuxt/devtools', // https://nuxt.com/modules/devtools
         '@nuxtjs/tailwindcss', // https://nuxt.com/modules/tailwindcss
         '@nuxtjs/i18n', // https://nuxt.com/modules/i18n
         '@pinia/nuxt', // https://nuxt.com/modules/pinia
@@ -174,7 +175,7 @@ export default defineNuxtConfig({
     ],
 
     devtools: {
-        enabled: false,
+        enabled: true,
     },
 
     content: {

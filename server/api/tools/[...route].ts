@@ -93,8 +93,10 @@ router.post(
         if (!buffer) return { error: 'No body provided' };
         const body = buffer.toString('utf-8');
 
-        const tokenBuffer = formData?.[1]?.data;
+        const tokenBuffer = formData?.find((buffer) => buffer.name === 'token')?.data;
         const token = tokenBuffer?.toString('utf-8');
+
+        const files = formData?.filter((buffer) => buffer.name?.startsWith('file')).map((buffer) => buffer.data);
 
         const config = useRuntimeConfig();
         await $fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {

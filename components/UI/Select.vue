@@ -119,7 +119,7 @@ const colors: Record<
                 {{ label }}
             </label>
             <HeadlessListboxButton
-                class="relative flex w-full cursor-pointer items-center justify-between rounded-xl border-2 px-4 py-3 text-left shadow-md duration-300 ease-in sm:text-sm"
+                class="relative flex w-full cursor-pointer items-center justify-between rounded-xl border-2 px-4 py-3 text-left duration-300 ease-in sm:text-sm"
                 :class="colors[color].button"
             >
                 <div
@@ -141,7 +141,7 @@ const colors: Record<
                     {{ placeholder }}
                     <span
                         v-if="(selected as [])?.length > 0"
-                        class="flex h-5 w-5 items-center justify-center rounded-full border border-white bg-primary-400 text-xs"
+                        class="flex h-5 w-5 items-center justify-center rounded-full border border-white bg-primary-400 text-xs text-white"
                     >
                         {{ (selected as [])?.length }}
                     </span>

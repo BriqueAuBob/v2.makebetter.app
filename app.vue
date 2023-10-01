@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { $fetchApi } from '~/composables/fetch';
 import { useAuthStore } from '~/stores/auth';
-/* @ts-ignore */
-import AOS from 'aos';
 
 const authStore = useAuthStore();
 const router = useRouter();

@@ -21,7 +21,6 @@ const renderNodes = (nodes: SingleASTNode[]): string => {
 };
 
 const renderNode = (node: SingleASTNode): string => {
-    console.log(node);
     switch (node.type) {
         case 'text':
             return node.content;
