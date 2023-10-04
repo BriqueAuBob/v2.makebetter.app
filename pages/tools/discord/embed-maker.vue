@@ -21,8 +21,7 @@ watch(
     () => embedMakerStore.settings.webhookUrl,
     async (value: string) => {
         if (value && value.match(/https:\/\/discord\.com\/api\/webhooks\/\d+\/\w+/)) {
-            const data = await $fetch(value);
-            embedMakerStore.webhook = data;
+            embedMakerStore.webhook = await $fetch(value);
         }
     }
 );
@@ -73,7 +72,7 @@ const onLeavePage = () => {
         localStorage.setItem('discordEmbed', JSON.stringify(embedMakerStore.messages));
     }
     socket.value?.disconnect();
-}
+};
 
 onMounted(async () => {
     if (route.query.id) {
@@ -85,7 +84,7 @@ onMounted(async () => {
             embedMakerStore.editingSave = save;
             embedMakerStore.messages = save.data;
         } catch (err) {
-            router.push({
+            await router.push({
                 query: {
                     id: undefined,
                 },
@@ -135,11 +134,13 @@ const hasEditPermission = computed(
         !route.query.id ||
         !embedMakerStore.editingSave ||
         embedMakerStore.editingSave?.authorId === authStore?.user?.id ||
-        (permissions?.value?.length > 0 ? permissions?.value?.find(
-            (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
-        ) : embedMakerStore.editingSave?.permissions?.find(
-            (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
-        ))
+        (permissions?.value?.length > 0
+            ? permissions?.value?.find(
+                  (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
+              )
+            : embedMakerStore.editingSave?.permissions?.find(
+                  (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
+              ))
 );
 
 const onShare = () => {
@@ -217,8 +218,7 @@ const onChangePermissions = (data: any[]) => {
                     <ToolsLoadSaveTemplate
                         :title="$t('tools.discord.embed-maker.steps.load_messages')"
                         @load="(e: any) => {
-                            const data = e.data;
-                            embedMakerStore.messages = data;
+                            embedMakerStore.messages = e.data;
                             embedMakerStore.editingSave = {...e, data: null};
                             $router.push({
                                 query: {
@@ -230,7 +230,7 @@ const onChangePermissions = (data: any[]) => {
                     <div class="relative">
                         <div
                             class="flex flex-col gap-12 duration-300 ease-out"
-                            :class="!true && 'pointer-events-none opacity-20'"
+                            :class="!hasEditPermission && 'pointer-events-none opacity-20'"
                         >
                             <ToolsCardSwitcher
                                 :elements="messageEditionChildrens"
@@ -244,10 +244,10 @@ const onChangePermissions = (data: any[]) => {
                         <Transition name="fade">
                             <div
                                 v-if="!hasEditPermission"
-                                class="absolute top-0 z-[100] h-full w-full py-32 text-center text-lg font-semibold bg-primary-100/75 backdrop-blur-sm rounded-3xl border-2 scale-105"
+                                class="absolute top-0 z-[100] h-full w-full scale-105 rounded-3xl border-2 bg-primary-100/75 py-32 text-center text-lg font-semibold backdrop-blur-sm"
                             >
                                 <div
-                                    class="mx-auto w-fit rounded-xl border border-dashed border-primary-500 bg-primary-500/50 px-6 py-4 backdrop-blur-sm scale-95 text-white"
+                                    class="mx-auto w-fit scale-95 rounded-xl border border-dashed border-primary-500 bg-primary-500/50 px-6 py-4 text-white backdrop-blur-sm"
                                 >
                                     Tu n'as pas la permission d'éditer cette sauvegarde.
                                 </div>
@@ -256,15 +256,11 @@ const onChangePermissions = (data: any[]) => {
                     </div>
                 </div>
                 <div>
-                    <ToolsDiscordEmbedMakerPreviewCard @change="() => socket?.emit('valueChange', embedMakerStore.messages)" />
+                    <ToolsDiscordEmbedMakerPreviewCard
+                        @change="() => socket?.emit('valueChange', embedMakerStore.messages)"
+                    />
                 </div>
             </div>
         </section>
     </div>
 </template>
-
-<style scoped>
-.dragging {
-    @apply animate-wiggle after:opacity-25;
-}
-</style>

@@ -53,6 +53,19 @@ const defaultMessage: DiscordWebhookMessage = {
     ],
     files: null,
 };
+const defaultEmptyMessage: DiscordWebhookMessage = {
+    username: '',
+    avatar_url: '',
+    content: '',
+    embeds: [],
+    components: [
+        {
+            type: 1,
+            components: [],
+        },
+    ],
+    files: null,
+};
 
 type EmbedMakerSettings = {
     useWebhook: boolean;
@@ -132,13 +145,15 @@ export const useEmbedMakerStore = defineStore({
     },
     actions: {
         addMessage() {
-            this.messages.push(structuredClone(defaultMessage));
+            this.messages.push(structuredClone(defaultEmptyMessage));
         },
         removeMessage(index: number) {
             this.messages.splice(index, 1);
         },
         async sendMessages() {
+            const { $toast } = useNuxtApp();
             const auth = useAuthStore();
+
             for (const message of this.cleanedMessages) {
                 console.log(message);
                 const formData = new FormData();
@@ -156,18 +171,33 @@ export const useEmbedMakerStore = defineStore({
                     formData.append('token', this.settings.customBotToken);
                 }
 
-                await $fetch(
-                    !this.settings.useWebhook
-                        ? `/api/tools/discord/embed-maker/guilds/${this.settings.guildSelected?.id}/channels/${this.settings.channelSelected?.id}`
-                        : this.settings.webhookUrl + '?wait=true',
-                    {
-                        method: 'POST',
-                        body: formData,
-                        headers: !this.settings.useWebhook && {
-                            Authorization: 'Bearer ' + auth.token,
-                        },
-                    }
-                );
+                try {
+                    await $fetch(
+                        !this.settings.useWebhook
+                            ? `/api/tools/discord/embed-maker/guilds/${this.settings.guildSelected?.id}/channels/${this.settings.channelSelected?.id}`
+                            : this.settings.webhookUrl + '?wait=true',
+                        {
+                            method: 'POST',
+                            body: formData,
+                            headers: !this.settings.useWebhook
+                                ? {
+                                      Authorization: 'Bearer ' + auth.token,
+                                  }
+                                : {},
+                        }
+                    );
+                    $toast.show({
+                        title: 'Message envoyé',
+                        message: 'Le message a bien été envoyé',
+                        type: 'success',
+                    });
+                } catch (e) {
+                    $toast.show({
+                        title: 'Erreur',
+                        message: "Une erreur est survenue lors de l'envoi du message",
+                        type: 'danger',
+                    });
+                }
             }
         },
     },
