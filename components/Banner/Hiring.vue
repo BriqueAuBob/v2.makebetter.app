@@ -198,13 +198,12 @@
                         <img
                             src="/images/team/chris.png"
                             alt="Chris"
-                            class="aspect-square w-12 translate-y-8 rounded-full border-2 border-green-500 bg-gradient-to-b from-green-400 to-green-900 p-1 shadow-md shadow-green-800"
+                            class="aspect-square w-12 translate-y-8 rounded-full border-2 border-stone-500 bg-gradient-to-b from-stone-400 to-stone-900 p-1 shadow-md shadow-green-800"
                         />
                     </template>
                     <template #popover>
                         <div class="px-4 py-2 text-center">
-                            <div class="text-lg font-semibold">Chris</div>
-                            <span class="whitespace-nowrap text-sm text-zinc-500">Graphiste</span>
+                            <div class="text-lg font-semibold">Toi?</div>
                         </div>
                     </template>
                 </UIPopover>

@@ -18,7 +18,7 @@ const props = defineProps({
     onUpdate: {
         type: Function as PropType<() => void>,
         required: true,
-    }
+    },
 });
 
 const defaultEmbed = {
@@ -77,7 +77,7 @@ const emit = defineEmits(['update:message']);
 const emitUpdate = () => {
     emit('update:message', props.message);
     props.onUpdate();
-}
+};
 </script>
 
 <template>
@@ -110,7 +110,7 @@ const emitUpdate = () => {
             :placeholder="$t('tools.discord.embed-maker.fields.content.placeholder')"
             longText
             v-model="message.content"
-                @change="emitUpdate"
+            @change="emitUpdate"
         />
         <UIFileUploader
             placeholder="Upload a file"
@@ -146,7 +146,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.author.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author.placeholder')"
                             v-model="embed.author.name"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -154,7 +154,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.author_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_icon.placeholder')"
                             v-model="embed.author.icon_url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -162,7 +162,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.author_url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.author_url.placeholder')"
                             v-model="embed.author.url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                     </UICollapse>
                     <UICollapse
@@ -175,7 +175,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.thumbnail.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.thumbnail.url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -183,7 +183,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.image.label')"
                             placeholder="https://imageplaceholder.com/image.jpg"
                             v-model="embed.image.url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                     </UICollapse>
                     <UICollapse
@@ -196,7 +196,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.title.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.title.placeholder')"
                             v-model="embed.title"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -204,7 +204,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.description.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.description.placeholder')"
                             v-model="embed.description"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                             longText
                         />
                         <UIInput
@@ -213,7 +213,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.url.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.url.placeholder')"
                             v-model="embed.url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <div>
                             <div class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400">
@@ -222,7 +222,7 @@ const emitUpdate = () => {
                             <UIColorGroup
                                 class="mt-1"
                                 v-model="embed.color"
-                @change="emitUpdate"
+                                @change="emitUpdate"
                             />
                         </div>
                     </UICollapse>
@@ -249,7 +249,7 @@ const emitUpdate = () => {
                                     :label="$t('tools.discord.embed-maker.fields.field_name.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_name.placeholder')"
                                     v-model="field.name"
-                @change="emitUpdate"
+                                    @change="emitUpdate"
                                 />
                                 <UIInput
                                     class="mb-4"
@@ -257,14 +257,14 @@ const emitUpdate = () => {
                                     :label="$t('tools.discord.embed-maker.fields.field_value.label')"
                                     :placeholder="$t('tools.discord.embed-maker.fields.field_value.placeholder')"
                                     v-model="field.value"
-                @change="emitUpdate"
+                                    @change="emitUpdate"
                                 />
                                 <UIToggle
                                     class="pt-2"
                                     :name="`message_${id}_embed_${embedId}_fields_${fieldId}_field_inline`"
                                     :label="$t('tools.discord.embed-maker.fields.field_inline.label')"
                                     v-model="field.inline"
-                @change="emitUpdate"
+                                    @change="emitUpdate"
                                 />
                             </ToolsCardCollapsible>
                         </TransitionGroup>
@@ -285,7 +285,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.footer_text.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_text.placeholder')"
                             v-model="embed.footer.text"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -293,7 +293,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.footer_icon.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.footer_icon.placeholder')"
                             v-model="embed.footer.icon_url"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <UIInput
                             class="mb-4"
@@ -301,7 +301,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.timestamp.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.timestamp.placeholder')"
                             v-model="embed.timestamp"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                             type="datetime-local"
                         />
                     </UICollapse>
@@ -352,7 +352,7 @@ const emitUpdate = () => {
                             :label="$t('tools.discord.embed-maker.fields.button_label.label')"
                             :placeholder="$t('tools.discord.embed-maker.fields.button_label.placeholder')"
                             v-model="component.label"
-                @change="emitUpdate"
+                            @change="emitUpdate"
                         />
                         <Transition
                             name="fade"
@@ -366,7 +366,7 @@ const emitUpdate = () => {
                                 :placeholder="$t('tools.discord.embed-maker.fields.button_url.placeholder')"
                                 v-model="component.url"
                                 v-if="component.style === 5"
-                @change="emitUpdate"
+                                @change="emitUpdate"
                             />
                             <UIInput
                                 class="mb-4"
@@ -374,7 +374,7 @@ const emitUpdate = () => {
                                 :label="$t('tools.discord.embed-maker.fields.button_custom_id.label')"
                                 :placeholder="$t('tools.discord.embed-maker.fields.button_custom_id.placeholder')"
                                 v-model="component.custom_id"
-                @change="emitUpdate"
+                                @change="emitUpdate"
                                 v-else
                             />
                         </Transition>
@@ -393,10 +393,12 @@ const emitUpdate = () => {
                                             ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
                                             : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
                                     "
-                                    @click="() => {
-                                        component.style = style;
-                                        emitUpdate();
-                                    }"
+                                    @click="
+                                        () => {
+                                            component.style = style;
+                                            emitUpdate();
+                                        }
+                                    "
                                     :buttonStyle="style"
                                 >
                                     Bouton
