@@ -36,7 +36,7 @@ const deleteMessage = () => {
 
 <template>
     <div
-        class="flex gap-3 relative group/message"
+        class="group/message relative flex gap-3"
         :class="isDark ? 'text-zinc-200' : 'text-zinc-900'"
     >
         <img

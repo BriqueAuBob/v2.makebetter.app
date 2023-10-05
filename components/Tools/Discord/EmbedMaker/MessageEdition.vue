@@ -322,7 +322,7 @@ const emitUpdate = () => {
         </ToolsCardCollapsible>
         <div
             class="relative pb-12 lg:pb-12"
-            :class="!embedMakerStore?.webhook?.application_id && 'p-12'"
+            :class="!embedMakerStore?.webhook?.application_id && embedMakerStore?.settings?.useWebhook && 'p-12'"
         >
             <ToolsCardCollapsible
                 class="overflow-hidden"
@@ -428,9 +428,10 @@ const emitUpdate = () => {
                     {{ $t('tools.discord.embed-maker.steps.buttons.add') }}
                 </UIButton>
             </ToolsCardCollapsible>
-            <div
+            <NuxtLink
                 class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-zinc-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800 lg:flex-row lg:items-center lg:justify-start lg:gap-8 lg:p-10"
-                v-if="!embedMakerStore?.webhook?.application_id"
+                v-if="!embedMakerStore?.webhook?.application_id && embedMakerStore?.settings?.useWebhook"
+                to="#"
             >
                 <nuxt-img
                     src="/images/tools/discord/bot.png"
@@ -439,14 +440,14 @@ const emitUpdate = () => {
                 <div class="text-primary-400">
                     {{ $t('tools.discord.embed-maker.steps.buttons.bot') }}
                     <UIButton
-                        class="mt-2"
+                        class="mt-4"
                         size="sm"
-                        color="light"
+                        color="color-mode"
                     >
                         {{ $t('how_to') }}
                     </UIButton>
                 </div>
-            </div>
+            </NuxtLink>
         </div>
     </div>
 </template>
