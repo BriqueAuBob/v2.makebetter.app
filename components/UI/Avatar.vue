@@ -52,7 +52,7 @@ const hasError = ref(false);
             v-if="!hasError"
             :src="avatar"
             :alt="`${props.user?.username}#${props.user?.discriminator} Avatar`"
-            :class="size + ' rounded-full border-4 border-white ' + ' ' + props.class"
+            :class="size + ' rounded-full border-2 border-white ' + ' ' + props.class"
             :style="props.style"
             @error="() => (hasError = true)"
             preset="avatar"
