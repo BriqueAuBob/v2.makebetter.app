@@ -237,7 +237,10 @@ const onChangePermissions = (data: any[]) => {
                                 :current="current"
                                 ref="switcher"
                             />
-                            <UIButton @click="addMessage">
+                            <UIButton
+                                @click="addMessage"
+                                color="light"
+                            >
                                 {{ $t('tools.discord.embed-maker.steps.add_message') }}
                             </UIButton>
                         </div>

@@ -170,28 +170,34 @@ const sendMessages = () => {
             </div>
         </template>
         <div class="max-h-[70vh] overflow-y-auto px-8 py-8">
-            <draggable
-                v-model="embedMakerStore.messages"
-                :drag-options="{
-                    animation: 200,
-                }"
-                tag="div"
-                :itemKey="'id'"
-                ghost-class="dragging"
-                id="messages_draggable"
-                class="flex flex-col gap-4"
-            >
-                <template #item="{ element }">
-                    <ToolsDiscordEmbedMakerPreview
-                        class="cursor-pointer duration-300 ease-out hover:animate-pulse"
-                        :message="element"
-                        :isDark="theme.current.name === 'Default' ? isDark : theme.current.isDark"
-                        @change="$emit('change')"
-                    />
-                </template>
-            </draggable>
+            <ClientOnly>
+                <draggable
+                    v-model="embedMakerStore.messages"
+                    :drag-options="{
+                        animation: 200,
+                    }"
+                    tag="div"
+                    :itemKey="'id'"
+                    ghost-class="dragging"
+                    id="messages_draggable"
+                    class="flex flex-col gap-4"
+                >
+                    <template #item="{ element }">
+                        <ToolsDiscordEmbedMakerPreview
+                            class="cursor-pointer duration-300 ease-out hover:animate-pulse"
+                            :message="element"
+                            :isDark="theme.current.name === 'Default' ? isDark : theme.current.isDark"
+                            @change="$emit('change')"
+                        />
+                    </template>
+                </draggable>
+            </ClientOnly>
             <div class="flex gap-2 pt-4">
-                <UIButton @click="embedMakerStore.addMessage">
+                <UIButton
+                    @click="embedMakerStore.addMessage"
+                    size="sm"
+                    color="color-mode"
+                >
                     {{ $t('tools.discord.embed-maker.steps.add_message') }}
                 </UIButton>
             </div>
