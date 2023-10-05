@@ -5,6 +5,7 @@ import { _primary } from '#tailwind-config/theme/colors';
 import { useEmbedMakerStore } from '~/stores/embed-maker';
 
 const embedMakerStore = useEmbedMakerStore();
+const { $toast } = useNuxtApp();
 
 const props = defineProps({
     id: {
@@ -380,7 +381,7 @@ const emitUpdate = () => {
                         </Transition>
                         <div
                             class="relative duration-300 ease-out"
-                            :class="!embedMakerStore.settings.useWebhook && 'py-8'"
+                            :class="embedMakerStore.settings.useWebhook && 'py-8'"
                         >
                             <label class="pointer-events-none ml-4 text-sm font-medium italic text-zinc-400">
                                 Style du bouton
@@ -390,11 +391,21 @@ const emitUpdate = () => {
                                     v-for="style in 5"
                                     :class="
                                         component.style === style && !embedMakerStore.settings.useWebhook
-                                            ? '-translate-y-1 outline outline-1 outline-offset-2 outline-white'
-                                            : 'opacity-75 hover:-translate-y-1 hover:opacity-100'
+                                            ? '-translate-y-0.5 outline outline-1 outline-offset-2 outline-white'
+                                            : !embedMakerStore.settings.useCustomBot && style !== 5
+                                            ? 'cursor-not-allowed opacity-25'
+                                            : 'opacity-75 hover:-translate-y-0.5 hover:opacity-100'
                                     "
                                     @click="
                                         () => {
+                                            if (embedMakerStore.settings.useWebhook) return;
+                                            if (!embedMakerStore.settings.useCustomBot && style !== 5) {
+                                                $toast.show({
+                                                    title: 'Utilise ton bot personnel pour modifier le style des boutons',
+                                                    type: 'danger',
+                                                });
+                                                return;
+                                            }
                                             component.style = style;
                                             emitUpdate();
                                         }
@@ -413,6 +424,12 @@ const emitUpdate = () => {
                                     <UIButton
                                         class="mx-auto mt-4"
                                         color="color-mode"
+                                        @click="
+                                            () => {
+                                                embedMakerStore.settings.useWebhook = false;
+                                                embedMakerStore.settings.useCustomBot = true;
+                                            }
+                                        "
                                     >
                                         Utiliser un bot
                                     </UIButton>

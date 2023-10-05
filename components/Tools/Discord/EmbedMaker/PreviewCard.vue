@@ -379,7 +379,7 @@ const sendMessages = () => {
                         formSave.description = '';
                         formSave.tags = [];
                         formSave.isPublic = false;
-                        modifyCurrentSave = true;
+                        modifyCurrentSave = false;
                     }
                 "
                 >Créer une nouvelle sauvegarde</UIButton
