@@ -136,6 +136,16 @@ export const useEmbedMakerStore = defineStore({
                 }
                 if (cleanedMessage?.components?.[0]?.components?.length === 0) {
                     delete cleanedMessage.components;
+                } else {
+                    if (state.settings.useWebhook || !state.settings.useCustomBot) {
+                        for (const component of cleanedMessage?.components?.[0]?.components) {
+                            if (component?.type !== 5) {
+                                throw new Error(
+                                    'Les boutons ne sont pas modifiables avec un webhook ou avec le bot par défaut'
+                                );
+                            }
+                        }
+                    }
                 }
                 cleanedMessage.files = message.files;
                 recursiveClean(cleanedMessage);
@@ -155,7 +165,6 @@ export const useEmbedMakerStore = defineStore({
             const auth = useAuthStore();
 
             for (const message of this.cleanedMessages) {
-                console.log(message);
                 const formData = new FormData();
                 formData.append('payload_json', JSON.stringify(message));
 
