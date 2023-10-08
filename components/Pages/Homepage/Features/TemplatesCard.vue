@@ -21,7 +21,7 @@
                     v-for="i in 6"
                     :key="i"
                     :src="`/images/features/templates/pack_${i}.png`"
-                    class="w-24 rounded-3xl border border-zinc-200 bg-green-50 px-5 py-6 shadow-md shadow-primary-100 duration-300 ease-out group-hover:bg-white dark:border-zinc-600 dark:bg-zinc-800 dark:shadow-zinc-700 dark:group-hover:bg-zinc-700"
+                    class="bouncy-bezier w-24 rounded-3xl border border-zinc-200 bg-green-50 px-5 py-6 shadow-md shadow-primary-100 transition duration-500 group-hover:bg-white dark:border-zinc-600 dark:bg-zinc-800 dark:shadow-zinc-700 dark:group-hover:bg-zinc-700"
                     :class="{
                         'group-hover:-translate-x-2 group-hover:-translate-y-3 group-hover:-rotate-20 group-hover:scale-110':
                             i === 1,
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div
-            class="absolute bottom-0 z-50 h-48 w-full bg-gradient-to-t from-green-200 to-transparent duration-300 ease-out group-hover:opacity-50 dark:from-green-800"
+            class="bouncy-bezier absolute bottom-0 z-50 h-48 w-full bg-gradient-to-t from-green-200 to-transparent duration-500 group-hover:opacity-50 dark:from-green-800"
         ></div>
     </article>
 </template>

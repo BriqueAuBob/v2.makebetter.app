@@ -39,7 +39,7 @@ const handleClick = () => {
                     {{ $t('homepage.features.ai.sentence.improve') }}
                 </UIButton>
                 <div
-                    class="absolute mt-4 w-full cursor-pointer rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-500 duration-300 ease-out hover:-translate-y-12 dark:bg-zinc-950 xl:top-full"
+                    class="bouncy-bezier absolute mt-4 w-full cursor-pointer rounded-2xl bg-white p-4 text-left shadow-2xl shadow-pink-500 duration-500 hover:-translate-y-12 dark:bg-zinc-950 xl:top-full"
                     :class="!hasClicked && 'translate-y-96 opacity-0'"
                     @click="handleClick"
                 >
