@@ -82,8 +82,9 @@ const colors: Record<
         button: 'bg-white text-black hover:bg-zinc-200',
         options: 'bg-white text-black',
         option: {
-            default: 'hover:bg-primary-100 cursor-pointer',
-            active: 'bg-primary-100',
+            default: 'cursor-pointer',
+            active: 'bg-zinc-200',
+            selected: 'bg-primary-100 text-primary-500',
         },
     },
 };
@@ -148,17 +149,17 @@ const colors: Record<
                 </div>
                 <NuxtIcon
                     name="chevron/down"
-                    class="text-zinc-400"
+                    class="text-zinc-700"
                 />
             </HeadlessListboxButton>
             <HeadlessTransitionRoot>
                 <HeadlessTransitionChild
-                    enter="transition ease-out duration-100"
-                    enter-from="transform opacity-0 scale-95"
+                    enter="transition bouncy-bezier duration-300"
+                    enter-from="transform opacity-0 scale-0"
                     enter-to="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
+                    leave="transition bouncy-bezier duration-300"
                     leave-from="transform opacity-100 scale-100"
-                    leave-to="transform opacity-0 scale-95"
+                    leave-to="transform opacity-0 scale-0"
                 >
                     <HeadlessListboxOptions
                         class="absolute right-0 z-10 mt-1 max-h-60 w-full min-w-[200px] overflow-auto rounded-xl py-1 text-base shadow-lg focus:outline-none sm:text-sm"
@@ -175,7 +176,9 @@ const colors: Record<
                             <li
                                 :class="[
                                     'relative select-none px-4 py-2 duration-200 ease-out',
-                                    active && colors[color].option.active,
+                                    selected
+                                        ? colors?.[color]?.option?.selected
+                                        : active && colors[color].option.active,
                                     !option.disabled && colors[color].option.default,
                                     option.disabled && 'opacity-50',
                                 ]"
@@ -202,7 +205,7 @@ const colors: Record<
                                 >
                                 <span
                                     v-show="selected"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-primary-600"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3"
                                 >
                                     <NuxtIcon
                                         name="check"
