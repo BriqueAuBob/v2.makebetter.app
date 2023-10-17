@@ -64,6 +64,7 @@
         "pinia": "^2.0.33",
         "socket.io-client": "^4.7.2",
         "vue3-carousel": "^0.3.0",
+        "vue3-marquee": "^4.1.0",
         "vuedraggable": "^4.1.0"
     }
 }
