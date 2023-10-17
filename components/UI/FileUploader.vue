@@ -2,10 +2,6 @@
 import { fileSize } from '@/composables/Blob';
 
 defineProps({
-    placeholder: {
-        type: String,
-        default: 'Upload a file',
-    },
     accept: {
         type: String,
         default: '*',
