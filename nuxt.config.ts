@@ -17,7 +17,6 @@ export default defineNuxtConfig({
             title: `MakeBetter.app`,
             bodyAttrs: {
                 class: 'bg-zinc-50 dark:bg-zinc-950 dark:text-zinc-100 ease-out duration-300',
-                style: 'filter: hue-rotate(140deg) brightness(1.5);', // halloween mode
             },
             meta: [
                 { charset: `utf-8` },
