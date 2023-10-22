@@ -102,14 +102,13 @@ const deleteEmbed = () => emits('delete');
                 >
                     {{ embed.title }}
                 </div>
-                <p
+                <ToolsDiscordMarkdown
                     v-if="embed.description"
                     class="mt-2 box-border whitespace-pre-wrap break-words text-sm leading-snug"
-                    :embed="true"
                     :content="embed.description"
                 >
                     {{ embed.description }}
-                </p>
+                </ToolsDiscordMarkdown>
                 <div class="grid gap-x-6 gap-y-2">
                     <div
                         v-for="(field, key) in embed.fields"

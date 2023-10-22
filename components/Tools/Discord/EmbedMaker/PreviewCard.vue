@@ -129,11 +129,36 @@ const sendMessages = () => {
     console.log('ok');
     embedMakerStore.sendMessages();
 };
+
+const displayPreview = ref(false);
+const togglePreview = () => {
+    displayPreview.value = !displayPreview.value;
+    if (displayPreview.value) {
+        document.body.style.overflowY = 'hidden';
+    } else {
+        document.body.style.overflowY = 'auto';
+    }
+};
+
+onMounted(() => {
+    if (process.client) {
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && displayPreview.value) {
+                togglePreview();
+            }
+        });
+    }
+});
 </script>
 
 <template>
     <UICard
-        class="sticky top-4"
+        class="lg:pointer-events-auto lg:sticky lg:top-4 lg:opacity-100"
+        :class="
+            displayPreview
+                ? 'pointer-events-auto fixed left-0 top-0 z-[120] block h-full w-full rounded-none opacity-100'
+                : 'pointer-events-none opacity-0'
+        "
         noHover
         noPadding
         noPb
@@ -152,7 +177,16 @@ const sendMessages = () => {
         "
     >
         <template #header>
-            <div class="flex items-center justify-between border-b p-8 dark:border-b-zinc-800">
+            <div class="flex justify-end p-4 lg:hidden">
+                <button class="p-4">
+                    <NuxtIcon
+                        name="close"
+                        class="icon"
+                        @click="togglePreview"
+                    />
+                </button>
+            </div>
+            <div class="flex items-center justify-between border-b px-8 pb-8 dark:border-b-zinc-800 lg:pt-8">
                 <div>
                     <h3 class="mb-1 text-lg">Prévisualisation</h3>
                     <p class="text-sm text-zinc-600">Vois à quoi ressemblera ton embed !</p>
@@ -399,4 +433,44 @@ const sendMessages = () => {
             >
         </div>
     </UIModal>
+
+    <button
+        class="fixed bottom-4 right-4 z-[110] flex items-center rounded-full border bg-white p-4 text-sm shadow-lg lg:hidden"
+        @click="togglePreview"
+    >
+        <NuxtIcon
+            name="eye"
+            class="icon big-timeout"
+        />
+        <span class="hide-timeout overflow-hidden whitespace-nowrap font-medium">Voir la prévisualisation</span>
+    </button>
 </template>
+
+<style scoped>
+.hide-timeout {
+    animation: hide 7s ease-out forwards;
+}
+
+.big-timeout {
+    animation: big 7s ease-out forwards;
+}
+
+@keyframes hide {
+    90% {
+        max-width: 200px;
+        margin-left: 0.7rem;
+    }
+    100% {
+        max-width: 0px;
+        margin-left: 0rem;
+    }
+}
+@keyframes big {
+    90% {
+        @apply text-2xl;
+    }
+    100% {
+        @apply text-4xl;
+    }
+}
+</style>

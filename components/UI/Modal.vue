@@ -51,7 +51,7 @@ defineExpose({
             <HeadlessDialog
                 as="div"
                 @close="setIsOpen"
-                class="relative z-[100]"
+                class="relative z-[150]"
             >
                 <HeadlessTransitionChild
                     enter="duration-300 ease-out"

@@ -42,16 +42,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
     setTimeout(() => {
         if (process.server) return;
         if (cookieBeta.value) return;
-        $toast.show({
-            title: 'Confidentialité',
-            message: "Nous te demandons de ne pas montrer cette version à des personnes qui n'ont pas accès à la bêta.",
-            type: 'warning',
-            timeout: 20,
-        });
+
         $toast.show({
             title: 'Bienvenue sur MakeBetter 2 !',
             message:
-                'Cette version est encore en développement, merci de nous faire remonter les bugs que tu rencontres.',
+                'Cette version est encore en développement, merci de nous faire remonter les bugs que tu rencontres sur notre serveur Discord.',
             type: 'info',
             timeout: 20,
         });

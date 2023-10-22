@@ -28,19 +28,19 @@ defineI18nRoute({
                 Découvre l'entièreté des outils que nous proposons sur notre site! Utilise les pour améliorer ton
                 projet!
             </h2>
-            <UIButton
+            <!-- <UIButton
                 class="mx-auto mt-12 w-fit"
                 href="#"
                 color="light"
                 size="lg"
             >
                 Voir les outils disponibles
-            </UIButton>
+            </UIButton> -->
         </div>
     </header>
     <section class="container py-24">
         <h1 class="mb-8 text-2xl font-semibold">Les outils pour Discord</h1>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid gap-4 lg:grid-cols-3">
             <ToolsCard
                 v-for="tool in tools"
                 :key="tool.slug"
@@ -48,5 +48,5 @@ defineI18nRoute({
             />
         </div>
     </section>
-    <section class="container">Des idées?</section>
+    <!-- <section class="container">Des idées?</section> -->
 </template>

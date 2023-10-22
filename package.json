@@ -14,11 +14,6 @@
             "name": "BriqueAuBob",
             "email": "briqueaubob@gmail.com",
             "url": "https://briqueaubob.dev"
-        },
-        {
-            "name": "DynamoRed",
-            "email": "raphael@dynamored.com",
-            "url": "https://dynamored.com"
         }
     ],
     "license": "GPL-3.0",
@@ -52,6 +47,7 @@
         "vue-tsc": "^1.2.0"
     },
     "dependencies": {
+        "@khanacademy/simple-markdown": "^0.10.2",
         "@nuxtjs/color-mode": "^3.2.0",
         "@nuxtjs/robots": "^3.0.0",
         "@pinia/nuxt": "^0.4.7",
