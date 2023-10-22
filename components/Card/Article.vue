@@ -39,8 +39,8 @@ const language = reactive({
     >
         <UICard
             class="overflow-hidden"
-            :title="article.title_fr"
-            :description="article.description_fr"
+            :title="locale === 'fr' ? article.title_fr : article.title_en"
+            :description="locale === 'fr' ? article.description_fr : article.description_en"
         >
             <template #header>
                 <nuxt-img
@@ -50,7 +50,9 @@ const language = reactive({
             </template>
             <template #footer>
                 <div class="-mt-4 flex items-center justify-between px-8 pb-8">
-                    <div class="rounded-md bg-primary-500 px-2 py-1 text-sm font-medium text-white">Nouveau</div>
+                    <div class="rounded-md bg-primary-500 px-2 py-1 text-sm font-medium text-white">
+                        {{ locale === 'fr' ? 'Nouveau' : 'New' }}
+                    </div>
                     <div class="flex items-center gap-4">
                         <!-- <div class="flex items-center gap-2">
                             <NuxtIcon

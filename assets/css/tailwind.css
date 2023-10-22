@@ -311,53 +311,53 @@ html.dark #radar {
 }
 
 .bouncy-bezier {
-	transition-timing-function: cubic-bezier(.87,-.41,.19,1.44);
+    transition-timing-function: cubic-bezier(0.87, -0.41, 0.19, 1.44);
 }
 
-#__nuxt {
+/* #__nuxt {
 	filter: hue-rotate(140deg);
 }
 
 img, .bg-header-home {
 	filter: brightness(1.5);
-}
+} */
 
 .ghost {
-	@apply fixed;
-	top: 0;
-	left: 0;
-	width: 120px;
-	z-index: 100;
-	transition: 1s cubic-bezier(.87,-.41,.19,1.54);
-	animation: wiggle 1s ease-out infinite alternate;
+    @apply fixed;
+    top: 0;
+    left: 0;
+    width: 120px;
+    z-index: 100;
+    transition: 1s cubic-bezier(0.87, -0.41, 0.19, 1.54);
+    animation: wiggle 1s ease-out infinite alternate;
 }
 
 @keyframes wiggle {
-	0% {
-		transform: translate(0, 0) rotate(-4deg);
-		opacity: 1;
-	}
-	50% {
-		transform: translate(8px, 8px) rotate(0);
-		opacity: 0.5;
-	}
-	100% {
-		transform: translate(0, 0) rotate(4deg);
-		opacity: 1;
-	}
+    0% {
+        transform: translate(0, 0) rotate(-4deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(8px, 8px) rotate(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0) rotate(4deg);
+        opacity: 1;
+    }
 }
 
-body {
-	animation: halloween 3s ease-out infinite alternate;
-}
+/* body {
+    animation: halloween 3s ease-out infinite alternate;
+} */
 
 @keyframes halloween {
-	0% {
-		opacity: 0.75;
-	}
-	50% {
-		opacity: 1;
-	}
+    0% {
+        opacity: 0.75;
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 @keyframes radar-spinner {

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { $fetchApi } from '~/composables/fetch';
 
 defineI18nRoute({
@@ -8,6 +8,13 @@ defineI18nRoute({
 });
 
 const { data } = useAsyncData(() => $fetchApi('testimonials'));
+
+type Modal = {
+    openModal: () => void;
+    closeModal: () => void;
+    toggleModal: () => void;
+};
+const testimonial_modal = ref<Modal>();
 </script>
 
 <template>
@@ -16,10 +23,16 @@ const { data } = useAsyncData(() => $fetchApi('testimonials'));
         <p class="text-lg font-semibold leading-relaxed">
             {{ $t('testimonials.description') }}
         </p>
-        <UIButton class="mx-auto mt-8">{{ $t('testimonials.publish') }}</UIButton>
+        <UIButton
+            class="mx-auto mt-8"
+            @click="testimonial_modal?.openModal()"
+        >
+            {{ $t('testimonials.publish') }}
+            <ModalTestimonialCreate ref="testimonial_modal" />
+        </UIButton>
     </header>
     <section class="container relative gap-16 pb-64 pt-8">
-        <div class="mt-8 grid grid-cols-3 gap-6">
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <CardReview
                 v-for="(testimonial, id) in data?.testimonials"
                 :key="id"

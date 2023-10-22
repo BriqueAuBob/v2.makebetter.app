@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { parse, rules, rulesExtended } from 'discord-markdown-parser';
-import type { ASTNode, SingleASTNode } from 'simple-markdown';
-import SimpleMarkdown, { parserFor } from 'simple-markdown';
+import parse, { rulesExtended } from 'discord-markdown-parser';
+import type { SingleASTNode } from 'simple-markdown';
+import SimpleMarkdown from '@khanacademy/simple-markdown';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 
@@ -10,10 +10,6 @@ const props = defineProps({
         type: String,
         required: true,
     },
-});
-
-const markdown = computed<ASTNode>(() => {
-    return parse(props.content, 'normal');
 });
 
 const renderNodes = (nodes: SingleASTNode[]): string => {
@@ -80,10 +76,10 @@ const renderNode = (node: SingleASTNode): string => {
 };
 
 const rulesNew = {
-    ...rules,
+    ...rulesExtended,
     heading: {
         order: 0,
-        match: SimpleMarkdown.blockRegex(/^ *(#{1,3} ) *([^\n]+?) *#*(?:\n|$)/),
+        match: SimpleMarkdown.inlineRegex(/^ *(#{1,3} ) *([^\n]+?) *#*(?:\n|$)/),
         parse: (capture: string[], parse: any, state: any) => ({
             type: 'heading',
             level: capture[1].length - 1,
@@ -110,7 +106,7 @@ const rulesNew = {
     },
     list: {
         order: 0,
-        match: SimpleMarkdown.blockRegex(
+        match: SimpleMarkdown.inlineRegex(
             /^( *)[*+-] [\s\S]+?(?:\n+(?=(?: *[-*_]){3,} *(?:\n+|$))|\n+(?=\1?(?:[*+-]|\d+[.)]))|\n{2,}(?! )(?!\1(?:[*+-]|\d+[.)]))|\s*$)/
         ),
         parse: (capture: string[]) => ({
@@ -120,10 +116,27 @@ const rulesNew = {
             items: capture[0].replace(/^ *([*+-]|\d+[.)]) +/, '').split(/\n(?=\1?(?:[*+-]|\d+[.)]))/),
         }),
     },
+    everyone: {
+        order: 0,
+        match: SimpleMarkdown.inlineRegex(/^@everyone/),
+        parse: (capture: string[]) => ({
+            type: 'everyone',
+            content: capture[0],
+        }),
+    },
+    here: {
+        order: 0,
+        match: SimpleMarkdown.inlineRegex(/^@here/),
+        parse: (capture: string[]) => ({
+            type: 'here',
+            content: capture[0],
+        }),
+    },
 };
-const parser = parserFor(rulesNew);
+const parser = SimpleMarkdown.parserFor(rulesNew as any);
 const astNodesToHtml = computed(() => {
-    return renderNodes(parser(props.content));
+    console.log(parser(props.content, { inline: true }));
+    return renderNodes(parser(props.content, { inline: true }));
 });
 </script>
 
@@ -175,6 +188,7 @@ pre code.md-code {
     height: 1.375em;
     vertical-align: bottom;
     object-fit: contain;
+    display: inline-block;
 }
 .md-spoiler {
     background: #26282a;

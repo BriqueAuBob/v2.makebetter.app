@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const { data } = await useFetchApi<{ saves: any[] }>('/makebetter/tools/saves?page=1');
 const saves = data.value?.saves;
+
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === 'dark');
 </script>
 
 <template>
@@ -9,8 +12,9 @@ const saves = data.value?.saves;
             <Vue3Marquee
                 v-for="i in 2"
                 :key="i"
-                clone
                 class="p-4"
+                clone
+                :direction="i == 2 ? 'reverse' : 'normal'"
             >
                 <div
                     v-for="save of saves"
@@ -20,6 +24,7 @@ const saves = data.value?.saves;
                     <ToolsDiscordEmbedMakerPreview
                         :message="save.data[0]"
                         :editable="false"
+                        :isDark="isDark"
                     />
                     <div
                         class="absolute bottom-0 left-0 h-full w-full bg-gradient-to-b from-transparent to-zinc-50 dark:from-transparent dark:to-zinc-950"
@@ -27,15 +32,19 @@ const saves = data.value?.saves;
                 </div>
             </Vue3Marquee>
         </div>
-        <div
+        <!-- <div
             class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-r from-zinc-50 via-transparent to-zinc-50 dark:from-zinc-950 dark:via-transparent dark:to-zinc-950"
+        ></div> -->
+
+        <div
+            class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-radial from-zinc-50/50 to-zinc-50 dark:from-transparent dark:to-zinc-950"
         ></div>
         <div class="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 px-4 text-center">
             <h1 class="mx-auto text-3xl font-bold">{{ $t('homepage.templates.title') }}</h1>
             <p class="mx-auto mt-3 max-w-xl text-lg font-medium">{{ $t('homepage.templates.description') }}</p>
             <UIButton
                 class="mx-auto mt-8"
-                to="/tools/discord/embed-maker"
+                @click="($toast as any).show($t('coming_soon'))"
             >
                 {{ $t('homepage.templates.view') }}
             </UIButton>

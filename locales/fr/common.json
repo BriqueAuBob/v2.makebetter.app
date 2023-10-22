@@ -13,7 +13,24 @@
         "description": "Découvrez ce que nos utilisateurs pensent de notre plateforme.",
         "no_testimonials": "Aucun avis n'a été publié pour le moment.",
         "view": "Voir les avis",
-        "publish": "Publier un avis"
+        "publish": "Publier un avis",
+        "publish_description": "Donne ton avis sur notre plateforme et aide-nous à l'améliorer !",
+        "modal": {
+            "input": {
+                "label": "Message",
+                "placeholder": "Super site !",
+                "help": "Ton avis nous aidera à améliorer notre plateforme."
+            },
+            "stars": {
+                "label": "Combien d'étoiles ?"
+            },
+            "button": "Publier mon avis"
+        }
+    },
+
+    "tutorials": {
+        "title": "Nos tutoriels",
+        "description": "Découvrez nos tutoriels pour vous aider à utiliser nos outils."
     },
 
     "banners": {

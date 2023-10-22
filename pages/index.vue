@@ -25,6 +25,13 @@ const calculateSize = computed(() => {
     const final = 1;
     return Math.max(initial - hasScrolled?.value / 1000, final);
 });
+
+type Modal = {
+    openModal: () => void;
+    closeModal: () => void;
+    toggleModal: () => void;
+};
+const testimonial_modal = ref<Modal>();
 </script>
 
 <template>
@@ -153,13 +160,14 @@ const calculateSize = computed(() => {
             <UIButton
                 class="mt-12"
                 color="color-mode"
+                :href="localePath('tutorials')"
             >
                 {{ $t('homepage.view_tutorials') }}
             </UIButton>
         </div>
     </section>
     <PagesHomepageCreatedByUsers />
-    <section class="relative gap-16 bg-gradient-to-b from-transparent to-primary-100 pb-32 pt-24">
+    <section class="relative gap-16 bg-gradient-to-b from-transparent to-primary-100 pb-32 pt-24 dark:to-primary-800">
         <div class="container">
             <p class="mb-4 whitespace-pre text-center text-lg font-semibold leading-relaxed">
                 {{
@@ -183,8 +191,10 @@ const calculateSize = computed(() => {
                 <UIButton
                     class="mt-12"
                     color="color-mode"
+                    @click="testimonial_modal?.openModal()"
                 >
                     {{ $t('testimonials.publish') }}
+                    <ModalTestimonialCreate ref="testimonial_modal" />
                 </UIButton>
                 <UIButton
                     :href="localePath('testimonials')"

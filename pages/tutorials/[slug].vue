@@ -73,8 +73,9 @@ const markdown = computed(() => {
             src="/images/tuto_embeds.png"
         />
     </header>
-    <section
+    <!-- <section
         class="container mx-auto py-48"
         v-html="markdown"
-    ></section>
+    ></section> -->
+    <section class="container mx-auto py-48">Bientôt...</section>
 </template>

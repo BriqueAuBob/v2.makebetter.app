@@ -65,13 +65,13 @@ const setMousePosition = useDebounce(50, (e: any) => {
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
-        <ClientOnly>
+        <!-- <ClientOnly>
             <img
                 src="/images/events/halloween/2023/ghost.png"
                 alt="ghost"
                 class="ghost pointer-events-none hidden lg:inline"
                 :style="ghostStyle"
             />
-        </ClientOnly>
+        </ClientOnly> -->
     </div>
 </template>
