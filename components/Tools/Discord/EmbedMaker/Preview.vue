@@ -17,6 +17,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    editable: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const createObjectURL = (file: File): string => {
@@ -115,6 +119,7 @@ const deleteMessage = () => {
                         <ToolsDiscordEmbedMakerEmbed
                             :embed="element"
                             :isDark="isDark"
+                            :editable="editable"
                             @delete="
                                 () => {
                                     message.embeds.splice(message.embeds.indexOf(element), 1);
@@ -147,6 +152,7 @@ const deleteMessage = () => {
         <div
             class="absolute -right-2 -top-2 z-10 rounded-xl border-2 border-zinc-200 bg-white p-2 opacity-0 duration-500 ease-smooth group-hover/message:opacity-100"
             @click="deleteMessage"
+            v-if="editable"
         >
             <NuxtIcon
                 name="trash"

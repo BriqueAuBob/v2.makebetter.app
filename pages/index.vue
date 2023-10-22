@@ -158,39 +158,42 @@ const calculateSize = computed(() => {
             </UIButton>
         </div>
     </section>
-    <section class="container relative gap-16 pb-64 pt-24">
-        <p class="mb-4 whitespace-pre text-center text-lg font-semibold leading-relaxed">
-            {{
-                $t('homepage.stat_usage_rates', {
-                    usersCount: statisticsData?.members,
-                    ratesCount: statisticsData?.testimonials,
-                })
-            }}
-        </p>
-        <h1 class="text-center text-3xl font-black">{{ $t('homepage.why_not_you') }}</h1>
-        <div class="mt-8 grid gap-6 lg:grid-cols-3">
-            <CardReview
-                v-for="(testimonial, id) in testimonialsData?.testimonials"
-                :key="id"
-                :author="testimonial.author"
-                :content="testimonial.message"
-                :data-aos-offset="100 + id * 100"
-            ></CardReview>
-        </div>
-        <div class="flex items-center justify-center gap-6">
-            <UIButton
-                class="mt-12"
-                color="color-mode"
-            >
-                {{ $t('testimonials.publish') }}
-            </UIButton>
-            <UIButton
-                :href="localePath('testimonials')"
-                class="mt-12"
-                color="transparent"
-            >
-                {{ $t('testimonials.view') }}
-            </UIButton>
+    <PagesHomepageCreatedByUsers />
+    <section class="relative gap-16 bg-gradient-to-b from-transparent to-primary-100 pb-32 pt-24">
+        <div class="container">
+            <p class="mb-4 whitespace-pre text-center text-lg font-semibold leading-relaxed">
+                {{
+                    $t('homepage.stat_usage_rates', {
+                        usersCount: statisticsData?.members,
+                        ratesCount: statisticsData?.testimonials,
+                    })
+                }}
+            </p>
+            <h1 class="text-center text-3xl font-black">{{ $t('homepage.why_not_you') }}</h1>
+            <div class="mt-8 grid gap-6 lg:grid-cols-3">
+                <CardReview
+                    v-for="(testimonial, id) in testimonialsData?.testimonials"
+                    :key="id"
+                    :author="testimonial.author"
+                    :content="testimonial.message"
+                    :data-aos-offset="100 + id * 100"
+                ></CardReview>
+            </div>
+            <div class="flex items-center justify-center gap-6">
+                <UIButton
+                    class="mt-12"
+                    color="color-mode"
+                >
+                    {{ $t('testimonials.publish') }}
+                </UIButton>
+                <UIButton
+                    :href="localePath('testimonials')"
+                    class="mt-12"
+                    color="transparent"
+                >
+                    {{ $t('testimonials.view') }}
+                </UIButton>
+            </div>
         </div>
     </section>
 </template>
