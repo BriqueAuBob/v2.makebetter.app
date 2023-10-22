@@ -160,6 +160,23 @@ const onChangePermissions = (data: any[]) => {
         socket.value = null;
     }
 };
+
+useSeoMeta({
+    title: "Créateur d'embeds Discord",
+    ogTitle: "Créateur d'embeds Discord",
+    description:
+        'Créez facilement des messages personnalisés pour votre serveur Discord en y ajoutant des embeds ! Deviens le meilleur serveur de ta catégorie !',
+    ogDescription:
+        'Créez facilement des messages personnalisés pour votre serveur Discord en y ajoutant des embeds ! Deviens le meilleur serveur de ta catégorie !',
+    ogImage: 'https://beta.makebetter.app/images/demos/embedcreator-fr.png',
+    ogUrl: 'https://beta.makebetter.app/outils/discord/createur-dembeds',
+    ogType: 'website',
+    ogLocale: 'fr_FR',
+    twitterDescription:
+        'Créez facilement des messages personnalisés pour votre serveur Discord en y ajoutant des embeds ! Deviens le meilleur serveur de ta catégorie !',
+    twitterTitle: "Créateur d'embeds Discord",
+    twitterImage: 'https://beta.makebetter.app/images/demos/embedcreator-fr.png',
+});
 </script>
 
 <template>

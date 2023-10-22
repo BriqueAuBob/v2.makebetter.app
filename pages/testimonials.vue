@@ -7,6 +7,11 @@ defineI18nRoute({
     },
 });
 
+useSeoMeta({
+    title: 'Avis',
+    ogDescription: 'Découvre les avis des utilisateurs de MakeBetter',
+});
+
 const { data } = useAsyncData(() => $fetchApi('testimonials'));
 
 type Modal = {

@@ -8,6 +8,15 @@ defineI18nRoute({
 });
 
 const { data } = useAsyncData(() => $fetchApi('articles'));
+
+useSeoMeta({
+    title: 'Nos tutoriels',
+    ogTitle: 'Nos tutoriels',
+    description:
+        'Découvre les tutoriels de MakeBetter pour apprendre à utiliser les outils et à améliorer ton expérience!',
+    ogDescription:
+        'Découvre les tutoriels de MakeBetter pour apprendre à utiliser les outils et à améliorer ton expérience!',
+});
 </script>
 
 <template>

@@ -32,11 +32,11 @@ const logout = () => {
         </div>
     </header>
     <main
-        class="container grid grid-cols-4 py-24"
+        class="container grid py-24 lg:grid-cols-4"
         id="account"
     >
         <aside
-            class="flex flex-col justify-between rounded-l-2xl border border-zinc-100 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900"
+            class="col-span-3 flex flex-col justify-between rounded-t-2xl border border-zinc-100 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900 lg:col-span-1 lg:rounded-l-2xl"
         >
             <ul class="mb-8 flex flex-col gap-3">
                 <li>
@@ -75,7 +75,9 @@ const logout = () => {
                 Déconnexion
             </button>
         </aside>
-        <div class="col-span-3 rounded-r-2xl border border-zinc-100 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-900">
+        <div
+            class="col-span-3 rounded-b-2xl border border-zinc-100 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-900 lg:rounded-r-2xl"
+        >
             <NuxtPage />
         </div>
     </main>
