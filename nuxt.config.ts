@@ -179,7 +179,7 @@ export default defineNuxtConfig({
     ],
 
     gtag: {
-        id: 'G-HJT5Z7RLL3',
+        id: 'G-NVP8MTKRSQ',
         config: {
             page_title: 'Beta MakeBetter',
         },
