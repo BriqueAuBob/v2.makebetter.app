@@ -46,6 +46,12 @@
         "our_tools": "Nos outils",
 
         "stat_usage_rates": "{usersCount} personnes utilisent nos outils!\n{ratesCount} d'entre elles ont publié un avis...",
-        "why_not_you": "Pourquoi pas toi ?"
+        "why_not_you": "Pourquoi pas toi ?",
+
+        "templates": {
+            "title": "Utilise les templates de la communauté",
+            "description": "Les utilisateurs peuvent rendre leurs sauvegardes publiques! Personnalise leurs créations pour qu’elles conviennent à ton projet !",
+            "view": "Voir les templates"
+        }
     }
 }

@@ -10,6 +10,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    editable: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const getFieldColumn = (field: EmbedField) => {
@@ -159,6 +163,7 @@ const deleteEmbed = () => emits('delete');
         <div
             class="absolute -right-2 -top-2 z-10 rounded-xl border-2 border-zinc-200 bg-white p-2 opacity-0 duration-500 ease-smooth group-hover:opacity-100"
             @click="deleteEmbed"
+            v-if="editable"
         >
             <NuxtIcon
                 name="trash"

@@ -10,7 +10,7 @@ const platforms = [
 ];
 const platformCount = platforms.length;
 const defaultPlatform = {
-    name: 'Bientôt',
+    name: 'soon',
     icon: 'lock',
     classNames: ' border-zinc-300 bg-zinc-500',
 };
@@ -25,6 +25,7 @@ const colorMode = useColorMode();
 const isDark = computed(() => {
     return colorMode.value === 'dark';
 });
+const localePath = useLocalePath();
 </script>
 
 <template>
@@ -37,38 +38,39 @@ const isDark = computed(() => {
                 alt="blurry circle"
             />
         </ClientOnly>
-        <div class="p-8">
-            <h1 class="mb-2 text-2xl font-bold">
+        <div class="py-8">
+            <h1 class="mb-2 px-8 text-2xl font-bold">
                 {{ $t('homepage.features.tools_available.title', { count: platformCount }) }}
             </h1>
-            <p class="text-md text-zinc-400">
+            <p class="text-md px-8 text-zinc-400">
                 {{ $t('homepage.features.tools_available.description') }}
             </p>
             <!--<img
                 src="/images/features/platforms/illustration.png"
                 class="mx-auto mt-6 w-full max-w-lg"
             />-->
-            <Vue3Marquee
-                class="mt-2 text-white"
-                v-for="i in 2"
-                :key="i"
-                clone
-                :direction="i === 2 ? 'reverse' : 'normal'"
-                gradient
-                :gradientColor="isDark ? [9, 9, 11] : [250, 250, 250]"
-            >
-                <div
-                    v-for="platform in platformsRandomOrder"
-                    :key="platform.name"
-                    class="m-3 flex items-center justify-center rounded-xl border-2 p-4"
-                    :class="platform.classNames"
+            <ClientOnly>
+                <Vue3Marquee
+                    class="mt-2 text-white"
+                    v-for="i in 2"
+                    :key="i"
+                    clone
+                    :direction="i === 2 ? 'reverse' : 'normal'"
                 >
-                    <NuxtIcon
-                        :name="platform.icon"
-                        class="text-4xl"
-                    />
-                </div>
-            </Vue3Marquee>
+                    <NuxtLink
+                        v-for="platform in platformsRandomOrder"
+                        :key="platform.name"
+                        class="m-3 flex h-20 w-20 items-center justify-center rounded-xl border-2 p-4 transition duration-300"
+                        :class="platform.classNames"
+                        :to="platform.name === 'soon' ? '#' : localePath(`/tools/${platform.name.toLowerCase()}`)"
+                    >
+                        <NuxtIcon
+                            :name="platform.icon"
+                            class="text-4xl"
+                        />
+                    </NuxtLink>
+                </Vue3Marquee>
+            </ClientOnly>
         </div>
     </article>
 </template>
