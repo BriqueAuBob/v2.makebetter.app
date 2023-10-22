@@ -32,6 +32,10 @@ type Modal = {
     toggleModal: () => void;
 };
 const testimonial_modal = ref<Modal>();
+
+useSeoMeta({
+    title: 'Accueil',
+});
 </script>
 
 <template>

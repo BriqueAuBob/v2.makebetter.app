@@ -1,0 +1,52 @@
+{
+    "homepage": {
+        "header": {
+            "presentation": "The website for content creators",
+            "title": "Create your project",
+            "description": "We offer the tools that will allow your project to grow quickly.",
+            "buttons": {
+                "use_tool": "Use a tool",
+                "join_discord": "Join the Discord"
+            }
+        },
+        "features": {
+            "title": "Features",
+            "collaboration": {
+                "title": "Real-time collaboration",
+                "description": "All our tools have a collaborative mode, get help from your team members to carry out your project!"
+            },
+            "templates": {
+                "title": "Templates",
+                "description": "Users can make their saves public! ",
+                "search": "Search for a template..."
+            },
+            "ai": {
+                "title": "Artificial intelligence",
+                "description": "Use artificial intelligence to improve the editorial quality of what you create with our tools.",
+                "sentence": {
+                    "default": "Use the best tools on our website! ",
+                    "improve": "Improve my text",
+                    "improved": "Optimize your performance by taking advantage of the cutting-edge tools available on our website. "
+                }
+            },
+            "permissions": {
+                "title": "Advanced permissions",
+                "description": "When you use real-time collaboration, you have the option to only allow viewing of what you do!"
+            },
+            "tools_available": {
+                "title": "Tools available for {count} platform|Tools available for {count} platforms",
+                "description": "We offer you tools for multiple platforms! "
+            }
+        },
+        "need_help": "Need help creating your project?",
+        "view_tutorials": "View tutorials",
+        "our_tools": "Our tools",
+        "stat_usage_rates": "{usersCount} people use our tools!\n{ratesCount} of them have published a review!",
+        "why_not_you": "Why not you ?",
+        "templates": {
+            "title": "Use community templates",
+            "description": "Find the templates created by users of our website and use them to create your project!",
+            "view": "View templates"
+        }
+    }
+}

@@ -1,1 +1,56 @@
-{}
+{
+  "errors": {
+    "encountered": "An error has occurred."
+  },
+  "redirect": {
+    "message": "You will be redirected in a few seconds...",
+    "link": "Click here if you don't want to wait."
+  },
+  "testimonials": {
+    "title": "User reviews",
+    "description": "Find out what our users think of our platform.",
+    "no_testimonials": "No reviews have been posted yet.",
+    "view": "See reviews",
+    "publish": "Post a review",
+    "publish_description": "Give your opinion on our platform and help us improve it!",
+    "modal": {
+      "input": {
+        "label": "Message",
+        "placeholder": "Great site!",
+        "help": "Your opinion will help us improve our platform."
+      },
+      "stars": {
+        "label": "How many stars?"
+      },
+      "button": "Publish my review"
+    }
+  },
+  "tutorials": {
+    "title": "Our tutorials",
+    "description": "Discover our tutorials to help you use our tools."
+  },
+  "banners": {
+    "hiring": {
+      "title": "Recruitment",
+      "description": "In order to continue to offer you services like this, we need you! ",
+      "button": "To apply"
+    }
+  },
+  "buttons": {
+    "download": "Download",
+    "make_public": "Publish",
+    "send": "Send",
+    "share": "Share",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "export": "Export",
+    "save": "To safeguard"
+  },
+  "how_to": "How to do?",
+  "use_tool": "Use this tool",
+  "access_tool": "Access the tool",
+  "coming_soon": "Coming soon",
+  "limited_access": "Limited access",
+  "feature_auth": "You must be logged in to access this feature.",
+  "logout": "Disconnect"
+}

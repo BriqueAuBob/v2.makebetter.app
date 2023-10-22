@@ -29,8 +29,12 @@ const { data } = await useFetchApi<{
 }>(`/articles/${route.params.slug}`);
 const article = data?.value?.article;
 
-const markdown = computed(() => {
-    return marked.parse(article?.content_fr);
+// const markdown = computed(() => {
+//     return marked.parse(article?.content_fr);
+// });
+
+useSeoMeta({
+    title: article?.title_fr,
 });
 </script>
 

@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "tools": "Tools",
+    "hiring": "Recruitments",
+    "login": "access my account"
+  },
+  "footer": {
+    "description": "Improve your projects with our tools designed for everyone!",
+    "not_affiliated": "We are not affiliated with the platforms for which we offer tools.",
+    "useful_links": {
+      "title": "Useful links",
+      "home": "Welcome",
+      "tutorials": "Our tutorials",
+      "testimonials": "User reviews"
+    },
+    "group": {
+      "title": "Band",
+      "website": "Website",
+      "about": "About",
+      "partners": "Partners",
+      "hiring": "Recruitments"
+    },
+    "security": {
+      "title": "Privacy and Security",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service"
+    },
+    "made_with": "Made with {emoji} by {link}."
+  }
+}

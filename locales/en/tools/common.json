@@ -1,0 +1,50 @@
+{
+  "tools": {
+    "global": {
+      "load": {
+        "template": {
+          "title": "Load a public template",
+          "description": "Load another user's creation to edit it as you wish."
+        },
+        "save": {
+          "title": "Load a save",
+          "description": "Use one of your saves to edit it or share it with others."
+        },
+        "warning": "Loading will clear any unsaved changes."
+      },
+      "theme": {
+        "title": "Change the theme",
+        "description": "See how your messages look with the different Discord themes."
+      },
+      "collaboration": {
+        "need_to_save": "You must save your creation before you can collaborate with other people.",
+        "permissions": {
+          "admin": "Admin",
+          "edit": "Editor",
+          "view": "Spectator",
+          "none": "No permission"
+        }
+      },
+      "save": {
+        "success": {
+          "title": "Creation saved successfully!",
+          "message": "Your creation has been saved."
+        },
+        "error": {
+          "title": "Error saving!",
+          "message": "An error occurred while saving your creation."
+        }
+      }
+    },
+    "discord": {
+      "roles-icons-maker": {
+        "name": "Role icon creator",
+        "description": "Create your own role icons for your Discord server!"
+      },
+      "emojis-maker": {
+        "name": "Emoji maker",
+        "description": "Create large emojis to customize your server, your Discord profile or even your messages!"
+      }
+    }
+  }
+}

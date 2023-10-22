@@ -1,0 +1,176 @@
+{
+  "tools": {
+    "discord": {
+      "embed-maker": {
+        "name": "Embed creator",
+        "description": "Send personalized messages to your Discord server. ",
+        "button": "Start creating my embed",
+        "send_with_bot": {
+          "custom": "Use a custom bot",
+          "no_token_save": "We do not save your bot's token, we only use it to send your message.",
+          "no_channels": "No channels were found on your server.",
+          "bot_probably_not_in_guild": "The bot is probably not on your server and that's why we couldn't retrieve the rooms. ",
+          "invite_bot": "Invite the bot",
+          "no_guilds": "We were unable to recover the servers you own.",
+          "logout_and_login": "Log out and log back in so we can recover your servers!",
+          "verify_bot_access_channel": "Check that the bot has access to the room!"
+        },
+        "instructions": {
+          "global": "To start creating your embed and sending it to your server, follow the different creation steps below."
+        },
+        "export": {
+          "description": "Generate a code that will allow you to send your embed via another method. ",
+          "copy_code": "Copy code",
+          "copied": {
+            "title": "Code copied!",
+            "message": "The code from your message has been copied to your clipboard. "
+          }
+        },
+        "save": {
+          "title": "Save message|Save messages",
+          "description": "Save your message so you can reuse it later.|Save your messages so you can reuse them later.",
+          "infos": "Backup information",
+          "load": "Load this save",
+          "load_template": "Load this template",
+          "list": "List of your backups",
+          "list_description": "Loads a previously made save.",
+          "templates_community": "Community templates",
+          "templates_community_description": "Uses templates created by the community or by the MakeBetter team.",
+          "tags": {
+            "rules": "Regulations",
+            "presentation": "Presentation",
+            "commands": "Orders",
+            "tickets": "Tickets",
+            "announcements": "Advertisement",
+            "french": "French",
+            "english": "English"
+          },
+          "should_be_public": "Make public",
+          "form": {
+            "name": {
+              "placeholder": "Enter the name of the backup...",
+              "label": "Backup name"
+            },
+            "description": {
+              "placeholder": "Enter the backup description...",
+              "label": "Description of the backup"
+            }
+          }
+        },
+        "steps": {
+          "load_messages": "Load a set of messages",
+          "edit_message_id": "Editing message n°{id}",
+          "author": "Author of the message",
+          "content": "Message content",
+          "embed": {
+            "author": "Embed author",
+            "images": "Embed images",
+            "body": "Embed body",
+            "footer": "Footer of the embed",
+            "fields": "Embed fields",
+            "add": "Add an embed ({amount}/{max})",
+            "add_field": "Add a field"
+          },
+          "buttons": {
+            "title": "Buttons",
+            "add": "Add a button",
+            "bot": "The webhook must have been created by a bot to be able to add buttons."
+          },
+          "add_message": "Add a message"
+        },
+        "faker": {
+          "title": "MakeBetter Rules",
+          "description": "Here are the MakeBetter rules, please read them carefully."
+        },
+        "fields": {
+          "webhook_url": {
+            "label": "Webhook URL",
+            "placeholder": "https://discord.com/api/v10/webhooks..."
+          },
+          "content": {
+            "label": "Message content",
+            "placeholder": "Hello, I have a message!"
+          },
+          "username": {
+            "label": "username",
+            "placeholder": "MakeBetter"
+          },
+          "avatar_url": {
+            "label": "Avatar URL",
+            "placeholder": "https://i.imgur.com/4M34hi2.png"
+          },
+          "title": {
+            "label": "Title",
+            "placeholder": "Embed title"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Embed description"
+          },
+          "url": {
+            "label": "URL",
+            "placeholder": "Embed URL"
+          },
+          "color": {
+            "label": "Color",
+            "placeholder": "Embed color"
+          },
+          "footer_text": {
+            "label": "Text",
+            "placeholder": "Footer text"
+          },
+          "footer_icon": {
+            "label": "Icon",
+            "placeholder": "Footer icon URL"
+          },
+          "timestamp": {
+            "label": "Timestamp",
+            "placeholder": "Timestamp of the embed"
+          },
+          "image": {
+            "label": "Picture"
+          },
+          "thumbnail": {
+            "label": "Miniature"
+          },
+          "author": {
+            "label": "Author",
+            "placeholder": "Name of the author"
+          },
+          "author_icon": {
+            "label": "Author icon",
+            "placeholder": "Author icon URL"
+          },
+          "author_url": {
+            "label": "Author URL",
+            "placeholder": "Author URL"
+          },
+          "field_name": {
+            "label": "Field name",
+            "placeholder": "Field name"
+          },
+          "field_value": {
+            "label": "Field value",
+            "placeholder": "Field value"
+          },
+          "field_inline": {
+            "label": "Inline",
+            "placeholder": "Inline"
+          },
+          "button_label": {
+            "label": "Button label",
+            "placeholder": "Button label"
+          },
+          "button_url": {
+            "label": "Button URL",
+            "placeholder": "Button URL"
+          },
+          "button_custom_id": {
+            "label": "Button ID",
+            "placeholder": "Button ID"
+          }
+        }
+      }
+    }
+  }
+}

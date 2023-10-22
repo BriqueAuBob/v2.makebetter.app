@@ -14,7 +14,7 @@ export default defineNuxtConfig({
 
     app: {
         head: {
-            title: `MakeBetter.app`,
+            titleTemplate: `%s - MakeBetter.app`,
             bodyAttrs: {
                 class: 'bg-zinc-50 dark:bg-zinc-950 dark:text-zinc-100 ease-out duration-300',
             },
@@ -71,6 +71,14 @@ export default defineNuxtConfig({
                 {
                     name: `msapplication-TileImage`,
                     content: `/${appVersion}/favicons/ms-icon-144x144.png`,
+                },
+                {
+                    name: 'twitter:creator',
+                    content: '@makebetterapp',
+                },
+                {
+                    name: 'twitter:site',
+                    content: '@makebetterapp',
                 },
             ],
             link: [
@@ -167,7 +175,15 @@ export default defineNuxtConfig({
         'nuxt-icons', // https://nuxt.com/modules/icons
         'nuxt-headlessui', // https://nuxt.com/modules/headlessui,
         '@tailvue/nuxt', // https://nuxt.com/modules/tailvue
+        'nuxt-gtag', // https://nuxt.com/modules/gtag
     ],
+
+    gtag: {
+        id: 'G-HJT5Z7RLL3',
+        config: {
+            page_title: 'Beta MakeBetter',
+        },
+    },
 
     plugins: [
         { src: '~/plugins/aos', mode: 'client' },
@@ -222,7 +238,13 @@ export default defineNuxtConfig({
                 code: 'en',
                 iso: 'en-US',
                 name: 'English',
-                file: 'en/common.json',
+                files: [
+                    'en/common.json',
+                    'en/navigation.json',
+                    'en/homepage.json',
+                    'en/tools/common.json',
+                    'en/tools/discord/embed-maker.json',
+                ],
             },
             {
                 code: 'fr',

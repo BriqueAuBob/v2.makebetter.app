@@ -15,6 +15,15 @@ defineI18nRoute({
         fr: '/outils',
     },
 });
+
+useSeoMeta({
+    title: 'Outils disponibles sur MakeBetter',
+    description:
+        "Découvre l'entièreté des outils que nous proposons sur notre site! Utilise les pour améliorer ton projet!",
+    ogTitle: 'Outils disponibles sur MakeBetter',
+    ogDescription:
+        "Découvre l'entièreté des outils que nous proposons sur notre site! Utilise les pour améliorer ton projet!",
+});
 </script>
 
 <template>
