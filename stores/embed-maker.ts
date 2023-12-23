@@ -129,7 +129,9 @@ export const useEmbedMakerStore = defineStore({
         },
     getters: {
         cleanedMessages(state) {
-            return state.messages.map((message: any) => {
+            const { $toast } = useNuxtApp();
+            const clone = structuredClone(toRaw(state.messages));
+            return clone.map((message: any) => {
                 const cleanedMessage = structuredClone(toRaw(message));
                 if (cleanedMessage?.embeds?.length === 0) {
                     delete cleanedMessage.embeds;
@@ -140,9 +142,15 @@ export const useEmbedMakerStore = defineStore({
                     if (state.settings.useWebhook || !state.settings.useCustomBot) {
                         for (const component of cleanedMessage?.components?.[0]?.components) {
                             if (component?.type !== 5) {
-                                throw new Error(
-                                    'Les boutons ne sont pas modifiables avec un webhook ou avec le bot par défaut'
-                                );
+                                $toast.show({
+                                    title: 'Erreur',
+                                    message:
+                                        'Vous ne pouvez pas modifier le style des boutons avec un webhook ou le bot par défaut !\nNous avons appliqué le style par défaut à la place.',
+                                    type: 'danger',
+                                    timeout: 7,
+                                });
+                                component.style = 5;
+                                component.url = 'https://makebetter.app';
                             }
                         }
                     }
@@ -164,49 +172,65 @@ export const useEmbedMakerStore = defineStore({
             const { $toast } = useNuxtApp();
             const auth = useAuthStore();
 
-            for (const message of this.cleanedMessages) {
-                const formData = new FormData();
-                formData.append('payload_json', JSON.stringify(message));
+            if (!this.cleanedMessages) {
+                $toast.show({
+                    title: 'Erreur',
+                    message: 'Aucun message à envoyer',
+                    type: 'danger',
+                });
+                return;
+            }
+            try {
+                for (const message of this.cleanedMessages) {
+                    const formData = new FormData();
+                    formData.append('payload_json', JSON.stringify(message));
 
-                if (message.files) {
-                    let i = 0;
-                    for (const file of message.files) {
-                        formData.append(`file${i}`, await transformFileIntoBlob(file as File), (file as File).name);
-                        i++;
+                    if (message.files) {
+                        let i = 0;
+                        for (const file of message.files) {
+                            formData.append(`file${i}`, await transformFileIntoBlob(file as File), (file as File).name);
+                            i++;
+                        }
+                    }
+
+                    if (this.settings.useCustomBot && this.settings.customBotToken) {
+                        formData.append('token', this.settings.customBotToken);
+                    }
+
+                    try {
+                        await $fetch(
+                            !this.settings.useWebhook
+                                ? `/api/tools/discord/embed-maker/guilds/${this.settings.guildSelected?.id}/channels/${this.settings.channelSelected?.id}`
+                                : this.settings.webhookUrl + '?wait=true',
+                            {
+                                method: 'POST',
+                                body: formData,
+                                headers: !this.settings.useWebhook
+                                    ? {
+                                          Authorization: 'Bearer ' + auth.token,
+                                      }
+                                    : {},
+                            }
+                        );
+                        $toast.show({
+                            title: 'Message envoyé',
+                            message: 'Le message a bien été envoyé',
+                            type: 'success',
+                        });
+                    } catch (e) {
+                        $toast.show({
+                            title: 'Erreur',
+                            message: "Une erreur est survenue lors de l'envoi du message",
+                            type: 'danger',
+                        });
                     }
                 }
-
-                if (this.settings.useCustomBot && this.settings.customBotToken) {
-                    formData.append('token', this.settings.customBotToken);
-                }
-
-                try {
-                    await $fetch(
-                        !this.settings.useWebhook
-                            ? `/api/tools/discord/embed-maker/guilds/${this.settings.guildSelected?.id}/channels/${this.settings.channelSelected?.id}`
-                            : this.settings.webhookUrl + '?wait=true',
-                        {
-                            method: 'POST',
-                            body: formData,
-                            headers: !this.settings.useWebhook
-                                ? {
-                                      Authorization: 'Bearer ' + auth.token,
-                                  }
-                                : {},
-                        }
-                    );
-                    $toast.show({
-                        title: 'Message envoyé',
-                        message: 'Le message a bien été envoyé',
-                        type: 'success',
-                    });
-                } catch (e) {
-                    $toast.show({
-                        title: 'Erreur',
-                        message: "Une erreur est survenue lors de l'envoi du message",
-                        type: 'danger',
-                    });
-                }
+            } catch (e: any) {
+                $toast.show({
+                    title: 'Erreur',
+                    message: e.message,
+                    type: 'danger',
+                });
             }
         },
     },
