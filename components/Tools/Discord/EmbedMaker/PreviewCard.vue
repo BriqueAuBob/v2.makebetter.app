@@ -149,6 +149,8 @@ onMounted(() => {
         });
     }
 });
+
+defineEmits(['change']);
 </script>
 
 <template>
