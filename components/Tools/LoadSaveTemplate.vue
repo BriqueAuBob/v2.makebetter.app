@@ -2,7 +2,7 @@
 import { useAuthStore } from '~/stores/auth';
 
 type UIModalType = {
-    setIsOpen: (isOpen: boolean) => void;
+    setIsOpen: (isOpen: boolean, isPersonal: boolean) => void;
 };
 
 defineProps({
@@ -13,7 +13,6 @@ defineProps({
 });
 
 const modal = ref<UIModalType>();
-const personal = ref<boolean>(false);
 
 const emits = defineEmits(['load']);
 
@@ -32,8 +31,7 @@ const user = computed(() => authStore.user);
             <div
                 class="noise cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-green-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-green-400 dark:from-green-500 dark:to-green-950 dark:shadow-green-900 dark:hover:brightness-125"
                 @click="() => {
-					personal = false;
-					(modal as UIModalType).setIsOpen(true)
+					(modal as UIModalType).setIsOpen(true, false)
 				}"
             >
                 <NuxtIcon
@@ -49,8 +47,7 @@ const user = computed(() => authStore.user);
                 class="noise cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-indigo-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-indigo-400 dark:from-indigo-500 dark:to-indigo-950 dark:shadow-indigo-900 dark:hover:brightness-125"
                 @click="
 				() => {
-					personal = true;
-					(modal as UIModalType).setIsOpen(true)
+					(modal as UIModalType).setIsOpen(true, true)
 				}
 			"
             >
@@ -91,8 +88,7 @@ const user = computed(() => authStore.user);
             {{ $t('tools.global.load.warning') }}
         </div>
         <LazyToolsTemplatesModal
-            :personal="personal"
-            @load="emits('load', $event, personal)"
+            @load="emits('load', $event)"
             ref="modal"
         />
     </div>

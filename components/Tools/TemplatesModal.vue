@@ -1,18 +1,21 @@
 <script setup lang="ts">
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
+    isOpen: Ref<boolean>;
 };
 
-const props = defineProps({
-    personal: {
-        type: Boolean,
-        default: false,
-    },
-});
+const personal = ref(false);
 
 const modal = ref<UIModalType>();
-const setIsOpen = () => {
-    modal.value?.setIsOpen(true);
+const setIsOpen = (open: boolean, isPersonal: boolean) => {
+    personal.value = isPersonal;
+    modal.value?.setIsOpen(open);
+    if (open) {
+        page.value = 1;
+        loading.value = true;
+        templates.value = [];
+        fetchTemplates();
+    }
 };
 defineExpose({
     setIsOpen,
@@ -32,7 +35,7 @@ const fetchTemplates = async (onScroll: boolean = false) => {
                 form.sort_by +
                 '&tags=' +
                 form.tags +
-                (props.personal ? '&personal=true' : '')
+                (personal.value ? '&personal=true' : '')
         );
         templates.value = onScroll ? [...templates.value, ...saves] : saves;
         totalRef.value = total;
@@ -74,16 +77,6 @@ watch(
                 fetchTemplates(true);
             }
         });
-    }
-);
-
-watch(
-    () => props.personal,
-    () => {
-        page.value = 1;
-        loading.value = true;
-        templates.value = [];
-        fetchTemplates();
     }
 );
 
