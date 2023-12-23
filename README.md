@@ -1,4 +1,4 @@
-![MakeBetterApp](./public/v2/static/banner.png)
+![MakeBetterApp](./public/v2/static/thumbnail.png)
 
 # 🛠️ Local setup
 

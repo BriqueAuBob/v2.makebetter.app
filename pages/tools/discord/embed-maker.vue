@@ -237,11 +237,13 @@ useSeoMeta({
                         @load="(e: any) => {
                             embedMakerStore.messages = e.data;
                             embedMakerStore.editingSave = {...e, data: null};
-                            $router.push({
-                                query: {
-                                    id: e._id,
-                                }
-                            })
+                            if(!e.isPublic) {
+                                $router.push({
+                                    query: {
+                                        id: e._id,
+                                    }
+                                })
+                            }
                         }"
                     />
                     <div class="relative">

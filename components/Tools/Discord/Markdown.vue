@@ -70,6 +70,12 @@ const renderNode = (node: SingleASTNode): string => {
             return `<a class="text-blue-500 hover:underline" href="${node.target}">${node.content}</a>`;
         case 'list':
             return `<ul class="list-disc ml-4">${node.items.map((item: string) => `<li>${item}</li>`).join('')}</ul>`;
+        case 'blockQuote':
+            return (
+                '<blockquote class="border-l-4 rounded-sm border-gray-300 pl-2">' +
+                renderNodes(node.content) +
+                '</blockquote>'
+            );
         default:
             return node.content;
     }
@@ -135,7 +141,6 @@ const rulesNew = {
 };
 const parser = SimpleMarkdown.parserFor(rulesNew as any);
 const astNodesToHtml = computed(() => {
-    console.log(parser(props.content, { inline: true }));
     return renderNodes(parser(props.content, { inline: true }));
 });
 </script>

@@ -388,7 +388,7 @@ const emitUpdate = () => {
                             </label>
                             <div class="mt-2 grid grid-cols-4 gap-2">
                                 <ToolsDiscordEmbedMakerButton
-                                    v-for="style in 5"
+                                    v-for="(style, styleId) in 5"
                                     :class="
                                         component.style === style && !embedMakerStore.settings.useWebhook
                                             ? '-translate-y-0.5 outline outline-1 outline-offset-2 outline-white'
@@ -406,7 +406,8 @@ const emitUpdate = () => {
                                                 });
                                                 return;
                                             }
-                                            component.style = style;
+                                            // component.style = style;
+                                            message.components[0].components![componentId].style = style;
                                             emitUpdate();
                                         }
                                     "
