@@ -243,7 +243,13 @@ useSeoMeta({
                                         id: e._id,
                                     }
                                 })
-                            }
+                            } else {
+								$router.push({
+									query: {
+										id: undefined,
+									}
+								})
+							}
                         }"
                     />
                     <div class="relative">
