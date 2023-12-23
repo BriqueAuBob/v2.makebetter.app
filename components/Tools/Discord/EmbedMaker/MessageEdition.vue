@@ -243,6 +243,7 @@ const emitUpdate = () => {
                                 :title="`Champ n°${fieldId + 1}`"
                                 noHover
                                 delete
+                                @delete="() => embed.fields?.splice(fieldId, 1)"
                             >
                                 <UIInput
                                     class="mb-4"
