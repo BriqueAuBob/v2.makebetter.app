@@ -79,6 +79,7 @@ const user = computed(() => authStore.user);
                     </NuxtLink>
                 </ClientOnly>
             </div>
+            <slot name="extra" />
         </div>
         <div class="mt-3 flex items-center gap-1 text-xs font-medium text-zinc-400">
             <NuxtIcon

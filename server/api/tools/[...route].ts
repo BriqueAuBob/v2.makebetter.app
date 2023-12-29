@@ -110,4 +110,26 @@ router.post(
     })
 );
 
+router.post(
+    '/guilds/:guildId/channels/:channelId/messages',
+    defineEventHandler(async (req) => {
+        const guildId = req?.context?.params?.guildId;
+        if (!guildId) return { error: 'No guild ID provided' };
+        const channelId = req?.context?.params?.channelId;
+        if (!channelId) return { error: 'No channel ID provided' };
+        const body = await readBody(req);
+
+        const config = useRuntimeConfig();
+        const messages: any[] = await $fetch(`https://discord.com/api/v10/channels/${channelId}/messages?limit=100`, {
+            headers: {
+                Authorization: `Bot ${body?.bot_token || config.bot_token}`,
+            },
+        });
+
+        console.log(messages);
+
+        return messages;
+    })
+);
+
 export default useBase('/api/tools/discord/embed-maker', router.handler);

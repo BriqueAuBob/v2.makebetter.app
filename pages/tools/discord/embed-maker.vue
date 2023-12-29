@@ -16,6 +16,7 @@ const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 const { $toast } = useNuxtApp();
+const loadDiscordMessageModal = ref<any>(null);
 
 watch(
     () => embedMakerStore.settings.webhookUrl,
@@ -161,6 +162,27 @@ const onChangePermissions = (data: any[]) => {
     }
 };
 
+const loadJsonFile = (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (f: any) => {
+        try {
+            const data = JSON.parse(f.target.result);
+            embedMakerStore.messages = data;
+            embedMakerStore.editingSave = false;
+            router.push({
+                query: {
+                    id: undefined,
+                },
+            });
+            e.target.value = null;
+        } catch (err) {
+            $toast.show({ type: 'danger', title: t('tools.global.load.file.error') });
+        }
+    };
+    reader.readAsText(file);
+};
+
 useSeoMeta({
     title: "Créateur d'embeds Discord",
     ogTitle: "Créateur d'embeds Discord",
@@ -251,7 +273,47 @@ useSeoMeta({
 								})
 							}
                         }"
-                    />
+                    >
+                        <template #extra>
+                            <div
+                                class="noise relative cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-yellow-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-yellow-400 dark:from-yellow-500 dark:to-yellow-950 dark:shadow-yellow-900 dark:hover:brightness-125"
+                            >
+                                <NuxtIcon
+                                    name="file-text"
+                                    class="text-3xl"
+                                />
+                                <div class="mt-2 text-lg font-semibold">{{ $t('tools.global.load.file.title') }}</div>
+                                <p class="mt-1 text-sm">
+                                    {{ $t('tools.global.load.file.description') }}
+                                </p>
+                                <input
+                                    type="file"
+                                    class="absolute left-0 top-0 h-full w-full cursor-pointer opacity-0"
+                                    ref="fileInput"
+                                    @change="loadJsonFile"
+                                    accept=".json"
+                                />
+                            </div>
+                            <div
+                                class="noise cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-pink-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-pink-400 dark:from-pink-500 dark:to-pink-950 dark:shadow-pink-900 dark:hover:brightness-125"
+                                @click="
+                                    () => {
+                                        loadDiscordMessageModal.setIsOpen(true);
+                                    }
+                                "
+                            >
+                                <NuxtIcon
+                                    name="link/in"
+                                    class="text-3xl"
+                                />
+                                <div class="mt-2 text-lg font-semibold">{{ $t('tools.global.load.url.title') }}</div>
+                                <p class="mt-1 text-sm">
+                                    {{ $t('tools.global.load.url.description') }}
+                                </p>
+                            </div>
+                            <ToolsDiscordEmbedMakerLoadMessageFromUrl ref="loadDiscordMessageModal" />
+                        </template>
+                    </ToolsLoadSaveTemplate>
                     <div class="relative">
                         <div
                             class="flex flex-col gap-12 duration-300 ease-out"
