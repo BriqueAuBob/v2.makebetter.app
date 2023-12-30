@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { DiscordWebhookMessage } from '~/types/discord';
+import type { DiscordWebhookMessage } from '~/types/discord';
 import { _primary } from '#tailwind-config/theme/colors';
 import { useAuthStore } from './auth';
 
@@ -163,6 +163,10 @@ export const useEmbedMakerStore = defineStore({
     actions: {
         addMessage() {
             this.messages.push(structuredClone(defaultEmptyMessage));
+            const lastMessage = this.messages[this.messages.length - 1];
+            lastMessage.content = 'Hello !';
+            lastMessage.avatar_url = this.messages?.[this.messages.length - 2]?.avatar_url;
+            lastMessage.username = this.messages?.[this.messages.length - 2]?.username;
         },
         removeMessage(index: number) {
             this.messages.splice(index, 1);
