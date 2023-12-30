@@ -169,7 +169,7 @@ export default defineNuxtConfig({
         '@pinia/nuxt', // https://nuxt.com/modules/pinia
         '@nuxtjs/color-mode', // https://nuxt.com/modules/color-mode
         '@nuxt/content', // https://nuxt.com/modules/content
-        '@nuxt/image-edge', // https://nuxt.com/modules/image
+        '@nuxt/image', // https://nuxt.com/modules/image
         '@nuxtjs/device', // https://nuxt.com/modules/device
         '@nuxtjs/robots', // https://nuxt.com/modules/robots
         'nuxt-icons', // https://nuxt.com/modules/icons
