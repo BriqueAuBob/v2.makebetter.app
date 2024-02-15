@@ -254,6 +254,7 @@ export default defineNuxtConfig({
                     'fr/common.json',
                     'fr/navigation.json',
                     'fr/homepage.json',
+                    'fr/templates.json',
                     'fr/tools/common.json',
                     'fr/tools/discord/embed-maker.json',
                 ],
