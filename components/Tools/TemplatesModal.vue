@@ -1,18 +1,21 @@
 <script setup lang="ts">
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
+    isOpen: Ref<boolean>;
 };
 
-const props = defineProps({
-    personal: {
-        type: Boolean,
-        default: false,
-    },
-});
+const personal = ref(false);
 
 const modal = ref<UIModalType>();
-const setIsOpen = () => {
-    modal.value?.setIsOpen(true);
+const setIsOpen = (open: boolean, isPersonal: boolean) => {
+    personal.value = isPersonal;
+    modal.value?.setIsOpen(open);
+    if (open) {
+        page.value = 1;
+        loading.value = true;
+        templates.value = [];
+        fetchTemplates();
+    }
 };
 defineExpose({
     setIsOpen,
@@ -32,7 +35,7 @@ const fetchTemplates = async (onScroll: boolean = false) => {
                 form.sort_by +
                 '&tags=' +
                 form.tags +
-                (props.personal ? '&personal=true' : '')
+                (personal.value ? '&personal=true' : '')
         );
         templates.value = onScroll ? [...templates.value, ...saves] : saves;
         totalRef.value = total;
@@ -77,16 +80,6 @@ watch(
     }
 );
 
-watch(
-    () => props.personal,
-    () => {
-        page.value = 1;
-        loading.value = true;
-        templates.value = [];
-        fetchTemplates();
-    }
-);
-
 const debouncedFetchTemplates = useDebounce(300, fetchTemplates);
 
 const emits = defineEmits(['load']);
@@ -121,7 +114,7 @@ const loadSave = async () => {
     >
         <div class="my-6 flex flex-col items-center">
             <div
-                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 dark:border-zinc-600 dark:bg-zinc-600 dark:shadow-zinc-800 lg:flex-row"
+                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 lg:flex-row dark:border-zinc-600 dark:bg-zinc-600 dark:shadow-zinc-800"
             >
                 <UIInput
                     class="h-full w-full"

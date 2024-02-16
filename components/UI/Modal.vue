@@ -38,6 +38,7 @@ function setIsOpen(value: boolean) {
 
 defineExpose({
     setIsOpen,
+    isOpen,
 });
 </script>
 

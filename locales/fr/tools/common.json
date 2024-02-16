@@ -10,6 +10,15 @@
                     "title": "Charger une sauvegarde",
                     "description": "Utilise l'une de tes sauvegarde pour l'éditer ou la partager avec d'autres personnes."
                 },
+                "file": {
+                    "title": "Charger un fichier",
+                    "description": "Charge un fichier JSON valide pour l'éditer.",
+                    "error": "Le fichier n'est pas valide."
+                },
+                "url": {
+                    "title": "Charger un message Discord",
+                    "description": "Charge un message déjà envoyé sur Discord pour l'éditer."
+                },
                 "warning": "Le chargement effacera toutes les modifications non sauvegardées."
             },
 

@@ -77,7 +77,14 @@ const saveMessages = async () => {
             isPublic: formSave.isPublic,
         },
     })
-        .then((res) => {
+        .then((res: any) => {
+            modifyCurrentSave.value = true;
+            embedMakerStore.editingSave = res?.data?.value;
+            router.push({
+                query: {
+                    id: res?.data?.value?._id,
+                },
+            });
             $toast.show({
                 title: t('tools.global.save.success.title'),
                 message: t('tools.global.save.success.message'),
@@ -86,6 +93,7 @@ const saveMessages = async () => {
             });
         })
         .catch((err) => {
+            console.log(err);
             $toast.show({
                 title: t('tools.discord.embed-maker.save.error.title'),
                 message: t('tools.discord.embed-maker.save.error.message'),
@@ -126,7 +134,6 @@ const updateMessages = async () => {
 };
 
 const sendMessages = () => {
-    console.log('ok');
     embedMakerStore.sendMessages();
 };
 

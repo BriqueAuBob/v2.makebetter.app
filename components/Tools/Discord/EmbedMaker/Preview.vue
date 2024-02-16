@@ -21,6 +21,10 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    fromDiscord: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const createObjectURL = (file: File): string => {
@@ -46,7 +50,9 @@ const deleteMessage = () => {
         <img
             class="h-10 w-10 rounded-full"
             :src="
-                embedMakerStore?.webhook && !message.avatar_url
+                fromDiscord
+                    ? `https://cdn.discordapp.com/avatars/${message?.author?.id}/${message?.author?.avatar}.webp?size=48`
+                    : embedMakerStore?.webhook && !message.avatar_url
                     ? `https://cdn.discordapp.com/avatars/${embedMakerStore.webhook?.id}/${embedMakerStore.webhook?.avatar}.webp?size=48`
                     : message?.avatar_url
             "
@@ -54,12 +60,18 @@ const deleteMessage = () => {
         <div class="font-whitney w-full">
             <div class="flex items-center gap-1 text-base">
                 <span class="font-medium">{{
-                    embedMakerStore?.webhook && !message.username ? embedMakerStore?.webhook?.name : message.username
+                    fromDiscord
+                        ? message?.author?.global_name || message?.author?.username
+                        : embedMakerStore?.webhook && !message.username
+                        ? embedMakerStore?.webhook?.name
+                        : message.username
                 }}</span>
                 <span class="rounded-sm bg-tools-discord-blurple px-1 text-[10px] font-medium leading-4 text-white">
                     BOT
                 </span>
-                <span class="ml-1 self-end rounded-md text-xs text-zinc-600 dark:text-zinc-200"> 12/08/2022 </span>
+                <span class="ml-1 self-end rounded-md text-xs text-zinc-600 dark:text-zinc-200">
+                    {{ fromDiscord ? new Date(message.timestamp).toLocaleDateString('fr') : '12/08/2023' }}
+                </span>
             </div>
             <div class="mt-1 flex w-full flex-col gap-1">
                 <ToolsDiscordMarkdown

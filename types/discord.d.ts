@@ -57,6 +57,13 @@ export type DiscordWebhookMessage = {
     embeds: Embed[];
     components: Component[];
     files: FileList | null;
+    author?: {
+        id?: string;
+        username?: string;
+        global_name?: string;
+        avatar?: string;
+    };
+    timestamp?: any;
 };
 
 export type DiscordWebhook = {

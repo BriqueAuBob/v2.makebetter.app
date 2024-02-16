@@ -111,6 +111,39 @@ const recursiveClean = (obj: any) => {
     }
 };
 
+const cleanedMessages = (messages: any, settings: any) => {
+    const { $toast } = useNuxtApp();
+    const clone = structuredClone(toRaw(messages));
+    return clone.map((message: any) => {
+        const cleanedMessage = structuredClone(toRaw(message));
+        if (cleanedMessage?.embeds?.length === 0) {
+            delete cleanedMessage.embeds;
+        }
+        if (cleanedMessage?.components?.[0]?.components?.length === 0) {
+            delete cleanedMessage.components;
+        } else {
+            if (settings.useWebhook || !settings.useCustomBot) {
+                for (const component of cleanedMessage?.components?.[0]?.components) {
+                    if (component?.type !== 5) {
+                        $toast.show({
+                            title: 'Erreur',
+                            message:
+                                'Vous ne pouvez pas modifier le style des boutons avec un webhook ou le bot par défaut !\nNous avons appliqué le style par défaut à la place.',
+                            type: 'danger',
+                            timeout: 7,
+                        });
+                        component.style = 5;
+                        component.url = 'https://makebetter.app';
+                    }
+                }
+            }
+        }
+        cleanedMessage.files = message.files;
+        recursiveClean(cleanedMessage);
+        return cleanedMessage;
+    });
+};
+
 export const useEmbedMakerStore = defineStore({
     id: 'embed-maker',
     state: () =>
@@ -127,40 +160,6 @@ export const useEmbedMakerStore = defineStore({
                 channelSelected: '',
             },
         },
-    getters: {
-        cleanedMessages(state) {
-            const { $toast } = useNuxtApp();
-            const clone = structuredClone(toRaw(state.messages));
-            return clone.map((message: any) => {
-                const cleanedMessage = structuredClone(toRaw(message));
-                if (cleanedMessage?.embeds?.length === 0) {
-                    delete cleanedMessage.embeds;
-                }
-                if (cleanedMessage?.components?.[0]?.components?.length === 0) {
-                    delete cleanedMessage.components;
-                } else {
-                    if (state.settings.useWebhook || !state.settings.useCustomBot) {
-                        for (const component of cleanedMessage?.components?.[0]?.components) {
-                            if (component?.type !== 5) {
-                                $toast.show({
-                                    title: 'Erreur',
-                                    message:
-                                        'Vous ne pouvez pas modifier le style des boutons avec un webhook ou le bot par défaut !\nNous avons appliqué le style par défaut à la place.',
-                                    type: 'danger',
-                                    timeout: 7,
-                                });
-                                component.style = 5;
-                                component.url = 'https://makebetter.app';
-                            }
-                        }
-                    }
-                }
-                cleanedMessage.files = message.files;
-                recursiveClean(cleanedMessage);
-                return cleanedMessage;
-            });
-        },
-    },
     actions: {
         addMessage() {
             this.messages.push(structuredClone(defaultEmptyMessage));
@@ -176,7 +175,8 @@ export const useEmbedMakerStore = defineStore({
             const { $toast } = useNuxtApp();
             const auth = useAuthStore();
 
-            if (!this.cleanedMessages) {
+            const messages = cleanedMessages(this.messages, this.settings);
+            if (!messages) {
                 $toast.show({
                     title: 'Erreur',
                     message: 'Aucun message à envoyer',
@@ -185,7 +185,8 @@ export const useEmbedMakerStore = defineStore({
                 return;
             }
             try {
-                for (const message of this.cleanedMessages) {
+                for (const message of messages) {
+                    console.log('message', message);
                     const formData = new FormData();
                     formData.append('payload_json', JSON.stringify(message));
 
