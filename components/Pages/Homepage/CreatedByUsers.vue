@@ -4,6 +4,7 @@ const saves = data.value?.saves;
 
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === 'dark');
+const localePath = useLocalePath();
 </script>
 
 <template>
@@ -43,8 +44,9 @@ const isDark = computed(() => colorMode.value === 'dark');
             <h1 class="mx-auto text-3xl font-bold">{{ $t('homepage.templates.title') }}</h1>
             <p class="mx-auto mt-3 max-w-xl text-lg font-medium">{{ $t('homepage.templates.description') }}</p>
             <UIButton
-                class="mx-auto mt-8"
+                class="mx-auto mt-8 w-fit"
                 @click="($toast as any).show($t('coming_soon'))"
+                :href="localePath('templates')"
             >
                 {{ $t('homepage.templates.view') }}
             </UIButton>
