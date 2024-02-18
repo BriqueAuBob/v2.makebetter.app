@@ -2,8 +2,9 @@
 const { data } = await useFetchApi<{ saves: any[] }>('/makebetter/tools/saves?page=1');
 const saves = data.value?.saves;
 
-const colorMode = useColorMode();
-const isDark = computed(() => colorMode.value === 'dark');
+const filters = ['Tout', "Créateur d'embed", 'Créateur de badges', "Créateur d'emojis", 'Editeur Markdown'];
+const selectedFilter = ref<string>('Tout');
+const search = ref<string>('');
 </script>
 
 <template>
@@ -19,43 +20,48 @@ const isDark = computed(() => colorMode.value === 'dark');
         </div>
     </header>
     <main class="container py-16">
+        <UIInput
+            v-model="search"
+            placeholder="Rechercher un template"
+            class="mb-3 w-full"
+            icon="search"
+            name="search"
+        />
         <div class="flex gap-2">
             <button
-                v-for="i in 8"
-                :key="i"
-                class="rounded-lg bg-neutral-800 px-4 py-1"
+                v-for="(filter, index) in filters"
+                :key="index"
+                class="rounded-lg px-5 py-2 duration-300 ease-in"
+                :class="selectedFilter === filter ? 'bg-primary-500 text-white' : 'bg-neutral-200 dark:bg-neutral-800'"
+                @click="selectedFilter = filter"
             >
-                {{ i === 1 ? $t('templates.all') : i }}
+                {{ filter }}
             </button>
         </div>
-        <section class="py-8">
-            <h1 class="mb-2 text-lg font-semibold">Templates populaires</h1>
-            <div class="no-scrollbar flex gap-2 overflow-x-auto overflow-y-hidden">
-                <UICard
-                    v-for="save of saves"
-                    :key="save._id"
-                    class="relative max-h-72 max-w-96 shrink-0 overflow-hidden"
-                    noHover
-                >
-                    <template #header>
-                        <div class="flex items-center justify-between px-4 pt-4">
-                            <h3 class="font-semibold">{{ save.name }}</h3>
-                            <span class="flex gap-1 rounded-lg bg-gray-100 px-2 py-2 text-gray-400 dark:bg-neutral-800">
-                                <UIAvatar
-                                    :user="save.author"
-                                    size="xs"
-                                />
-                                {{ save.author.username }}
-                            </span>
-                        </div>
-                    </template>
-                    <ToolsDiscordEmbedMakerPreview
-                        :message="save.data[0]"
-                        :editable="false"
-                        :isDark="isDark"
-                    />
-                </UICard>
-            </div>
-        </section>
+        <PagesTemplatesListHorizontal
+            class="mt-4"
+            title="Templates populaires"
+            :saves="saves"
+        />
+        <div
+            class="mb-4 mt-8 grid grid-cols-3 gap-4 rounded-3xl border-2 border-primary-500 bg-gradient-to-br from-primary-500 to-primary-600 p-6 shadow-lg shadow-primary-200 dark:to-primary-800 dark:shadow-primary-900"
+        >
+            <CardArticle
+                :article="{
+                    title_fr: 'Créer un template',
+                    title_en: 'Create an template',
+                    description_fr: 'Apprenez à créer un embed pour votre serveur Discord',
+                    description_en: 'Learn how to create an embed for your Discord server',
+                    slug_fr: 'creer-un-embed',
+                    slug_en: 'create-an-embed',
+                }"
+            />
+            <UICard class="col-span-2"> </UICard>
+        </div>
+        <PagesTemplatesListHorizontal
+            class="mt-4"
+            title="Templates récents"
+            :saves="saves"
+        />
     </main>
 </template>

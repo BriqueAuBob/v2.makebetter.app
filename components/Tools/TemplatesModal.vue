@@ -90,63 +90,51 @@ const loadSave = async () => {
     emits('load', save);
     modal.value?.setIsOpen(false);
 };
+
+const { t } = useI18n();
+const filters = ['Tout', ...getDiscordMessageSaveTags().map((tag) => t(tag.shouldTranslate))];
+const selectedFilter = ref<string>('Tout');
 </script>
 
 <template>
     <UIModal
         ref="modal"
         size="large"
-        :title="
-            personal
-                ? $t('tools.discord.embed-maker.save.list')
-                : $t('tools.discord.embed-maker.save.templates_community')
-        "
-        :description="
-            personal
-                ? $t('tools.discord.embed-maker.save.list_description')
-                : $t('tools.discord.embed-maker.save.templates_community_description')
-        "
         :okText="
             personal ? $t('tools.discord.embed-maker.save.load') : $t('tools.discord.embed-maker.save.load_template')
         "
         :buttonDisabled="!selected"
         :onApply="loadSave"
+        noPadding
     >
-        <div class="my-6 flex flex-col items-center">
-            <div
-                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 lg:flex-row dark:border-zinc-600 dark:bg-zinc-600 dark:shadow-zinc-800"
+        <div class="mb-4 flex w-full items-center gap-1 border-b px-4 dark:border-zinc-600">
+            <NuxtIcon
+                class="text-2xl"
+                name="search"
+            />
+            <input
+                class="h-full w-full border-none bg-transparent p-2 py-6 outline-none"
+                name="template_name"
+                label="Nom du template"
+                placeholder="Rechercher un template..."
+                :displayLabel="false"
+                v-model="form.search"
+                ref="searchInput"
+                @input="() => debouncedFetchTemplates()"
+            />
+        </div>
+        <div class="no-scrollbar mb-2 flex w-full gap-2 overflow-x-auto border-b px-4 pb-4 dark:border-zinc-700">
+            <button
+                v-for="(filter, index) in filters"
+                :key="index"
+                class="rounded-lg px-5 py-2 duration-300 ease-in"
+                :class="selectedFilter === filter ? 'bg-primary-500 text-white' : 'bg-neutral-200 dark:bg-neutral-800'"
+                @click="selectedFilter = filter"
             >
-                <UIInput
-                    class="h-full w-full"
-                    name="template_name"
-                    label="Nom du template"
-                    placeholder="Rechercher un template"
-                    :displayLabel="false"
-                    v-model="form.search"
-                    ref="searchInput"
-                    @input="() => debouncedFetchTemplates()"
-                />
-                <UISelect
-                    class="h-full w-full lg:w-72"
-                    placeholder="Trier par"
-                    :options="[
-                        { label: 'Publié récemment', value: 'createdAt:-1' },
-                        { label: 'Publié il y a longtemps', value: 'createdAt:1' },
-                        { label: 'Nom (A à Z)', value: 'name:1' },
-                        { label: 'Nom (Z à A)', value: 'name:-1' },
-                    ]"
-                    v-model="form.sort_by"
-                    @change="() => fetchTemplates()"
-                />
-                <UISelect
-                    class="h-full w-full lg:w-56"
-                    placeholder="Tags"
-                    :options="[{ label: 'Tous', value: 'all' }, ...getDiscordMessageSaveTags()]"
-                    v-model="form.tags"
-                    @change="() => fetchTemplates()"
-                    multiple
-                />
-            </div>
+                {{ filter }}
+            </button>
+        </div>
+        <div class="px-4">
             <div
                 class="grid max-h-[60vh] min-h-[50vh] w-full gap-3 overflow-y-auto py-2 lg:grid-cols-2"
                 ref="scrollTemplatesContainer"

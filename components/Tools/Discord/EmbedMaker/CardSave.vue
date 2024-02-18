@@ -29,11 +29,11 @@ const tagsColors: { [key: string]: string } = {
 
 <template>
     <div
-        class="relative h-96 w-full cursor-pointer overflow-hidden rounded-2xl border-2 p-8 duration-300 ease-out lg:w-96"
+        class="relative h-96 w-full cursor-pointer overflow-hidden rounded-2xl border-2 p-8 duration-300 ease-out"
         :class="
             isSelected
                 ? '-translate-y-2 border-primary-500 bg-white shadow-lg shadow-primary-100 dark:bg-primary-800 dark:shadow-zinc-800'
-                : 'border-transparent bg-primary-200 hover:-translate-y-2 hover:bg-gray-100 hover:shadow-md hover:shadow-primary-300 dark:bg-zinc-900 dark:hover:bg-zinc-600 dark:hover:shadow-zinc-700'
+                : 'border-transparent bg-primary-200 hover:-translate-y-2 hover:bg-gray-100 hover:shadow-md hover:shadow-primary-100 dark:bg-zinc-800 dark:hover:bg-zinc-600 dark:hover:shadow-zinc-700'
         "
     >
         <ToolsDiscordEmbedMakerPreview
