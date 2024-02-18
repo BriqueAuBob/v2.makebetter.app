@@ -22,7 +22,7 @@ const isDark = computed(() => colorMode.value === 'dark');
             <UIButton
                 size="sm"
                 color="light"
-                outlined
+                type="secondary"
             >
                 Voir tout les templates
             </UIButton>

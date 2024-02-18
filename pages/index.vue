@@ -67,7 +67,7 @@ useSeoMeta({
                 >
                     <UIButton
                         size="lg"
-                        :outlined="true"
+                        type="secondary"
                         color="light"
                         class="text-sm lg:text-lg"
                     >
