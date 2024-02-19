@@ -9,6 +9,11 @@ export default defineNuxtConfig({
             baseUrl: process.env.API_BASE_URL,
             gitHash: process.env.GIT_SHA,
             authUrl: process.env.AUTH_URL || 'https://auth.umaestro.fr',
+
+            appName: 'MakeBetter',
+            appVersion,
+            authorName: 'Diose',
+            authorUrl: 'https://diose.io',
         },
     },
 

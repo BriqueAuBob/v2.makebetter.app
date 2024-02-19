@@ -118,7 +118,9 @@ watch(
                 "
             >
                 <div class="mb-3 text-2xl font-semibold">Utiliser un bot</div>
-                <p class="text-sm">Utilise le bot MakeBetter ou ton propre bot pour envoyer ton message !</p>
+                <p class="text-sm">
+                    Utilise le bot {{ config.public.appName }} ou ton propre bot pour envoyer ton message !
+                </p>
             </div>
         </div>
         <div
