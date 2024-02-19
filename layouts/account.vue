@@ -36,7 +36,7 @@ const logout = () => {
         id="account"
     >
         <aside
-            class="col-span-3 flex flex-col justify-between rounded-t-2xl border border-zinc-100 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900 lg:col-span-1 lg:rounded-l-2xl"
+            class="col-span-3 flex flex-col justify-between rounded-t-2xl border border-zinc-100 bg-white p-6 lg:col-span-1 lg:rounded-l-2xl lg:rounded-r-none dark:border-zinc-700 dark:bg-zinc-900"
         >
             <ul class="mb-8 flex flex-col gap-3">
                 <li>
@@ -76,7 +76,7 @@ const logout = () => {
             </button>
         </aside>
         <div
-            class="col-span-3 rounded-b-2xl border border-zinc-100 bg-white p-8 dark:border-zinc-700 dark:bg-zinc-900 lg:rounded-r-2xl"
+            class="col-span-3 rounded-b-2xl border border-zinc-100 bg-white p-8 lg:rounded-l-none lg:rounded-r-2xl dark:border-zinc-700 dark:bg-zinc-900"
         >
             <NuxtPage />
         </div>
