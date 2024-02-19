@@ -41,7 +41,9 @@ useSeoMeta({
 <template>
     <header class="relative text-white">
         <div class="rounded-b-[200px] bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 pb-72 pt-44">
-            <span class="text-md mb-3 block text-center font-semibold text-zinc-300 lg:text-xl">
+            <span
+                class="mx-auto mb-3 block w-fit rounded-3xl border-2 border-zinc-300 bg-white/20 px-4 py-2 text-center text-lg font-semibold text-white"
+            >
                 {{ $t('homepage.header.presentation') }}
             </span>
             <h1 class="text-center text-5xl font-black lg:text-7xl xl:text-8xl">

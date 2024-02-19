@@ -17,7 +17,7 @@ const isDark = computed(() => colorMode.value === 'dark');
 
 <template>
     <section>
-        <div class="mb-3 flex items-end justify-between">
+        <div class="flex items-end justify-between">
             <h1 class="text-lg font-semibold">{{ title }}</h1>
             <UIButton
                 size="sm"
@@ -27,12 +27,11 @@ const isDark = computed(() => colorMode.value === 'dark');
                 Voir tout les templates
             </UIButton>
         </div>
-        <div class="no-scrollbar flex gap-2 overflow-x-auto">
+        <div class="no-scrollbar flex gap-2 overflow-x-auto py-3">
             <UICard
                 v-for="save of saves"
                 :key="save._id"
-                class="relative max-h-72 max-w-96 shrink-0 overflow-hidden"
-                noHover
+                class="relative max-h-72 max-w-[375px] shrink-0 overflow-hidden"
             >
                 <template #header>
                     <div class="flex items-center justify-between px-4 pt-4">

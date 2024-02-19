@@ -9,7 +9,7 @@ const search = ref<string>('');
 
 <template>
     <header
-        class="bg-primary-500 bg-cover bg-center bg-no-repeat pb-32 pt-64 text-center text-xl font-semibold"
+        class="bg-primary-500 bg-cover bg-center bg-no-repeat pb-32 pt-52 text-center text-xl font-semibold"
         style="background-image: url('/images/backgrounds/tools.png')"
     >
         <div class="container text-white">
@@ -43,21 +43,6 @@ const search = ref<string>('');
             title="Templates populaires"
             :saves="saves"
         />
-        <div
-            class="mb-4 mt-8 grid grid-cols-3 gap-4 rounded-3xl border-2 border-primary-500 bg-gradient-to-br from-primary-500 to-primary-600 p-6 shadow-lg shadow-primary-200 dark:to-primary-800 dark:shadow-primary-900"
-        >
-            <CardArticle
-                :article="{
-                    title_fr: 'Créer un template',
-                    title_en: 'Create an template',
-                    description_fr: 'Apprenez à créer un embed pour votre serveur Discord',
-                    description_en: 'Learn how to create an embed for your Discord server',
-                    slug_fr: 'creer-un-embed',
-                    slug_en: 'create-an-embed',
-                }"
-            />
-            <UICard class="col-span-2"> </UICard>
-        </div>
         <PagesTemplatesListHorizontal
             class="mt-4"
             title="Templates récents"

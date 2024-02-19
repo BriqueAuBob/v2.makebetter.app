@@ -33,10 +33,6 @@ const localePath = useLocalePath();
                 </div>
             </Vue3Marquee>
         </div>
-        <!-- <div
-            class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-r from-zinc-50 via-transparent to-zinc-50 dark:from-zinc-950 dark:via-transparent dark:to-zinc-950"
-        ></div> -->
-
         <div
             class="absolute left-0 top-0 z-10 h-full w-full bg-gradient-radial from-zinc-50/50 to-zinc-50 dark:from-transparent dark:to-zinc-950"
         ></div>
@@ -45,7 +41,6 @@ const localePath = useLocalePath();
             <p class="mx-auto mt-3 max-w-xl text-lg font-medium">{{ $t('homepage.templates.description') }}</p>
             <UIButton
                 class="mx-auto mt-8 w-fit"
-                @click="($toast as any).show($t('coming_soon'))"
                 :href="localePath('templates')"
             >
                 {{ $t('homepage.templates.view') }}
