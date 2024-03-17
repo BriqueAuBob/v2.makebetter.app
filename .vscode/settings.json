@@ -1,3 +1,4 @@
 {
-    "vue.codeActions.enabled": true
+    "vue.codeActions.enabled": true,
+    "i18n-ally.localesPaths": ["locales"]
 }

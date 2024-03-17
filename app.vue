@@ -13,7 +13,12 @@ const cookie = useCookie('token', {
 onMounted(async () => {
     if (!route.query.code) return;
 
-    const { token, user } = (await $fetchApi(`/auth/user/code?code=${route.query.code}`)) as {
+    const { token, user } = (await $fetchApi(`/auth/code`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${route.query.code}`,
+        },
+    })) as {
         token: any;
         user: any;
     };
