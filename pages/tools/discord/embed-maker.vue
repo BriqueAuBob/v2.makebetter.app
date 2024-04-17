@@ -295,7 +295,7 @@ useSeoMeta({
                                     accept=".json"
                                 />
                             </div>
-                            <div
+                            <!-- <div
                                 class="noise cursor-pointer rounded-3xl border border-zinc-300 bg-gradient-to-bl from-white to-pink-200 p-6 shadow-md duration-300 ease-out hover:-translate-y-1 hover:brightness-105 dark:border-pink-400 dark:from-pink-500 dark:to-pink-950 dark:shadow-pink-900 dark:hover:brightness-125"
                                 @click="
                                     () => {
@@ -311,7 +311,7 @@ useSeoMeta({
                                 <p class="mt-1 text-sm">
                                     {{ $t('tools.global.load.url.description') }}
                                 </p>
-                            </div>
+                            </div> -->
                             <ToolsDiscordEmbedMakerLoadMessageFromUrl ref="loadDiscordMessageModal" />
                         </template>
                     </ToolsLoadSaveTemplate>
