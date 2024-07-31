@@ -51,8 +51,9 @@ const tagsColors: { [key: string]: string } = {
                     <UIAvatar
                         size="xs"
                         :user="template.author"
+                        v-if="template.author"
                     />
-                    {{ template.author.username }}
+                    {{ template?.author?.username }}
                 </div>
                 <nuxt-icon
                     class="icon"

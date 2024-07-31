@@ -12,6 +12,7 @@ const { $toast } = useNuxtApp();
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
+const authStore = useAuthStore();
 
 // Theme switching
 const colorMode = useColorMode();
@@ -250,9 +251,12 @@ defineEmits(['change']);
                 <UIButton
                     size="sm"
                     color="light"
-                    @click="() => {
-                        ($refs.saveModal as UIModalType).setIsOpen(true);
-                    }"
+                    @click="
+                        () => {
+                            ($refs.saveModal as UIModalType).setIsOpen(true);
+                        }
+                    "
+                    :disabled="authStore.user === null"
                 >
                     {{ $t('buttons.save') }}
                 </UIButton>
@@ -401,7 +405,7 @@ defineEmits(['change']);
                     description: formSave.description,
                     tags: formSave.tags,
                     data: embedMakerStore.messages,
-                    author: useAuthStore().user,
+                    author: authStore.user,
                     createdAt: new Date(),
                 }"
             />
