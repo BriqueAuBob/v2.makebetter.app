@@ -27,7 +27,7 @@ const fetchTemplates = async (onScroll: boolean = false) => {
     selected.value = undefined;
     try {
         const { saves, total } = await $fetchApi<{ saves: any[]; total: number }>(
-            '/makebetter/tools/saves?page=' +
+            '/makebetter/saves?page=' +
                 page.value +
                 '&search=' +
                 form.search +
@@ -71,7 +71,7 @@ watch(
         if (!scrollContainer) return;
         scrollContainer.addEventListener('scroll', () => {
             const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-            if (scrollTop + clientHeight >= scrollHeight - 100 && templates.value.length < totalRef.value) {
+            if (scrollTop + clientHeight >= scrollHeight - 100 && templates.value?.length < totalRef.value) {
                 if (loading.value) return;
                 page.value++;
                 fetchTemplates(true);
@@ -85,7 +85,7 @@ const debouncedFetchTemplates = useDebounce(300, fetchTemplates);
 const emits = defineEmits(['load']);
 const loadSave = async () => {
     if (!selected.value) return;
-    const { save } = await $fetchApi<{ save: any }>('/makebetter/tools/saves/' + selected.value);
+    const { save } = await $fetchApi<{ save: any }>('/makebetter/saves/' + selected.value);
     if (!save) return;
     emits('load', save);
     modal.value?.setIsOpen(false);
@@ -139,7 +139,7 @@ const selectedFilter = ref<string>('Tout');
                 class="grid max-h-[60vh] min-h-[50vh] w-full gap-3 overflow-y-auto py-2 lg:grid-cols-2"
                 ref="scrollTemplatesContainer"
                 v-loading="loading"
-                v-if="templates.length > 0 || loading"
+                v-if="templates?.length > 0 || loading"
             >
                 <TransitionGroup
                     name="fadescale"

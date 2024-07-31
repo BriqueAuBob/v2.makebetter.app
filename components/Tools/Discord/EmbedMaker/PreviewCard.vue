@@ -66,7 +66,7 @@ const formSave = reactive({
 });
 
 const saveMessages = async () => {
-    useFetchApi('/makebetter/tools/saves', {
+    useFetchApi('/makebetter/saves', {
         method: 'POST',
         body: {
             type: 'discord_embed',
@@ -104,7 +104,7 @@ const saveMessages = async () => {
 };
 
 const updateMessages = async () => {
-    useFetchApi('/makebetter/tools/saves/' + route?.query?.id, {
+    useFetchApi('/makebetter/saves/' + route?.query?.id, {
         method: 'PUT',
         body: {
             type: 'discord_embed',
@@ -195,7 +195,7 @@ defineEmits(['change']);
                     />
                 </button>
             </div>
-            <div class="flex items-center justify-between border-b px-8 pb-8 dark:border-b-zinc-800 lg:pt-8">
+            <div class="flex items-center justify-between border-b px-8 pb-8 lg:pt-8 dark:border-b-zinc-800">
                 <div>
                     <h3 class="mb-1 text-lg">Prévisualisation</h3>
                     <p class="text-sm text-zinc-600">Vois à quoi ressemblera ton embed !</p>

@@ -13,9 +13,7 @@ const route = useRoute();
 const open = async () => {
     modal.value?.setIsOpen(true);
     usersRef.value = [];
-    const { permissions } = await $fetchApi<{ permissions: any[] }>(
-        `/makebetter/tools/saves/${route.query.id}/permissions`
-    );
+    const { permissions } = await $fetchApi<{ permissions: any[] }>(`/makebetter/saves/${route.query.id}/permissions`);
     permissionsRef.value = permissions;
 };
 
@@ -54,7 +52,7 @@ const savePermissions = async () => {
         userId: p.user.id,
         permission: p.permission,
     }));
-    await $fetchApi(`/makebetter/tools/saves/${route.query.id}/permissions`, {
+    await $fetchApi(`/makebetter/saves/${route.query.id}/permissions`, {
         method: 'PUT',
         body: {
             permissions,

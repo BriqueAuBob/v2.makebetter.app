@@ -78,7 +78,7 @@ const onLeavePage = () => {
 onMounted(async () => {
     if (route.query.id) {
         try {
-            // const { save } = await $fetchApi<{ save: any }>(`/makebetter/tools/saves/${route.query.id}`);
+            // const { save } = await $fetchApi<{ save: any }>(`/makebetter/saves/${route.query.id}`);
             // if (save?.permissions?.length > 0) {
             socket.value = useSocket(route.query.id as string);
             // }

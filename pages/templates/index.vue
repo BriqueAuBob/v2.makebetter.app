@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = await useFetchApi<{ saves: any[] }>('/makebetter/tools/saves?page=1');
+const { data } = await useFetchApi<{ saves: any[] }>('/makebetter/saves?page=1');
 const saves = data.value?.saves;
 
 const filters = ['Tout', "Créateur d'embed", 'Créateur de badges', "Créateur d'emojis", 'Editeur Markdown'];
