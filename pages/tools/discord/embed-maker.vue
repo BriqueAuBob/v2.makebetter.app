@@ -335,7 +335,7 @@ useSeoMeta({
                         <Transition name="fade">
                             <div
                                 v-if="!hasEditPermission"
-                                class="absolute top-0 z-[100] h-full w-full scale-105 rounded-3xl border-2 bg-primary-100/75 py-32 text-center text-lg font-semibold backdrop-blur-sm"
+                                class="absolute top-0 z-[100] h-full w-full scale-105 rounded-3xl border-2 bg-primary-100/75 py-32 text-center text-lg font-semibold backdrop-blur-sm dark:border-neutral-600 dark:bg-neutral-800/75"
                             >
                                 <div
                                     class="mx-auto w-fit scale-95 rounded-xl border border-dashed border-primary-500 bg-primary-500/50 px-6 py-4 text-white backdrop-blur-sm"
