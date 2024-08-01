@@ -119,7 +119,7 @@ const rulesNew = {
             type: 'list',
             ordered: false,
             start: capture[1],
-            items: capture[0].replace(/^ *([*+-]|\d+[.)]) +/, '').split(/\n(?=\1?(?:[*+-]|\d+[.)]))/),
+            items: capture[0].replace(/^ *([*+-]|\d+[.)]) +/, '').split(/\n(?=\?(?:[*+-]|\d+[.)]))/),
         }),
     },
     everyone: {

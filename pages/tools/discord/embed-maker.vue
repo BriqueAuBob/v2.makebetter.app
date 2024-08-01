@@ -261,13 +261,13 @@ useSeoMeta({
                             embedMakerStore.messages = e.data;
                             embedMakerStore.editingSave = {...e, data: null};
                             if(!e.is_public) {
-                                $router.push({
+                                router.push({
                                     query: {
                                         id: e.id,
                                     }
                                 })
                             } else {
-								$router.push({
+								router.push({
 									query: {
 										id: undefined,
 									}
