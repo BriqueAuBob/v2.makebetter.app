@@ -19,7 +19,7 @@ const localePath = useLocalePath();
             >
                 <div
                     v-for="save of saves"
-                    :key="save._id"
+                    :key="save.id"
                     class="relative m-2 max-h-72 w-96 overflow-hidden"
                 >
                     <ToolsDiscordEmbedMakerPreview

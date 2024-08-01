@@ -30,7 +30,7 @@ const isDark = computed(() => colorMode.value === 'dark');
         <div class="no-scrollbar flex gap-2 overflow-x-auto py-3">
             <UICard
                 v-for="save of saves"
-                :key="save._id"
+                :key="save.id"
                 class="relative max-h-72 max-w-[375px] shrink-0 overflow-hidden"
             >
                 <template #header>

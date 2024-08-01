@@ -85,7 +85,7 @@ const debouncedFetchTemplates = useDebounce(300, fetchTemplates);
 const emits = defineEmits(['load']);
 const loadSave = async () => {
     if (!selected.value) return;
-    const { save } = await $fetchApi<{ save: any }>('/makebetter/saves/' + selected.value);
+    const save = await $fetchApi<any>('/makebetter/saves/' + selected.value);
     if (!save) return;
     emits('load', save);
     modal.value?.setIsOpen(false);
@@ -147,10 +147,10 @@ const selectedFilter = ref<string>('Tout');
                 >
                     <ToolsDiscordEmbedMakerCardSave
                         v-for="template in templates"
-                        :key="template._id"
+                        :key="template.id"
                         :template="template"
-                        @click="selected = template._id"
-                        :isSelected="selected === template._id"
+                        @click="selected = template.id"
+                        :isSelected="selected === template.id"
                     />
                 </TransitionGroup>
             </div>

@@ -83,7 +83,7 @@ const saveMessages = async () => {
             embedMakerStore.editingSave = res?.data?.value;
             router.push({
                 query: {
-                    id: res?.data?.value?._id,
+                    id: res?.data?.value?.id,
                 },
             });
             $toast.show({
