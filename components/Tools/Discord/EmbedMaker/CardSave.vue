@@ -73,7 +73,7 @@ const tagsColors: { [key: string]: string } = {
                     </div>
                     <div class="mt-2 flex items-center justify-between">
                         <span class="text-xs font-medium text-zinc-500"
-                            >Créé le {{ new Date(template.createdAt).toLocaleDateString() }}</span
+                            >Créé le {{ new Date(template.created_at).toLocaleDateString() }}</span
                         >
                         <div class="flex flex-wrap items-center justify-end gap-1">
                             <span

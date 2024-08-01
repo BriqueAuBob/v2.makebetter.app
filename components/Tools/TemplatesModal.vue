@@ -26,7 +26,7 @@ const fetchTemplates = async (onScroll: boolean = false) => {
     loading.value = true;
     selected.value = undefined;
     try {
-        const { saves, total } = await $fetchApi<{ saves: any[]; total: number }>(
+        const { data: saves, total } = await $fetchApi<{ data: any[]; total: number }>(
             '/makebetter/saves?page=' +
                 page.value +
                 '&search=' +
