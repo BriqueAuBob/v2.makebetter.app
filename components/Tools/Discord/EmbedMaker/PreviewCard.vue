@@ -2,6 +2,7 @@
 import draggable from 'vuedraggable';
 import { useEmbedMakerStore } from '~/stores/embed-maker';
 import { useAuthStore } from '~/stores/auth';
+import type { Tag } from '~/types/api_response';
 
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
@@ -62,9 +63,13 @@ const saveModal = ref<UIModalType>();
 const formSave = reactive({
     name: '',
     description: '',
-    tags: [] as string[],
+    tags: [] as Tag[],
     isPublic: false,
 });
+
+const parseTags = (tags: Tag[]) => {
+    return tags.map((tag) => tag.id);
+};
 
 const saveMessages = async () => {
     useFetchApi('/makebetter/saves', {
@@ -73,7 +78,7 @@ const saveMessages = async () => {
             type: 'discord_embed',
             name: formSave.name,
             description: formSave.description,
-            tags: formSave.tags,
+            tags: parseTags(formSave.tags),
             data: embedMakerStore.messages,
             isPublic: formSave.isPublic,
         },
@@ -111,7 +116,7 @@ const updateMessages = async () => {
             type: 'discord_embed',
             name: formSave.name,
             description: formSave.description,
-            tags: formSave.tags,
+            tags: parseTags(formSave.tags),
             data: embedMakerStore.messages,
             isPublic: formSave.isPublic,
         },
@@ -159,6 +164,15 @@ onMounted(() => {
 });
 
 defineEmits(['change']);
+
+const filters = ref<any[]>([]);
+onMounted(async () => {
+    const tags = await getDiscordMessageSaveTags();
+    filters.value = tags.map((tag) => ({
+        value: tag,
+        label: tag.name,
+    }));
+});
 </script>
 
 <template>
@@ -196,7 +210,7 @@ defineEmits(['change']);
                     />
                 </button>
             </div>
-            <div class="flex items-center justify-between border-b px-8 pb-8 lg:pt-8 dark:border-b-zinc-800">
+            <div class="flex items-center justify-between border-b px-8 pb-8 dark:border-b-zinc-800 lg:pt-8">
                 <div>
                     <h3 class="mb-1 text-lg">Prévisualisation</h3>
                     <p class="text-sm text-zinc-600">Vois à quoi ressemblera ton embed !</p>
@@ -388,7 +402,7 @@ defineEmits(['change']);
                 <UISelect
                     v-model="formSave.tags"
                     placeholder="Tags"
-                    :options="getDiscordMessageSaveTags()"
+                    :options="filters"
                     name="tags"
                     label="Tags"
                     multiple

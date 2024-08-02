@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Tag } from '~/types/api_response';
+
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
     isOpen: Ref<boolean>;
@@ -92,8 +94,13 @@ const loadSave = async () => {
 };
 
 const { t } = useI18n();
-const filters = ['Tout', ...getDiscordMessageSaveTags().map((tag) => t(tag.shouldTranslate))];
+const filters = ref(['Tout']);
 const selectedFilter = ref<string>('Tout');
+
+onMounted(async () => {
+    const tags = await getDiscordMessageSaveTags();
+    filters.value = ['Tout', ...tags.map((tag: Tag) => tag.name)];
+});
 </script>
 
 <template>
@@ -124,6 +131,7 @@ const selectedFilter = ref<string>('Tout');
             />
         </div>
         <div class="no-scrollbar mb-2 flex w-full gap-2 overflow-x-auto border-b px-4 pb-4 dark:border-zinc-700">
+            {{ filters }}
             <button
                 v-for="(filter, index) in filters"
                 :key="index"

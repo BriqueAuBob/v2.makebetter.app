@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import type { DiscordWebhookMessage } from '~/types/discord';
 import { _primary } from '#tailwind-config/theme/colors';
 import { useAuthStore } from './auth';
+import type { Tag } from '~/types/api_response';
 
 const defaultMessage: DiscordWebhookMessage = {
     username: 'MakeBetter',
@@ -87,7 +88,7 @@ type EmbedMakerState = {
               permissions: string[];
               name: string;
               description: string;
-              tags: string[];
+              tags: Tag[];
               isPublic: boolean;
           };
 };

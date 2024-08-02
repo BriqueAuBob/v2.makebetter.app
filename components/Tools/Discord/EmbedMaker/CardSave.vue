@@ -15,16 +15,6 @@ defineProps({
 
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === 'dark');
-
-const tagsColors: { [key: string]: string } = {
-    rules: _red[500],
-    presentation: _primary[400],
-    french: '#082A98',
-    english: '#EC2329',
-    commands: '#333333',
-    tickets: _green[600],
-    announcements: _yellow[600],
-};
 </script>
 
 <template>
@@ -80,9 +70,9 @@ const tagsColors: { [key: string]: string } = {
                                 v-for="(tag, id) of template.tags"
                                 :key="id"
                                 class="rounded-lg px-2 py-1 text-xs font-semibold text-white shadow-md"
-                                :style="`background: ${tagsColors[tag]};`"
+                                :style="`background: ${tag.color};`"
                             >
-                                {{ $t('tools.discord.embed-maker.save.tags.' + tag) }}
+                                {{ tag.name }}
                             </span>
                         </div>
                     </div>
