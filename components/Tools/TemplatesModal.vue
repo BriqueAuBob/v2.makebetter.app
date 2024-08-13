@@ -35,8 +35,12 @@ const fetchTemplates = async (onScroll: boolean = false) => {
                 form.search +
                 '&sort_by=' +
                 form.sort_by +
-                '&tags=' +
-                form.tags +
+                (form.tags?.length > 0
+                    ? form.tags
+                          .filter((tag) => tag.id !== allTag.id)
+                          .map((tag) => '&tags.id[]=' + tag.id)
+                          .join('')
+                    : '') +
                 (personal.value ? '&personal=true' : '')
         );
         templates.value = onScroll ? [...templates.value, ...saves] : saves;
@@ -51,17 +55,26 @@ const fetchTemplates = async (onScroll: boolean = false) => {
     }
 };
 
+const allTag = {
+    id: 0,
+    name: 'Tout',
+    color: '#F20F20',
+    locale: 'fr',
+    type: '',
+    created_at: '',
+    updated_at: '',
+};
 const loading = ref<boolean>(false);
 const selected = ref<string>();
 const page = ref<number>(1);
 const form = reactive<{
     search: string;
     sort_by: string;
-    tags: string[];
+    tags: Tag[];
 }>({
     search: '',
     sort_by: '',
-    tags: [],
+    tags: [allTag],
 });
 const templates = ref<any[]>([]);
 const scrollTemplatesContainer = ref<HTMLDivElement>();
@@ -94,13 +107,25 @@ const loadSave = async () => {
 };
 
 const { t } = useI18n();
-const filters = ref(['Tout']);
-const selectedFilter = ref<string>('Tout');
+const filters = ref<Tag[]>([]);
 
 onMounted(async () => {
     const tags = await getDiscordMessageSaveTags();
-    filters.value = ['Tout', ...tags.map((tag: Tag) => tag.name)];
+    filters.value = [allTag, ...tags];
 });
+
+const toggleTag = (tag: Tag) => {
+    if (tag.id === allTag.id) {
+        form.tags = [allTag];
+    } else {
+        if (tag.id === allTag.id) {
+            form.tags = [allTag];
+        } else if (form.tags.find((f) => f.id === allTag.id)) {
+            form.tags = [tag];
+        }
+    }
+    fetchTemplates(false);
+};
 </script>
 
 <template>
@@ -131,15 +156,22 @@ onMounted(async () => {
             />
         </div>
         <div class="no-scrollbar mb-2 flex w-full gap-2 overflow-x-auto border-b px-4 pb-4 dark:border-zinc-700">
-            {{ filters }}
             <button
                 v-for="(filter, index) in filters"
                 :key="index"
                 class="rounded-lg px-5 py-2 duration-300 ease-in"
-                :class="selectedFilter === filter ? 'bg-primary-500 text-white' : 'bg-neutral-200 dark:bg-neutral-800'"
-                @click="selectedFilter = filter"
+                :class="
+                    form.tags.find((f) => filter.id === f.id)
+                        ? 'bg-primary-500 text-white'
+                        : 'bg-neutral-200 dark:bg-neutral-800'
+                "
+                @click="
+                    () => {
+                        toggleTag(filter);
+                    }
+                "
             >
-                {{ filter }}
+                {{ filter.name }}
             </button>
         </div>
         <div class="px-4">
