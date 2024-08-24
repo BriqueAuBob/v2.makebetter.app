@@ -22,7 +22,7 @@ const form = reactive({
 });
 
 const searchUsers = async () => {
-    const { users } = await $fetchApi<{ users: any[] }>(`/users?search=${form.search}`);
+    const { data: users } = await $fetchApi<{ data: any[] }>(`/users?search=${form.search}`);
     usersRef.value = users.filter((u) => !permissionsRef.value.find((p) => p.user.id === u.id));
 };
 
