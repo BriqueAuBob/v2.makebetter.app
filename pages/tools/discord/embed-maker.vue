@@ -78,19 +78,19 @@ const onLeavePage = () => {
 onMounted(async () => {
     if (route.query.id) {
         try {
-            // const { save } = await $fetchApi<{ save: any }>(`/makebetter/saves/${route.query.id}`);
-            // if (save?.permissions?.length > 0) {
-            socket.value = useSocket(route.query.id as string);
-            // }
-            // embedMakerStore.editingSave = save;
-            // embedMakerStore.messages = save.data;
+            const save = await $fetchApi<any>(`/makebetter/saves/${route.query.id}`);
+            if (save?.members?.length > 0) {
+                socket.value = useSocket(route.query.id as string);
+            }
+            embedMakerStore.editingSave = save;
+            embedMakerStore.messages = save?.data;
         } catch (err) {
-            console.log(err);
-            // await router.push({
-            //     query: {
-            //         id: undefined,
-            //     },
-            // });
+            console.log('error', err);
+            await router.push({
+                query: {
+                    id: undefined,
+                },
+            });
         }
     }
     window.onunload = onLeavePage;
@@ -135,13 +135,13 @@ const hasEditPermission = computed(
     () =>
         !route.query.id ||
         !embedMakerStore.editingSave ||
-        embedMakerStore.editingSave?.authorId === authStore?.user?.id ||
+        embedMakerStore.editingSave?.author_id === authStore?.user?.id ||
         (permissions?.value?.length > 0
             ? permissions?.value?.find(
-                  (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
+                  (p: any) => p.user_id === authStore?.user?.id && (p.role === 'edit' || p.role === 'admin')
               )
-            : embedMakerStore.editingSave?.permissions?.find(
-                  (p: any) => p.userId === authStore?.user?.id && (p.permission === 'edit' || p.permission === 'admin')
+            : embedMakerStore.editingSave?.members?.find(
+                  (p: any) => p.user_id === authStore?.user?.id && (p.role === 'edit' || p.role === 'admin')
               ))
 );
 

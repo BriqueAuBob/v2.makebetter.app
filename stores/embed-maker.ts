@@ -84,8 +84,8 @@ type EmbedMakerState = {
     editingSave:
         | false
         | {
-              authorId: number;
-              permissions: string[];
+              author_id: number;
+              members: string[];
               name: string;
               description: string;
               tags: Tag[];

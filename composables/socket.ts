@@ -14,7 +14,12 @@ const useSocket = (sessionId: string) => {
         transports: ['websocket'],
         query: {
             sessionId,
-            token: cookie.value,
+        },
+        extraHeaders: {
+            Authorization: `Bearer ${cookie.value}`,
+        },
+        auth: {
+            token: 'Bearer ' + cookie.value,
         },
     });
 
@@ -38,7 +43,7 @@ const useSocket = (sessionId: string) => {
     });
 
     window.addEventListener('mousemove', (e: MouseEvent) => {
-        socket.emit('mousemove', {
+        socket.emit('collaboration:cursor:move', {
             x: e.pageX,
             y: e.pageY,
         });
