@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
         const token = cookie.value;
         if (token) {
             try {
-                const { user } = await $fetchApi<{ user: any }>(`/auth/user`, {
+                const { user } = await $fetchApi<{ user: any }>(`/users/@me`, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,

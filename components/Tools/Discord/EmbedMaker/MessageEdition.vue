@@ -136,6 +136,7 @@ const emitUpdate = () => {
                     v-for="(embed, embedId) in message.embeds"
                     :key="embedId"
                     delete
+                    @delete="() => message.embeds?.splice(embedId, 1)"
                 >
                     <UICollapse
                         :title="$t('tools.discord.embed-maker.steps.embed.author')"
@@ -448,7 +449,7 @@ const emitUpdate = () => {
                 </UIButton>
             </ToolsCardCollapsible>
             <NuxtLink
-                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-zinc-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800 lg:flex-row lg:items-center lg:justify-start lg:gap-8 lg:p-10"
+                class="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-between rounded-3xl border-2 border-dashed border-zinc-100 bg-opacity-90 bg-gradient-to-br from-white to-primary-100 p-6 font-semibold backdrop-blur-md lg:flex-row lg:items-center lg:justify-start lg:gap-8 lg:p-10 dark:border-zinc-700 dark:from-zinc-900 dark:to-zinc-800"
                 v-if="!embedMakerStore?.webhook?.application_id && embedMakerStore?.settings?.useWebhook"
                 to="#"
             >

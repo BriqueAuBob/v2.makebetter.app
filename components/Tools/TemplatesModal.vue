@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Tag } from '~/types/api_response';
+
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
     isOpen: Ref<boolean>;
@@ -26,15 +28,19 @@ const fetchTemplates = async (onScroll: boolean = false) => {
     loading.value = true;
     selected.value = undefined;
     try {
-        const { saves, total } = await $fetchApi<{ saves: any[]; total: number }>(
-            '/makebetter/tools/saves?page=' +
+        const { data: saves, total } = await $fetchApi<{ data: any[]; total: number }>(
+            '/makebetter/saves?page=' +
                 page.value +
                 '&search=' +
                 form.search +
                 '&sort_by=' +
                 form.sort_by +
-                '&tags=' +
-                form.tags +
+                (form.tags?.length > 0
+                    ? form.tags
+                          .filter((tag) => tag.id !== allTag.id)
+                          .map((tag) => '&tags.id[]=' + tag.id)
+                          .join('')
+                    : '') +
                 (personal.value ? '&personal=true' : '')
         );
         templates.value = onScroll ? [...templates.value, ...saves] : saves;
@@ -49,17 +55,26 @@ const fetchTemplates = async (onScroll: boolean = false) => {
     }
 };
 
+const allTag = {
+    id: 0,
+    name: 'Tout',
+    color: '#F20F20',
+    locale: 'fr',
+    type: '',
+    created_at: '',
+    updated_at: '',
+};
 const loading = ref<boolean>(false);
 const selected = ref<string>();
 const page = ref<number>(1);
 const form = reactive<{
     search: string;
     sort_by: string;
-    tags: string[];
+    tags: Tag[];
 }>({
     search: '',
     sort_by: '',
-    tags: [],
+    tags: [allTag],
 });
 const templates = ref<any[]>([]);
 const scrollTemplatesContainer = ref<HTMLDivElement>();
@@ -71,7 +86,7 @@ watch(
         if (!scrollContainer) return;
         scrollContainer.addEventListener('scroll', () => {
             const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-            if (scrollTop + clientHeight >= scrollHeight - 100 && templates.value.length < totalRef.value) {
+            if (scrollTop + clientHeight >= scrollHeight - 100 && templates.value?.length < totalRef.value) {
                 if (loading.value) return;
                 page.value++;
                 fetchTemplates(true);
@@ -85,10 +100,31 @@ const debouncedFetchTemplates = useDebounce(300, fetchTemplates);
 const emits = defineEmits(['load']);
 const loadSave = async () => {
     if (!selected.value) return;
-    const { save } = await $fetchApi<{ save: any }>('/makebetter/tools/saves/' + selected.value);
+    const save = await $fetchApi<any>('/makebetter/saves/' + selected.value);
     if (!save) return;
     emits('load', save);
     modal.value?.setIsOpen(false);
+};
+
+const { t } = useI18n();
+const filters = ref<Tag[]>([]);
+
+onMounted(async () => {
+    const tags = await getDiscordMessageSaveTags();
+    filters.value = [allTag, ...tags];
+});
+
+const toggleTag = (tag: Tag) => {
+    if (tag.id === allTag.id) {
+        form.tags = [allTag];
+    } else {
+        if (tag.id === allTag.id) {
+            form.tags = [allTag];
+        } else if (form.tags.find((f) => f.id === allTag.id)) {
+            form.tags = [tag];
+        }
+    }
+    fetchTemplates(false);
 };
 </script>
 
@@ -96,62 +132,54 @@ const loadSave = async () => {
     <UIModal
         ref="modal"
         size="large"
-        :title="
-            personal
-                ? $t('tools.discord.embed-maker.save.list')
-                : $t('tools.discord.embed-maker.save.templates_community')
-        "
-        :description="
-            personal
-                ? $t('tools.discord.embed-maker.save.list_description')
-                : $t('tools.discord.embed-maker.save.templates_community_description')
-        "
         :okText="
             personal ? $t('tools.discord.embed-maker.save.load') : $t('tools.discord.embed-maker.save.load_template')
         "
         :buttonDisabled="!selected"
         :onApply="loadSave"
+        noPadding
     >
-        <div class="my-6 flex flex-col items-center">
-            <div
-                class="mb-4 flex w-full flex-col items-center gap-1 rounded-2xl border border-primary-300 bg-primary-200 bg-opacity-25 p-2 shadow-lg shadow-primary-50 lg:flex-row dark:border-zinc-600 dark:bg-zinc-600 dark:shadow-zinc-800"
+        <div class="mb-4 flex w-full items-center gap-1 border-b px-4 dark:border-zinc-600">
+            <NuxtIcon
+                class="text-2xl"
+                name="search"
+            />
+            <input
+                class="h-full w-full border-none bg-transparent p-2 py-6 outline-none"
+                name="template_name"
+                label="Nom du template"
+                placeholder="Rechercher un template..."
+                :displayLabel="false"
+                v-model="form.search"
+                ref="searchInput"
+                @input="() => debouncedFetchTemplates()"
+            />
+        </div>
+        <div class="no-scrollbar mb-2 flex w-full gap-2 overflow-x-auto border-b px-4 pb-4 dark:border-zinc-700">
+            <button
+                v-for="(filter, index) in filters"
+                :key="index"
+                class="rounded-lg px-5 py-2 duration-300 ease-in"
+                :class="
+                    form.tags.find((f) => filter.id === f.id)
+                        ? 'bg-primary-500 text-white'
+                        : 'bg-neutral-200 dark:bg-neutral-800'
+                "
+                @click="
+                    () => {
+                        toggleTag(filter);
+                    }
+                "
             >
-                <UIInput
-                    class="h-full w-full"
-                    name="template_name"
-                    label="Nom du template"
-                    placeholder="Rechercher un template"
-                    :displayLabel="false"
-                    v-model="form.search"
-                    ref="searchInput"
-                    @input="() => debouncedFetchTemplates()"
-                />
-                <UISelect
-                    class="h-full w-full lg:w-72"
-                    placeholder="Trier par"
-                    :options="[
-                        { label: 'Publié récemment', value: 'createdAt:-1' },
-                        { label: 'Publié il y a longtemps', value: 'createdAt:1' },
-                        { label: 'Nom (A à Z)', value: 'name:1' },
-                        { label: 'Nom (Z à A)', value: 'name:-1' },
-                    ]"
-                    v-model="form.sort_by"
-                    @change="() => fetchTemplates()"
-                />
-                <UISelect
-                    class="h-full w-full lg:w-56"
-                    placeholder="Tags"
-                    :options="[{ label: 'Tous', value: 'all' }, ...getDiscordMessageSaveTags()]"
-                    v-model="form.tags"
-                    @change="() => fetchTemplates()"
-                    multiple
-                />
-            </div>
+                {{ filter.name }}
+            </button>
+        </div>
+        <div class="px-4">
             <div
                 class="grid max-h-[60vh] min-h-[50vh] w-full gap-3 overflow-y-auto py-2 lg:grid-cols-2"
                 ref="scrollTemplatesContainer"
                 v-loading="loading"
-                v-if="templates.length > 0 || loading"
+                v-if="templates?.length > 0 || loading"
             >
                 <TransitionGroup
                     name="fadescale"
@@ -159,10 +187,10 @@ const loadSave = async () => {
                 >
                     <ToolsDiscordEmbedMakerCardSave
                         v-for="template in templates"
-                        :key="template._id"
+                        :key="template.id"
                         :template="template"
-                        @click="selected = template._id"
-                        :isSelected="selected === template._id"
+                        @click="selected = template.id"
+                        :isSelected="selected === template.id"
                     />
                 </TransitionGroup>
             </div>

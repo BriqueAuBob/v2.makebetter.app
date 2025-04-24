@@ -13,10 +13,8 @@ const route = useRoute();
 const open = async () => {
     modal.value?.setIsOpen(true);
     usersRef.value = [];
-    const { permissions } = await $fetchApi<{ permissions: any[] }>(
-        `/makebetter/tools/saves/${route.query.id}/permissions`
-    );
-    permissionsRef.value = permissions;
+    const members = await $fetchApi<any[]>(`/makebetter/saves/${route.query.id}/members`);
+    permissionsRef.value = members;
 };
 
 const form = reactive({
@@ -24,7 +22,7 @@ const form = reactive({
 });
 
 const searchUsers = async () => {
-    const { users } = await $fetchApi<{ users: any[] }>(`/users?search=${form.search}`);
+    const { data: users } = await $fetchApi<{ data: any[] }>(`/users?search=${form.search}`);
     usersRef.value = users.filter((u) => !permissionsRef.value.find((p) => p.user.id === u.id));
 };
 
@@ -44,28 +42,30 @@ const onEnter = async (user: any) => {
     if (permissionsRef.value.find((p) => p.user.id === user.id)) return;
     permissionsRef.value.push({
         user,
-        permission: 'view',
+        role: 'view',
     });
 };
 
 const emits = defineEmits(['change']);
 const savePermissions = async () => {
-    const permissions = permissionsRef.value.map((p) => ({
-        userId: p.user.id,
-        permission: p.permission,
-    }));
-    await $fetchApi(`/makebetter/tools/saves/${route.query.id}/permissions`, {
+    const members = permissionsRef.value
+        .map((p) => ({
+            userId: p.user.id,
+            role: p.role,
+        }))
+        .filter((p) => p.role !== 'none');
+    await $fetchApi(`/makebetter/saves/${route.query.id}/members`, {
         method: 'PUT',
         body: {
-            permissions,
+            members,
         },
     });
     modal.value?.setIsOpen(false);
-    emits('change', permissions);
+    emits('change', members);
 };
 
 const isOwner = computed(() => {
-    return permissionsRef.value.find((p) => p.user.id === useAuthStore()?.user?.id)?.permission === 'admin';
+    return permissionsRef.value.find((p) => p.user.id === useAuthStore()?.user?.id)?.role === 'admin';
 });
 </script>
 
@@ -101,7 +101,7 @@ const isOwner = computed(() => {
                     <nuxt-icon
                         name="star"
                         class="icon sm ml-2 text-yellow-500"
-                        v-if="permission.permission === 'admin'"
+                        v-if="permission.role === 'admin'"
                     />
                 </div>
                 <UISelect
@@ -110,8 +110,8 @@ const isOwner = computed(() => {
                         { label: $t('tools.global.collaboration.permissions.edit'), value: 'edit' },
                         { label: $t('tools.global.collaboration.permissions.none'), value: 'none' },
                     ]"
-                    v-model="permission.permission"
-                    v-if="permission.permission !== 'admin' && isOwner"
+                    v-model="permission.role"
+                    v-if="permission.role !== 'admin' && isOwner"
                     color="white"
                     class="w-32"
                 />
@@ -119,7 +119,7 @@ const isOwner = computed(() => {
                     v-else
                     class="rounded-lg bg-white px-2 py-1 text-center text-sm font-semibold text-yellow-500"
                 >
-                    {{ $t('tools.global.collaboration.permissions.' + permission.permission) }}
+                    {{ $t('tools.global.collaboration.permissions.' + permission.role) }}
                 </div>
             </div>
         </div>

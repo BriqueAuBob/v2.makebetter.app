@@ -59,7 +59,7 @@ const goBack = () => {
                         <UIButton
                             class="mt-8"
                             color="light"
-                            outlined
+                            type="secondary"
                             @click="goBack"
                         >
                             Revenir en arrière

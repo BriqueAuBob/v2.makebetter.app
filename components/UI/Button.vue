@@ -18,9 +18,9 @@ const props = defineProps({
         type: String as () => ButtonSize,
         default: 'md',
     },
-    outlined: {
-        type: Boolean,
-        default: false,
+    type: {
+        type: String as () => 'primary' | 'secondary' | 'tertiary' | 'link',
+        default: 'primary',
     },
     color: {
         type: String as () => ButtonColor,
@@ -49,7 +49,7 @@ const sizeClasses = computed(
         }[props.size])
 );
 const colorsClasses = computed(() => {
-    switch (props.outlined) {
+    switch (props.type === 'secondary' || props.type === 'tertiary') {
         case true:
             return (
                 {
@@ -121,7 +121,7 @@ const component = computed(() => {
             color !== 'transparent' && 'border-2',
             !(disabled || fake || color === 'transparent') &&
                 'hover:-translate-y-1 group-hover:-translate-y-1 ' + hoverClasses,
-            color !== 'transparent' && !props.outlined && !fake && 'shadow-sm hover:shadow-lg',
+            color !== 'transparent' && props.type !== 'secondary' && !fake && 'shadow-sm hover:shadow-lg',
         ]"
         :disabled="disabled || fake"
     >

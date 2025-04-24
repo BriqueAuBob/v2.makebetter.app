@@ -16,7 +16,7 @@ async function changeLocale() {
     <footer class="bg-footer bg-cover bg-center bg-no-repeat pb-16 pt-24 text-white shadow-top2xl shadow-primary-500">
         <div class="container grid gap-16 lg:grid-cols-5">
             <div class="col-span-2">
-                <h1 class="text-2xl font-bold">MakeBetter</h1>
+                <h1 class="text-2xl font-bold">{{ config.public.appName }}</h1>
                 <p class="mb-1 mt-4">{{ $t('footer.description') }}</p>
                 <i class="text-sm font-semibold text-zinc-400">
                     {{ $t('footer.not_affiliated') }}
@@ -90,7 +90,7 @@ async function changeLocale() {
                 <h1 class="text-xl font-bold">{{ $t('footer.group.title') }}</h1>
                 <ul class="mt-4 flex flex-col gap-2 text-sm font-medium">
                     <li>
-                        <NuxtLink to="https://diose.io">{{ $t('footer.group.website') }}</NuxtLink>
+                        <NuxtLink :to="config.public.authorUrl">{{ $t('footer.group.website') }}</NuxtLink>
                     </li>
                     <li>
                         <NuxtLink to="#">{{ $t('footer.group.about') }}</NuxtLink>
@@ -126,10 +126,10 @@ async function changeLocale() {
             <template #link>
                 <a
                     class="font-semibold text-white underline"
-                    href="https://diose.io"
+                    :href="config.public.authorUrl"
                     target="_blank"
                 >
-                    Diose
+                    {{ config.public.authorName }}
                 </a>
             </template>
         </i18n-t>

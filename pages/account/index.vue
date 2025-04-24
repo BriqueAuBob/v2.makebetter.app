@@ -27,14 +27,15 @@ const deleteAccount = async () => {
     <div class="grid gap-4 italic md:grid-cols-2">
         <UIInput
             label="ID"
-            :placeholder="user?.id.toString()"
+            :placeholder="user?.id?.toString()"
             :disabled="true"
             name="id"
         />
         <UIInput
             label="ID Discord"
-            :placeholder="user?.discord_id.toString()"
+            :placeholder="user?.discord_id?.toString()"
             :disabled="true"
+            v-if="user?.discord_id"
             name="discord_id"
         />
         <UIInput

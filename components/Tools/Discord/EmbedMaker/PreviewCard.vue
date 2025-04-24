@@ -2,6 +2,7 @@
 import draggable from 'vuedraggable';
 import { useEmbedMakerStore } from '~/stores/embed-maker';
 import { useAuthStore } from '~/stores/auth';
+import type { Tag } from '~/types/api_response';
 
 type UIModalType = {
     setIsOpen: (isOpen: boolean) => void;
@@ -12,6 +13,7 @@ const { $toast } = useNuxtApp();
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
+const authStore = useAuthStore();
 
 // Theme switching
 const colorMode = useColorMode();
@@ -61,18 +63,22 @@ const saveModal = ref<UIModalType>();
 const formSave = reactive({
     name: '',
     description: '',
-    tags: [] as string[],
+    tags: [] as Tag[],
     isPublic: false,
 });
 
+const parseTags = (tags: Tag[]) => {
+    return tags.map((tag) => tag.id);
+};
+
 const saveMessages = async () => {
-    useFetchApi('/makebetter/tools/saves', {
+    useFetchApi('/makebetter/saves', {
         method: 'POST',
         body: {
             type: 'discord_embed',
             name: formSave.name,
             description: formSave.description,
-            tags: formSave.tags,
+            tags: parseTags(formSave.tags),
             data: embedMakerStore.messages,
             isPublic: formSave.isPublic,
         },
@@ -82,7 +88,7 @@ const saveMessages = async () => {
             embedMakerStore.editingSave = res?.data?.value;
             router.push({
                 query: {
-                    id: res?.data?.value?._id,
+                    id: res?.data?.value?.id,
                 },
             });
             $toast.show({
@@ -104,13 +110,13 @@ const saveMessages = async () => {
 };
 
 const updateMessages = async () => {
-    useFetchApi('/makebetter/tools/saves/' + route?.query?.id, {
+    useFetchApi('/makebetter/saves/' + route?.query?.id, {
         method: 'PUT',
         body: {
             type: 'discord_embed',
             name: formSave.name,
             description: formSave.description,
-            tags: formSave.tags,
+            tags: parseTags(formSave.tags),
             data: embedMakerStore.messages,
             isPublic: formSave.isPublic,
         },
@@ -158,6 +164,15 @@ onMounted(() => {
 });
 
 defineEmits(['change']);
+
+const filters = ref<any[]>([]);
+onMounted(async () => {
+    const tags = await getDiscordMessageSaveTags();
+    filters.value = tags.map((tag) => ({
+        value: tag,
+        label: tag.name,
+    }));
+});
 </script>
 
 <template>
@@ -250,9 +265,12 @@ defineEmits(['change']);
                 <UIButton
                     size="sm"
                     color="light"
-                    @click="() => {
-                        ($refs.saveModal as UIModalType).setIsOpen(true);
-                    }"
+                    @click="
+                        () => {
+                            ($refs.saveModal as UIModalType).setIsOpen(true);
+                        }
+                    "
+                    :disabled="authStore.user === null"
                 >
                     {{ $t('buttons.save') }}
                 </UIButton>
@@ -384,7 +402,7 @@ defineEmits(['change']);
                 <UISelect
                     v-model="formSave.tags"
                     placeholder="Tags"
-                    :options="getDiscordMessageSaveTags()"
+                    :options="filters"
                     name="tags"
                     label="Tags"
                     multiple
@@ -401,7 +419,7 @@ defineEmits(['change']);
                     description: formSave.description,
                     tags: formSave.tags,
                     data: embedMakerStore.messages,
-                    author: useAuthStore().user,
+                    author: authStore.user,
                     createdAt: new Date(),
                 }"
             />

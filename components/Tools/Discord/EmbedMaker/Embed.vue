@@ -94,13 +94,13 @@ const deleteEmbed = () => emits('delete');
                     class="block font-semibold"
                     :class="embed.url && 'title hover:underline'"
                 >
-                    {{ embed.title }}
+                    <ToolsDiscordMarkdown :content="embed.title" />
                 </a>
                 <div
                     v-else-if="embed.title"
                     class="font-semibold"
                 >
-                    {{ embed.title }}
+                    <ToolsDiscordMarkdown :content="embed.title" />
                 </div>
                 <ToolsDiscordMarkdown
                     v-if="embed.description"

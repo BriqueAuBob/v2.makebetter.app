@@ -26,6 +26,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    noPadding: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const emits = defineEmits(['close']);
@@ -65,7 +69,7 @@ defineExpose({
                 >
                 </HeadlessTransitionChild>
                 <div class="fixed inset-0 overflow-y-auto">
-                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                    <div class="flex min-h-full items-center justify-center text-center">
                         <HeadlessTransitionChild
                             enter="duration-300 ease-out"
                             enter-from="opacity-0 scale-95"
@@ -75,11 +79,12 @@ defineExpose({
                             leave-to="opacity-0 scale-95"
                         >
                             <HeadlessDialogPanel
-                                class="w-full transform rounded-3xl border-2 border-dashed border-zinc-400 bg-white bg-opacity-75 p-8 text-left align-middle shadow-lg backdrop-blur-lg transition-all dark:border-zinc-700 dark:bg-zinc-900 dark:bg-opacity-75 dark:shadow-zinc-800"
+                                class="w-full transform rounded-3xl border-2 border-zinc-200 bg-white text-left align-middle transition-all dark:border-zinc-800 dark:bg-zinc-900 dark:shadow-zinc-800"
                                 :class="{
                                     'max-w-xl': size === 'small',
                                     'max-w-2xl': size === 'medium',
                                     'max-w-4xl': size === 'large',
+                                    'p-8': !noPadding,
                                 }"
                             >
                                 <HeadlessDialogTitle
@@ -99,6 +104,7 @@ defineExpose({
                                 <slot></slot>
                                 <div
                                     class="mt-4 flex justify-end gap-2"
+                                    :class="noPadding && 'px-4 pb-4'"
                                     v-if="!noButtons"
                                 >
                                     <UIButton

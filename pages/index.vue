@@ -41,7 +41,9 @@ useSeoMeta({
 <template>
     <header class="relative text-white">
         <div class="rounded-b-[200px] bg-primary-500 bg-header-home bg-cover bg-center bg-no-repeat px-4 pb-72 pt-44">
-            <span class="text-md mb-3 block text-center font-semibold text-zinc-300 lg:text-xl">
+            <span
+                class="mx-auto mb-3 block w-fit rounded-3xl border-2 border-zinc-300 bg-white/20 px-4 py-2 text-center text-lg font-semibold text-white"
+            >
                 {{ $t('homepage.header.presentation') }}
             </span>
             <h1 class="text-center text-5xl font-black lg:text-7xl xl:text-8xl">
@@ -67,7 +69,7 @@ useSeoMeta({
                 >
                     <UIButton
                         size="lg"
-                        :outlined="true"
+                        type="secondary"
                         color="light"
                         class="text-sm lg:text-lg"
                     >
@@ -81,7 +83,7 @@ useSeoMeta({
             class="absolute left-1/2 top-full -z-1 w-full max-w-7xl -translate-x-1/2 -translate-y-32 xl:w-4/5"
         />
         <section
-            class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out dark:shadow-zinc-800 lg:w-2/3 xl:w-1/2"
+            class="absolute left-1/2 top-full w-full max-w-3xl -translate-x-1/2 rounded-3xl border-8 border-primary-500 bg-white text-black shadow-2xl shadow-primary-100 duration-500 ease-out lg:w-2/3 xl:w-1/2 dark:shadow-zinc-800"
             :style="`
                 transform: 
                     translate(-50%, -250px) 
@@ -98,14 +100,22 @@ useSeoMeta({
                 </ul>
                 <div class="absolute bottom-0 left-14 h-1 w-16 rounded-t-xl bg-zinc-200"></div>
             </header>
-            <main class="relative p-4">
-                <img
-                    src="/images/temp_embeds.png"
-                    class="w-full"
-                />
+            <main class="relative p-2">
+                <video
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    class="w-full rounded-xl shadow-lg shadow-primary-200"
+                >
+                    <source
+                        src="/videos/demo_embed.mp4"
+                        type="video/mp4"
+                    />
+                </video>
                 <UIButton
                     :href="localePath('tools-discord-embed-maker')"
-                    class="absolute left-1/2 -mt-2 -translate-x-1/2"
+                    class="absolute left-1/2 -mt-3 -translate-x-1/2"
                 >
                     {{ $t('use_tool') }}
                     <NuxtIcon

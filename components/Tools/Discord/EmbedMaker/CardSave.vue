@@ -15,25 +15,15 @@ defineProps({
 
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === 'dark');
-
-const tagsColors: { [key: string]: string } = {
-    rules: _red[500],
-    presentation: _primary[400],
-    french: '#082A98',
-    english: '#EC2329',
-    commands: '#333333',
-    tickets: _green[600],
-    announcements: _yellow[600],
-};
 </script>
 
 <template>
     <div
-        class="relative h-96 w-full cursor-pointer overflow-hidden rounded-2xl border-2 p-8 duration-300 ease-out lg:w-96"
+        class="relative h-96 w-full cursor-pointer overflow-hidden rounded-2xl border-2 p-8 duration-300 ease-out"
         :class="
             isSelected
                 ? '-translate-y-2 border-primary-500 bg-white shadow-lg shadow-primary-100 dark:bg-primary-800 dark:shadow-zinc-800'
-                : 'border-transparent bg-primary-200 hover:-translate-y-2 hover:bg-gray-100 hover:shadow-md hover:shadow-primary-300 dark:bg-zinc-900 dark:hover:bg-zinc-600 dark:hover:shadow-zinc-700'
+                : 'border-transparent bg-primary-200 hover:-translate-y-2 hover:bg-gray-100 hover:shadow-md hover:shadow-primary-100 dark:bg-zinc-800 dark:hover:bg-zinc-600 dark:hover:shadow-zinc-700'
         "
     >
         <ToolsDiscordEmbedMakerPreview
@@ -51,8 +41,9 @@ const tagsColors: { [key: string]: string } = {
                     <UIAvatar
                         size="xs"
                         :user="template.author"
+                        v-if="template.author"
                     />
-                    {{ template.author.username }}
+                    {{ template?.author?.username }}
                 </div>
                 <nuxt-icon
                     class="icon"
@@ -72,16 +63,16 @@ const tagsColors: { [key: string]: string } = {
                     </div>
                     <div class="mt-2 flex items-center justify-between">
                         <span class="text-xs font-medium text-zinc-500"
-                            >Créé le {{ new Date(template.createdAt).toLocaleDateString() }}</span
+                            >Créé le {{ new Date(template.created_at).toLocaleDateString() }}</span
                         >
                         <div class="flex flex-wrap items-center justify-end gap-1">
                             <span
                                 v-for="(tag, id) of template.tags"
                                 :key="id"
                                 class="rounded-lg px-2 py-1 text-xs font-semibold text-white shadow-md"
-                                :style="`background: ${tagsColors[tag]};`"
+                                :style="`background: ${tag.color};`"
                             >
-                                {{ $t('tools.discord.embed-maker.save.tags.' + tag) }}
+                                {{ tag.name }}
                             </span>
                         </div>
                     </div>

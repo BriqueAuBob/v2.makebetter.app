@@ -23,15 +23,15 @@ defineProps({
 
 const hasScrolled = ref(false);
 
-onMounted(() => {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            hasScrolled.value = true;
-        } else {
-            hasScrolled.value = false;
-        }
-    });
-});
+// onMounted(() => {
+//     window.addEventListener('scroll', () => {
+//         if (window.scrollY > 100) {
+//             hasScrolled.value = true;
+//         } else {
+//             hasScrolled.value = false;
+//         }
+//     });
+// });
 </script>
 
 <template>
